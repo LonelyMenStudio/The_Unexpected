@@ -35,6 +35,7 @@ public class weaponManager : NetworkBehaviour {
     private bool spawnhole = true;
     public float distance; // Distance from the assigned wep
     public GameObject target; //This is the players assigned weapon
+    AudioSource Beepsound; //Sound for the player to know how close to the wep they are.
     
     //Animator animatorz;
 
@@ -43,6 +44,7 @@ public class weaponManager : NetworkBehaviour {
     void Awake() {
         sounds = GetComponents<AudioSource>();
         fire = sounds[1];
+       // Beepsound = sounds[2];
        // reload = sounds[0];
         //animatorz = GetComponent<Animator>();
         prepHud = GameObject.Find("Manager");
@@ -85,10 +87,13 @@ public class weaponManager : NetworkBehaviour {
         if(currentWeaponAmmo <= 0) {
             canShoot = false;
         }
-        /*if (distance < 20) {
-            
-        }
-        */
+        /* if (distance > 150) {
+             sounds[2].Play();
+             StartCoroutine(Beeping(4));
+         } else if ( distance <= 150 && distance > 50){
+             sounds[2].Play();
+             StartCoroutine(Beeping(3));
+         */
     }
 
     void PickupWeapon() {
@@ -279,6 +284,10 @@ public class weaponManager : NetworkBehaviour {
         canShoot = true;
         
     }
+
+  /*  IEnumerator Beeping(int BeepSpeed) {
+        yield return new WaitForSeconds(BeepSpeed);
+    }*/
 
     
 }

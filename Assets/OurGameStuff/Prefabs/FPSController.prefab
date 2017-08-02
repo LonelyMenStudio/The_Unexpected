@@ -12284,6 +12284,8 @@ MonoBehaviour:
   sounds:
   - {fileID: 82084672697192378}
   - {fileID: 82903541966517900}
+  distance: 0
+  target: {fileID: 0}
 --- !u!114 &114759109739104984
 MonoBehaviour:
   m_ObjectHideFlags: 1
