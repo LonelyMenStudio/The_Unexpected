@@ -5,9 +5,9 @@ using UnityEngine.Networking;
 
 public class PrepCheck : NetworkBehaviour {
 
-    private GameObject prepManager;
-    private PrepPhase prepCheck;
-    public bool prep;
+    //private GameObject prepManager;
+    //private PrepPhase prepCheck;
+    //public bool prep;
     UnityStandardAssets.Characters.FirstPerson.FirstPersonController con;
     //public GameObject self;
     
@@ -17,8 +17,8 @@ public class PrepCheck : NetworkBehaviour {
         if (!isLocalPlayer) {
             Destroy(this);
         }
-        prepManager = GameObject.Find("PrepPhaseManager");
-        prepCheck = prepManager.GetComponent<PrepPhase>();
+        //prepManager = GameObject.Find("PrepPhaseManager");
+        //prepCheck = prepManager.GetComponent<PrepPhase>();
         con = this.gameObject.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
     }
 	
@@ -26,11 +26,11 @@ public class PrepCheck : NetworkBehaviour {
 	void Update () {
 
 
-        if (prep) {
-            con.enabled = false;
-        } else {
+        //if (prep) {
+        //    con.enabled = false;
+        //} else {
             con.enabled = true;
-        }
-        prep = prepCheck.inPrep;
+        //}
+        //prep = prepCheck.inPrep;
     }
 }
