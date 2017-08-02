@@ -33,6 +33,8 @@ public class weaponManager : NetworkBehaviour {
     public GameObject bulletHole;
     public AudioSource[] sounds;
     private bool spawnhole = true;
+    public float distance; // Distance from the assigned wep
+    public GameObject target; //This is the players assigned weapon
     
     //Animator animatorz;
 
@@ -63,7 +65,8 @@ public class weaponManager : NetworkBehaviour {
         if (!isLocalPlayer) {
             return;
         }
-        
+        //distance = Vector3.Distance(transform.position, target.position);
+
         if (Input.GetKey(KeyCode.Mouse0) && hasWeapon && canShoot && counter > delayTime) { // probs can be cut down to only 1 raycast
             shoot();
             fire.Play();
@@ -82,6 +85,10 @@ public class weaponManager : NetworkBehaviour {
         if(currentWeaponAmmo <= 0) {
             canShoot = false;
         }
+        /*if (distance < 20) {
+            
+        }
+        */
     }
 
     void PickupWeapon() {
