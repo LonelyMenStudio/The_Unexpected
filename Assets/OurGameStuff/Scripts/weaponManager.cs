@@ -35,7 +35,7 @@ public class weaponManager : NetworkBehaviour {
     private bool spawnhole = true;
     public float distance; // Distance from the assigned wep
     public GameObject target; //This is the players assigned weapon
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
     private PlayerAssignGet pl;
     public int currentPlayer;
@@ -48,10 +48,10 @@ public class weaponManager : NetworkBehaviour {
     private PlayerAssign wrl;
     private PlayerManagerSelf playerManage;
 
-=======
+//=======
     AudioSource Beepsound; //Sound for the player to know how close to the wep they are.
     
->>>>>>> c3943934d6b06f638b2c283b56224c49b4642929
+//>>>>>>> c3943934d6b06f638b2c283b56224c49b4642929
     //Animator animatorz;
 
     private const float RELOAD_TIME = 2.0f;
