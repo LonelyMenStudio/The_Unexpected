@@ -12286,7 +12286,10 @@ MonoBehaviour:
   - {fileID: 82903541966517900}
   distance: 0
   target: {fileID: 0}
+<<<<<<< HEAD
   currentPlayer: 0
+=======
+>>>>>>> c3943934d6b06f638b2c283b56224c49b4642929
 --- !u!114 &114759109739104984
 MonoBehaviour:
   m_ObjectHideFlags: 1
