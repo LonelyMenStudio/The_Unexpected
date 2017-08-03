@@ -35,7 +35,18 @@ public class weaponManager : NetworkBehaviour {
     private bool spawnhole = true;
     public float distance; // Distance from the assigned wep
     public GameObject target; //This is the players assigned weapon
-    
+
+    private PlayerAssignGet pl;
+    public int currentPlayer;
+    private int currentWeaponPlayer;
+    private bool inWeaponSelect = true;
+    private bool weaponSelected = false;
+    private bool selectionDone = false;
+    private GameObject[] weaponRespawnLocation;
+    private GameObject manager;
+    private PlayerAssign wrl;
+    private PlayerManagerSelf playerManage;
+
     //Animator animatorz;
 
     private const float RELOAD_TIME = 2.0f;
@@ -45,19 +56,28 @@ public class weaponManager : NetworkBehaviour {
         fire = sounds[1];
        // reload = sounds[0];
         //animatorz = GetComponent<Animator>();
-        prepHud = GameObject.Find("Manager");
+        prepHud = GameObject.Find("Manager");//not called manager?
         gObject = prepHud.GetComponent<PrepPhase>();
         ammoDisplay = gObject.ammoObject;
         ammoText = ammoDisplay.GetComponent<Text>();
+        manager = GameObject.Find("Managerz");
+        wrl = manager.GetComponent<PlayerAssign>();
+        playerManage = this.gameObject.GetComponent<PlayerManagerSelf>();
 
     }
 
     // Use this for initialization
     void Start() {
+        weaponRespawnLocation = new GameObject[8];
+        for (int i = 0; i < 8; i++) {
+            weaponRespawnLocation[i] = wrl.weaponRespawnPoints[i];
+        }
         if (isLocalPlayer) {
             body.layer = 2;
         }
         childRoot = transform.Find("FirstPersonCharacter").gameObject;
+        pl = this.gameObject.GetComponent<PlayerAssignGet>();
+        //currentPlayer = pl.currentPlayerNo;//activating too early need to make it on first action this is needed
     }
 
     // Update is called once per frame
@@ -66,6 +86,20 @@ public class weaponManager : NetworkBehaviour {
             return;
         }
         //distance = Vector3.Distance(transform.position, target.position);
+
+        if (inWeaponSelect) {
+            currentPlayer = pl.currentPlayerNo;//should be good here
+            //allow for pickup
+            //will be 3 wall weapons to choose from
+            //after timer done make weapon selected
+        }
+        if (weaponSelected) {
+            //assign weapon
+            selectionDone = true;
+        }
+        if (selectionDone) {
+            //include rest of code
+        }
 
         if (Input.GetKey(KeyCode.Mouse0) && hasWeapon && canShoot && counter > delayTime) { // probs can be cut down to only 1 raycast
             shoot();
@@ -175,6 +209,32 @@ public class weaponManager : NetworkBehaviour {
         }
     }
     */
+    private void RespawnAK() {
+        CmdRespawnAK();
+        playerManage.AddWeaponToList(weaponDropperTemp);
+        CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
+    }
+    private void spawnAK() {
+        CmdSpawnAK();
+        playerManage.AddWeaponToList(weaponDropperTemp);
+
+    }
+    private void destoryWeapon(GameObject destoryThis) {
+        playerManage.DropWeaponFromList(destoryThis);
+        CmdDestroyHit(destoryThis);
+    }
+    private void spawnPistol() {
+        //???
+    }
+
+
+    [Command]
+    void CmdRespawnAK() {
+        GameObject weaponDropper = (GameObject)Instantiate(ak, weaponRespawnLocation[Random.Range(0, 7)].transform.position, Quaternion.identity) as GameObject;//***
+        NetworkServer.Spawn(weaponDropper);
+        weaponDropperTemp = weaponDropper;
+    }
+
     [Command]
     void CmdSpawnAK() {
         GameObject weaponDropper = (GameObject)Instantiate(ak, transform.root.transform.position + new Vector3(0, 1, 0) + transform.forward, Quaternion.identity) as GameObject;//***
@@ -192,6 +252,20 @@ public class weaponManager : NetworkBehaviour {
         NetworkServer.Destroy(objectToDestory.transform.gameObject);
     }
 
+    void loseWeapon() {
+        hasWeapon = false;
+        canShoot = false;
+        if (!isServer) {
+            CmdSwitchWeapon(0);
+        } else {
+            RpcSwitchWeapon(0);
+        }
+        RespawnAK();
+        //weapon type?
+        //possibly clear out ammo from weapon
+        //clear any other weapon effects if added
+    }
+
     void replaceWeapon(RaycastHit hit) {
         if (!hasWeapon) {
             weaponAmmoPick(hit);
@@ -201,11 +275,11 @@ public class weaponManager : NetworkBehaviour {
             return;
         } else {
             if (weaponOut == 1) {
-                CmdSpawnAK();
-                CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo);
+                spawnAK();
+                CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
             } else if (weaponOut == 2) {
                 CmdSpawnPistol();
-                CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo);
+                CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
             }
             weaponAmmoPick(hit);
         }
@@ -222,6 +296,11 @@ public class weaponManager : NetworkBehaviour {
         secondWeapon = temp;
     }
 
+    void deathReset() {
+        //palyer respawn
+        loseWeapon();
+    }
+
 
     void weaponAmmoPick(RaycastHit hitWeapon) {
         GameObject weaponPicker = hitWeapon.collider.gameObject;
@@ -230,13 +309,15 @@ public class weaponManager : NetworkBehaviour {
         currentWeaponMaxAmmo = currentWeaponSettingsGet.maxAmmo;
         // NetworkServer.Destroy(hit.transform.gameObject);
         CmdDestroyHit(weaponPicker);
+        currentWeaponPlayer = currentWeaponSettingsGet.playerNo;
     }
 
     [Command]
-    void CmdWeaponAmmoDrop(GameObject weaponDropper, int inputC, int inputM) {
+    void CmdWeaponAmmoDrop(GameObject weaponDropper, int inputC, int inputM, int inputP) {
         weaponSettings currentWeaponSettings = weaponDropperTemp.GetComponent<weaponSettings>();
         currentWeaponSettings.currentAmmo = inputC;
         currentWeaponSettings.maxAmmo = inputM;
+        currentWeaponSettings.playerNo = inputP;
         weaponDropperTemp = null;
     }
 
@@ -263,6 +344,15 @@ public class weaponManager : NetworkBehaviour {
         spawnhole = true;
     }
 
+
+    void CheckWeaponNumber(int playerNum) {
+        if (!isServer) {
+            return;
+        }
+        if (currentWeaponPlayer == playerNum) {
+            loseWeapon();//weapon information??
+        }
+    }
 
     [Command]
     void CmdDamageDealer(GameObject hit,  int damage) {

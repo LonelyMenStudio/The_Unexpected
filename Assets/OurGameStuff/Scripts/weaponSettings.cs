@@ -5,6 +5,7 @@ public class weaponSettings : MonoBehaviour {
 
     public int currentAmmo;
     public int maxAmmo;
+    public int playerNo;
 
 
 

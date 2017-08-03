@@ -22,6 +22,8 @@ public class Health : NetworkBehaviour {
     //public int playerID;
     public GameObject manager;
     private PrepPhase ph;
+    private PlayerAssign playerNumber;
+    private PlayerManager deathMessage;
 
     [SyncVar(hook = "OnChangeHealth")]
     public int Healthz = maxHealth;
@@ -41,6 +43,8 @@ public class Health : NetworkBehaviour {
         //Healthbar = barImage.GetComponent<Image>();
         Manager = GameObject.Find("Manager");
         inPrep = Manager.GetComponent<PrepPhase>();
+        playerNumber = this.gameObject.GetComponent<PlayerAssign>();//houdl work
+        deathMessage = Manager.GetComponent<PlayerManager>();
 
     }
 
@@ -58,6 +62,15 @@ public class Health : NetworkBehaviour {
     }
     // Update is called once per frame
     void Update() {
+        /*
+
+       //player dying animation player wait for done then reset to give feedback
+       if(Healthz == 0) {
+           deathMessage.CmdPlayerDied(playerNumber.playerNo);
+       }
+       //Reset back into game
+       */
+
         if (Input.GetKeyDown("o")) {
             //TakeDamage(10);
         }
