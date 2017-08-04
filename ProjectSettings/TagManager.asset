@@ -16,6 +16,7 @@ TagManager:
   - Teleporter
   - ak
   - Start
+  - weaponPrep
   layers:
   - Default
   - TransparentFX

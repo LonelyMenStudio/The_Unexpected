@@ -40,13 +40,14 @@ public class weaponManager : NetworkBehaviour {
     private PlayerAssignGet pl;
     public int currentPlayer;
     private int currentWeaponPlayer;
-    private bool inWeaponSelect = true;
-    private bool weaponSelected = false;
+    private bool inWeaponSelect = true;//true when timer done // hopefully done
     private bool selectionDone = false;
+    private int weaponOnEnd = 0;//0=ak,
     private GameObject[] weaponRespawnLocation;
     private GameObject manager;
     private PlayerAssign wrl;
     private PlayerManagerSelf playerManage;
+    private bool checkingPrep = true;
 
 //=======
     AudioSource Beepsound; //Sound for the player to know how close to the wep they are.
@@ -92,19 +93,31 @@ public class weaponManager : NetworkBehaviour {
             return;
         }
         //distance = Vector3.Distance(transform.position, target.position);
-
+       // currentPlayer = pl.currentPlayerNo;//remove when weapon select is enabled
+        if (checkingPrep && !gObject.inPrep) {
+            inWeaponSelect = false;
+            selectionDone = true;
+            checkingPrep = false;
+        }
         if (inWeaponSelect) {
             currentPlayer = pl.currentPlayerNo;//should be good here
-            //allow for pickup
-            //will be 3 wall weapons to choose from
-            //after timer done make weapon selected
-        }
-        if (weaponSelected) {
-            //assign weapon
-            selectionDone = true;
+            if (Input.GetKeyDown(KeyCode.E)) {  // need to investigate further control options
+                RaycastHit hit;
+                if (Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit)) {
+                    if (hit.transform.tag == "weaponPrep") {
+                        if (hit.transform.gameObject.name.Contains("PrepAk")) { //ony going for ak atm
+                            weaponOnEnd = 0;
+                            changeWeapon(1);
+                        }
+                    }
+                }
+            }
+            return;//cancels out of rest of program if is in prep
         }
         if (selectionDone) {
-            //include rest of code
+            if (weaponOnEnd == 0) {
+                loseWeapon();
+            }
         }
 
         if (Input.GetKey(KeyCode.Mouse0) && hasWeapon && canShoot && counter > delayTime) { // probs can be cut down to only 1 raycast
@@ -118,8 +131,8 @@ public class weaponManager : NetworkBehaviour {
         if (Input.GetKeyDown(KeyCode.E)) {  // need to investigate further control options
             PickupWeapon();
         }
-        if (Input.GetKeyDown(KeyCode.F) && hasWeapon) {
-            switchWeapon();
+        if (Input.GetKeyDown(KeyCode.F) && hasWeapon) {//used to be switch weapon but removing it
+            dropWeapon();
         }
         //ammoText.text = currentWeaponAmmo + "/" +currentWeaponMaxAmmo;
         if(currentWeaponAmmo <= 0) {
@@ -143,28 +156,24 @@ public class weaponManager : NetworkBehaviour {
             if (hit.transform.tag == "weapon") {
                 if (hit.transform.gameObject.name.Contains("crystal")) { //***
                     replaceWeapon(hit);
-                    //ChangeWeapon(1);
-                    if (!isServer) {
-                        CmdSwitchWeapon(1);
-                    } else {
-                        RpcSwitchWeapon(1);
-                    }
+                    changeWeapon(1);
                 }
                 if (hit.transform.gameObject.name.Contains("ak")) {//***
                     replaceWeapon(hit);
-                    //ChangeWeapon(2);
-                    if (!isServer) {
-                        CmdSwitchWeapon(2);
-                    } else {
-                        RpcSwitchWeapon(2);
+                    changeWeapon(2);
                     }
-                }
 
             }
         }
     }
 
-
+    void changeWeapon(int num) {
+        if (!isServer) {
+            CmdSwitchWeapon(num);
+        } else {
+            RpcSwitchWeapon(num);
+        }
+    }
 
     [Command]
     void CmdSwitchWeapon(int weapon) {
@@ -226,7 +235,7 @@ public class weaponManager : NetworkBehaviour {
     private void spawnAK() {
         CmdSpawnAK();
         playerManage.AddWeaponToList(weaponDropperTemp);
-
+       
     }
     private void destoryWeapon(GameObject destoryThis) {
         playerManage.DropWeaponFromList(destoryThis);
@@ -274,6 +283,22 @@ public class weaponManager : NetworkBehaviour {
         //possibly clear out ammo from weapon
         //clear any other weapon effects if added
     }
+    void dropWeapon() {
+        hasWeapon = false;
+        canShoot = false;
+        if (!isServer) {
+            CmdSwitchWeapon(0);
+        } else {
+            RpcSwitchWeapon(0);
+        }
+            if (weaponOut == 1) {
+                spawnAK();
+                CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
+            } else if (weaponOut == 2) {
+                CmdSpawnPistol();
+                CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
+            }
+    }
 
     void replaceWeapon(RaycastHit hit) {
         if (!hasWeapon) {
@@ -317,8 +342,9 @@ public class weaponManager : NetworkBehaviour {
         currentWeaponAmmo = currentWeaponSettingsGet.currentAmmo;
         currentWeaponMaxAmmo = currentWeaponSettingsGet.maxAmmo;
         // NetworkServer.Destroy(hit.transform.gameObject);
-        CmdDestroyHit(weaponPicker);
         currentWeaponPlayer = currentWeaponSettingsGet.playerNo;
+        CmdDestroyHit(weaponPicker);
+        
     }
 
     [Command]
