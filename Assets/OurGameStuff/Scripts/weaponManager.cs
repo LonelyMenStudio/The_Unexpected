@@ -48,6 +48,7 @@ public class weaponManager : NetworkBehaviour {
     private PlayerAssign wrl;
     private PlayerManagerSelf playerManage;
     private bool checkingPrep = true;
+    private bool actionOnce = true;
 
 //=======
     AudioSource Beepsound; //Sound for the player to know how close to the wep they are.
@@ -67,7 +68,7 @@ public class weaponManager : NetworkBehaviour {
         gObject = prepHud.GetComponent<PrepPhase>();
         ammoDisplay = gObject.ammoObject;
         ammoText = ammoDisplay.GetComponent<Text>();
-        manager = GameObject.Find("Managerz");
+        manager = GameObject.Find("Manager");
         wrl = manager.GetComponent<PlayerAssign>();
         playerManage = this.gameObject.GetComponent<PlayerManagerSelf>();
 
@@ -114,9 +115,10 @@ public class weaponManager : NetworkBehaviour {
             }
             return;//cancels out of rest of program if is in prep
         }
-        if (selectionDone) {
+        if (selectionDone && actionOnce) {
+            actionOnce = false;
             if (weaponOnEnd == 0) {
-                loseWeapon();
+                loseWeapon();  // update to hold more than one weapon
             }
         }
 

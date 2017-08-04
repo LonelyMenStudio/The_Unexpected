@@ -15,7 +15,6 @@ public class PlayerManager : NetworkBehaviour {
     public int numberOfPlayers = 5;//set up for 4 players but for prototype should probs only have 2// 5 because i forgot things and reasons
     //array of weapons empty
     public GameObject[] weaponPortLocations;
-    public GameObject managerObject;
     private PlayerAssign playerAssign;
    // public Transform weapon1, weapon2, weapon3, weapon4;// will need a dynamic length array
     
@@ -47,7 +46,7 @@ public class PlayerManager : NetworkBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        playerAssign = managerObject.GetComponent<PlayerAssign>();
+        playerAssign = this.gameObject.GetComponent<PlayerAssign>();
         weaponPortLocations = new GameObject[8];
         for (int i = 0; i < 8; i++) {
             weaponPortLocations[i] = playerAssign.weaponRespawnPoints[i];
