@@ -27,7 +27,7 @@ public class PrepPhase : MonoBehaviour {
         text = timer.GetComponent<Text>();
         //players = GameObject.FindWithTag("Player");
         for(int i = 0; i < Players.Count; i++) {
-            Players[i].name = "Player" + i; 
+            Players[i].name = "Player " + i; 
         }
     }
 

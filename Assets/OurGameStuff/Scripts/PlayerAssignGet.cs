@@ -25,16 +25,18 @@ public class PlayerAssignGet : NetworkBehaviour {
         playerAdd = manager.GetComponent<PlayerManager>();
         playerArray = this.gameObject.GetComponent<PlayerManagerSelf>();
 
-        CmdGetNum();//no authority
+        //CmdGetNum();//no authority
         currentPlayerNo = sm.playerNo;
-        playerArray.AddSelf(this.gameObject, currentPlayerNo);
+        //playerArray.AddSelf(this.gameObject, currentPlayerNo);
         //playerAdd.CmdAddSelf(this.gameObject, currentPlayerNo);
         
 	}
+    /*
     [Command]
     void CmdGetNum() {
         sm.playerNo++;
     }
+    */
 
     // Update is called once per frame
     void Update () {

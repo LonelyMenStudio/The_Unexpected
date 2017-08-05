@@ -5,14 +5,12 @@ using UnityEngine.Networking;
 
 public class PlayerManager : NetworkBehaviour {
 
-   // [SyncVar]
-    public GameObject[] players = new GameObject[5];//in future could set to dynamic length array//pssibly not work as mght nee to be a command// need to be a ync list
-
-    //[SyncVar]
+    //public GameObject[] players = new GameObject[5];//useless - to remove
+    public List<GameObject> Players = new List<GameObject>();
     public List<GameObject> droppedWeapons = new List<GameObject>();
     //public SyncList<GameObject>
 
-    public int numberOfPlayers = 5;//set up for 4 players but for prototype should probs only have 2// 5 because i forgot things and reasons
+    //public int numberOfPlayers = 5;//set up for 4 players but for prototype should probs only have 2// 5 because i forgot things and reasons
     //array of weapons empty
     public GameObject[] weaponPortLocations;
     private PlayerAssign playerAssign;
@@ -80,6 +78,7 @@ public class PlayerManager : NetworkBehaviour {
 
     // Update is called once per frame
     void Update () {
+        /*
         if (player1Dead) {
             for(int i = 1; i < numberOfPlayers; i++) {
                 CmdSendMessageEach(players[i], 1);
@@ -108,7 +107,9 @@ public class PlayerManager : NetworkBehaviour {
             }
             Cmd4Died();
         }
+        */
     }
+    /*
     [Command]
     void CmdSendMessageEach(GameObject player, int val) {//possibly could rework
         player.SendMessage("CheckWeaponNumber", val);
@@ -144,6 +145,7 @@ public class PlayerManager : NetworkBehaviour {
     void Cmd4Died() {
         player4Dead = false;
     }
+    */
     private void checkWeapons(int playerThatDied) {
         foreach(GameObject weapon in droppedWeapons) {
             weaponSettings weaponPlayerCheck = weapon.GetComponent<weaponSettings>();

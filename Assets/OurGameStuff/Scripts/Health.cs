@@ -51,7 +51,7 @@ public class Health : NetworkBehaviour {
         //barImage = gObject.healthObject;
         //Healthbar = barImage.GetComponent<Image>();
         inPrep = manager.GetComponent<PrepPhase>();
-        playerNumber = this.gameObject.GetComponent<PlayerAssign>();//houdl work
+        playerNumber = this.gameObject.GetComponent<PlayerAssign>();//should work
         deathMessage = manager.GetComponent<PlayerManager>();
 
     }
