@@ -8,10 +8,13 @@ public class PlayerAssignGet : NetworkBehaviour {
     private GameObject manager;
     private PlayerAssign sm;
     private PlayerManager playerAdd;
-    public int currentPlayerNo;
+    
     private PlayerManagerSelf playerArray;
     public GameObject Variables;
     private VariablesScript ManagerGet;
+
+    [SyncVar]
+    public int currentPlayerNo;
 
     void Awake() {
         Variables = GameObject.FindWithTag("Start");
@@ -19,24 +22,36 @@ public class PlayerAssignGet : NetworkBehaviour {
 
     // Use this for initialization
     void Start () {
+
         ManagerGet = Variables.GetComponent<VariablesScript>();
         manager = ManagerGet.variables;
         sm = manager.GetComponent<PlayerAssign>();
         playerAdd = manager.GetComponent<PlayerManager>();
         playerArray = this.gameObject.GetComponent<PlayerManagerSelf>();
 
-        //CmdGetNum();//no authority
-        currentPlayerNo = sm.playerNo;
+        CmdGetNum();
+        CmdSetPlayerNum(sm.playerNo);
+        
         //playerArray.AddSelf(this.gameObject, currentPlayerNo);
         //playerAdd.CmdAddSelf(this.gameObject, currentPlayerNo);
         
 	}
-    /*
+    
     [Command]
     void CmdGetNum() {
         sm.playerNo++;
     }
-    */
+    [Command]
+    void CmdSetPlayerNum(int num) {
+        currentPlayerNo = num;
+    }
+
+    public void takePlayerNumber() {
+       // if (isLocalPlayer) {
+         //   CmdGetNum();
+       //     CmdSetPlayerNum(sm.playerNo);
+      //  }
+    }
 
     // Update is called once per frame
     void Update () {

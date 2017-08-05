@@ -50,8 +50,13 @@ public class PlayerManager : NetworkBehaviour {
             weaponPortLocations[i] = playerAssign.weaponRespawnPoints[i];
         }
     }
-
-
+    public bool finishedWaiting = true;
+    public void assignPlayerNumbers() {
+        for(int i = 0; i < Players.Count; i++) {
+            PlayerAssignGet sendPlayerNumber = Players[i].GetComponent<PlayerAssignGet>();
+            sendPlayerNumber.takePlayerNumber();
+        }
+    }
     /*
     [Command]
     void CmdDamageDealer(GameObject hit,  int damage) {

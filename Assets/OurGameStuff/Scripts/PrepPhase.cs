@@ -8,7 +8,7 @@ using UnityEngine.Networking;
 public class PrepPhase : MonoBehaviour {
 
     public GameObject[] spawn;
-    public float timeRemaining = 15;
+    private float timeRemaining = 20;
     private string tr = "Time Remaining: ";
     private string timeR = "";
     public GameObject timer;
@@ -20,11 +20,13 @@ public class PrepPhase : MonoBehaviour {
     //public GameObject[] players;
     public List<GameObject> Players = new List<GameObject>();
     // public int playerIDs = 0;
-
+    private PlayerManager assignTime;
+    private bool canAssign = true;
 
     // Use this for initialization
     void Start() {
         text = timer.GetComponent<Text>();
+        assignTime = this.gameObject.GetComponent<PlayerManager>();
         //players = GameObject.FindWithTag("Player");
         for(int i = 0; i < Players.Count; i++) {
             Players[i].name = "Player " + i; 
@@ -40,6 +42,10 @@ public class PrepPhase : MonoBehaviour {
             timeR = timeRemaining.ToString("F1");
             text.text = tr + timeR;
 
+        }
+        if(timeRemaining <= 10 && canAssign) {
+            assignTime.assignPlayerNumbers();
+            canAssign = false;
         }
         if (timeRemaining <= 0) {
             teleport = true;

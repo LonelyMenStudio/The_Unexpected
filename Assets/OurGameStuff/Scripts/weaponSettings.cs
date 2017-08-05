@@ -1,10 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class weaponSettings : MonoBehaviour {
+public class weaponSettings : NetworkBehaviour {
 
+    [SyncVar]
     public int currentAmmo;
+
+    [SyncVar]
     public int maxAmmo;
+
+    [SyncVar]
     public int playerNo;
 
     private GameObject Variables;

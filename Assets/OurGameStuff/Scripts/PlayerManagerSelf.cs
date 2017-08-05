@@ -62,6 +62,8 @@ public class PlayerManagerSelf : NetworkBehaviour {
         */
         pManager.droppedWeapons.Remove(weapon);
     }
+        
+
     /*
     [Command]
     void CmdAddToArray(GameObject obj, int num) {

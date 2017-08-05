@@ -14,9 +14,10 @@ public class NetworkXYZSync : NetworkBehaviour {
 	// Use this for initialization
 	void Start () {
         player = this.transform.gameObject;
-        
+
 	}
 	
+    
 	// Update is called once per frame
 	void Update () {
         CmdSetL();
