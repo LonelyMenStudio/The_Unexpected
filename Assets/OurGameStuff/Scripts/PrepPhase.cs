@@ -21,6 +21,7 @@ public class PrepPhase : MonoBehaviour {
     public List<GameObject> Players = new List<GameObject>();
     // public int playerIDs = 0;
 
+
     // Use this for initialization
     void Start() {
         text = timer.GetComponent<Text>();

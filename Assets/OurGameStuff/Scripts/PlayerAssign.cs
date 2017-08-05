@@ -20,10 +20,12 @@ public class PlayerAssign : NetworkBehaviour {
 	void Update () {
 		
 	}
-
+    public void doCommand() {
+        CmdGetNum();
+    }
 
     [Command]
-    public void CmdGetNum() {
+    void CmdGetNum() {
         playerNo++;
     }
 

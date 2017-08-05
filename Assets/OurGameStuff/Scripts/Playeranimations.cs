@@ -9,7 +9,7 @@ public class Playeranimations : NetworkBehaviour {
     public GameObject Rig;
     private bool isCrounched = false;
     private bool jump = false;
-    public GameObject manager;
+    private GameObject manager;
     public GameObject wep;
     private PrepPhase ph;
     private weaponManager wloss;
@@ -17,10 +17,18 @@ public class Playeranimations : NetworkBehaviour {
     private bool lossWep = false;
     private bool Aim = false;
     public GameObject player;
+    public GameObject Variables;
+    private VariablesScript ManagerGet;
+
+    void Awake() {
+        Variables = GameObject.FindWithTag("Start");
+    }
+
     // Use this for initialization
     void Start () {
+        ManagerGet = Variables.GetComponent<VariablesScript>();
         animatorz = Rig.GetComponent<Animator>();
-        manager = GameObject.FindWithTag("Start");
+        manager = ManagerGet.variables;
         ph = manager.GetComponent<PrepPhase>();
         //wep = GameObject.FindWithTag("Player");
         wloss = gameObject.GetComponent<weaponManager>();

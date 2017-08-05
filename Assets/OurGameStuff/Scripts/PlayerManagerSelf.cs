@@ -5,16 +5,24 @@ using UnityEngine.Networking;
 
 public class PlayerManagerSelf : NetworkBehaviour {
 
-    public GameObject[] playersLocalCopy = new GameObject[5];
+    public GameObject[] playersLocalCopy;
     public List<GameObject> droppedWeaponsLocalCopy = new List<GameObject>();
     private PlayerManager syncListTo;
     private GameObject manager;
+    public GameObject Variables;
+    private VariablesScript ManagerGet;
 
-	// Use this for initialization
-	void Start () {
-        manager = GameObject.Find("Manager");
+    void Awake() {
+        Variables = GameObject.FindWithTag("Start");
+    }
+
+    // Use this for initialization
+    void Start () {
+        ManagerGet = Variables.GetComponent<VariablesScript>();
+        playersLocalCopy = new GameObject[5];
+        manager = ManagerGet.variables;
         syncListTo = manager.GetComponent<PlayerManager>();
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -72,6 +80,6 @@ public class PlayerManagerSelf : NetworkBehaviour {
 
     void syncPlayers() {
         for(int i = 1; i<5; i++)
-        playersLocalCopy[i] = syncListTo.players[i];
+        syncListTo.players[i] = playersLocalCopy[i];
     }
 }

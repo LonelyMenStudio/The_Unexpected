@@ -23,7 +23,7 @@ public class weaponManager : NetworkBehaviour {
     private GameObject weaponDropperTemp;
     public GameObject ammoDisplay;
     private Text ammoText;
-    private GameObject prepHud;
+    public GameObject prepHud;
     private PrepPhase gObject;
      AudioSource fire;
      AudioSource reload;
@@ -49,8 +49,10 @@ public class weaponManager : NetworkBehaviour {
     private PlayerManagerSelf playerManage;
     private bool checkingPrep = true;
     private bool actionOnce = true;
+    public GameObject Variables;
+    private VariablesScript ManagerGet;
 
-//=======
+    //=======
     AudioSource Beepsound; //Sound for the player to know how close to the wep they are.
     
 //>>>>>>> c3943934d6b06f638b2c283b56224c49b4642929
@@ -59,23 +61,26 @@ public class weaponManager : NetworkBehaviour {
     private const float RELOAD_TIME = 2.0f;
 
     void Awake() {
-        sounds = GetComponents<AudioSource>();
-        fire = sounds[1];
-       // Beepsound = sounds[2];
-       // reload = sounds[0];
-        //animatorz = GetComponent<Animator>();
-        prepHud = GameObject.Find("Manager");//not called manager?
-        gObject = prepHud.GetComponent<PrepPhase>();
-        ammoDisplay = gObject.ammoObject;
-        ammoText = ammoDisplay.GetComponent<Text>();
-        manager = GameObject.Find("Manager");
-        wrl = manager.GetComponent<PlayerAssign>();
-        playerManage = this.gameObject.GetComponent<PlayerManagerSelf>();
-
+        Variables = GameObject.FindWithTag("Start");
     }
 
     // Use this for initialization
     void Start() {
+        ManagerGet = Variables.GetComponent<VariablesScript>();
+        sounds = GetComponents<AudioSource>();
+        fire = sounds[1];
+        // Beepsound = sounds[2];
+        // reload = sounds[0];
+        //animatorz = GetComponent<Animator>();
+        manager = ManagerGet.variables;
+        prepHud = ManagerGet.variables;//dupe
+        gObject = prepHud.GetComponent<PrepPhase>();
+        ammoDisplay = gObject.ammoObject;
+        ammoText = ammoDisplay.GetComponent<Text>();
+        
+        wrl = manager.GetComponent<PlayerAssign>();
+        playerManage = this.gameObject.GetComponent<PlayerManagerSelf>();
+
         weaponRespawnLocation = new GameObject[8];
         for (int i = 0; i < 8; i++) {
             weaponRespawnLocation[i] = wrl.weaponRespawnPoints[i];

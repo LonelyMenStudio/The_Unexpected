@@ -25,26 +25,34 @@ public class Health : NetworkBehaviour {
     private PlayerAssign playerNumber;
     private PlayerManager deathMessage;
 
+    public GameObject Variables;
+    private VariablesScript ManagerGet;
+
     [SyncVar(hook = "OnChangeHealth")]
     public int Healthz = maxHealth;
 
+
+    void Awake() {
+        Variables = GameObject.FindWithTag("Start");
+    }
     // Use this for initialization
     void Start() {
+
+        ManagerGet = Variables.GetComponent<VariablesScript>();
+        manager = ManagerGet.variables;
         //playerID = GetComponent<PrepPhase>().playerIDs;
-        manager = GameObject.FindWithTag("Start");
         ph = manager.GetComponent<PrepPhase>();
         ph.Players.Add(this.gameObject);
         //gameObject.name = "Player" + playerID;
 
         //barImage = GameObject.Find("HealthBar");
-        prepHud = GameObject.Find("PrepPhaseManager");
+        //prepHud = GameObject.Find("PrepPhaseManager");
         //gObject = prepHud.GetComponent<PrepPhase>();
         //barImage = gObject.healthObject;
         //Healthbar = barImage.GetComponent<Image>();
-        Manager = GameObject.Find("Manager");
-        inPrep = Manager.GetComponent<PrepPhase>();
+        inPrep = manager.GetComponent<PrepPhase>();
         playerNumber = this.gameObject.GetComponent<PlayerAssign>();//houdl work
-        deathMessage = Manager.GetComponent<PlayerManager>();
+        deathMessage = manager.GetComponent<PlayerManager>();
 
     }
 

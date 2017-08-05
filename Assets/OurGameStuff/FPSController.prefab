@@ -14846,12 +14846,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playersLocalCopy:
-  - {fileID: 0}
+  - {fileID: 1075739120280664, guid: 0e8cbf3364247f740af8988fb1208abf, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   droppedWeaponsLocalCopy: []
+  kk: {fileID: 0}
 --- !u!114 &114643664459489014
 MonoBehaviour:
   m_ObjectHideFlags: 1

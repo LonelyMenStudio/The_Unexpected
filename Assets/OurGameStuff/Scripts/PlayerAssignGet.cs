@@ -4,23 +4,27 @@ using UnityEngine;
 
 public class PlayerAssignGet : MonoBehaviour {
 
-    public GameObject manager;
+    private GameObject manager;
     private PlayerAssign sm;
     private PlayerManager playerAdd;
     public int currentPlayerNo;
     private PlayerManagerSelf playerArray;
-
+    public GameObject Variables;
+    private VariablesScript ManagerGet;
 
     void Awake() {
-        manager = GameObject.Find("Manager");
+        Variables = GameObject.FindWithTag("Start");
+    }
+
+    // Use this for initialization
+    void Start () {
+        ManagerGet = Variables.GetComponent<VariablesScript>();
+        manager = ManagerGet.variables;
         sm = manager.GetComponent<PlayerAssign>();
         playerAdd = manager.GetComponent<PlayerManager>();
         playerArray = this.gameObject.GetComponent<PlayerManagerSelf>();
-    }
 
-	// Use this for initialization
-	void Start () {
-        sm.CmdGetNum();
+        sm.doCommand();//no authority
         currentPlayerNo = sm.playerNo;
         playerArray.AddSelf(this.gameObject, currentPlayerNo);
         //playerAdd.CmdAddSelf(this.gameObject, currentPlayerNo);
