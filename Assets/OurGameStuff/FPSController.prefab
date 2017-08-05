@@ -14799,6 +14799,7 @@ MonoBehaviour:
   childWeapon2: {fileID: 1519925836734068}
   body: {fileID: 1163954766165120}
   ammoDisplay: {fileID: 0}
+  prepHud: {fileID: 0}
   bulletHole: {fileID: 1866046136907596, guid: ffb5b35563eb748458e3b5c787b25e41, type: 2}
   sounds:
   - {fileID: 82734291373227446}
@@ -14806,6 +14807,7 @@ MonoBehaviour:
   distance: 0
   target: {fileID: 0}
   currentPlayer: 0
+  Variables: {fileID: 0}
 --- !u!114 &114368464747890106
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14817,8 +14819,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f3c19dce30b1443b3b93d77f7900a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
   currentPlayerNo: 0
+  Variables: {fileID: 0}
 --- !u!114 &114399018703621760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14831,9 +14833,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rig: {fileID: 1573973259095556}
-  manager: {fileID: 0}
   wep: {fileID: 0}
   player: {fileID: 1163954766165120}
+  Variables: {fileID: 0}
 --- !u!114 &114406190893968786
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14852,7 +14854,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   droppedWeaponsLocalCopy: []
-  kk: {fileID: 0}
+  Variables: {fileID: 0}
 --- !u!114 &114643664459489014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14919,7 +14921,7 @@ MonoBehaviour:
     i14: 145
     i15: 116
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114859925925566046
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14951,6 +14953,7 @@ MonoBehaviour:
   barImage: {fileID: 0}
   playerName: 
   manager: {fileID: 0}
+  Variables: {fileID: 0}
   Healthz: 300
 --- !u!136 &136232297736133606
 CapsuleCollider:
