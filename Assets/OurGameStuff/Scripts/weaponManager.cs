@@ -118,7 +118,7 @@ public class weaponManager : NetworkBehaviour {
         if (selectionDone && actionOnce) {
             actionOnce = false;
             if (weaponOnEnd == 0) {
-                loseWeapon();  // update to hold more than one weapon
+                weaponFirstSpawn();  // update to hold more than one weapon
             }
         }
 
@@ -271,7 +271,18 @@ public class weaponManager : NetworkBehaviour {
     void CmdDestroyHit(GameObject objectToDestory) {
         NetworkServer.Destroy(objectToDestory.transform.gameObject);
     }
-
+    void weaponFirstSpawn() {
+        hasWeapon = false;
+        canShoot = false;
+        if (!isServer) {
+            CmdSwitchWeapon(0);
+        } else {
+            RpcSwitchWeapon(0);
+        }
+        CmdRespawnAK();
+        playerManage.AddWeaponToList(weaponDropperTemp);
+        CmdWeaponAmmoDrop(weaponDropperTemp, 30, 30, currentPlayer);
+    }
     void loseWeapon() {
         hasWeapon = false;
         canShoot = false;
@@ -281,6 +292,7 @@ public class weaponManager : NetworkBehaviour {
             RpcSwitchWeapon(0);
         }
         RespawnAK();
+        
         //weapon type?
         //possibly clear out ammo from weapon
         //clear any other weapon effects if added
