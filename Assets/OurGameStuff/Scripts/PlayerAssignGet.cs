@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class PlayerAssignGet : MonoBehaviour {
+public class PlayerAssignGet : NetworkBehaviour {
 
     private GameObject manager;
     private PlayerAssign sm;
@@ -24,15 +25,19 @@ public class PlayerAssignGet : MonoBehaviour {
         playerAdd = manager.GetComponent<PlayerManager>();
         playerArray = this.gameObject.GetComponent<PlayerManagerSelf>();
 
-        sm.doCommand();//no authority
+        CmdGetNum();//no authority
         currentPlayerNo = sm.playerNo;
         playerArray.AddSelf(this.gameObject, currentPlayerNo);
         //playerAdd.CmdAddSelf(this.gameObject, currentPlayerNo);
         
 	}
-	
-	// Update is called once per frame
-	void Update () {
+    [Command]
+    void CmdGetNum() {
+        sm.playerNo++;
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 }

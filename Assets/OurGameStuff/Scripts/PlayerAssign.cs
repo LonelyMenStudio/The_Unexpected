@@ -10,23 +10,17 @@ public class PlayerAssign : NetworkBehaviour {
 
     public GameObject[] weaponRespawnPoints = new GameObject[8];
 
-
 	// Use this for initialization
 	void Start () {
-        
-	}
+       // this.GetComponent<NetworkIdentity>().AssignClientAuthority(connectionToClient);//NOPE
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
-    public void doCommand() {
-        CmdGetNum();
-    }
 
-    [Command]
-    void CmdGetNum() {
-        playerNo++;
-    }
+
 
 }
