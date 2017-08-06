@@ -18,6 +18,7 @@ TagManager:
   - Start
   - weaponPrep
   - Test
+  - Manager
   layers:
   - Default
   - TransparentFX

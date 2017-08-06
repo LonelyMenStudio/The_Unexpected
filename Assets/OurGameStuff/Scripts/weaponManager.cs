@@ -27,6 +27,7 @@ public class weaponManager : NetworkBehaviour {
     private PrepPhase gObject;
      AudioSource fire;
      AudioSource reload;
+    AudioSource HitSE;
     private float delayTime = 0.05f;
     private float counter = 0.0f;
     private bool canShoot = false;
@@ -381,6 +382,7 @@ public class weaponManager : NetworkBehaviour {
             if (hit2.transform.tag == "Player") {
                 CmdDamageDealer(hit2.transform.gameObject, currentWeaponDamage);
                 spawnhole = false;
+                //HitMarkersound here;
                 //Enemy enemyhealth = hit2.collider.gameObject.GetComponent<Enemy>();
                 //enemyhealth.TakeDamage(10);  // always sending consistent damage, this will have to be pulled from
             }

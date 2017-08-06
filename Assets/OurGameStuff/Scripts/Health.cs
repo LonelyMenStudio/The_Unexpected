@@ -11,6 +11,7 @@ public class Health : NetworkBehaviour {
     public GameObject respawn;
     private const int maxHealth = 300;
     public Image Healthbar;
+    public Image PlayerHud;
     Text text;
     public float fillAmount;
     public GameObject barImage;
@@ -24,6 +25,9 @@ public class Health : NetworkBehaviour {
     private PrepPhase ph;
     private PlayerAssign playerNumber;
     private PlayerManager deathMessage;
+    private GameObject HudImage;
+    public AudioSource GetHit;
+
 
     public GameObject Variables;
     private VariablesScript ManagerGet;
@@ -48,12 +52,14 @@ public class Health : NetworkBehaviour {
         //barImage = GameObject.Find("HealthBar");
         //prepHud = GameObject.Find("PrepPhaseManager");
         //gObject = prepHud.GetComponent<PrepPhase>();
-        //barImage = gObject.healthObject;
-        //Healthbar = barImage.GetComponent<Image>();
+        barImage = ph.healthObject;
+        Healthbar = barImage.GetComponent<Image>();
+        HudImage = ph.PlayerHUD;
+        PlayerHud = HudImage.GetComponent<Image>();
         inPrep = manager.GetComponent<PrepPhase>();
         playerNumber = this.gameObject.GetComponent<PlayerAssign>();//should work
         deathMessage = manager.GetComponent<PlayerManager>();
-
+        
     }
 
     public void TakeDamage(int amount) {
@@ -61,6 +67,21 @@ public class Health : NetworkBehaviour {
             return;
         }
         Healthz -= amount;
+        /* bool getDamage = true;
+         if (getDamage) {
+             Color Opaque = new Color(1, 1, 1, 1);
+             PlayerHud.color = Color.Lerp(PlayerHud.color, Opaque, 20 * Time.deltaTime);
+             if (PlayerHud.color.a >= 0.8) {
+                 getDamage = false;
+             }
+         }
+         if (!getDamage) {
+             Color Transparent = new Color(1, 1, 1, 0);
+             PlayerHud.color = Color.Lerp(PlayerHud.color, Transparent, 20 * Time.deltaTime);
+         }*/
+        StartCoroutine(Flash());
+        GetHit.Play();
+
         if (Healthz <= 0) {
             Healthz = 0;
             gameObject.transform.position = respawn.transform.position;
@@ -80,7 +101,7 @@ public class Health : NetworkBehaviour {
        */
 
         if (Input.GetKeyDown("o")) {
-            //TakeDamage(10);
+            TakeDamage(10);
         }
     }
 
@@ -98,6 +119,14 @@ public class Health : NetworkBehaviour {
 
     private float Map(float health, float max, float min, float fillMin, float fillMax) {
         return (health - min) * (fillMax - fillMin) / (max - min) + fillMin;
+    }
+
+
+    IEnumerator Flash() {
+            
+            PlayerHud.color = Color.Lerp(PlayerHud.color,  Color.red, 30 * Time.deltaTime);
+            yield return new WaitForSeconds(1);
+            PlayerHud.color = new Color(255, 255, 255, 255);
     }
 
 }

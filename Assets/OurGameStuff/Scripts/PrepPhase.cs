@@ -18,6 +18,8 @@ public class PrepPhase : MonoBehaviour {
     public bool playwep = false;
     public GameObject ammoObject;
     //public GameObject[] players;
+    public GameObject healthObject;
+    public GameObject PlayerHUD;
     public List<GameObject> Players = new List<GameObject>();
     // public int playerIDs = 0;
     private PlayerManager assignTime;
