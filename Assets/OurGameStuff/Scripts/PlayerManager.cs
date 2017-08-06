@@ -14,8 +14,9 @@ public class PlayerManager : NetworkBehaviour {
     //array of weapons empty
     public GameObject[] weaponPortLocations;
     private PlayerAssign playerAssign;
-   // public Transform weapon1, weapon2, weapon3, weapon4;// will need a dynamic length array
-    
+    // public Transform weapon1, weapon2, weapon3, weapon4;// will need a dynamic length array
+
+
 
     [SyncVar]
     public bool player1Dead;
@@ -83,6 +84,8 @@ public class PlayerManager : NetworkBehaviour {
 
     // Update is called once per frame
     void Update () {
+
+
         /*
         if (player1Dead) {
             for(int i = 1; i < numberOfPlayers; i++) {

@@ -14,6 +14,7 @@ public class PlayerAssign : NetworkBehaviour {
 	void Start () {
        // this.GetComponent<NetworkIdentity>().AssignClientAuthority(connectionToClient);//NOPE
 
+
     }
 	
 	// Update is called once per frame

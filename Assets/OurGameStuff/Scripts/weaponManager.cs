@@ -33,8 +33,7 @@ public class weaponManager : NetworkBehaviour {
     public GameObject bulletHole;
     public AudioSource[] sounds;
     private bool spawnhole = true;
-    public float distance; // Distance from the assigned wep
-    public GameObject target; //This is the players assigned weapon
+
 //<<<<<<< HEAD
 
     private PlayerAssignGet pl;
@@ -53,7 +52,7 @@ public class weaponManager : NetworkBehaviour {
     private VariablesScript ManagerGet;
 
     //=======
-    AudioSource Beepsound; //Sound for the player to know how close to the wep they are.
+    
     
 //>>>>>>> c3943934d6b06f638b2c283b56224c49b4642929
     //Animator animatorz;
@@ -66,10 +65,11 @@ public class weaponManager : NetworkBehaviour {
 
     // Use this for initialization
     void Start() {
+        
         ManagerGet = Variables.GetComponent<VariablesScript>();
         sounds = GetComponents<AudioSource>();
         fire = sounds[1];
-        // Beepsound = sounds[2];
+        
         // reload = sounds[0];
         //animatorz = GetComponent<Animator>();
         manager = ManagerGet.variables;
@@ -98,7 +98,8 @@ public class weaponManager : NetworkBehaviour {
         if (!isLocalPlayer) {
             return;
         }
-        //distance = Vector3.Distance(transform.position, target.position);
+
+       
        // currentPlayer = pl.currentPlayerNo;//remove when weapon select is enabled
         if (checkingPrep && !gObject.inPrep) {
             inWeaponSelect = false;
@@ -145,13 +146,7 @@ public class weaponManager : NetworkBehaviour {
         if(currentWeaponAmmo <= 0) {
             canShoot = false;
         }
-        /* if (distance > 150) {
-             sounds[2].Play();
-             StartCoroutine(Beeping(4));
-         } else if ( distance <= 150 && distance > 50){
-             sounds[2].Play();
-             StartCoroutine(Beeping(3));
-         */
+
     }
 
     void PickupWeapon() {
@@ -426,9 +421,7 @@ public class weaponManager : NetworkBehaviour {
         
     }
 
-  /*  IEnumerator Beeping(int BeepSpeed) {
-        yield return new WaitForSeconds(BeepSpeed);
-    }*/
+
 
     
 }

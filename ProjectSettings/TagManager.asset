@@ -17,6 +17,7 @@ TagManager:
   - ak
   - Start
   - weaponPrep
+  - Test
   layers:
   - Default
   - TransparentFX
