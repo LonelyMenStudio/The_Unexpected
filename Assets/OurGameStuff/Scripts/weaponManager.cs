@@ -70,7 +70,7 @@ public class weaponManager : NetworkBehaviour {
         ManagerGet = Variables.GetComponent<VariablesScript>();
         sounds = GetComponents<AudioSource>();
         fire = sounds[1];
-        
+        HitSE = sounds[2];
         // reload = sounds[0];
         //animatorz = GetComponent<Animator>();
         manager = ManagerGet.variables;
@@ -380,6 +380,7 @@ public class weaponManager : NetworkBehaviour {
         RaycastHit hit2;
         if (Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit2)) {
             if (hit2.transform.tag == "Player") {
+                HitSE.Play();
                 CmdDamageDealer(hit2.transform.gameObject, currentWeaponDamage);
                 spawnhole = false;
                 //HitMarkersound here;
