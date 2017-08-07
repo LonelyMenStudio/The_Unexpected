@@ -188,7 +188,7 @@ public class PlayerManager : NetworkBehaviour {
         foreach(GameObject weapon in droppedWeapons) {
             weaponSettings weaponPlayerCheck = weapon.GetComponent<weaponSettings>();
             if(playerThatDied == weaponPlayerCheck.playerNo) {
-                weapon.transform.position = weaponPortLocations[Random.Range(0, 7)].transform.position;
+                weapon.transform.position = weaponPortLocations[Random.Range(0, 7)].transform.position;// not a command and therfore needs update
                 return;
             }
         }
