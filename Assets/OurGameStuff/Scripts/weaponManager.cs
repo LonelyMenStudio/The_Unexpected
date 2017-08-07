@@ -33,6 +33,7 @@ public class weaponManager : NetworkBehaviour {
     private bool canShoot = false;
     public GameObject bulletHole;
     public AudioSource[] sounds;
+    public GameObject AmmoObject;
     private bool spawnhole = true;
 
 //<<<<<<< HEAD
@@ -76,8 +77,11 @@ public class weaponManager : NetworkBehaviour {
         manager = ManagerGet.variables;
         prepHud = ManagerGet.variables;//dupe
         gObject = prepHud.GetComponent<PrepPhase>();
-        ammoDisplay = gObject.ammoObject;
-        ammoText = ammoDisplay.GetComponent<Text>();
+
+        AmmoObject = GameObject.FindWithTag("Ammo");
+
+        //ammoDisplay = gObject.ammoObject;
+        ammoText = AmmoObject.GetComponent<Text>();
         
         wrl = manager.GetComponent<PlayerAssign>();
         playerManage = this.gameObject.GetComponent<PlayerManagerSelf>();
@@ -145,7 +149,7 @@ public class weaponManager : NetworkBehaviour {
         if (Input.GetKeyDown(KeyCode.F) && hasWeapon) {//used to be switch weapon but removing it
             dropWeapon();
         }
-        //ammoText.text = currentWeaponAmmo + "/" +currentWeaponMaxAmmo;
+        ammoText.text = currentWeaponAmmo + "/" +currentWeaponMaxAmmo;
         if(currentWeaponAmmo <= 0) {
             canShoot = false;
         }

@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 65194968681253594}
   - component: {fileID: 114265375310488054}
   m_Layer: 0
-  m_Name: prepAK
+  m_Name: PrepAk
   m_TagString: weaponPrep
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

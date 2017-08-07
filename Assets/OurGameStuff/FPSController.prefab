@@ -15049,6 +15049,7 @@ MonoBehaviour:
   - {fileID: 82734291373227446}
   - {fileID: 82608617551021818}
   - {fileID: 82115233822092764}
+  AmmoObject: {fileID: 0}
   currentPlayer: 0
   Variables: {fileID: 0}
 --- !u!114 &114368464747890106
@@ -15090,13 +15091,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38a34c755aec370488e59ca250703754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playersLocalCopy:
-  - {fileID: 1075739120280664, guid: 0e8cbf3364247f740af8988fb1208abf, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  droppedWeaponsLocalCopy: []
   Variables: {fileID: 0}
 --- !u!114 &114643664459489014
 MonoBehaviour:
@@ -15196,6 +15190,7 @@ MonoBehaviour:
   - {fileID: 82618459009010722}
   radarsound: 1
   Radar: {fileID: 114810562171276512, guid: 075ff12a1381b4445ae3a0b560e53991, type: 2}
+  Canvas: {fileID: 0}
 --- !u!114 &114999644553244406
 MonoBehaviour:
   m_ObjectHideFlags: 1

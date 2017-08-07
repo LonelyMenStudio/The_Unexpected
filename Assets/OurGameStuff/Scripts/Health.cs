@@ -146,7 +146,7 @@ public class Health : NetworkBehaviour {
     IEnumerator Flash() {
             
             PlayerHud.color = Color.Lerp(PlayerHud.color,  Color.red, 30 * Time.deltaTime);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.8F);
             PlayerHud.color = new Color(255, 255, 255, 255);
     }
 
