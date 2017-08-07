@@ -23,7 +23,7 @@ public class Health : NetworkBehaviour {
     //public int playerID;
     public GameObject manager;
     private PrepPhase ph;
-    private PlayerAssign playerNumber;
+    private PlayerAssignGet playerNumber;
     private PlayerManager deathMessage;
     private GameObject HudImage;
     public AudioSource GetHit;
@@ -31,6 +31,7 @@ public class Health : NetworkBehaviour {
 
     public GameObject Variables;
     private VariablesScript ManagerGet;
+    //private int playerNum;
 
     [SyncVar(hook = "OnChangeHealth")]
     public int Healthz = maxHealth;
@@ -57,7 +58,7 @@ public class Health : NetworkBehaviour {
         HudImage = ph.PlayerHUD;
         PlayerHud = HudImage.GetComponent<Image>();
         inPrep = manager.GetComponent<PrepPhase>();
-        playerNumber = this.gameObject.GetComponent<PlayerAssign>();//should work
+        playerNumber = this.gameObject.GetComponent<PlayerAssignGet>();//should work
         deathMessage = manager.GetComponent<PlayerManager>();
         
     }
@@ -85,27 +86,46 @@ public class Health : NetworkBehaviour {
         if (Healthz <= 0) {
             Healthz = 0;
             gameObject.transform.position = respawn.transform.position;
+            //SEND MESSAGE BACK
         }
 
 
     }
     // Update is called once per frame
     void Update() {
-        /*
+        
 
        //player dying animation player wait for done then reset to give feedback
-       if(Healthz == 0) {
-           deathMessage.CmdPlayerDied(playerNumber.playerNo);
+       if(Healthz <= 0) {
+            //CmdPlayerDied(playerNumber.currentPlayerNo);
+            //Respawn();
+
        }
        //Reset back into game
-       */
+       
 
         if (Input.GetKeyDown("o")) {
             TakeDamage(10);
         }
     }
 
-
+    [Command]
+    void CmdPlayerDied(int playerNum) {
+        deathMessage.deathMessenger(playerNum);
+        /*
+        if (playerNum == 1) {
+            deathMessage.player1Dead = true;
+        } else if (playerNum == 2) {
+            deathMessage.player2Dead = true;
+        } else if (playerNum == 3) {
+            deathMessage.player3Dead = true;
+        } else if(playerNum == 4) {
+            deathMessage.player4Dead = true;
+        } else {
+            Debug.Log("WHAT NUMBER IS THIS");
+        }
+        */
+    }
 
     void OnChangeHealth(int health) {
         if (isLocalPlayer) {

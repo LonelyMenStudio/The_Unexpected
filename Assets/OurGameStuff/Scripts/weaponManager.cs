@@ -314,7 +314,13 @@ public class weaponManager : NetworkBehaviour {
         } else {
             RpcSwitchWeapon(0);
         }
-        RespawnAK();
+        if(weaponOut == 1) {
+            RespawnAK();
+        }
+        if(weaponOut == 2) {
+
+        }
+        
         
         //weapon type?
         //possibly clear out ammo from weapon
@@ -420,7 +426,7 @@ public class weaponManager : NetworkBehaviour {
 
 
     void CheckWeaponNumber(int playerNum) {
-        if (!isServer) {
+        if (!isLocalPlayer) {//????
             return;
         }
         if (currentWeaponPlayer == playerNum) {

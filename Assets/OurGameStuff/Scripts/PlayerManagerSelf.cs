@@ -5,8 +5,8 @@ using UnityEngine.Networking;
 
 public class PlayerManagerSelf : NetworkBehaviour {
 
-    public GameObject[] playersLocalCopy;
-    public List<GameObject> droppedWeaponsLocalCopy = new List<GameObject>();
+   // public GameObject[] playersLocalCopy;
+    //public List<GameObject> droppedWeaponsLocalCopy = new List<GameObject>();
     private PlayerManager pManager;
     private GameObject manager;
     public GameObject Variables;
@@ -19,7 +19,7 @@ public class PlayerManagerSelf : NetworkBehaviour {
     // Use this for initialization
     void Start () {
         ManagerGet = Variables.GetComponent<VariablesScript>();
-        playersLocalCopy = new GameObject[5];
+        //playersLocalCopy = new GameObject[5];
         manager = ManagerGet.variables;
         pManager = manager.GetComponent<PlayerManager>();
         AddSelf();
