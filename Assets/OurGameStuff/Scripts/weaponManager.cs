@@ -113,9 +113,13 @@ public class weaponManager : NetworkBehaviour {
                 RaycastHit hit;
                 if (Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit)) {
                     if (hit.transform.tag == "weaponPrep") {
-                        if (hit.transform.gameObject.name.Contains("PrepAk")) { //ony going for ak atm
+                        if (hit.transform.gameObject.name.Contains("PrepWeapon1")) {
                             weaponOnEnd = 0;
                             changeWeapon(1);
+                        }
+                        else if (hit.transform.gameObject.name.Contains("PrepWeapon2")) { //just demo weapon
+                            weaponOnEnd = 1;
+                            changeWeapon(2);
                         }
                     }
                 }
@@ -124,9 +128,7 @@ public class weaponManager : NetworkBehaviour {
         }
         if (selectionDone && actionOnce) {
             actionOnce = false;
-            if (weaponOnEnd == 0) {
-                weaponFirstSpawn();  // update to hold more than one weapon
-            }
+                weaponFirstSpawn(weaponOnEnd);  // update to hold more than one weapon
         }
 
         if (Input.GetKey(KeyCode.Mouse0) && hasWeapon && canShoot && counter > delayTime) { // probs can be cut down to only 1 raycast
@@ -244,14 +246,26 @@ public class weaponManager : NetworkBehaviour {
         playerManage.DropWeaponFromList(destoryThis);
         CmdDestroyHit(destoryThis);
     }
-    private void spawnPistol() {
-        //???
+    private void spawnPistol() {// need work
+        CmdSpawnPistol();
+        playerManage.AddWeaponToList(weaponDropperTemp);
+    }
+    private void RespawnPistol() {// need work
+        CmdRespawnPistol();
+        playerManage.AddWeaponToList(weaponDropperTemp);
+        CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
     }
 
 
     [Command]
     void CmdRespawnAK() {
         GameObject weaponDropper = (GameObject)Instantiate(ak, weaponRespawnLocation[Random.Range(0, 7)].transform.position, Quaternion.identity) as GameObject;//***
+        NetworkServer.Spawn(weaponDropper);
+        weaponDropperTemp = weaponDropper;
+    }
+    [Command]
+    void CmdRespawnPistol() {
+        GameObject weaponDropper = (GameObject)Instantiate(pistol, weaponRespawnLocation[Random.Range(0, 7)].transform.position, Quaternion.identity) as GameObject;//***
         NetworkServer.Spawn(weaponDropper);
         weaponDropperTemp = weaponDropper;
     }
@@ -274,7 +288,7 @@ public class weaponManager : NetworkBehaviour {
         clearWeapon.removeSelfFromList();
         NetworkServer.Destroy(objectToDestory.transform.gameObject);
     }
-    void weaponFirstSpawn() {
+    void weaponFirstSpawn(int weaponToSpawn) {
         hasWeapon = false;
         canShoot = false;
         if (!isServer) {
@@ -282,7 +296,13 @@ public class weaponManager : NetworkBehaviour {
         } else {
             RpcSwitchWeapon(0);
         }
-        CmdRespawnAK();
+        if (weaponToSpawn == 0) {
+            CmdRespawnAK();
+        } else if(weaponToSpawn == 1) {
+            CmdRespawnPistol();
+        } else {
+            Debug.Log("problem spawning the weapon");
+        }
         playerManage.AddWeaponToList(weaponDropperTemp);
         CmdWeaponAmmoDrop(weaponDropperTemp, 30, 30, currentPlayer);
     }
