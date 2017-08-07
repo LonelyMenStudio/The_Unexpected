@@ -17,7 +17,7 @@ public class PlayerManager : NetworkBehaviour {
     // public Transform weapon1, weapon2, weapon3, weapon4;// will need a dynamic length array
 
 
-
+/*
     [SyncVar]
     public bool player1Dead;
     [SyncVar]
@@ -26,7 +26,7 @@ public class PlayerManager : NetworkBehaviour {
     public bool player3Dead;
     [SyncVar]
     public bool player4Dead;
-
+*/
 
     
     

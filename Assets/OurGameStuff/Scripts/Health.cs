@@ -97,6 +97,7 @@ public class Health : NetworkBehaviour {
 
        //player dying animation player wait for done then reset to give feedback
        if(Healthz <= 0) {
+            //will act for everyone as all versions of player will die
             //CmdPlayerDied(playerNumber.currentPlayerNo);
             //Respawn();
 
