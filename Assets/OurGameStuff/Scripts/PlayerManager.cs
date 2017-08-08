@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class PlayerManager : NetworkBehaviour {
 
@@ -17,7 +18,7 @@ public class PlayerManager : NetworkBehaviour {
     // public Transform weapon1, weapon2, weapon3, weapon4;// will need a dynamic length array
 
 
-
+/*
     [SyncVar]
     public bool player1Dead;
     [SyncVar]
@@ -26,7 +27,7 @@ public class PlayerManager : NetworkBehaviour {
     public bool player3Dead;
     [SyncVar]
     public bool player4Dead;
-
+*/
 
     
     
@@ -84,44 +85,74 @@ public class PlayerManager : NetworkBehaviour {
 
     // Update is called once per frame
     void Update () {
-
-
         /*
         if (player1Dead) {
-            for(int i = 1; i < numberOfPlayers; i++) {
-                CmdSendMessageEach(players[i], 1);
+            for(int i = 0; i < Players.Count; i++) {
+                SendMessageEach(Players[i], 1);
                 checkWeapons(1);
             }
-            Cmd1Died();
+            //Cmd1Died();
         }
         if (player2Dead) {
-            for (int i = 1; i < numberOfPlayers; i++) {
-                CmdSendMessageEach(players[i], 2);
+            for (int i = 0; i < Players.Count; i++) {
+                SendMessageEach(Players[i], 2);
                 checkWeapons(2);
             }
-            Cmd2Died();
+            //Cmd2Died();
         }
         if (player3Dead) {
-            for (int i = 1; i < numberOfPlayers; i++) {
-                CmdSendMessageEach(players[i], 3);
+            for (int i = 0; i < Players.Count; i++) {
+                SendMessageEach(Players[i], 3);
                 checkWeapons(3);
             }
-            Cmd3Died();
+            //Cmd3Died();
         }
         if (player4Dead) {
-            for (int i = 1; i < numberOfPlayers; i++) {
-                CmdSendMessageEach(players[i], 4);
+            for (int i = 0; i < Players.Count; i++) {
+                SendMessageEach(Players[i], 4);
                 checkWeapons(4);
             }
-            Cmd4Died();
+            //Cmd4Died();
         }
         */
     }
-    /*
-    [Command]
-    void CmdSendMessageEach(GameObject player, int val) {//possibly could rework
+    public void deathMessenger(int playerDead) {
+        if (playerDead == 1) {
+            for (int i = 0; i < Players.Count; i++) {
+                SendMessageEach(Players[i], 1);
+                checkWeapons(1);
+            }
+            //Cmd1Died();
+        }
+        if (playerDead == 2) {
+            for (int i = 0; i < Players.Count; i++) {
+                SendMessageEach(Players[i], 2);
+                checkWeapons(2);
+            }
+            //Cmd2Died();
+        }
+        if (playerDead == 3) {
+            for (int i = 0; i < Players.Count; i++) {
+                SendMessageEach(Players[i], 3);
+                checkWeapons(3);
+            }
+            //Cmd3Died();
+        }
+        if (playerDead == 4) {
+            for (int i = 0; i < Players.Count; i++) {
+                SendMessageEach(Players[i], 4);
+                checkWeapons(4);
+            }
+            //Cmd4Died();
+        }
+    }
+    
+
+    void SendMessageEach(GameObject player, int val) {//possibly could rework
         player.SendMessage("CheckWeaponNumber", val);
     }
+
+    /*
     [Command]
     public void CmdPlayerDied(int playerNo) {
         if(playerNo == 1) {
@@ -158,7 +189,7 @@ public class PlayerManager : NetworkBehaviour {
         foreach(GameObject weapon in droppedWeapons) {
             weaponSettings weaponPlayerCheck = weapon.GetComponent<weaponSettings>();
             if(playerThatDied == weaponPlayerCheck.playerNo) {
-                weapon.transform.position = weaponPortLocations[Random.Range(0, 7)].transform.position;
+                weapon.transform.position = weaponPortLocations[Random.Range(0, 7)].transform.position;// not a command and therfore needs update
                 return;
             }
         }

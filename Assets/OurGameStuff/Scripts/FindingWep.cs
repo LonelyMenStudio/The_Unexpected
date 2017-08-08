@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
-public class FindingWep : MonoBehaviour {
+public class FindingWep : NetworkBehaviour {
     //Not working in muilt atm trying to think how to reference it to the weapon, may end up moving everything to another script
     public float distance; // Distance from the assigned wep
     public GameObject target; //This is the players assigned weapon
@@ -12,17 +13,23 @@ public class FindingWep : MonoBehaviour {
     private float Beeping = 2.0f;
     public bool radarsound = true;
     public Image Radar;
+    public GameObject Canvas;
+
     void Start() {
-        
+        Canvas = GameObject.FindWithTag("Radar pulse");
         Beepsound = sounds[0];
+        Radar = Canvas.GetComponent<Image>();
+        target = GameObject.FindWithTag("Test");
     }
 
     void Update() {
-        target = GameObject.FindWithTag("Test");
+        if (!isLocalPlayer) {
+            return;
+        }
         distance = Vector3.Distance(transform.position, target.transform.position);
-        Beeping = distance / 20;
+        Beeping = distance / 30;
         if (radarsound == true) {
-
+            Radar.fillAmount = 1 - (distance/300);
             radarsound = false;
             StartCoroutine(Beep());
         }
@@ -30,16 +37,8 @@ public class FindingWep : MonoBehaviour {
 
       IEnumerator Beep() {
         Beepsound.Play();
-        //StartCoroutine(flash());
         yield return new WaitForSeconds(Beeping);
         radarsound = true;
-
   }
-   /* IEnumerator flash() {
-        Radar.fillAmount = 1;
-        yield return new WaitForSeconds(1);
-        Radar.fillAmount = 0;
 
-
-    }*/
 }
