@@ -39,20 +39,6 @@ public class PlayerManagerSelf : NetworkBehaviour {
         */
         pManager.Players.Add(this.gameObject);
     }
-
-    public void AddWeaponToList(GameObject weapon) {
-        //if (!isLocalPlayer) {
-        //    return;
-        // }
-        /*
-        if (!isServer) {
-            CmdAddToList(weapon);
-        } else {
-            RpcAddToList(weapon);
-        }
-        */
-        //pManager.droppedWeapons.Add(weapon);
-    }
     public void DropWeaponFromList(GameObject weapon) {
         /*
         if (!isLocalPlayer) {
