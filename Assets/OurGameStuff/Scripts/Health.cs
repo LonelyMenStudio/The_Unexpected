@@ -29,6 +29,7 @@ public class Health : NetworkBehaviour {
     public AudioSource GetHit;
 
 
+
     public GameObject Variables;
     private VariablesScript ManagerGet;
     //private int playerNum;
@@ -48,15 +49,14 @@ public class Health : NetworkBehaviour {
         //playerID = GetComponent<PrepPhase>().playerIDs;
         ph = manager.GetComponent<PrepPhase>();
         ph.Players.Add(this.gameObject);
-        //gameObject.name = "Player" + playerID;
 
-        //barImage = GameObject.Find("HealthBar");
-        //prepHud = GameObject.Find("PrepPhaseManager");
-        //gObject = prepHud.GetComponent<PrepPhase>();
+        //To Find the Health Bar
         barImage = ph.healthObject;
         Healthbar = barImage.GetComponent<Image>();
+        //To Find the player HUD
         HudImage = ph.PlayerHUD;
         PlayerHud = HudImage.GetComponent<Image>();
+        //To Find Player number and Send massage to PlayerManager
         inPrep = manager.GetComponent<PrepPhase>();
         playerNumber = this.gameObject.GetComponent<PlayerAssignGet>();//should work
         deathMessage = manager.GetComponent<PlayerManager>();

@@ -7,8 +7,9 @@ public class weaponManager : NetworkBehaviour {
 
     //weapon names are currently just placeholders, marked are the locations of the placholder usage
 
-    public GameObject pistol;
+    public GameObject shotty;
     public GameObject ak;
+    public GameObject Sniper;
     private int weaponOut = 0;//1 ak, 2 pistol
     private int secondWeapon = 0;
     public bool hasWeapon = false;
@@ -18,6 +19,7 @@ public class weaponManager : NetworkBehaviour {
     public GameObject childMelee;
     public GameObject childWeapon1;
     public GameObject childWeapon2;
+    public GameObject childWeapon3;
     public GameObject body;
     private GameObject childRoot;
     private GameObject weaponDropperTemp;
@@ -124,7 +126,11 @@ public class weaponManager : NetworkBehaviour {
                         else if (hit.transform.gameObject.name.Contains("PrepWeapon2")) { //just demo weapon
                             weaponOnEnd = 1;
                             changeWeapon(2);
-                        }
+                        } 
+                        /*else if (hit.transform.gameObject.name.Contains("PrepWeapon3")) { //just demo weapon
+                            weaponOnEnd = 2;
+                            changeWeapon(3);
+                        }*/
                     }
                 }
             }
@@ -163,14 +169,18 @@ public class weaponManager : NetworkBehaviour {
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit)) {
             if (hit.transform.tag == "weapon") {
-                if (hit.transform.gameObject.name.Contains("crystal")) { //***
+                if (hit.transform.gameObject.name.Contains("alienrifle")) { //***
                     replaceWeapon(hit);
                     changeWeapon(1);
                 }
-                if (hit.transform.gameObject.name.Contains("ak")) {//***
+                if (hit.transform.gameObject.name.Contains("Shotty")) {//***
                     replaceWeapon(hit);
                     changeWeapon(2);
                     }
+                if (hit.transform.gameObject.name.Contains("AlienSniper")) {//***
+                    replaceWeapon(hit);
+                    changeWeapon(3);
+                }
 
             }
         }
@@ -200,17 +210,26 @@ public class weaponManager : NetworkBehaviour {
             childMelee.SetActive(true);//***
             childWeapon1.SetActive(false);//***
             childWeapon2.SetActive(false);//***
+            childWeapon3.SetActive(false);//***
         }
         if (weapon == 1) {
             weaponOut = 1;
             childMelee.SetActive(false);//***
             childWeapon1.SetActive(true);//***
             childWeapon2.SetActive(false);//***
+            childWeapon3.SetActive(false);//***
         } else if (weapon == 2) {
             weaponOut = 2;
             childMelee.SetActive(false);//***
             childWeapon1.SetActive(false);//***
             childWeapon2.SetActive(true);//***
+            childWeapon3.SetActive(false);//***
+        } else if (weapon == 3) {
+            weaponOut = 3;
+            childMelee.SetActive(false);//***
+            childWeapon1.SetActive(false);//***
+            childWeapon2.SetActive(false);//***
+            childWeapon3.SetActive(true);//***
         }
     }
 
@@ -259,6 +278,16 @@ public class weaponManager : NetworkBehaviour {
         playerManage.AddWeaponToList(weaponDropperTemp);
         CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
     }
+    private void spawnSniper() {// need work
+        CmdSpawnPistol();
+        playerManage.AddWeaponToList(weaponDropperTemp);
+    }
+    private void RespawnSniper() {// need work
+        CmdRespawnPistol();
+        playerManage.AddWeaponToList(weaponDropperTemp);
+        CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
+    }
+
 
 
     [Command]
@@ -269,7 +298,7 @@ public class weaponManager : NetworkBehaviour {
     }
     [Command]
     void CmdRespawnPistol() {
-        GameObject weaponDropper = (GameObject)Instantiate(pistol, weaponRespawnLocation[Random.Range(0, 7)].transform.position, Quaternion.identity) as GameObject;//***
+        GameObject weaponDropper = (GameObject)Instantiate(shotty, weaponRespawnLocation[Random.Range(0, 7)].transform.position, Quaternion.identity) as GameObject;//***
         NetworkServer.Spawn(weaponDropper);
         weaponDropperTemp = weaponDropper;
     }
@@ -282,7 +311,19 @@ public class weaponManager : NetworkBehaviour {
     }
     [Command]
     void CmdSpawnPistol() {
-        GameObject weaponDropper = (GameObject)Instantiate(pistol, transform.root.transform.position + new Vector3(0, 1, 0) + transform.forward * 2, Quaternion.identity) as GameObject;//***
+        GameObject weaponDropper = (GameObject)Instantiate(shotty, transform.root.transform.position + new Vector3(0, 1, 0) + transform.forward * 2, Quaternion.identity) as GameObject;//***
+        NetworkServer.Spawn(weaponDropper);
+        weaponDropperTemp = weaponDropper;
+    }
+    [Command]
+    void CmdRespawnSniper() {
+        GameObject weaponDropper = (GameObject)Instantiate(Sniper, weaponRespawnLocation[Random.Range(0, 7)].transform.position, Quaternion.identity) as GameObject;//***
+        NetworkServer.Spawn(weaponDropper);
+        weaponDropperTemp = weaponDropper;
+    }
+    [Command]
+    void CmdSpawnSniper() {
+        GameObject weaponDropper = (GameObject)Instantiate(Sniper, transform.root.transform.position + new Vector3(0, 1, 0) + transform.forward * 2, Quaternion.identity) as GameObject;//***
         NetworkServer.Spawn(weaponDropper);
         weaponDropperTemp = weaponDropper;
     }
@@ -302,8 +343,10 @@ public class weaponManager : NetworkBehaviour {
         }
         if (weaponToSpawn == 0) {
             CmdRespawnAK();
-        } else if(weaponToSpawn == 1) {
+        } else if (weaponToSpawn == 1) {
             CmdRespawnPistol();
+        } else if (weaponToSpawn == 2) {
+            CmdRespawnSniper();
         } else {
             Debug.Log("problem spawning the weapon");
         }
@@ -344,7 +387,10 @@ public class weaponManager : NetworkBehaviour {
             } else if (weaponOut == 2) {
                 CmdSpawnPistol();
                 CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
-            }
+            } else if (weaponOut == 3) {
+            CmdSpawnSniper();
+            CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
+        }
     }
 
     void replaceWeapon(RaycastHit hit) {
@@ -360,6 +406,9 @@ public class weaponManager : NetworkBehaviour {
                 CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
             } else if (weaponOut == 2) {
                 CmdSpawnPistol();
+                CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
+            } else if (weaponOut == 3) {
+                CmdSpawnSniper();
                 CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
             }
             weaponAmmoPick(hit);

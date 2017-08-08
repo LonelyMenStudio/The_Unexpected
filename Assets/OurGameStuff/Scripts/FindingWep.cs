@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
-public class FindingWep : MonoBehaviour {
+public class FindingWep : NetworkBehaviour {
     //Not working in muilt atm trying to think how to reference it to the weapon, may end up moving everything to another script
     public float distance; // Distance from the assigned wep
     public GameObject target; //This is the players assigned weapon
@@ -22,7 +23,9 @@ public class FindingWep : MonoBehaviour {
     }
 
     void Update() {
-        
+        if (!isLocalPlayer) {
+            return;
+        }
         distance = Vector3.Distance(transform.position, target.transform.position);
         Beeping = distance / 30;
         if (radarsound == true) {
