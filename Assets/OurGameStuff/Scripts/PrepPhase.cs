@@ -9,7 +9,7 @@ public class PrepPhase : MonoBehaviour {
 
     public GameObject[] spawn;
     private float timeRemaining = 20;
-    private string tr = "Time Remaining: ";
+    private string tr = "Entering Battle in: ";
     private string timeR = "";
     public GameObject timer;
     private Text text;
@@ -24,11 +24,15 @@ public class PrepPhase : MonoBehaviour {
     // public int playerIDs = 0;
     private PlayerManager assignTime;
     private bool canAssign = true;
+    public GameObject ErrorText;
+
 
     // Use this for initialization
     void Start() {
         text = timer.GetComponent<Text>();
         assignTime = this.gameObject.GetComponent<PlayerManager>();
+        ErrorText = GameObject.FindWithTag("ErrorText");
+        ErrorText.SetActive(false);
         //players = GameObject.FindWithTag("Player");
         for(int i = 0; i < Players.Count; i++) {
             Players[i].name = "Player " + i; 
@@ -55,6 +59,9 @@ public class PrepPhase : MonoBehaviour {
             timeRemaining = 2;
             inPrep = false;
             timer.SetActive(false);
+            ErrorText.SetActive(true);
+            StartCoroutine(ShowError());
+
         }
         if (teleport == true) {
             for (int i = 0; i < Players.Count; i++) {
@@ -73,6 +80,11 @@ public class PrepPhase : MonoBehaviour {
         }
 
     }
+    IEnumerator ShowError() {
+        yield return new WaitForSeconds(4);
+        ErrorText.SetActive(false);
+    }
+
 
 
 

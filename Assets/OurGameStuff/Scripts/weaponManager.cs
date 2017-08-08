@@ -223,7 +223,7 @@ public class weaponManager : NetworkBehaviour {
             childWeapon3.SetActive(false);//***
         } else if (weapon == 2) {
             weaponOut = 2;
-            delayTime = 0.2f;
+            delayTime = 0.3f;
             childMelee.SetActive(false);//***
             childWeapon1.SetActive(false);//***
             childWeapon2.SetActive(true);//***
