@@ -358,6 +358,29 @@ public class weaponManager : NetworkBehaviour {
        // playerManage.AddWeaponToList(weaponDropperTemp);
         CmdWeaponAmmoDrop(weaponDropperTemp, 30, 30, currentPlayer);
     }
+    /*void weaponFirstSpawn(int weaponToSpawn) {
+        hasWeapon = false;
+        canShoot = false;
+        if (!isServer) {
+            CmdSwitchWeapon(0);
+        } else {
+            RpcSwitchWeapon(0);
+        }
+        if (weaponToSpawn == 0) {
+            CmdRespawnAK();
+            CmdWeaponAmmoDrop(weaponDropperTemp, 30, 30, currentPlayer);
+        } else if (weaponToSpawn == 1) {
+            CmdRespawnPistol();
+            CmdWeaponAmmoDrop(weaponDropperTemp, 12, 12, currentPlayer);
+        } else if (weaponToSpawn == 2) {
+            CmdRespawnSniper();
+            CmdWeaponAmmoDrop(weaponDropperTemp, 6, 6, currentPlayer);
+        } else {
+            Debug.Log("problem spawning the weapon");
+        }
+        // playerManage.AddWeaponToList(weaponDropperTemp);
+        //CmdWeaponAmmoDrop(weaponDropperTemp, 30, 30, currentPlayer);
+    }*/
     void loseWeapon() {
         hasWeapon = false;
         canShoot = false;
