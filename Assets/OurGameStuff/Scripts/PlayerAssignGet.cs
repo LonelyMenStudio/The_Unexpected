@@ -15,6 +15,10 @@ public class PlayerAssignGet : NetworkBehaviour {
 
     [SyncVar]
     public int currentPlayerNo;
+    [SyncVar]
+    public int kills = 0;
+    [SyncVar]
+    public int deaths = 0;
 
     void Awake() {
         Variables = GameObject.FindWithTag("Start");
@@ -30,7 +34,7 @@ public class PlayerAssignGet : NetworkBehaviour {
         playerArray = this.gameObject.GetComponent<PlayerManagerSelf>();
 
         CmdGetNum();
-        CmdSetPlayerNum(sm.playerNo);
+       // CmdSetPlayerNum(sm.playerNo);
         
         //playerArray.AddSelf(this.gameObject, currentPlayerNo);
         //playerAdd.CmdAddSelf(this.gameObject, currentPlayerNo);
@@ -40,10 +44,15 @@ public class PlayerAssignGet : NetworkBehaviour {
     [Command]
     void CmdGetNum() {
         sm.playerNo++;
+        currentPlayerNo = sm.playerNo;
     }
+    //[Command]
+   // void CmdSetPlayerNum(int num) {
+    ///    currentPlayerNo = num;
+   // }
     [Command]
-    void CmdSetPlayerNum(int num) {
-        currentPlayerNo = num;
+    public void CmdIncreaseKill() {
+        kills++;
     }
 
     public void takePlayerNumber() {

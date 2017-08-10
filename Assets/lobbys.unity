@@ -320,8 +320,9 @@ MonoBehaviour:
   m_OfflineScene: lobbys
   m_OnlineScene: 
   m_SpawnPrefabs:
-  - {fileID: 1697511083126602, guid: 14ca0aab61eaf194c89aa9a0e7526782, type: 2}
-  - {fileID: 1075739120280664, guid: 0e8cbf3364247f740af8988fb1208abf, type: 2}
+  - {fileID: 1149199930595854, guid: 6b5f3d0be9123f1479a61a85edc57e3a, type: 2}
+  - {fileID: 1859313212312494, guid: f2a2dc18e67bd73449675ed62d367586, type: 2}
+  - {fileID: 1257477043979730, guid: e7afb36a5768af845be0a10702ad069b, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:

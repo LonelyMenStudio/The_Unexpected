@@ -44,7 +44,7 @@ public class weaponManager : NetworkBehaviour {
 
     private PlayerAssignGet pl;
     public int currentPlayer;
-    private int currentWeaponPlayer;
+    public int currentWeaponPlayer;
     private bool inWeaponSelect = true;//true when timer done // hopefully done
     private bool selectionDone = false;
     private int weaponOnEnd = 0;//0=ak,
@@ -90,8 +90,8 @@ public class weaponManager : NetworkBehaviour {
         wrl = manager.GetComponent<PlayerAssign>();
         playerManage = this.gameObject.GetComponent<PlayerManagerSelf>();
 
-        weaponRespawnLocation = new GameObject[8];
-        for (int i = 0; i < 8; i++) {
+        weaponRespawnLocation = new GameObject[wrl.weaponRespawnPoints.Length];
+        for (int i = 0; i < wrl.weaponRespawnPoints.Length; i++) {
             weaponRespawnLocation[i] = wrl.weaponRespawnPoints[i];
         }
         if (isLocalPlayer) {
@@ -107,7 +107,11 @@ public class weaponManager : NetworkBehaviour {
         if (!isLocalPlayer) {
             return;
         }
-
+        if (hasWeapon == false){
+            currentWeaponAmmo = 0;
+            currentWeaponMaxAmmo = 0;
+            currentWeaponPlayer = 0;
+        }
        
        // currentPlayer = pl.currentPlayerNo;//remove when weapon select is enabled
         if (checkingPrep && !gObject.inPrep) {
@@ -393,7 +397,10 @@ public class weaponManager : NetworkBehaviour {
             RespawnAK();
         }
         if(weaponOut == 2) {
-
+            RespawnPistol();
+        }
+        if(weaponOut == 3) {
+            RespawnSniper();
         }
         
         
@@ -431,7 +438,7 @@ public class weaponManager : NetworkBehaviour {
         } else {
             if (weaponOut == 1) {
                 spawnAK();
-                CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
+                //CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
             } else if (weaponOut == 2) {
                 CmdSpawnPistol();
                 CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
@@ -547,9 +554,9 @@ public class weaponManager : NetworkBehaviour {
 
 
     void CheckWeaponNumber(int playerNum) {
-        if (!isLocalPlayer) {//????
-            return;
-        }
+       // if (!isLocalPlayer) {//????
+       //     return;
+       // }
         if (currentWeaponPlayer == playerNum) {
             loseWeapon();//weapon information??
         }
@@ -557,7 +564,10 @@ public class weaponManager : NetworkBehaviour {
 
     [Command]
     void CmdDamageDealer(GameObject hit,  int damage) {
-        hit.SendMessage("TakeDamage", currentWeaponDamage);
+        int[] tempSend = new int[2];
+        tempSend[0] = damage;
+        tempSend[1] = currentWeaponPlayer;
+        hit.SendMessage("TakeDamage", tempSend);
     }
 
     IEnumerator Reload() {

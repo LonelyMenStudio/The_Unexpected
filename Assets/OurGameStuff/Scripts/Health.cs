@@ -27,11 +27,13 @@ public class Health : NetworkBehaviour {
     private PlayerManager deathMessage;
     private GameObject HudImage;
     public AudioSource GetHit;
+    public GameObject[] respawnLocations;
 
 
 
     public GameObject Variables;
     private VariablesScript ManagerGet;
+   // private PlayerAssign getRespawns;
     //private int playerNum;
 
     [SyncVar(hook = "OnChangeHealth")]
@@ -40,6 +42,8 @@ public class Health : NetworkBehaviour {
 
     void Awake() {
         Variables = GameObject.FindWithTag("Start");
+
+
     }
     // Use this for initialization
     void Start() {
@@ -49,7 +53,11 @@ public class Health : NetworkBehaviour {
         //playerID = GetComponent<PrepPhase>().playerIDs;
         ph = manager.GetComponent<PrepPhase>();
         ph.Players.Add(this.gameObject);
-
+        //getRespawns = manager.GetComponent<PlayerAssign>();
+        respawnLocations = new GameObject[ph.spawn.Length];
+        for(int i=0; i < ph.spawn.Length; i++) {
+            respawnLocations[i] = ph.spawn[i];
+        }
         //To Find the Health Bar
         barImage = ph.healthObject;
         Healthbar = barImage.GetComponent<Image>();
@@ -57,16 +65,18 @@ public class Health : NetworkBehaviour {
         HudImage = ph.PlayerHUD;
         PlayerHud = HudImage.GetComponent<Image>();
         //To Find Player number and Send massage to PlayerManager
-        inPrep = manager.GetComponent<PrepPhase>();
+        inPrep = manager.GetComponent<PrepPhase>();//dupe
         playerNumber = this.gameObject.GetComponent<PlayerAssignGet>();//should work
         deathMessage = manager.GetComponent<PlayerManager>();
         
     }
 
-    public void TakeDamage(int amount) {
+    public void TakeDamage(int[] damageInfo) {
         if (!isServer) {
             return;
         }
+        int amount = damageInfo[0];
+        int damageFrom = damageInfo[1];
         Healthz -= amount;
         /* bool getDamage = true;
          if (getDamage) {
@@ -85,11 +95,31 @@ public class Health : NetworkBehaviour {
 
         if (Healthz <= 0) {
             Healthz = 0;
-            gameObject.transform.position = respawn.transform.position;
+            sendKill(damageFrom);//All good???
+
+            //why respawn half here??
+            //gameObject.transform.position = respawn.transform.position;
             //SEND MESSAGE BACK
         }
+    }
 
 
+    [Command]
+    void CmdRespawn() {
+        Healthz = maxHealth;
+        
+        playerNumber.deaths++;
+    }
+
+    void sendKill(int killerNumber) {
+        for (int i = 0; i <= deathMessage.Players.Count; i++) {
+            PlayerAssignGet checkPlayer = deathMessage.Players[i].GetComponent<PlayerAssignGet>();
+            if (checkPlayer.currentPlayerNo == killerNumber) {
+                checkPlayer.CmdIncreaseKill();
+                return;
+            }
+        }
+        Debug.Log("couldnt give kill");
     }
     // Update is called once per frame
     void Update() {
@@ -97,35 +127,31 @@ public class Health : NetworkBehaviour {
 
        //player dying animation player wait for done then reset to give feedback
        if(Healthz <= 0) {
-            //will act for everyone as all versions of player will die
-            //CmdPlayerDied(playerNumber.currentPlayerNo);
-            //Respawn();
+            CmdRespawn();
+            
+            CmdPlayerDied(playerNumber.currentPlayerNo);
+            if (isLocalPlayer) {
+                //transform.position = respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position;
+                //will act for everyone as all versions of player will die
 
-       }
+                //Respawn();
+            }
+        }
        //Reset back into game
        
 
         if (Input.GetKeyDown("o")) {
-            TakeDamage(10);
+            CmdTestDamage();
         }
+    }
+    [Command]
+    void CmdTestDamage() {
+        Healthz = Healthz - 20;
     }
 
     [Command]
     void CmdPlayerDied(int playerNum) {
         deathMessage.deathMessenger(playerNum);
-        /*
-        if (playerNum == 1) {
-            deathMessage.player1Dead = true;
-        } else if (playerNum == 2) {
-            deathMessage.player2Dead = true;
-        } else if (playerNum == 3) {
-            deathMessage.player3Dead = true;
-        } else if(playerNum == 4) {
-            deathMessage.player4Dead = true;
-        } else {
-            Debug.Log("WHAT NUMBER IS THIS");
-        }
-        */
     }
 
     void OnChangeHealth(int health) {

@@ -16,7 +16,8 @@ public class PlayerManager : NetworkBehaviour {
     public GameObject[] weaponPortLocations;
     private PlayerAssign playerAssign;
     // public Transform weapon1, weapon2, weapon3, weapon4;// will need a dynamic length array
-
+    private GameObject[] playerSpawner;
+    private PrepPhase getSpawns;
 
 /*
     [SyncVar]
@@ -27,7 +28,7 @@ public class PlayerManager : NetworkBehaviour {
     public bool player3Dead;
     [SyncVar]
     public bool player4Dead;
-*/
+
 
     
     
@@ -47,9 +48,14 @@ public class PlayerManager : NetworkBehaviour {
 	// Use this for initialization
 	void Start () {
         playerAssign = this.gameObject.GetComponent<PlayerAssign>();
-        weaponPortLocations = new GameObject[8];
-        for (int i = 0; i < 8; i++) {
+        getSpawns = this.gameObject.GetComponent<PrepPhase>();
+        weaponPortLocations = new GameObject[playerAssign.weaponRespawnPoints.Length];
+        playerSpawner = new GameObject[getSpawns.spawn.Length];
+        for (int i = 0; i < playerAssign.weaponRespawnPoints.Length; i++) {
             weaponPortLocations[i] = playerAssign.weaponRespawnPoints[i];
+        }
+        for (int i = 0; i < getSpawns.spawn.Length; i++) {
+            playerSpawner[i] = getSpawns.spawn[i];
         }
     }
     public bool finishedWaiting = true;
@@ -117,6 +123,12 @@ public class PlayerManager : NetworkBehaviour {
         */
     }
     public void deathMessenger(int playerDead) {
+        for (int i = 0; i < Players.Count; i++) {
+            PlayerAssignGet respawner = Players[i].GetComponent<PlayerAssignGet>();
+            if (playerDead == respawner.currentPlayerNo) {
+                Players[i].transform.position = playerSpawner[Random.Range(0, playerSpawner.Length)].transform.position;
+            }
+        }
         if (playerDead == 1) {
             for (int i = 0; i < Players.Count; i++) {
                 SendMessageEach(Players[i], 1);
@@ -145,6 +157,7 @@ public class PlayerManager : NetworkBehaviour {
             }
             //Cmd4Died();
         }
+        //need to redo wmaybe because of wonky player numbers
     }
     
 
