@@ -122,11 +122,16 @@ public class PlayerManager : NetworkBehaviour {
         }
         */
     }
+    [ClientRpc]
+    void telePlayer(int i) {
+        Players[i].transform.position = playerSpawner[Random.Range(0, playerSpawner.Length)].transform.position;
+    }
+
     public void deathMessenger(int playerDead) {
         for (int i = 0; i < Players.Count; i++) {
             PlayerAssignGet respawner = Players[i].GetComponent<PlayerAssignGet>();
             if (playerDead == respawner.currentPlayerNo) {
-                Players[i].transform.position = playerSpawner[Random.Range(0, playerSpawner.Length)].transform.position;
+                telePlayer(i);
             }
         }
         if (playerDead == 1) {
