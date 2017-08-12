@@ -11,8 +11,6 @@ public class NetworkXYZSync : NetworkBehaviour {
     private bool startTele = false;
     public Quaternion test2;
 
-    //probs could change locals to non locals
-
 	// Use this for initialization
 	void Start () {
         player = this.transform.gameObject;
@@ -62,19 +60,16 @@ public class NetworkXYZSync : NetworkBehaviour {
             player.transform.localPosition = i;
         }
     }
-    //for inc rotation
     [Command]
     void CmdSyncXYZ(Vector3 i, Quaternion k) {
         RpcSyncXYZ(i, k);
     }
 
-    [ClientRpc]
+    [ClientRpc] // does one error
     void RpcSyncXYZ(Vector3 i, Quaternion k) {
         if (!isLocalPlayer) {
             player.transform.localPosition = i;
             player.transform.localRotation = k;
         }
     }
-
-
 }

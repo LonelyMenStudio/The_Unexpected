@@ -17,11 +17,9 @@ public class Health : NetworkBehaviour {
     public GameObject barImage;
     private GameObject prepHud;
     private GameObject Manager;
-    private PrepPhase gObject;//DUPE
-    private PrepPhase inPrep;//DUPE
+    private PrepPhase prepPhase;
     public string playerName;
     public GameObject manager;
-    private PrepPhase ph;//DUPE
     private PlayerAssignGet playerNumber;
     private PlayerManager deathMessage;
     private GameObject HudImage;
@@ -48,21 +46,20 @@ public class Health : NetworkBehaviour {
         ManagerGet = Variables.GetComponent<VariablesScript>();
         manager = ManagerGet.variables;
         //playerID = GetComponent<PrepPhase>().playerIDs;
-        ph = manager.GetComponent<PrepPhase>();
-        ph.Players.Add(this.gameObject);
+        prepPhase = manager.GetComponent<PrepPhase>();
+        prepPhase.Players.Add(this.gameObject);
         //getRespawns = manager.GetComponent<PlayerAssign>();
-        respawnLocations = new GameObject[ph.spawn.Length];
-        for(int i=0; i < ph.spawn.Length; i++) {
-            respawnLocations[i] = ph.spawn[i];
+        respawnLocations = new GameObject[prepPhase.spawn.Length];
+        for(int i=0; i < prepPhase.spawn.Length; i++) {
+            respawnLocations[i] = prepPhase.spawn[i];
         }
         //To Find the Health Bar
-        barImage = ph.healthObject;
+        barImage = prepPhase.healthObject;
         Healthbar = barImage.GetComponent<Image>();
         //To Find the player HUD
-        HudImage = ph.PlayerHUD;
+        HudImage = prepPhase.PlayerHUD;
         PlayerHud = HudImage.GetComponent<Image>();
         //To Find Player number and Send massage to PlayerManager
-        inPrep = manager.GetComponent<PrepPhase>();//dupe
         playerNumber = this.gameObject.GetComponent<PlayerAssignGet>();//should work
         deathMessage = manager.GetComponent<PlayerManager>();
         teleporter = this.gameObject.GetComponent<NetworkXYZSync>();
@@ -93,11 +90,7 @@ public class Health : NetworkBehaviour {
 
         if (Healthz <= 0) {
             Healthz = 0;
-            sendKill(damageFrom);//All good???
-
-            //why respawn half here??
-            //gameObject.transform.position = respawn.transform.position;
-            //SEND MESSAGE BACK
+            sendKill(damageFrom);//All good??? NOPE
         }
     }
 
@@ -131,16 +124,7 @@ public class Health : NetworkBehaviour {
             CmdPlayerDied(playerNumber.currentPlayerNo);
             CmdRespawn();
             teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
-            if (isLocalPlayer) {
-                
-                //will act for everyone as all versions of player will die
-
-                //Respawn();
-            }
         }
-       //Reset back into game
-       
-
         if (Input.GetKeyDown("o") && isLocalPlayer) {
             CmdTestDamage();
         }
@@ -160,10 +144,6 @@ public class Health : NetworkBehaviour {
             Healthbar.fillAmount = Map(health, 300, 0, 0, 1);
             healthL = health;
         }
-        /*if(isLocalPlayer){
-            text.text = health + "";
-        }*/
-
     }
 
     private float Map(float health, float max, float min, float fillMin, float fillMax) {
