@@ -32,7 +32,7 @@ public class Health : NetworkBehaviour {
     private NetworkXYZSync teleporter;
 
 
-    [SyncVar(hook = "OnChangeHealth")]
+    [SyncVar (hook = "OnChangeHealth")]
     public int Healthz = maxHealth;
 
     public int healthL;
@@ -66,7 +66,7 @@ public class Health : NetworkBehaviour {
         playerNumber = this.gameObject.GetComponent<PlayerAssignGet>();//should work
         deathMessage = manager.GetComponent<PlayerManager>();
         teleporter = this.gameObject.GetComponent<NetworkXYZSync>();
-        
+        healthL = maxHealth;
     }
 
     public void TakeDamage(int[] damageInfo) {
@@ -122,7 +122,7 @@ public class Health : NetworkBehaviour {
     // Update is called once per frame
     void Update() {
 
-        healthL = Healthz;
+        //healthL = Healthz;
         if(healthL <= 0) {
             teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
         }
@@ -158,6 +158,7 @@ public class Health : NetworkBehaviour {
     void OnChangeHealth(int health) {
         if (isLocalPlayer) {
             Healthbar.fillAmount = Map(health, 300, 0, 0, 1);
+            healthL = health;
         }
         /*if(isLocalPlayer){
             text.text = health + "";

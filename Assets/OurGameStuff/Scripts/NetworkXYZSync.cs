@@ -44,7 +44,6 @@ public class NetworkXYZSync : NetworkBehaviour {
     }
 
     public void Teleport(Vector3 whereTo) {//could change to gameObject
-        Debug.Log("gets called");
         teleportTo = whereTo;
         startTele = true;
     }
