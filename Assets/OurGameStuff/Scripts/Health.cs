@@ -128,8 +128,6 @@ public class Health : NetworkBehaviour {
         }
        //player dying animation player wait for done then reset to give feedback
        if(Healthz <= 0) {
-            
-            
             CmdPlayerDied(playerNumber.currentPlayerNo);
             CmdRespawn();
             teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
