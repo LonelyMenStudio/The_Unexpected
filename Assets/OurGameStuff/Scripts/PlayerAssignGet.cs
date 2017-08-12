@@ -33,7 +33,9 @@ public class PlayerAssignGet : NetworkBehaviour {
         playerAdd = manager.GetComponent<PlayerManager>();
         playerArray = this.gameObject.GetComponent<PlayerManagerSelf>();
 
-        CmdGetNum();
+        if (isLocalPlayer) {
+            CmdGetNum();
+        }
        // CmdSetPlayerNum(sm.playerNo);
         
         //playerArray.AddSelf(this.gameObject, currentPlayerNo);

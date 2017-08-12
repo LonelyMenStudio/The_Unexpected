@@ -5,11 +5,13 @@ using UnityEngine.Networking;
 
 public class NetworkXYZSync : NetworkBehaviour {
 
-    GameObject player;
+    private GameObject player;
+    private Vector3 test = new Vector3(0,0,0);
+    private Vector3 teleportTo;
+    private bool startTele = false;
+    public Quaternion test2;
 
-    //[SyncVar]
-    public Vector3 test;
-
+    //probs could change locals to non locals
 
 	// Use this for initialization
 	void Start () {
@@ -20,58 +22,60 @@ public class NetworkXYZSync : NetworkBehaviour {
     
 	// Update is called once per frame
 	void Update () {
-        CmdSetL();
+        if (!isLocalPlayer) {
+            return;
+        }
+        if(startTele == true) {
+            this.transform.position = teleportTo;
+            if (!isServer) {
+                CmdSyncXYZ2(teleportTo);
+            } else {
+                RpcSyncXYZ2(teleportTo);
+            }
+            startTele = false;
+            return;
+        }
+        SetL();
         if (!isServer) {
-            CmdSyncXYZ(test);
+            CmdSyncXYZ(test, test2);
         } else {
-            RpcSyncXYZ(test);
+            RpcSyncXYZ(test, test2);
         }
     }
 
-    void CmdSetL() {
+    public void Teleport(Vector3 whereTo) {//could change to gameObject
+        Debug.Log("gets called");
+        teleportTo = whereTo;
+        startTele = true;
+    }
+    void SetL() {
         test = player.transform.localPosition;
+        test2 = player.transform.localRotation;
     }
     [Command]
-    void CmdSyncXYZ(Vector3 i) {
-        RpcSyncXYZ(i);
+    void CmdSyncXYZ2(Vector3 i) {
+        RpcSyncXYZ2(i);
     }
 
     [ClientRpc]
-    void RpcSyncXYZ(Vector3 i) {
+    void RpcSyncXYZ2(Vector3 i) {
         if (!isLocalPlayer) {
             player.transform.localPosition = i;
         }
     }
-
-    /*
-
-
-
+    //for inc rotation
     [Command]
-    void CmdSwitchWeapon(int weapon) {
-        RpcSwitchWeapon(weapon);
+    void CmdSyncXYZ(Vector3 i, Quaternion k) {
+        RpcSyncXYZ(i, k);
     }
+
     [ClientRpc]
-    void RpcSwitchWeapon(int weapon) {
-        if (weapon == 0) {
-            weaponOut = 0;
-    childMelee.SetActive(true);//***
-            childWeapon1.SetActive(false);//***
-            childWeapon2.SetActive(false);//***
-        }
-        if (weapon == 1) {
-            weaponOut = 1;
-            childMelee.SetActive(false);//***
-            childWeapon1.SetActive(true);//***
-            childWeapon2.SetActive(false);//***
-        } else if (weapon == 2) {
-            weaponOut = 2;
-            childMelee.SetActive(false);//***
-            childWeapon1.SetActive(false);//***
-            childWeapon2.SetActive(true);//***
+    void RpcSyncXYZ(Vector3 i, Quaternion k) {
+        if (!isLocalPlayer) {
+            player.transform.localPosition = test;
+            player.transform.localRotation = test2;
         }
     }
-    */
 
 
 }

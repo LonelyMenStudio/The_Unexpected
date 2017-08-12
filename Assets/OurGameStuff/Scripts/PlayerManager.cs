@@ -128,6 +128,7 @@ public class PlayerManager : NetworkBehaviour {
     //}
 
     public void deathMessenger(int playerDead) {
+        /* teleport trying
         for (int i = 0; i < Players.Count; i++) {
             PlayerAssignGet respawner = Players[i].GetComponent<PlayerAssignGet>();
             if (playerDead == respawner.currentPlayerNo) {
@@ -135,6 +136,7 @@ public class PlayerManager : NetworkBehaviour {
                 Players[i].transform.position = playerSpawner[Random.Range(0, playerSpawner.Length)].transform.position;
             }
         }
+        */
         if (playerDead == 1) {
             for (int i = 0; i < Players.Count; i++) {
                 SendMessageEach(Players[i], 1);

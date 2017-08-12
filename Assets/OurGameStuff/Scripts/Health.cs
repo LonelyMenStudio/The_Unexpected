@@ -17,28 +17,25 @@ public class Health : NetworkBehaviour {
     public GameObject barImage;
     private GameObject prepHud;
     private GameObject Manager;
-    private PrepPhase gObject;
-    private PrepPhase inPrep;
+    private PrepPhase gObject;//DUPE
+    private PrepPhase inPrep;//DUPE
     public string playerName;
-    //public int playerID;
     public GameObject manager;
-    private PrepPhase ph;
+    private PrepPhase ph;//DUPE
     private PlayerAssignGet playerNumber;
     private PlayerManager deathMessage;
     private GameObject HudImage;
     public AudioSource GetHit;
     public GameObject[] respawnLocations;
-
-
-
     public GameObject Variables;
     private VariablesScript ManagerGet;
-   // private PlayerAssign getRespawns;
-    //private int playerNum;
+    private NetworkXYZSync teleporter;
+
 
     [SyncVar(hook = "OnChangeHealth")]
     public int Healthz = maxHealth;
 
+    public int healthL;
 
     void Awake() {
         Variables = GameObject.FindWithTag("Start");
@@ -68,6 +65,7 @@ public class Health : NetworkBehaviour {
         inPrep = manager.GetComponent<PrepPhase>();//dupe
         playerNumber = this.gameObject.GetComponent<PlayerAssignGet>();//should work
         deathMessage = manager.GetComponent<PlayerManager>();
+        teleporter = this.gameObject.GetComponent<NetworkXYZSync>();
         
     }
 
@@ -123,15 +121,20 @@ public class Health : NetworkBehaviour {
     }
     // Update is called once per frame
     void Update() {
-        
 
+        healthL = Healthz;
+        if(healthL <= 0) {
+            teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
+        }
        //player dying animation player wait for done then reset to give feedback
        if(Healthz <= 0) {
-            CmdRespawn();
+            
             
             CmdPlayerDied(playerNumber.currentPlayerNo);
+            CmdRespawn();
+            teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
             if (isLocalPlayer) {
-                //transform.position = respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position;
+                
                 //will act for everyone as all versions of player will die
 
                 //Respawn();
@@ -140,7 +143,7 @@ public class Health : NetworkBehaviour {
        //Reset back into game
        
 
-        if (Input.GetKeyDown("o")) {
+        if (Input.GetKeyDown("o") && isLocalPlayer) {
             CmdTestDamage();
         }
     }
