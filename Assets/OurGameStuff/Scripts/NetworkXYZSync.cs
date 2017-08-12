@@ -72,8 +72,8 @@ public class NetworkXYZSync : NetworkBehaviour {
     [ClientRpc]
     void RpcSyncXYZ(Vector3 i, Quaternion k) {
         if (!isLocalPlayer) {
-            player.transform.localPosition = test;
-            player.transform.localRotation = test2;
+            player.transform.localPosition = i;
+            player.transform.localRotation = k;
         }
     }
 
