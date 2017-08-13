@@ -86,7 +86,7 @@ public class Health : NetworkBehaviour {
              PlayerHud.color = Color.Lerp(PlayerHud.color, Transparent, 20 * Time.deltaTime);
          }*/
         StartCoroutine(Flash());
-        GetHit.Play();
+        
 
         if (Healthz <= 0) {
             Healthz = 0;
@@ -132,6 +132,7 @@ public class Health : NetworkBehaviour {
     [Command]
     void CmdTestDamage() {
         Healthz = Healthz - 20;
+        GetHit.Play();
     }
 
     [Command]

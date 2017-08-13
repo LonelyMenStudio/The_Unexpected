@@ -32,14 +32,16 @@ public class weaponManager : NetworkBehaviour {
     private Text ammoText;
     public GameObject prepHud;
     private PrepPhase gObject;
-    AudioSource fire;
-    AudioSource reload;
-    AudioSource HitSE;
+    public AudioSource fire;
+    public AudioSource reload;
+    public AudioSource HitSE;
+    public AudioSource Sniper_shot;
+    public AudioSource Shotgun_shot;
     private float delayTime = 0.05f;
     private float counter = 0.0f;
     private bool canShoot = false;
     public GameObject bulletHole;
-    public AudioSource[] sounds;
+   // public AudioSource[] sounds;
     public GameObject AmmoObject;
     private bool spawnhole = true;
     public int Shotgunshells = 6;
@@ -79,9 +81,12 @@ public class weaponManager : NetworkBehaviour {
     void Start() {
 
         ManagerGet = Variables.GetComponent<VariablesScript>();
-        sounds = GetComponents<AudioSource>();
-        fire = sounds[1];
-        HitSE = sounds[2];
+        //sounds = GetComponents<AudioSource>();
+        //reload = sounds[0];
+        //fire = sounds[1];
+       // HitSE = sounds[2];
+      //  Sniper_shot = sounds[5];
+        //Shotgun_shot = sounds[4];
         // reload = sounds[0];
         //animatorz = GetComponent<Animator>();
         manager = ManagerGet.variables;
@@ -155,7 +160,7 @@ public class weaponManager : NetworkBehaviour {
 
         if (Input.GetKey(KeyCode.Mouse0) && hasWeapon && canShoot && counter > delayTime) { // probs can be cut down to only 1 raycast
             shoot();
-            fire.Play();
+            //fire.Play();
         }
         counter += Time.deltaTime;//counter to ensure not infinite fire rate
         if (Input.GetKeyDown(KeyCode.R) && hasWeapon) {
@@ -508,6 +513,7 @@ public class weaponManager : NetworkBehaviour {
         RaycastHit hit2;
         if (weaponOut == 1 && Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit2)) {
             if (hit2.transform.tag == "Player") {
+                fire.Play();
                 HitSE.Play();
                 float distance = Vector3.Distance(transform.position, hit2.transform.position);
                 if (distance >= 300) {
@@ -533,6 +539,7 @@ public class weaponManager : NetworkBehaviour {
             for (int i = 0; i < Shotgunshells; i++) {
                 if (Physics.Raycast(Camera.main.transform.position, AimSpread * Vector3.forward, out hit2, Mathf.Infinity)) {
                     if (hit2.transform.tag == "Player") {
+                        Shotgun_shot.Play();
                         float distance = Vector3.Distance(transform.position, hit2.transform.position);
                         if (distance >= 100) {
                             distance = 99;
@@ -546,7 +553,7 @@ public class weaponManager : NetworkBehaviour {
             }
         } else if (weaponOut ==3 && Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit2)) {
             if (hit2.transform.tag == "Player") {
-                HitSE.Play();
+                Sniper_shot.Play();
                 float distance = Vector3.Distance(transform.position, hit2.transform.position);
                 if (distance >= 500) {
                     distance = 499;
@@ -563,7 +570,8 @@ public class weaponManager : NetworkBehaviour {
         } else {
             Debug.Log("Missed player");
         }
-        if (weaponOut != 2) {
+        if (weaponOut == 1) {
+            fire.Play();
             RaycastHit hit;
             Ray ray = new Ray(Camera.main.transform.position, childRoot.transform.forward);
             if (Physics.Raycast(ray, out hit, 100f) && spawnhole) {
@@ -572,6 +580,7 @@ public class weaponManager : NetworkBehaviour {
             spawnhole = true;
 
         } else if (weaponOut == 2) {
+            Shotgun_shot.Play();
             RaycastHit hit4;
             for (int i = 0; i < Shotgunshells; i++) {
                 Vector3 ShotgunAim = Camera.main.transform.forward;
@@ -583,6 +592,15 @@ public class weaponManager : NetworkBehaviour {
                 }
                 spawnhole = true;
             }
+        } else if (weaponOut == 3) {
+            Sniper_shot.Play();
+            RaycastHit hit;
+            Ray ray = new Ray(Camera.main.transform.position, childRoot.transform.forward);
+            if (Physics.Raycast(ray, out hit, 100f) && spawnhole) {
+                Instantiate(bulletHole, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
+            }
+            spawnhole = true;
+
         } else {
             Debug.Log("Not Shotting or not Hit player");
         }
