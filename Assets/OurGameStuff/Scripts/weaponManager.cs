@@ -16,6 +16,9 @@ public class weaponManager : NetworkBehaviour {
     public int currentWeaponAmmo;
     public int currentWeaponMaxAmmo;
     private int currentWeaponDamage = 10;
+    private float AkDamage = 10;
+    private float ShotgunDmg = 5;
+    private float sniperDmg = 25;
     public GameObject childMelee;
     public GameObject childWeapon1;
     public GameObject childWeapon2;
@@ -24,11 +27,13 @@ public class weaponManager : NetworkBehaviour {
     private GameObject childRoot;
     private GameObject weaponDropperTemp;
     public GameObject ammoDisplay;
+    public Image Hitmark;
+    private GameObject HitMarker;
     private Text ammoText;
     public GameObject prepHud;
     private PrepPhase gObject;
-     AudioSource fire;
-     AudioSource reload;
+    AudioSource fire;
+    AudioSource reload;
     AudioSource HitSE;
     private float delayTime = 0.05f;
     private float counter = 0.0f;
@@ -58,12 +63,13 @@ public class weaponManager : NetworkBehaviour {
     private VariablesScript ManagerGet;
 
     //=======
-    
-    
-//>>>>>>> c3943934d6b06f638b2c283b56224c49b4642929
+
+
+    //>>>>>>> c3943934d6b06f638b2c283b56224c49b4642929
     //Animator animatorz;
 
     private const float RELOAD_TIME = 2.0f;
+    private const float hitmarkertime = 1.0f;
 
     void Awake() {
         Variables = GameObject.FindWithTag("Start");
@@ -71,7 +77,7 @@ public class weaponManager : NetworkBehaviour {
 
     // Use this for initialization
     void Start() {
-        
+
         ManagerGet = Variables.GetComponent<VariablesScript>();
         sounds = GetComponents<AudioSource>();
         fire = sounds[1];
@@ -81,12 +87,14 @@ public class weaponManager : NetworkBehaviour {
         manager = ManagerGet.variables;
         prepHud = ManagerGet.variables;//dupe
         gObject = prepHud.GetComponent<PrepPhase>();
-
+        //HitMarker
+        HitMarker = gObject.HitMark;
+        Hitmark = HitMarker.GetComponent<Image>();
+        HitMarker.SetActive(false);
         AmmoObject = GameObject.FindWithTag("Ammo");
-
         //ammoDisplay = gObject.ammoObject;
         ammoText = AmmoObject.GetComponent<Text>();
-        
+
         wrl = manager.GetComponent<PlayerAssign>();
         playerManage = this.gameObject.GetComponent<PlayerManagerSelf>();
 
@@ -107,13 +115,13 @@ public class weaponManager : NetworkBehaviour {
         if (!isLocalPlayer) {
             return;
         }
-        if (hasWeapon == false){
+        if (hasWeapon == false) {
             currentWeaponAmmo = 0;
             currentWeaponMaxAmmo = 0;
             currentWeaponPlayer = 0;
         }
-       
-       // currentPlayer = pl.currentPlayerNo;//remove when weapon select is enabled
+
+        // currentPlayer = pl.currentPlayerNo;//remove when weapon select is enabled
         if (checkingPrep && !gObject.inPrep) {
             inWeaponSelect = false;
             selectionDone = true;
@@ -128,12 +136,10 @@ public class weaponManager : NetworkBehaviour {
                         if (hit.transform.gameObject.name.Contains("PrepRifle")) {
                             weaponOnEnd = 0;
                             changeWeapon(1);
-                        }
-                        else if (hit.transform.gameObject.name.Contains("PrepShotty")) { //just demo weapon
+                        } else if (hit.transform.gameObject.name.Contains("PrepShotty")) { //just demo weapon
                             weaponOnEnd = 1;
                             changeWeapon(2);
-                        } 
-                        else if (hit.transform.gameObject.name.Contains("PrepSniper")) { //just demo weapon
+                        } else if (hit.transform.gameObject.name.Contains("PrepSniper")) { //just demo weapon
                             weaponOnEnd = 2;
                             changeWeapon(3);
                         }
@@ -144,7 +150,7 @@ public class weaponManager : NetworkBehaviour {
         }
         if (selectionDone && actionOnce) {
             actionOnce = false;
-                weaponFirstSpawn(weaponOnEnd);  // update to hold more than one weapon
+            weaponFirstSpawn(weaponOnEnd);  // update to hold more than one weapon
         }
 
         if (Input.GetKey(KeyCode.Mouse0) && hasWeapon && canShoot && counter > delayTime) { // probs can be cut down to only 1 raycast
@@ -161,8 +167,8 @@ public class weaponManager : NetworkBehaviour {
         if (Input.GetKeyDown(KeyCode.F) && hasWeapon) {//used to be switch weapon but removing it
             dropWeapon();
         }
-        ammoText.text = currentWeaponAmmo + "/" +currentWeaponMaxAmmo;
-        if(currentWeaponAmmo <= 0) {
+        ammoText.text = currentWeaponAmmo + "/" + currentWeaponMaxAmmo;
+        if (currentWeaponAmmo <= 0) {
             canShoot = false;
         }
 
@@ -182,7 +188,7 @@ public class weaponManager : NetworkBehaviour {
                 if (hit.transform.gameObject.name.Contains("Shotty")) {//***
                     replaceWeapon(hit);
                     changeWeapon(2);
-                    }
+                }
                 if (hit.transform.gameObject.name.Contains("AlienSniper")) {//***
                     replaceWeapon(hit);
                     changeWeapon(3);
@@ -266,13 +272,13 @@ public class weaponManager : NetworkBehaviour {
     */
     private void RespawnAK() {
         CmdRespawnAK();
-       // playerManage.AddWeaponToList(weaponDropperTemp);
+        // playerManage.AddWeaponToList(weaponDropperTemp);
         CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
     }
     private void spawnAK() {
         CmdSpawnAK();
-       // playerManage.AddWeaponToList(weaponDropperTemp);
-       
+        // playerManage.AddWeaponToList(weaponDropperTemp);
+
     }
     private void destoryWeapon(GameObject destoryThis) {
         playerManage.DropWeaponFromList(destoryThis);
@@ -280,20 +286,20 @@ public class weaponManager : NetworkBehaviour {
     }
     private void spawnPistol() {// need work
         CmdSpawnPistol();
-       // playerManage.AddWeaponToList(weaponDropperTemp);
+        // playerManage.AddWeaponToList(weaponDropperTemp);
     }
     private void RespawnPistol() {// need work
         CmdRespawnPistol();
-       // playerManage.AddWeaponToList(weaponDropperTemp);
+        // playerManage.AddWeaponToList(weaponDropperTemp);
         CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
     }
     private void spawnSniper() {// need work
         CmdSpawnPistol();
-       // playerManage.AddWeaponToList(weaponDropperTemp);
+        // playerManage.AddWeaponToList(weaponDropperTemp);
     }
     private void RespawnSniper() {// need work
         CmdRespawnPistol();
-       // playerManage.AddWeaponToList(weaponDropperTemp);
+        // playerManage.AddWeaponToList(weaponDropperTemp);
         CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
     }
 
@@ -359,7 +365,7 @@ public class weaponManager : NetworkBehaviour {
         } else {
             Debug.Log("problem spawning the weapon");
         }
-       // playerManage.AddWeaponToList(weaponDropperTemp);
+        // playerManage.AddWeaponToList(weaponDropperTemp);
         CmdWeaponAmmoDrop(weaponDropperTemp, 30, 30, currentPlayer);
     }
     /*void weaponFirstSpawn(int weaponToSpawn) {
@@ -393,17 +399,17 @@ public class weaponManager : NetworkBehaviour {
         } else {
             RpcSwitchWeapon(0);
         }
-        if(weaponOut == 1) {
+        if (weaponOut == 1) {
             RespawnAK();
         }
-        if(weaponOut == 2) {
+        if (weaponOut == 2) {
             RespawnPistol();
         }
-        if(weaponOut == 3) {
+        if (weaponOut == 3) {
             RespawnSniper();
         }
-        
-        
+
+
         //weapon type?
         //possibly clear out ammo from weapon
         //clear any other weapon effects if added
@@ -416,13 +422,13 @@ public class weaponManager : NetworkBehaviour {
         } else {
             RpcSwitchWeapon(0);
         }
-            if (weaponOut == 1) {
-                spawnAK();
-                CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
-            } else if (weaponOut == 2) {
-                CmdSpawnPistol();
-                CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
-            } else if (weaponOut == 3) {
+        if (weaponOut == 1) {
+            spawnAK();
+            CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
+        } else if (weaponOut == 2) {
+            CmdSpawnPistol();
+            CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
+        } else if (weaponOut == 3) {
             CmdSpawnSniper();
             CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
         }
@@ -475,7 +481,7 @@ public class weaponManager : NetworkBehaviour {
         // NetworkServer.Destroy(hit.transform.gameObject);
         currentWeaponPlayer = currentWeaponSettingsGet.playerNo;
         CmdDestroyHit(weaponPicker);
-        
+
     }
 
     [Command]
@@ -500,11 +506,19 @@ public class weaponManager : NetworkBehaviour {
 
         }
         RaycastHit hit2;
-        if (weaponOut != 2 && Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit2)) {
+        if (weaponOut == 1 && Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit2)) {
             if (hit2.transform.tag == "Player") {
                 HitSE.Play();
-                CmdDamageDealer(hit2.transform.gameObject, currentWeaponDamage);
+                float distance = Vector3.Distance(transform.position, hit2.transform.position);
+                if (distance >= 300) {
+                    distance = 299;
+                }
+                AkDamage = 1 - (distance / 300);
+                int damageAK = (int)AkDamage;
+                CmdDamageDealer(hit2.transform.gameObject, damageAK);
                 spawnhole = false;
+                HitMarker.SetActive(true);
+                StartCoroutine(hit());
                 //HitMarkersound here;
                 //Enemy enemyhealth = hit2.collider.gameObject.GetComponent<Enemy>();
                 //enemyhealth.TakeDamage(10);  // always sending consistent damage, this will have to be pulled from
@@ -519,10 +533,32 @@ public class weaponManager : NetworkBehaviour {
             for (int i = 0; i < Shotgunshells; i++) {
                 if (Physics.Raycast(Camera.main.transform.position, AimSpread * Vector3.forward, out hit2, Mathf.Infinity)) {
                     if (hit2.transform.tag == "Player") {
-                        CmdDamageDealer(hit2.transform.gameObject, currentWeaponDamage);
+                        float distance = Vector3.Distance(transform.position, hit2.transform.position);
+                        if (distance >= 100) {
+                            distance = 99;
+                        }
+                        ShotgunDmg = 1 - (distance / 100);
+                        int damageS = (int)ShotgunDmg;
+                        CmdDamageDealer(hit2.transform.gameObject, damageS);
                         spawnhole = false;
                     }
                 }
+            }
+        } else if (weaponOut ==3 && Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit2)) {
+            if (hit2.transform.tag == "Player") {
+                HitSE.Play();
+                float distance = Vector3.Distance(transform.position, hit2.transform.position);
+                if (distance >= 500) {
+                    distance = 499;
+                }
+                sniperDmg = 1 - (distance / 500);
+                int damageSn = (int)sniperDmg;
+                CmdDamageDealer(hit2.transform.gameObject, damageSn);
+                spawnhole = false;
+
+                //HitMarkersound here;
+                //Enemy enemyhealth = hit2.collider.gameObject.GetComponent<Enemy>();
+                //enemyhealth.TakeDamage(10);  // always sending consistent damage, this will have to be pulled from
             }
         } else {
             Debug.Log("Missed player");
@@ -570,6 +606,10 @@ public class weaponManager : NetworkBehaviour {
         hit.SendMessage("TakeDamage", tempSend);
     }
 
+    IEnumerator hit() {
+        yield return new WaitForSeconds(hitmarkertime);
+        HitMarker.SetActive(false);
+    }
     IEnumerator Reload() {
         //reload.Play();
         canShoot = false;
