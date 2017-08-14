@@ -515,11 +515,11 @@ public class weaponManager : NetworkBehaviour {
             if (hit2.transform.tag == "Player") {
                 fire.Play();
                 HitSE.Play();
-                //float distance = Vector3.Distance(transform.position, hit2.transform.position);
-                //if (distance >= 300) {
-                //    distance = 299;
-                //}
-                //AkDamage = 1 - (distance / 300);
+                float distance = Vector3.Distance(transform.position, hit2.transform.position);
+                if (distance >= 300) {
+                    distance = 299;
+                }
+                AkDamage = AkDamage * 1 - (distance / 300);
                 int damageAK = (int)AkDamage;
                 CmdDamageDealer(hit2.transform.gameObject, damageAK, currentPlayer);
                 spawnhole = false;
@@ -545,7 +545,7 @@ public class weaponManager : NetworkBehaviour {
                             distance = 99;
                         }
                         HitMarker.SetActive(true);
-                        ShotgunDmg = 1 - (distance / 100);
+                        ShotgunDmg = ShotgunDmg * 1 - (distance / 100);
                         int damageS = (int)ShotgunDmg;
                         CmdDamageDealer(hit2.transform.gameObject, damageS,currentPlayer);
                         spawnhole = false;
@@ -560,7 +560,7 @@ public class weaponManager : NetworkBehaviour {
                     distance = 499;
                 }
                 HitMarker.SetActive(true);
-                sniperDmg = 1 - (distance / 500);
+                sniperDmg = sniperDmg * 1 - (distance / 500);
                 int damageSn = (int)sniperDmg;
                 CmdDamageDealer(hit2.transform.gameObject, damageSn,currentPlayer);
                 spawnhole = false;
