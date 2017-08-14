@@ -17,29 +17,28 @@ public class Health : NetworkBehaviour {
     public GameObject barImage;
     private GameObject prepHud;
     private GameObject Manager;
-    private PrepPhase gObject;
-    private PrepPhase inPrep;
+    private PrepPhase prepPhase;
     public string playerName;
-    //public int playerID;
     public GameObject manager;
-    private PrepPhase ph;
     private PlayerAssignGet playerNumber;
     private PlayerManager deathMessage;
     private GameObject HudImage;
     public AudioSource GetHit;
-
-
-
+    public GameObject[] respawnLocations;
     public GameObject Variables;
     private VariablesScript ManagerGet;
-    //private int playerNum;
+    private NetworkXYZSync teleporter;
 
-    [SyncVar(hook = "OnChangeHealth")]
+
+    [SyncVar (hook = "OnChangeHealth")]
     public int Healthz = maxHealth;
 
+    public int healthL;
 
     void Awake() {
         Variables = GameObject.FindWithTag("Start");
+
+
     }
     // Use this for initialization
     void Start() {
@@ -47,26 +46,32 @@ public class Health : NetworkBehaviour {
         ManagerGet = Variables.GetComponent<VariablesScript>();
         manager = ManagerGet.variables;
         //playerID = GetComponent<PrepPhase>().playerIDs;
-        ph = manager.GetComponent<PrepPhase>();
-        ph.Players.Add(this.gameObject);
-
+        prepPhase = manager.GetComponent<PrepPhase>();
+        prepPhase.Players.Add(this.gameObject);
+        //getRespawns = manager.GetComponent<PlayerAssign>();
+        respawnLocations = new GameObject[prepPhase.spawn.Length];
+        for(int i=0; i < prepPhase.spawn.Length; i++) {
+            respawnLocations[i] = prepPhase.spawn[i];
+        }
         //To Find the Health Bar
-        barImage = ph.healthObject;
+        barImage = prepPhase.healthObject;
         Healthbar = barImage.GetComponent<Image>();
         //To Find the player HUD
-        HudImage = ph.PlayerHUD;
+        HudImage = prepPhase.PlayerHUD;
         PlayerHud = HudImage.GetComponent<Image>();
         //To Find Player number and Send massage to PlayerManager
-        inPrep = manager.GetComponent<PrepPhase>();
         playerNumber = this.gameObject.GetComponent<PlayerAssignGet>();//should work
         deathMessage = manager.GetComponent<PlayerManager>();
-        
+        teleporter = this.gameObject.GetComponent<NetworkXYZSync>();
+        healthL = maxHealth;
     }
 
-    public void TakeDamage(int amount) {
+    public void TakeDamage(int[] damageInfo) {
         if (!isServer) {
             return;
         }
+        int amount = damageInfo[0];
+        int damageFrom = damageInfo[1];
         Healthz -= amount;
         /* bool getDamage = true;
          if (getDamage) {
@@ -81,61 +86,64 @@ public class Health : NetworkBehaviour {
              PlayerHud.color = Color.Lerp(PlayerHud.color, Transparent, 20 * Time.deltaTime);
          }*/
         StartCoroutine(Flash());
-        GetHit.Play();
 
         if (Healthz <= 0) {
             Healthz = 0;
-            gameObject.transform.position = respawn.transform.position;
-            //SEND MESSAGE BACK
+            sendKill(damageFrom);//All good??? NOPE
         }
+    }
 
 
+    [Command]
+    void CmdRespawn() {
+        Healthz = maxHealth;
+        
+        playerNumber.deaths++;
+    }
+
+    void sendKill(int killerNumber) {
+        for (int i = 0; i <= deathMessage.Players.Count; i++) {
+            PlayerAssignGet checkPlayer = deathMessage.Players[i].GetComponent<PlayerAssignGet>();
+            if (checkPlayer.currentPlayerNo == killerNumber) {
+                checkPlayer.CmdIncreaseKill();
+                return;
+            }
+        }
+        Debug.Log("couldnt give kill");
     }
     // Update is called once per frame
     void Update() {
-        
 
+        //healthL = Healthz;
+        if(healthL <= 0) {
+            teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
+        }
        //player dying animation player wait for done then reset to give feedback
        if(Healthz <= 0) {
-            //will act for everyone as all versions of player will die
-            //CmdPlayerDied(playerNumber.currentPlayerNo);
-            //Respawn();
-
-       }
-       //Reset back into game
-       
-
-        if (Input.GetKeyDown("o")) {
-            TakeDamage(10);
+            CmdPlayerDied(playerNumber.currentPlayerNo);
+            CmdRespawn();
+            teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
         }
+        if (Input.GetKeyDown("o") && isLocalPlayer) {
+            CmdTestDamage();
+        }
+    }
+    [Command]
+    void CmdTestDamage() {
+        Healthz = Healthz - 20;
+        GetHit.Play();
     }
 
     [Command]
     void CmdPlayerDied(int playerNum) {
         deathMessage.deathMessenger(playerNum);
-        /*
-        if (playerNum == 1) {
-            deathMessage.player1Dead = true;
-        } else if (playerNum == 2) {
-            deathMessage.player2Dead = true;
-        } else if (playerNum == 3) {
-            deathMessage.player3Dead = true;
-        } else if(playerNum == 4) {
-            deathMessage.player4Dead = true;
-        } else {
-            Debug.Log("WHAT NUMBER IS THIS");
-        }
-        */
     }
 
     void OnChangeHealth(int health) {
         if (isLocalPlayer) {
             Healthbar.fillAmount = Map(health, 300, 0, 0, 1);
+            healthL = health;
         }
-        /*if(isLocalPlayer){
-            text.text = health + "";
-        }*/
-
     }
 
     private float Map(float health, float max, float min, float fillMin, float fillMax) {

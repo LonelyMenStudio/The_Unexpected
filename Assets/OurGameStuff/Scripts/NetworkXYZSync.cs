@@ -5,73 +5,74 @@ using UnityEngine.Networking;
 
 public class NetworkXYZSync : NetworkBehaviour {
 
-    GameObject player;
-
-    //[SyncVar]
-    public Vector3 test;
-
+    private GameObject player;
+    private Vector3 playerLocation = new Vector3(0,0,0);
+    private Vector3 teleportTo;
+    private bool startTele = false;
+    private Quaternion bodyRotation = new Quaternion(0,0,0,0);
+    public GameObject childRotation;
+    private Quaternion headRotation = new Quaternion(0,0,0,0);
 
 	// Use this for initialization
 	void Start () {
         player = this.transform.gameObject;
-
 	}
 	
     
 	// Update is called once per frame
 	void Update () {
-        CmdSetL();
+        if (!isLocalPlayer) {
+            return;
+        }
+        if(startTele == true) {
+            this.transform.position = teleportTo;
+            if (!isServer) {
+                CmdSyncXYZTele(teleportTo);
+            } else {
+                RpcSyncXYZTele(teleportTo);
+            }
+            startTele = false;
+            return;
+        }
+        SetL();
         if (!isServer) {
-            CmdSyncXYZ(test);
+            CmdSyncXYZ(playerLocation, bodyRotation, headRotation);
         } else {
-            RpcSyncXYZ(test);
+            RpcSyncXYZ(playerLocation, bodyRotation, headRotation);
         }
     }
 
-    void CmdSetL() {
-        test = player.transform.localPosition;
+    public void Teleport(Vector3 whereTo) {//could change to gameObject
+        teleportTo = whereTo;
+        startTele = true;
+    }
+    void SetL() {
+        playerLocation = player.transform.localPosition;
+        bodyRotation = player.transform.localRotation;
+        headRotation = childRotation.transform.localRotation;
     }
     [Command]
-    void CmdSyncXYZ(Vector3 i) {
-        RpcSyncXYZ(i);
+    void CmdSyncXYZTele(Vector3 i) {
+        RpcSyncXYZTele(i);
     }
 
     [ClientRpc]
-    void RpcSyncXYZ(Vector3 i) {
+    void RpcSyncXYZTele(Vector3 i) {
         if (!isLocalPlayer) {
             player.transform.localPosition = i;
         }
     }
-
-    /*
-
-
-
     [Command]
-    void CmdSwitchWeapon(int weapon) {
-        RpcSwitchWeapon(weapon);
+    void CmdSyncXYZ(Vector3 i, Quaternion body, Quaternion head) {
+        RpcSyncXYZ(i, body, head);
     }
+
     [ClientRpc]
-    void RpcSwitchWeapon(int weapon) {
-        if (weapon == 0) {
-            weaponOut = 0;
-    childMelee.SetActive(true);//***
-            childWeapon1.SetActive(false);//***
-            childWeapon2.SetActive(false);//***
-        }
-        if (weapon == 1) {
-            weaponOut = 1;
-            childMelee.SetActive(false);//***
-            childWeapon1.SetActive(true);//***
-            childWeapon2.SetActive(false);//***
-        } else if (weapon == 2) {
-            weaponOut = 2;
-            childMelee.SetActive(false);//***
-            childWeapon1.SetActive(false);//***
-            childWeapon2.SetActive(true);//***
+    void RpcSyncXYZ(Vector3 i, Quaternion body, Quaternion head) {
+        if (!isLocalPlayer) {
+            player.transform.localPosition = i;
+            player.transform.localRotation = body;
+            childRotation.transform.localRotation = head;
         }
     }
-    */
-
-
 }

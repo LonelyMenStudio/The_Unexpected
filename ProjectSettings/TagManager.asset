@@ -21,6 +21,7 @@ TagManager:
   - Manager
   - Radar pulse
   - Ammo
+  - ErrorText
   layers:
   - Default
   - TransparentFX
