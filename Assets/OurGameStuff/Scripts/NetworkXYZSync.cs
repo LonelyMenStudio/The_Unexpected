@@ -9,7 +9,7 @@ public class NetworkXYZSync : NetworkBehaviour {
     private Vector3 test = new Vector3(0,0,0);
     private Vector3 teleportTo;
     private bool startTele = false;
-    public Quaternion test2;
+    public Quaternion test2 = new Quaternion(0,0,0,0);
 
 	// Use this for initialization
 	void Start () {
