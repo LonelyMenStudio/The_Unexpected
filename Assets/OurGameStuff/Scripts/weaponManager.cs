@@ -544,6 +544,7 @@ public class weaponManager : NetworkBehaviour {
                         if (distance >= 100) {
                             distance = 99;
                         }
+                        HitMarker.SetActive(true);
                         ShotgunDmg = 1 - (distance / 100);
                         int damageS = (int)ShotgunDmg;
                         CmdDamageDealer(hit2.transform.gameObject, damageS);
@@ -558,6 +559,7 @@ public class weaponManager : NetworkBehaviour {
                 if (distance >= 500) {
                     distance = 499;
                 }
+                HitMarker.SetActive(true);
                 sniperDmg = 1 - (distance / 500);
                 int damageSn = (int)sniperDmg;
                 CmdDamageDealer(hit2.transform.gameObject, damageSn);
