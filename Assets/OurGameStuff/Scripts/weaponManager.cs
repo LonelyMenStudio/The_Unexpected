@@ -41,7 +41,9 @@ public class weaponManager : NetworkBehaviour {
     private float counter = 0.0f;
     private bool canShoot = false;
     public GameObject bulletHole;
-   // public AudioSource[] sounds;
+    public ParticleSystem ShotParticle;
+    public ParticleSystem ShotFlash;
+    // public AudioSource[] sounds;
     public GameObject AmmoObject;
     private bool spawnhole = true;
     public int Shotgunshells = 6;
@@ -580,6 +582,8 @@ public class weaponManager : NetworkBehaviour {
         }
         if (weaponOut == 1) {
             fire.Play();
+            ShotParticle.Play();
+            ShotFlash.Play();
             RaycastHit hit;
             Ray ray = new Ray(Camera.main.transform.position, childRoot.transform.forward);
             if (Physics.Raycast(ray, out hit, 100f) && spawnhole) {
