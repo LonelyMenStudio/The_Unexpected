@@ -27,6 +27,7 @@ public class PrepPhase : MonoBehaviour {
     private PlayerManager assignTime;
     private bool canAssign = true;
     public GameObject ErrorText;
+    private GameTimerCommander timerStarter;
 
 
     // Use this for initialization
@@ -61,6 +62,10 @@ public class PrepPhase : MonoBehaviour {
             timeRemaining = 2;
             inPrep = false;
             timer.SetActive(false);
+            for(int i = 0; i < Players.Count; i++) {
+                timerStarter = Players[i].GetComponent<GameTimerCommander>();
+                timerStarter.TryStart();
+            }
             ErrorText.SetActive(true);
             StartCoroutine(ShowError());
 
