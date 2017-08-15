@@ -9,8 +9,9 @@ public class NetworkXYZSync : NetworkBehaviour {
     private Vector3 playerLocation = new Vector3(0,0,0);
     private Vector3 teleportTo;
     private bool startTele = false;
+    public GameObject childBodyRotation;
     public Quaternion bodyRotation = new Quaternion(0,0,0,0); // Y W - Sync Both
-    public GameObject childRotation;
+    public GameObject childHeadRotation;
     public Quaternion headRotation = new Quaternion(0,0,0,0); // X W - Sync X
 
 	// Use this for initialization
@@ -48,8 +49,8 @@ public class NetworkXYZSync : NetworkBehaviour {
     }
     void SetL() {
         playerLocation = player.transform.localPosition;
-        bodyRotation = player.transform.rotation;
-        headRotation = childRotation.transform.localRotation;
+        bodyRotation = childBodyRotation.transform.rotation;
+        headRotation = childHeadRotation.transform.localRotation;
     }
     [Command]
     void CmdSyncXYZTele(Vector3 i) {
@@ -71,8 +72,9 @@ public class NetworkXYZSync : NetworkBehaviour {
     void RpcSyncXYZ(Vector3 i, Quaternion body, Quaternion head) {
         if (!isLocalPlayer) {
             player.transform.localPosition = i;
-            player.transform.localRotation = body;
-            //childRotation.transform.localRotation = new Quaternion(head.x,0,0,0);
+            //player.transform.localRotation = body;
+            childHeadRotation.transform.localRotation = head;
+            childBodyRotation.transform.localRotation = body;
         }
     }
 }

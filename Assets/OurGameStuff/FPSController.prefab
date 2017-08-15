@@ -5630,7 +5630,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 887cdae00e36a7f4298966c96f39e971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  childRotation: {fileID: 1025430321305366}
+  childBodyRotation: {fileID: 1573973259095556}
+  bodyRotation: {x: 0, y: 0, z: 0, w: 0}
+  childHeadRotation: {fileID: 1025430321305366}
+  headRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &114815791388495448
 MonoBehaviour:
   m_ObjectHideFlags: 1
