@@ -285,8 +285,13 @@ public class weaponManager : NetworkBehaviour {
         // playerManage.AddWeaponToList(weaponDropperTemp);
 
     }
+    [Command]
+    void CmdDropWeapon(GameObject thisOne) {
+        playerManage.DropWeaponFromList(thisOne);
+    }
+
     private void destoryWeapon(GameObject destoryThis) {
-        playerManage.DropWeaponFromList(destoryThis);
+        CmdDropWeapon(destoryThis);
         CmdDestroyHit(destoryThis);
     }
     private void spawnPistol() {// need work
