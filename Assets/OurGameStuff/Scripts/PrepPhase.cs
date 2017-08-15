@@ -63,8 +63,8 @@ public class PrepPhase : MonoBehaviour {
             inPrep = false;
             timer.SetActive(false);
             for(int i = 0; i < Players.Count; i++) {
-                timerStarter = Players[i].GetComponent<GameTimerCommander>();
-                timerStarter.TryStart();
+                timerStarter = Players[i].gameObject.GetComponent<GameTimerCommander>();
+                //timerStarter.TryStart();
             }
             ErrorText.SetActive(true);
             StartCoroutine(ShowError());
