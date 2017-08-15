@@ -285,8 +285,13 @@ public class weaponManager : NetworkBehaviour {
         // playerManage.AddWeaponToList(weaponDropperTemp);
 
     }
+    [Command]
+    void CmdDropWeapon(GameObject thisOne) {
+        playerManage.DropWeaponFromList(thisOne);
+    }
+
     private void destoryWeapon(GameObject destoryThis) {
-        playerManage.DropWeaponFromList(destoryThis);
+        CmdDropWeapon(destoryThis);
         CmdDestroyHit(destoryThis);
     }
     private void spawnPistol() {// need work
@@ -537,17 +542,18 @@ public class weaponManager : NetworkBehaviour {
             AimSpread = Quaternion.RotateTowards(AimSpread, SpreadGenerator, Random.Range(0.0f, ShotgunSpread));
 
             for (int i = 0; i < Shotgunshells; i++) {
-                if (Physics.Raycast(Camera.main.transform.position, AimSpread * Vector3.forward, out hit2, Mathf.Infinity)) {
-                    if (hit2.transform.tag == "Player") {
+                RaycastHit hit3;
+                if (Physics.Raycast(Camera.main.transform.position, AimSpread * Vector3.forward, out hit3, Mathf.Infinity)) {
+                    if (hit3.transform.tag == "Player") {
                         Shotgun_shot.Play();
-                        float distance = Vector3.Distance(transform.position, hit2.transform.position);
+                        float distance = Vector3.Distance(transform.position, hit3.transform.position);
                         if (distance >= 100) {
                             distance = 99;
                         }
                         HitMarker.SetActive(true);
                         ShotgunDmg = ShotgunDmg * 1 - (distance / 100);
                         int damageS = (int)ShotgunDmg;
-                        CmdDamageDealer(hit2.transform.gameObject, damageS,currentPlayer);
+                        CmdDamageDealer(hit3.transform.gameObject, damageS,currentPlayer);
                         spawnhole = false;
                     }
                 }

@@ -21,11 +21,13 @@ public class PrepPhase : MonoBehaviour {
     public GameObject healthObject;
     public GameObject PlayerHUD;
     public GameObject HitMark;
+    public GameObject PlayerScores;
     public List<GameObject> Players = new List<GameObject>();
     // public int playerIDs = 0;
     private PlayerManager assignTime;
     private bool canAssign = true;
     public GameObject ErrorText;
+    private GameTimerCommander timerStarter;
 
 
     // Use this for initialization
@@ -60,6 +62,10 @@ public class PrepPhase : MonoBehaviour {
             timeRemaining = 2;
             inPrep = false;
             timer.SetActive(false);
+            for(int i = 0; i < Players.Count; i++) {
+                timerStarter = Players[i].gameObject.GetComponent<GameTimerCommander>();
+                //timerStarter.TryStart();
+            }
             ErrorText.SetActive(true);
             StartCoroutine(ShowError());
 

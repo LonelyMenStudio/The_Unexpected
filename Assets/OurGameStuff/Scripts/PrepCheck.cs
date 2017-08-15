@@ -20,6 +20,7 @@ public class PrepCheck : NetworkBehaviour {
         //prepManager = GameObject.Find("PrepPhaseManager");
         //prepCheck = prepManager.GetComponent<PrepPhase>();
         con = this.gameObject.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
+        con.enabled = true;//only needs to do it once
     }
 	
 	// Update is called once per frame
@@ -29,7 +30,7 @@ public class PrepCheck : NetworkBehaviour {
         //if (prep) {
         //    con.enabled = false;
         //} else {
-            con.enabled = true;
+        //    con.enabled = true;
         //}
         //prep = prepCheck.inPrep;
     }
