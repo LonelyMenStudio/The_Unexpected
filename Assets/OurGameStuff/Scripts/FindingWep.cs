@@ -21,35 +21,44 @@ public class FindingWep : NetworkBehaviour {
     private PlayerAssignGet player;
     private int playerno;
     private List<GameObject> droppedWeps;
+    private PrepPhase gObject;
 
     void Start() {
+
+        
         Canvas = GameObject.FindWithTag("Radar pulse");
         Beepsound = sounds[0];
         Radar = Canvas.GetComponent<Image>();
         Variables = GameObject.FindWithTag("Start");
         ManagerGet = Variables.GetComponent<VariablesScript>();
         Manager = ManagerGet.variables;
+        gObject = Manager.GetComponent<PrepPhase>();
         pManager = Manager.GetComponent<PlayerManager>();
         player = this.gameObject.GetComponent<PlayerAssignGet>();
         playerno = player.currentPlayerNo;
         droppedWeps = pManager.droppedWeapons;
+
+        Canvas.SetActive(false);
     }
 
     void Update() {
         if (!isLocalPlayer) {
             return;
         }
-       // for (int i = 1; i < pManager.Players.Count; i++) {
-       foreach(GameObject weapon in droppedWeps){
-            weaponSettings weaponPlayerCheck = weapon.GetComponent<weaponSettings>();
-            if(playerno == weaponPlayerCheck.playerNo) {
-                distance = Vector3.Distance(transform.position, weapon.transform.position);
-                Beeping = distance / 30;
-                if (radarsound == true) {
-                    Radar.fillAmount = 1 - (distance / 300);
-                    radarsound = false;
-                    StartCoroutine(Beep());
-                }
+        if (gObject.inPrep == false) {
+            Canvas.SetActive(true);
+            // for (int i = 1; i < pManager.Players.Count; i++) {
+            foreach (GameObject weapon in droppedWeps) {
+                weaponSettings weaponPlayerCheck = weapon.GetComponent<weaponSettings>();
+                if (playerno == weaponPlayerCheck.playerNo) {
+                    distance = Vector3.Distance(transform.position, weapon.transform.position);
+                    Beeping = distance / 30;
+                    if (radarsound == true) {
+                        Radar.fillAmount = 1 - (distance / 300);
+                        radarsound = false;
+                        StartCoroutine(Beep());
+                    }
+                } 
             }
         }
             
