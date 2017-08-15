@@ -16,6 +16,7 @@ public class PlayerAssignGet : NetworkBehaviour {
     private VariablesScript ManagerGet;
     private Transform PlayerKD;
     private Text DisplayKD;
+    private GameTimer checkGameState;
 
     [SyncVar]
     public int currentPlayerNo;
@@ -35,7 +36,7 @@ public class PlayerAssignGet : NetworkBehaviour {
         sm = manager.GetComponent<PlayerAssign>();
         playerAdd = manager.GetComponent<PlayerManager>();
         playerArray = this.gameObject.GetComponent<PlayerManagerSelf>();
-
+        checkGameState = manager.GetComponent<GameTimer>();
         PrepPhase = manager.GetComponent<PrepPhase>();
         PlayerScore = PrepPhase.PlayerScores;
 
@@ -91,7 +92,7 @@ public class PlayerAssignGet : NetworkBehaviour {
         } else {
             Debug.Log("No Player found");
         }
-        if (!isLocalPlayer) {
+        if (!isLocalPlayer ) {//|| checkGameState.gameTimeOver) { uncomment when everything added into scene currently would just error
             return;
         }
         if (Input.GetKey(KeyCode.Tab)) {

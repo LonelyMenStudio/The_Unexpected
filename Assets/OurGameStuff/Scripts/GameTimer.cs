@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameTimer : NetworkBehaviour {
 
@@ -10,7 +11,10 @@ public class GameTimer : NetworkBehaviour {
     public GameObject timerObject;
     private Text timer;
     private string timeDisplay = "";
-    private bool gameTimeOver = false;
+    public bool gameTimeOver = false;
+    private PrepPhase scoreboard;
+    private PlayerManager playerManager;
+    
 
     [SyncVar]
     public float gameTime = GAME_TIME_LENGTH;
@@ -39,6 +43,8 @@ public class GameTimer : NetworkBehaviour {
     // Use this for initialization
     void Start() {
         timer = timerObject.GetComponent<Text>();
+        scoreboard = this.gameObject.GetComponent<PrepPhase>();
+        playerManager = this.gameObject.GetComponent<PlayerManager>();
     }
 
 
@@ -47,9 +53,32 @@ public class GameTimer : NetworkBehaviour {
         getTime();
         timer.text = timeDisplay;
         if(gameTimeOver == true) {
-            //lock player out
-            //Show scores for amount of time
-            //Load Main Menu
+            UnlockMouse();
+            //game over camera maybe
+            ShowScoreboard();
+            LoadMainMenu();
         }
     }
+
+    void ShowScoreboard() {
+        scoreboard.PlayerScores.gameObject.SetActive(true);
+        //stop it constantlybeing hidden by other script
+        //need to do something in PlayerAssignGet for this but cant right now
+    }
+
+    void UnlockMouse() {
+        for(int i = 0; i < playerManager.Players.Count; i++) {
+            UnityStandardAssets.Characters.FirstPerson.FirstPersonController Controller = playerManager.Players[i].GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
+            Controller.enabled = false;
+        }
+        //change prep check
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    IEnumerator LoadMainMenu() {
+        yield return new WaitForSeconds(10);
+        SceneManager.LoadScene(0);
+    }
+
 }
