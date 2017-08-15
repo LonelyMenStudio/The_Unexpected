@@ -274,6 +274,7 @@ GameObject:
   - component: {fileID: 1144230088}
   - component: {fileID: 1144230087}
   - component: {fileID: 1144230086}
+  - component: {fileID: 1144230089}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -339,12 +340,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 351903797eaa9594181b1099f3c1dd7f, type: 3}
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 1144230089}
+        m_MethodName: loadscene
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -385,6 +386,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1144230084}
+--- !u!114 &1144230089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1144230084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 492ed3b39b3320e4f9485c3c1edaabaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1252387834
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,7 +471,7 @@ GameObject:
   - component: {fileID: 1478519665}
   m_Layer: 5
   m_Name: Network Managr
-  m_TagString: Untagged
+  m_TagString: NetWork
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -581,7 +593,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1478519664}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -4406}
   m_LocalScale: {x: 0.29444444, y: 0.29444444, z: 0.29444444}
   m_Children: []
   m_Father: {fileID: 0}

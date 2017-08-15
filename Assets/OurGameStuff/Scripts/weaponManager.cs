@@ -43,6 +43,8 @@ public class weaponManager : NetworkBehaviour {
     public GameObject bulletHole;
     public ParticleSystem ShotParticle;
     public ParticleSystem ShotFlash;
+    public ParticleSystem ShotGunParticle;
+    public ParticleSystem SniperParticle;
     // public AudioSource[] sounds;
     public GameObject AmmoObject;
     private bool spawnhole = true;
@@ -544,10 +546,13 @@ public class weaponManager : NetworkBehaviour {
             AimSpread = Quaternion.RotateTowards(AimSpread, SpreadGenerator, Random.Range(0.0f, ShotgunSpread));
 
             for (int i = 0; i < Shotgunshells; i++) {
+                
                 RaycastHit hit3;
                 if (Physics.Raycast(Camera.main.transform.position, AimSpread * Vector3.forward, out hit3, Mathf.Infinity)) {
+                    
                     if (hit3.transform.tag == "Player") {
                         Shotgun_shot.Play();
+                        ShotGunParticle.Play();
                         float distance = Vector3.Distance(transform.position, hit3.transform.position);
                         if (distance >= 100) {
                             distance = 99;
@@ -563,6 +568,7 @@ public class weaponManager : NetworkBehaviour {
         } else if (weaponOut ==3 && Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit2)) {
             if (hit2.transform.tag == "Player") {
                 Sniper_shot.Play();
+                SniperParticle.Play();
                 float distance = Vector3.Distance(transform.position, hit2.transform.position);
                 if (distance >= 500) {
                     distance = 499;
@@ -583,7 +589,7 @@ public class weaponManager : NetworkBehaviour {
         if (weaponOut == 1) {
             fire.Play();
             ShotParticle.Play();
-            ShotFlash.Play();
+            //ShotFlash.Play();
             RaycastHit hit;
             Ray ray = new Ray(Camera.main.transform.position, childRoot.transform.forward);
             if (Physics.Raycast(ray, out hit, 100f) && spawnhole) {
@@ -600,12 +606,14 @@ public class weaponManager : NetworkBehaviour {
                 Quaternion SpreadGenerator = Random.rotation;
                 AimSpread = Quaternion.RotateTowards(AimSpread, SpreadGenerator, Random.Range(0.0f, ShotgunSpread));
                 if (Physics.Raycast(Camera.main.transform.position, AimSpread * Vector3.forward, out hit4, Mathf.Infinity)) {
+                    ShotGunParticle.Play();
                     Instantiate(bulletHole, hit4.point, Quaternion.FromToRotation(Vector3.up, hit4.normal));
                 }
                 spawnhole = true;
             }
         } else if (weaponOut == 3) {
             Sniper_shot.Play();
+            SniperParticle.Play();
             RaycastHit hit;
             Ray ray = new Ray(Camera.main.transform.position, childRoot.transform.forward);
             if (Physics.Raycast(ray, out hit, 100f) && spawnhole) {
