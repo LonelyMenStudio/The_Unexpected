@@ -10,6 +10,7 @@ ModelImporter:
     2300000: //RootNode
     3300000: //RootNode
     4300000: Cube
+    6400000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -36,9 +37,9 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.15
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
