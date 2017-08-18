@@ -50,6 +50,7 @@ public class weaponManager : NetworkBehaviour {
     private bool spawnhole = true;
     public int Shotgunshells = 6;
     public float ShotgunSpread = 10.0f;
+    private bool inReload = false;
 
     //<<<<<<< HEAD
 
@@ -129,7 +130,7 @@ public class weaponManager : NetworkBehaviour {
             currentWeaponMaxAmmo = 0;
             currentWeaponPlayer = 0;
         }
-
+        CheckCanShoot();
         // currentPlayer = pl.currentPlayerNo;//remove when weapon select is enabled
         if (checkingPrep && !gObject.inPrep) {
             inWeaponSelect = false;
@@ -649,15 +650,28 @@ public class weaponManager : NetworkBehaviour {
     }
     IEnumerator Reload() {
         //reload.Play();
+        inReload = true;
         canShoot = false;
+        
         //transform.Find("crystal").gameObject.GetComponent<Animation>().Play("Take 001");
         yield return new WaitForSeconds(RELOAD_TIME);
         currentWeaponAmmo = currentWeaponMaxAmmo;
         
         canShoot = true;
+        inReload = false;
         
     }
-
+    void CheckCanShoot() {
+        if (inReload || !hasWeapon) {
+            return;
+        }
+        if(currentWeaponAmmo == 0) {
+            canShoot = false;
+        }
+        if(currentWeaponAmmo > 0) {
+            canShoot = true;
+        }
+    }
 
 
     
