@@ -16,6 +16,7 @@ public class PrepCheck : NetworkBehaviour {
     void Start () {
         if (!isLocalPlayer) {
             Destroy(this);
+            //return; maybe add this
         }
         //prepManager = GameObject.Find("PrepPhaseManager");
         //prepCheck = prepManager.GetComponent<PrepPhase>();
