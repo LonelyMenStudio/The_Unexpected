@@ -91,6 +91,7 @@ public class PlayerManager : NetworkBehaviour {
 
     // Update is called once per frame
     void Update () {
+        scanForMissing();
         /*
         if (player1Dead) {
             for(int i = 0; i < Players.Count; i++) {
@@ -214,5 +215,9 @@ public class PlayerManager : NetworkBehaviour {
                 return;
             }
         }
+    }
+
+    private void scanForMissing() {
+       droppedWeapons.RemoveAll(item => item == null);
     }
 }

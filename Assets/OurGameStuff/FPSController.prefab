@@ -464,7 +464,6 @@ GameObject:
   - component: {fileID: 54540095382209202}
   - component: {fileID: 114817777124823552}
   - component: {fileID: 114162507673304960}
-  - component: {fileID: 114237785921534146}
   - component: {fileID: 114774282261101472}
   - component: {fileID: 114999644553244406}
   - component: {fileID: 114399018703621760}
@@ -482,7 +481,7 @@ GameObject:
   - component: {fileID: 82618459009010722}
   - component: {fileID: 82523442537038390}
   - component: {fileID: 114318045427126952}
-  - component: {fileID: 114941495258307898}
+  - component: {fileID: 114301083989393812}
   m_Layer: 0
   m_Name: FPSController
   m_TagString: Player
@@ -5582,7 +5581,6 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  m_UseHeadBob: 1
   m_HeadBob:
     HorizontalBobRange: 0.33
     VerticalBobRange: 0.33
@@ -5632,13 +5630,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 42e65e088b3f4374e851b8dbd38f3df9, type: 3}
   m_JumpSound: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
   m_LandSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
---- !u!114 &114237785921534146
+--- !u!114 &114301083989393812
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1163954766165120}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
@@ -5836,25 +5834,6 @@ MonoBehaviour:
   radarsound: 1
   Radar: {fileID: 114810562171276512, guid: 075ff12a1381b4445ae3a0b560e53991, type: 2}
   Canvas: {fileID: 0}
---- !u!114 &114941495258307898
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1163954766165120}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1267208747, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Target: {fileID: 4849435907057154}
-  m_ChildIndex: 0
-  m_SendInterval: 0.1
-  m_SyncRotationAxis: 7
-  m_RotationSyncCompression: 0
-  m_MovementThreshold: 0.001
-  m_InterpolateRotation: 0.5
-  m_InterpolateMovement: 0.5
 --- !u!114 &114999644553244406
 MonoBehaviour:
   m_ObjectHideFlags: 1

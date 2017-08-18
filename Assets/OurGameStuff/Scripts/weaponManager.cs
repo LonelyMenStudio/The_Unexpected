@@ -359,9 +359,10 @@ public class weaponManager : NetworkBehaviour {
     [Command]
     void CmdDestroyHit(GameObject objectToDestory) {
         weaponSettings clearWeapon = objectToDestory.GetComponent<weaponSettings>();
-        clearWeapon.removeSelfFromList();
+        //clearWeapon.removeSelfFromList(); //NOT NEEDED
         NetworkServer.Destroy(objectToDestory.transform.gameObject);
     }
+    
     void weaponFirstSpawn(int weaponToSpawn) {
         hasWeapon = false;
         canShoot = false;

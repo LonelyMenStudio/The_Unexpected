@@ -20,19 +20,19 @@ public class weaponSettings : NetworkBehaviour {
 
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         Variables = GameObject.FindWithTag("Start");
         ManagerGet = Variables.GetComponent<VariablesScript>();
         Manager = ManagerGet.variables;
         pManager = Manager.GetComponent<PlayerManager>();
         pManager.droppedWeapons.Add(this.gameObject);
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-    public void removeSelfFromList() {
-        pManager.droppedWeapons.Remove(this.gameObject);
+
+    // Update is called once per frame
+    void Update() {
+
     }
+   // public void removeSelfFromList() {
+    //    pManager.droppedWeapons.Remove(this.gameObject);
+   //    }
 }
