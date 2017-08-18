@@ -20,12 +20,12 @@ public class PrepCheck : NetworkBehaviour {
         //prepManager = GameObject.Find("PrepPhaseManager");
         //prepCheck = prepManager.GetComponent<PrepPhase>();
         con = this.gameObject.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
-        con.enabled = true;//only needs to do it once
+        
     }
 	
 	// Update is called once per frame
 	void Update () {
-
+        con.enabled = true;//only needs to do it once
 
         //if (prep) {
         //    con.enabled = false;

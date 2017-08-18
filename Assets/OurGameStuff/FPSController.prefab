@@ -482,6 +482,7 @@ GameObject:
   - component: {fileID: 82618459009010722}
   - component: {fileID: 82523442537038390}
   - component: {fileID: 114318045427126952}
+  - component: {fileID: 114941495258307898}
   m_Layer: 0
   m_Name: FPSController
   m_TagString: Player
@@ -4726,7 +4727,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.1
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -5704,6 +5705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba584ac83cfca3343aaad49c5e18adbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCounter: 0
 --- !u!114 &114368464747890106
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5770,10 +5772,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 887cdae00e36a7f4298966c96f39e971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startTele: 0
   childBodyRotation: {fileID: 1573973259095556}
-  bodyRotation: {x: 0, y: 0, z: 0, w: 0}
   childHeadRotation: {fileID: 1025430321305366}
-  headRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &114815791388495448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5835,6 +5836,25 @@ MonoBehaviour:
   radarsound: 1
   Radar: {fileID: 114810562171276512, guid: 075ff12a1381b4445ae3a0b560e53991, type: 2}
   Canvas: {fileID: 0}
+--- !u!114 &114941495258307898
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1163954766165120}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1267208747, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Target: {fileID: 4849435907057154}
+  m_ChildIndex: 0
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_MovementThreshold: 0.001
+  m_InterpolateRotation: 0.5
+  m_InterpolateMovement: 0.5
 --- !u!114 &114999644553244406
 MonoBehaviour:
   m_ObjectHideFlags: 1

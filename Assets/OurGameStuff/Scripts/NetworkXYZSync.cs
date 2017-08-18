@@ -8,11 +8,11 @@ public class NetworkXYZSync : NetworkBehaviour {
     private GameObject player;
     private Vector3 playerLocation = new Vector3(0,0,0);
     private Vector3 teleportTo;
-    private bool startTele = false;
+    public bool startTele = false;
     public GameObject childBodyRotation;
-    public Quaternion bodyRotation = new Quaternion(0,0,0,0); // Y W - Sync Both
+    //public Quaternion bodyRotation = new Quaternion(0,0,0,0); // Y W - Sync Both
     public GameObject childHeadRotation;
-    public Quaternion headRotation = new Quaternion(0,0,0,0); // X W - Sync X
+    //public Quaternion headRotation = new Quaternion(0,0,0,0); // X W - Sync X
 
 	// Use this for initialization
 	void Start () {
@@ -37,9 +37,9 @@ public class NetworkXYZSync : NetworkBehaviour {
         }
         SetL();
         if (!isServer) {
-            CmdSyncXYZ(playerLocation, bodyRotation, headRotation);
+            CmdSyncXYZ(playerLocation);//, bodyRotation, headRotation);
         } else {
-            RpcSyncXYZ(playerLocation, bodyRotation, headRotation);
+            RpcSyncXYZ(playerLocation); // , bodyRotation, headRotation);//might be the problem
         }
     }
 
@@ -49,12 +49,14 @@ public class NetworkXYZSync : NetworkBehaviour {
     }
     void SetL() {
         playerLocation = player.transform.localPosition;
-        bodyRotation = childBodyRotation.transform.rotation;
-        headRotation = childHeadRotation.transform.localRotation;
+        //bodyRotation = childBodyRotation.transform.rotation * new Quaternion(0, 90, 0, 0); 
+        //bodyRotation.y = bodyRotation.y + 90;apparently broke everything
+        //headRotation = childHeadRotation.transform.localRotation;
     }
     [Command]
     void CmdSyncXYZTele(Vector3 i) {
         RpcSyncXYZTele(i);
+        Debug.Log("well then");
     }
 
     [ClientRpc]
@@ -64,17 +66,17 @@ public class NetworkXYZSync : NetworkBehaviour {
         }
     }
     [Command]
-    void CmdSyncXYZ(Vector3 i, Quaternion body, Quaternion head) {
-        RpcSyncXYZ(i, body, head);
+    void CmdSyncXYZ(Vector3 i) {//, Quaternion body, Quaternion head) {
+        RpcSyncXYZ(i);//, body, head);
     }
 
     [ClientRpc]
-    void RpcSyncXYZ(Vector3 i, Quaternion body, Quaternion head) {
+    void RpcSyncXYZ(Vector3 i) { //, Quaternion body, Quaternion head) { 
         if (!isLocalPlayer) {
             player.transform.localPosition = i;
             //player.transform.localRotation = body;
-            childHeadRotation.transform.localRotation = head;
-            childBodyRotation.transform.localRotation = body;
+            //childHeadRotation.transform.localRotation = head;
+            //childBodyRotation.transform.localRotation = body;
         }
     }
 }

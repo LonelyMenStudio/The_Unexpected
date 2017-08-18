@@ -28,7 +28,7 @@ public class FindingWep : NetworkBehaviour {
         
         Canvas = GameObject.FindWithTag("Radar pulse");
         Beepsound = sounds[0];
-        Radar = Canvas.GetComponent<Image>();
+        
         Variables = GameObject.FindWithTag("Start");
         ManagerGet = Variables.GetComponent<VariablesScript>();
         Manager = ManagerGet.variables;
@@ -38,7 +38,13 @@ public class FindingWep : NetworkBehaviour {
         playerno = player.currentPlayerNo;
         droppedWeps = pManager.droppedWeapons;
 
+
+        if (!isLocalPlayer) {
+            return;
+        }
+        Radar = Canvas.GetComponent<Image>();
         Canvas.SetActive(false);
+        //put references
     }
 
     void Update() {
