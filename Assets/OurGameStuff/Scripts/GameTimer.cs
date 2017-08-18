@@ -42,20 +42,22 @@ public class GameTimer : NetworkBehaviour {
 
     // Use this for initialization
     void Start() {
-        timer = timerObject.GetComponent<Text>();
+        
         scoreboard = this.gameObject.GetComponent<PrepPhase>();
         playerManager = this.gameObject.GetComponent<PlayerManager>();
+        timer = timerObject.GetComponent<Text>();
     }
 
 
     // Update is called once per frame
     void Update() {
         getTime();
-        //timer.text = timeDisplay; // need to uncomment
+        timer.text = timeDisplay;
         if(gameTimeOver == true) {
+            ShowScoreboard();
             UnlockMouse();
             //game over camera maybe
-            ShowScoreboard();
+            
             LoadMainMenu();
         }
     }

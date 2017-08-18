@@ -10,11 +10,11 @@ public class GameTimerCommander : NetworkBehaviour {
     private VariablesScript ManagerGet;
     private GameObject manager;
     private GameTimer gameTimer;
-    private bool isCounter = false;
+    public bool isCounter = false;
     private PlayerAssignGet checkPlayer;
 
     //Remove when ready or just set to true
-    private bool useTimer = false;
+    private bool useTimer = true;
    
 
 

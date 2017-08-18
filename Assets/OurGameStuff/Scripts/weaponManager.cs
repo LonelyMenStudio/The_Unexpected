@@ -17,8 +17,8 @@ public class weaponManager : NetworkBehaviour {
     public int currentWeaponMaxAmmo;
     private int currentWeaponDamage = 10;
     private float AkDamage = 10;
-    private float ShotgunDmg = 5;
-    private float sniperDmg = 25;
+    private float ShotgunDmg = 15;
+    private float sniperDmg = 100;
     public GameObject childMelee;
     public GameObject childWeapon1;
     public GameObject childWeapon2;

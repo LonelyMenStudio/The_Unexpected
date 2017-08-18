@@ -92,7 +92,7 @@ public class PlayerAssignGet : NetworkBehaviour {
         } else {
             Debug.Log("No Player found");
         }
-        if (!isLocalPlayer ) {//|| checkGameState.gameTimeOver) { uncomment when everything added into scene currently would just error
+        if (!isLocalPlayer || checkGameState.gameTimeOver) { //uncomment when everything added into scene currently would just error
             return;
         }
         if (Input.GetKey(KeyCode.Tab)) {

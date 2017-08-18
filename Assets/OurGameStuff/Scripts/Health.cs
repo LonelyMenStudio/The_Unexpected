@@ -85,7 +85,7 @@ public class Health : NetworkBehaviour {
              Color Transparent = new Color(1, 1, 1, 0);
              PlayerHud.color = Color.Lerp(PlayerHud.color, Transparent, 20 * Time.deltaTime);
          }*/
-        StartCoroutine(Flash());
+        
 
         if (Healthz <= 0) {
             Healthz = 0;
@@ -143,6 +143,7 @@ public class Health : NetworkBehaviour {
         if (isLocalPlayer) {
             Healthbar.fillAmount = Map(health, 300, 0, 0, 1);
             healthL = health;
+            StartCoroutine(Flash());
         }
     }
 
