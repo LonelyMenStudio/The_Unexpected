@@ -57,8 +57,7 @@ public class GameTimer : NetworkBehaviour {
             ShowScoreboard();
             UnlockMouse();
             //game over camera maybe
-            
-            LoadMainMenu();
+            StartCoroutine(LoadMainMenu());
         }
     }
 
@@ -79,8 +78,26 @@ public class GameTimer : NetworkBehaviour {
     }
 
     IEnumerator LoadMainMenu() {
+        Debug.Log("tried 1");
         yield return new WaitForSeconds(10);
-        SceneManager.LoadScene(0);
+        Debug.Log("tried 2");
+        FindObjectOfType<NetworkLobbyManager>().ServerReturnToLobby();
+        //clearNetwork();
+        //SceneManager.LoadScene(0);
+        
+        Debug.Log("tried 3");
     }
 
+    void clearNetwork() {
+        FindObjectOfType<NetworkLobbyManager>().StopServer();
+        GameObject lobby = GameObject.Find("LobbyNetworkManagr");
+        if(lobby != null) {
+            Destroy(lobby);
+        }
+        GameObject lobbyP = GameObject.Find("Lobby Player (Clone)");
+        if (lobbyP != null) {
+            Destroy(lobbyP);
+        }
+
+    }
 }

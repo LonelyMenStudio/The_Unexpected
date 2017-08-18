@@ -11,8 +11,18 @@ public class PissOffLobby : MonoBehaviour {
     }
     // Use this for initialization
     public void loadscene(int sceneIndex) {
+        
+        GameObject lobby = GameObject.Find("LobbyNetworkManagr");
+        if (lobby != null) {
+            Destroy(lobby);
+        }
+        GameObject lobbyP = GameObject.Find("Lobby Player (Clone)");
+        if (lobbyP != null) {
+            Destroy(lobbyP);
+        }
         Lobby.SetActive(false);
         SceneManager.LoadScene(sceneIndex);
+
 
     }
 }

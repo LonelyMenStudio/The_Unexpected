@@ -470,7 +470,7 @@ GameObject:
   - component: {fileID: 1478519666}
   - component: {fileID: 1478519665}
   m_Layer: 5
-  m_Name: Network Managr
+  m_Name: LobbyNetworkManagr
   m_TagString: NetWork
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
