@@ -540,13 +540,11 @@ public class weaponManager : NetworkBehaviour {
             }
 
         } else if (weaponOut == 2) {
-            Vector3 ShotgunAim = Camera.main.transform.forward;
-            Quaternion AimSpread = Quaternion.LookRotation(ShotgunAim);
-            Quaternion SpreadGenerator = Random.rotation;
-            AimSpread = Quaternion.RotateTowards(AimSpread, SpreadGenerator, Random.Range(0.0f, ShotgunSpread));
-
             for (int i = 0; i < Shotgunshells; i++) {
-                
+                Vector3 ShotgunAim = Camera.main.transform.forward;
+                Quaternion AimSpread = Quaternion.LookRotation(ShotgunAim);
+                Quaternion SpreadGenerator = Random.rotation;
+                AimSpread = Quaternion.RotateTowards(AimSpread, SpreadGenerator, Random.Range(0.0f, ShotgunSpread));
                 RaycastHit hit3;
                 if (Physics.Raycast(Camera.main.transform.position, AimSpread * Vector3.forward, out hit3, Mathf.Infinity)) {
                     
