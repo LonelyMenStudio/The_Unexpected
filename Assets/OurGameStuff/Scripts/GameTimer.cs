@@ -51,7 +51,7 @@ public class GameTimer : NetworkBehaviour {
     // Update is called once per frame
     void Update() {
         getTime();
-        timer.text = timeDisplay;
+        //timer.text = timeDisplay; // need to uncomment
         if(gameTimeOver == true) {
             UnlockMouse();
             //game over camera maybe
