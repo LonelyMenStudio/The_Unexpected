@@ -9,9 +9,9 @@ public class NetworkXYZSync : NetworkBehaviour {
     private Vector3 playerLocation = new Vector3(0,0,0);
     private Vector3 teleportTo;
     public bool startTele = false;
-    public GameObject childBodyRotation;
+    //public GameObject childBodyRotation;
     //public Quaternion bodyRotation = new Quaternion(0,0,0,0); // Y W - Sync Both
-    public GameObject childHeadRotation;
+    //public GameObject childHeadRotation;
     //public Quaternion headRotation = new Quaternion(0,0,0,0); // X W - Sync X
 
 	// Use this for initialization
@@ -28,18 +28,18 @@ public class NetworkXYZSync : NetworkBehaviour {
         if(startTele == true) {
             this.transform.position = teleportTo;
             if (!isServer) {
-                CmdSyncXYZTele(teleportTo);
+                CmdSyncXYZTele(teleportTo, player);
             } else {
-                RpcSyncXYZTele(teleportTo);
+                RpcSyncXYZTele(teleportTo, player);
             }
             startTele = false;
             return;
         }
         SetL();
         if (!isServer) {
-            CmdSyncXYZ(playerLocation);//, headRotation, bodyRotation);//, bodyRotation, headRotation);
+            CmdSyncXYZ(playerLocation, player);//, headRotation, bodyRotation);//, bodyRotation, headRotation);
         } else {
-            RpcSyncXYZ(playerLocation);//, headRotation, bodyRotation); // , bodyRotation, headRotation);//might be the problem
+            RpcSyncXYZ(playerLocation, player);//, headRotation, bodyRotation); // , bodyRotation, headRotation);//might be the problem
         }
     }
 
@@ -54,25 +54,25 @@ public class NetworkXYZSync : NetworkBehaviour {
         //headRotation = childHeadRotation.transform.localRotation;
     }
     [Command]
-    void CmdSyncXYZTele(Vector3 i) {
-        RpcSyncXYZTele(i);
+    void CmdSyncXYZTele(Vector3 i, GameObject player) {
+        RpcSyncXYZTele(i, player);
     }
 
     [ClientRpc]
-    void RpcSyncXYZTele(Vector3 i) {
+    void RpcSyncXYZTele(Vector3 i, GameObject playerOut) {
         if (!isLocalPlayer) {
-            player.transform.localPosition = i;
+            playerOut.transform.localPosition = i;
         }
     }
     [Command]
-    void CmdSyncXYZ(Vector3 i) {//, Quaternion head, Quaternion body) {//, Quaternion body, Quaternion head) {
-        RpcSyncXYZ(i);//, head, body);//, body, head);
+    void CmdSyncXYZ(Vector3 i, GameObject player) {//, Quaternion head, Quaternion body) {//, Quaternion body, Quaternion head) {
+        RpcSyncXYZ(i, player);//, head, body);//, body, head);
     }
 
     [ClientRpc]
-    void RpcSyncXYZ(Vector3 i) {//, Quaternion head, Quaternion body) { //, Quaternion body, Quaternion head) { 
+    void RpcSyncXYZ(Vector3 i, GameObject playerOut) {//, Quaternion head, Quaternion body) { //, Quaternion body, Quaternion head) { 
         if (!isLocalPlayer) {
-            player.transform.localPosition = i;
+            playerOut.transform.localPosition = i;
             //player.transform.localRotation = body;
             //childHeadRotation.transform.localRotation = head;
             //childBodyRotation.transform.localRotation = body;
