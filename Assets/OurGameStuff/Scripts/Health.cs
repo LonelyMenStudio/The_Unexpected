@@ -28,6 +28,7 @@ public class Health : NetworkBehaviour {
     public GameObject Variables;
     private VariablesScript ManagerGet;
     private NetworkXYZSync teleporter;
+    private bool inRespawn = false;
 
 
     [SyncVar(hook = "OnChangeHealth")]
@@ -97,8 +98,8 @@ public class Health : NetworkBehaviour {
     [Command]
     void CmdRespawn() {
         Healthz = maxHealth;
-
         playerNumber.deaths++;
+        inRespawn = false;
     }
 
     void sendKill(int killerNumber) {
@@ -115,11 +116,13 @@ public class Health : NetworkBehaviour {
     void Update() {
 
         //healthL = Healthz;
-        if (healthL <= 0) {
+        if (healthL <= 0 && !inRespawn) {
+            inRespawn = true;
             this.gameObject.GetComponent<weaponManager>().DamIDied();
             CmdPlayerDied(playerNumber.currentPlayerNo);
             CmdRespawn();
             teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
+
         }
         //player dying animation player wait for done then reset to give feedback
         if (Healthz <= 0) {
