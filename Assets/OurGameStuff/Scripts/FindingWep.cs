@@ -51,20 +51,23 @@ public class FindingWep : NetworkBehaviour {
         if (!isLocalPlayer) {
             return;
         }
+        pManager.droppedWeapons.RemoveAll(item => item == null);
         if (gObject.inPrep == false) {
             Canvas.SetActive(true);
             // for (int i = 1; i < pManager.Players.Count; i++) {
             foreach (GameObject weapon in droppedWeps) {
-                weaponSettings weaponPlayerCheck = weapon.GetComponent<weaponSettings>();
-                if (playerno == weaponPlayerCheck.playerNo) {
-                    distance = Vector3.Distance(transform.position, weapon.transform.position);
-                    Beeping = distance / 30;
-                    if (radarsound == true) {
-                        Radar.fillAmount = 1 - (distance / 300);
-                        radarsound = false;
-                        StartCoroutine(Beep());
+                if (weapon != null) {
+                    weaponSettings weaponPlayerCheck = weapon.GetComponent<weaponSettings>();
+                    if (playerno == weaponPlayerCheck.playerNo) {
+                        distance = Vector3.Distance(transform.position, weapon.transform.position);
+                        Beeping = distance / 30;
+                        if (radarsound == true) {
+                            Radar.fillAmount = 1 - (distance / 300);
+                            radarsound = false;
+                            StartCoroutine(Beep());
+                        }
                     }
-                } 
+                }
             }
         }
             
