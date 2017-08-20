@@ -7,7 +7,6 @@ using UnityEngine.Networking;
 public class FindingWep : NetworkBehaviour {
     //Not working in muilt atm trying to think how to reference it to the weapon, may end up moving everything to another script
     public float distance; // Distance from the assigned wep
-    public float distance2;
     public PlayerManager target; //This is the players assigned weapon
     public AudioSource[] sounds;
     AudioSource Beepsound; //Sound for the player to know how close to the wep they are.
@@ -22,7 +21,7 @@ public class FindingWep : NetworkBehaviour {
     private PlayerAssignGet player;
     private int playerno;
     private List<GameObject> droppedWeps;
-    private List<GameObject> Players;
+    private List<GameObject> Playerz;
     private PrepPhase gObject;
     
 
@@ -40,7 +39,7 @@ public class FindingWep : NetworkBehaviour {
         player = this.gameObject.GetComponent<PlayerAssignGet>();
         playerno = player.currentPlayerNo;
         droppedWeps = pManager.droppedWeapons;
-        Players = pManager.Players;
+        Playerz = pManager.Players;
         
 
 
@@ -56,6 +55,7 @@ public class FindingWep : NetworkBehaviour {
         if (!isLocalPlayer) {
             return;
         }
+        Playerz.RemoveAll(item => item == null);
         pManager.droppedWeapons.RemoveAll(item => item == null);
         if (gObject.inPrep == false) {
             Canvas.SetActive(true);
@@ -64,39 +64,33 @@ public class FindingWep : NetworkBehaviour {
                 if (weapon != null) {
                     weaponSettings weaponPlayerCheck = weapon.GetComponent<weaponSettings>();
                     if (playerno == weaponPlayerCheck.playerNo) {
-                        distance = Vector3.Distance(transform.position, weapon.transform.position);
-                        Beeping = distance / 30;
-                        if (radarsound == true) {
-                            Radar.fillAmount = 1 - (distance / 300);
-                            radarsound = false;
-                            StartCoroutine(Beep());
-                        }
+                        distanceCheck(weapon);
                     } 
                 }
             }
-           /* foreach (GameObject EPlayer in Players) {
+            foreach (GameObject EPlayer in Playerz) {
                     PlayerAssignGet PlayerNum = EPlayer.GetComponent<PlayerAssignGet>();
                     if (playerno != PlayerNum.currentPlayerNo) {
                         weaponManager EnemyHasWep = EPlayer.GetComponent<weaponManager>();
                         if (playerno == EnemyHasWep.currentWeaponPlayer) {
-                            distance2 = Vector3.Distance(transform.position, EPlayer.transform.position);
-                            Beeping = distance2 / 30;
-                            if (radarsound == true) {
-                                Radar.fillAmount = 1 - (distance2 / 300);
-                                radarsound = false;
-                                StartCoroutine(Beep());
-                            }
+                        distanceCheck(EPlayer);
                         }
                     }
-            }*/
-        }
-            
-            
-        
+            }
         
     }
+    }
+    void distanceCheck(GameObject target) {
+        distance = Vector3.Distance(transform.position, target.transform.position);
+        Beeping = distance / 30;
+        if (radarsound == true) {
+            Radar.fillAmount = 1 - (distance / 300);
+            radarsound = false;
+            StartCoroutine(Beep());
+        }
+    }
 
-      IEnumerator Beep() {
+    IEnumerator Beep() {
         Beepsound.Play();
         yield return new WaitForSeconds(Beeping);
         radarsound = true;
