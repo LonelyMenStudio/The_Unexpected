@@ -117,10 +117,13 @@ public class Health : NetworkBehaviour {
 
         //healthL = Healthz;
         if (healthL <= 0 && !inRespawn) {
-            inRespawn = true;
+            //inRespawn = true;
             this.gameObject.GetComponent<weaponManager>().DamIDied();
             CmdPlayerDied(playerNumber.currentPlayerNo);
-            CmdRespawn();
+            if (!inRespawn) {
+                inRespawn = true;
+                CmdRespawn();
+            }
             teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
 
         }
