@@ -7,6 +7,7 @@ using UnityEngine.Networking;
 public class FindingWep : NetworkBehaviour {
     //Not working in muilt atm trying to think how to reference it to the weapon, may end up moving everything to another script
     public float distance; // Distance from the assigned wep
+    public float distance2;
     public PlayerManager target; //This is the players assigned weapon
     public AudioSource[] sounds;
     AudioSource Beepsound; //Sound for the player to know how close to the wep they are.
@@ -21,7 +22,9 @@ public class FindingWep : NetworkBehaviour {
     private PlayerAssignGet player;
     private int playerno;
     private List<GameObject> droppedWeps;
+    private List<GameObject> Players;
     private PrepPhase gObject;
+    
 
     void Start() {
 
@@ -37,6 +40,8 @@ public class FindingWep : NetworkBehaviour {
         player = this.gameObject.GetComponent<PlayerAssignGet>();
         playerno = player.currentPlayerNo;
         droppedWeps = pManager.droppedWeapons;
+        Players = pManager.Players;
+        
 
 
         if (!isLocalPlayer) {
@@ -66,9 +71,24 @@ public class FindingWep : NetworkBehaviour {
                             radarsound = false;
                             StartCoroutine(Beep());
                         }
-                    }
+                    } 
                 }
             }
+           /* foreach (GameObject EPlayer in Players) {
+                    PlayerAssignGet PlayerNum = EPlayer.GetComponent<PlayerAssignGet>();
+                    if (playerno != PlayerNum.currentPlayerNo) {
+                        weaponManager EnemyHasWep = EPlayer.GetComponent<weaponManager>();
+                        if (playerno == EnemyHasWep.currentWeaponPlayer) {
+                            distance2 = Vector3.Distance(transform.position, EPlayer.transform.position);
+                            Beeping = distance2 / 30;
+                            if (radarsound == true) {
+                                Radar.fillAmount = 1 - (distance2 / 300);
+                                radarsound = false;
+                                StartCoroutine(Beep());
+                            }
+                        }
+                    }
+            }*/
         }
             
             
