@@ -53,6 +53,7 @@ public class weaponManager : NetworkBehaviour {
     private bool inReload = false;
     private PlayerAssignGet pl;
     public int currentPlayer;
+    public bool hasDroppedOne = false;
 
     [SyncVar]
     public int currentWeaponPlayer;
@@ -140,9 +141,8 @@ public class weaponManager : NetworkBehaviour {
             CmdSetWeaponPlayer(0);
         }
         CheckCanShoot();
-        if(dropIt == true) {
-            loseWeapon();
-            CmdKIDroppedIt();
+        if(dropIt == true && !hasDroppedOne) {
+            lostWeapon();
         }
         // currentPlayer = pl.currentPlayerNo;//remove when weapon select is enabled
         if (checkingPrep && !gObject.inPrep) {
@@ -685,6 +685,7 @@ public class weaponManager : NetworkBehaviour {
     public void DamIDied() {
         foreach(GameObject player in plrMngr.Players) {
             if(player.GetComponent<weaponManager>().currentWeaponPlayer == currentPlayer) {
+                Debug.Log("k.");
                 player.SendMessage("NeedToDropWeapon");
             }
         }
@@ -698,5 +699,11 @@ public class weaponManager : NetworkBehaviour {
     [Command]
     private void CmdKIDroppedIt() {
         dropIt = false;
+        hasDroppedOne = false;
+    }
+    void lostWeapon() {
+            loseWeapon();
+            hasDroppedOne = true;
+            CmdKIDroppedIt();
     }
 }
