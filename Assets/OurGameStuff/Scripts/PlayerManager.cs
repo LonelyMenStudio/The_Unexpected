@@ -127,7 +127,7 @@ public class PlayerManager : NetworkBehaviour {
     //void telePlayer(int i) {
     //    Players[i].transform.position = playerSpawner[Random.Range(0, playerSpawner.Length)].transform.position;
     //}
-
+    
     public void deathMessenger(int playerDead) {
         /* teleport trying
         for (int i = 0; i < Players.Count; i++) {
@@ -140,28 +140,33 @@ public class PlayerManager : NetworkBehaviour {
         */
         if (playerDead == 1) {
             for (int i = 0; i < Players.Count; i++) {
-                SendMessageEach(Players[i], 1);
+                //SendMessageEach();// Players[i], 1);
+                //foreach(GameObject player in Players) {
+                //    if (player.GetComponent<weaponManager>().currentWeaponPlayer == 1) {
+                //        player.GetComponent<weaponManager>().CallHadWeapon();
+                //    }
+               // }
                 checkWeapons(1);
             }
             //Cmd1Died();
         }
         if (playerDead == 2) {
             for (int i = 0; i < Players.Count; i++) {
-                SendMessageEach(Players[i], 2);
+                //SendMessageEach();// Players[i], 2);
                 checkWeapons(2);
             }
             //Cmd2Died();
         }
         if (playerDead == 3) {
             for (int i = 0; i < Players.Count; i++) {
-                SendMessageEach(Players[i], 3);
+                //SendMessageEach();// Players[i], 3);
                 checkWeapons(3);
             }
             //Cmd3Died();
         }
         if (playerDead == 4) {
             for (int i = 0; i < Players.Count; i++) {
-                SendMessageEach(Players[i], 4);
+                //SendMessageEach();// Players[i], 4);
                 checkWeapons(4);
             }
             //Cmd4Died();
@@ -170,8 +175,13 @@ public class PlayerManager : NetworkBehaviour {
     }
     
 
-    void SendMessageEach(GameObject player, int val) {//possibly could rework
-        player.SendMessage("CheckWeaponNumber", val);
+    void SendMessageEach() {//GameObject player, int val) {//possibly could rework
+        //player.SendMessage("CheckWeaponNumber", val);
+       // foreach (GameObject player in Players) {
+       //     if (player.GetComponent<weaponManager>().currentWeaponPlayer == 1) {
+       //         player.GetComponent<weaponManager>().CallHadWeapon();
+       //     }
+        //}
     }
 
     /*

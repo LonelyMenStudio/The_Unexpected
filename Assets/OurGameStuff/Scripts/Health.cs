@@ -30,7 +30,7 @@ public class Health : NetworkBehaviour {
     private NetworkXYZSync teleporter;
 
 
-    [SyncVar (hook = "OnChangeHealth")]
+    [SyncVar(hook = "OnChangeHealth")]
     public int Healthz = maxHealth;
 
     public int healthL;
@@ -50,7 +50,7 @@ public class Health : NetworkBehaviour {
         prepPhase.Players.Add(this.gameObject);
         //getRespawns = manager.GetComponent<PlayerAssign>();
         respawnLocations = new GameObject[prepPhase.spawn.Length];
-        for(int i=0; i < prepPhase.spawn.Length; i++) {
+        for (int i = 0; i < prepPhase.spawn.Length; i++) {
             respawnLocations[i] = prepPhase.spawn[i];
         }
         //To Find the Health Bar
@@ -85,7 +85,7 @@ public class Health : NetworkBehaviour {
              Color Transparent = new Color(1, 1, 1, 0);
              PlayerHud.color = Color.Lerp(PlayerHud.color, Transparent, 20 * Time.deltaTime);
          }*/
-        
+
 
         if (Healthz <= 0) {
             Healthz = 0;
@@ -97,7 +97,7 @@ public class Health : NetworkBehaviour {
     [Command]
     void CmdRespawn() {
         Healthz = maxHealth;
-        
+
         playerNumber.deaths++;
     }
 
@@ -115,11 +115,12 @@ public class Health : NetworkBehaviour {
     void Update() {
 
         //healthL = Healthz;
-        if(healthL <= 0) {
+        if (healthL <= 0) {
             teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
         }
-       //player dying animation player wait for done then reset to give feedback
-       if(Healthz <= 0) {
+        //player dying animation player wait for done then reset to give feedback
+        if (Healthz <= 0) {
+            this.gameObject.GetComponent<weaponManager>().DamIDied();
             CmdPlayerDied(playerNumber.currentPlayerNo);
             CmdRespawn();
             teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
@@ -129,7 +130,7 @@ public class Health : NetworkBehaviour {
         }
     }
     [Command]
-    void CmdTestDamage() {
+    void CmdTestDamage() { 
         Healthz = Healthz - 20;
         GetHit.Play();
     }
@@ -137,6 +138,7 @@ public class Health : NetworkBehaviour {
     [Command]
     void CmdPlayerDied(int playerNum) {
         deathMessage.deathMessenger(playerNum);
+        
     }
 
     void OnChangeHealth(int health) {
@@ -153,10 +155,9 @@ public class Health : NetworkBehaviour {
 
 
     IEnumerator Flash() {
-            
-            PlayerHud.color = Color.Lerp(PlayerHud.color,  Color.red, 30 * Time.deltaTime);
-            yield return new WaitForSeconds(0.8F);
-            PlayerHud.color = new Color(255, 255, 255, 255);
+        PlayerHud.color = Color.Lerp(PlayerHud.color, Color.red, 30 * Time.deltaTime);
+        yield return new WaitForSeconds(0.8F);
+        PlayerHud.color = new Color(255, 255, 255, 255);
     }
 
 }

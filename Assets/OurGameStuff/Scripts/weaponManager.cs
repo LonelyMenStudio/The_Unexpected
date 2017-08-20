@@ -51,12 +51,14 @@ public class weaponManager : NetworkBehaviour {
     public int Shotgunshells = 6;
     public float ShotgunSpread = 10.0f;
     private bool inReload = false;
-
-    //<<<<<<< HEAD
-
     private PlayerAssignGet pl;
     public int currentPlayer;
+
+    [SyncVar]
     public int currentWeaponPlayer;
+    [SyncVar]
+    public bool dropIt = false;
+
     private bool inWeaponSelect = true;//true when timer done // hopefully done
     private bool selectionDone = false;
     private int weaponOnEnd = 0;//0=ak,
@@ -68,6 +70,7 @@ public class weaponManager : NetworkBehaviour {
     private bool actionOnce = true;
     public GameObject Variables;
     private VariablesScript ManagerGet;
+    private PlayerManager plrMngr;
 
     //=======
 
@@ -118,6 +121,11 @@ public class weaponManager : NetworkBehaviour {
         childRoot = transform.Find("FirstPersonCharacter").gameObject;
         pl = this.gameObject.GetComponent<PlayerAssignGet>();
         //currentPlayer = pl.currentPlayerNo;//activating too early need to make it on first action this is needed
+        plrMngr = manager.GetComponent<PlayerManager>();
+    }
+    [Command]
+    void CmdSetWeaponPlayer(int setTo) {
+        currentWeaponPlayer = setTo;
     }
 
     // Update is called once per frame
@@ -125,12 +133,17 @@ public class weaponManager : NetworkBehaviour {
         if (!isLocalPlayer) {
             return;
         }
+        
         if (hasWeapon == false) {
             currentWeaponAmmo = 0;
             currentWeaponMaxAmmo = 0;
-            currentWeaponPlayer = 0;
+            CmdSetWeaponPlayer(0);
         }
         CheckCanShoot();
+        if(dropIt == true) {
+            loseWeapon();
+            CmdKIDroppedIt();
+        }
         // currentPlayer = pl.currentPlayerNo;//remove when weapon select is enabled
         if (checkingPrep && !gObject.inPrep) {
             inWeaponSelect = false;
@@ -290,13 +303,9 @@ public class weaponManager : NetworkBehaviour {
         // playerManage.AddWeaponToList(weaponDropperTemp);
 
     }
-    [Command]
-    void CmdDropWeapon(GameObject thisOne) {
-        playerManage.DropWeaponFromList(thisOne);
-    }
+
 
     private void destoryWeapon(GameObject destoryThis) {
-        CmdDropWeapon(destoryThis);
         CmdDestroyHit(destoryThis);
     }
     private void spawnPistol() {// need work
@@ -313,7 +322,7 @@ public class weaponManager : NetworkBehaviour {
         // playerManage.AddWeaponToList(weaponDropperTemp);
     }
     private void RespawnSniper() {// need work
-        CmdRespawnPistol();
+        CmdRespawnSniper();
         // playerManage.AddWeaponToList(weaponDropperTemp);
         CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
     }
@@ -408,6 +417,9 @@ public class weaponManager : NetworkBehaviour {
         //CmdWeaponAmmoDrop(weaponDropperTemp, 30, 30, currentPlayer);
     }*/
     void loseWeapon() {
+        if (!isLocalPlayer) {
+            return;
+        }
         hasWeapon = false;
         canShoot = false;
         if (!isServer) {
@@ -430,6 +442,7 @@ public class weaponManager : NetworkBehaviour {
         //possibly clear out ammo from weapon
         //clear any other weapon effects if added
     }
+
     void dropWeapon() {
         hasWeapon = false;
         canShoot = false;
@@ -483,21 +496,15 @@ public class weaponManager : NetworkBehaviour {
         secondWeapon = temp;
     }
 
-    void deathReset() {
-        //palyer respawn
-        loseWeapon();
-    }
-
-
     void weaponAmmoPick(RaycastHit hitWeapon) {
         GameObject weaponPicker = hitWeapon.collider.gameObject;
         weaponSettings currentWeaponSettingsGet = weaponPicker.GetComponent<weaponSettings>();
         currentWeaponAmmo = currentWeaponSettingsGet.currentAmmo;
         currentWeaponMaxAmmo = currentWeaponSettingsGet.maxAmmo;
         // NetworkServer.Destroy(hit.transform.gameObject);
-        currentWeaponPlayer = currentWeaponSettingsGet.playerNo;
+        CmdSetWeaponPlayer(currentWeaponSettingsGet.playerNo);
+        //currentWeaponPlayer = currentWeaponSettingsGet.playerNo;
         CmdDestroyHit(weaponPicker);
-
     }
 
     [Command]
@@ -626,7 +633,7 @@ public class weaponManager : NetworkBehaviour {
         }
     }
 
-
+    /*
     void CheckWeaponNumber(int playerNum) {
        // if (!isLocalPlayer) {//????
        //     return;
@@ -635,6 +642,8 @@ public class weaponManager : NetworkBehaviour {
             loseWeapon();//weapon information??
         }
     }
+    */
+
 
     [Command]
     void CmdDamageDealer(GameObject hit,  int damage, int playerNumber) {
@@ -673,6 +682,21 @@ public class weaponManager : NetworkBehaviour {
         }
     }
 
-
-    
+    public void DamIDied() {
+        foreach(GameObject player in plrMngr.Players) {
+            if(player.GetComponent<weaponManager>().currentWeaponPlayer == currentPlayer) {
+                player.SendMessage("NeedToDropWeapon");
+            }
+        }
+    }
+    public void NeedToDropWeapon() {
+        if (!isServer) {
+            return;
+        }
+        dropIt = true;
+    }
+    [Command]
+    private void CmdKIDroppedIt() {
+        dropIt = false;
+    }
 }
