@@ -683,17 +683,20 @@ public class weaponManager : NetworkBehaviour {
     }
 
     [Command]
-    private void CmdDamIDied() {
-        foreach (GameObject player in plrMngr.Players) {
-            if (player.GetComponent<weaponManager>().currentWeaponPlayer == currentPlayer) {
+    private void CmdDamIDied(GameObject[] listOFPlayers, int thisPlayer) {
+        foreach (GameObject player in listOFPlayers) {
+            if (player.GetComponent<weaponManager>().currentWeaponPlayer == thisPlayer) {
                 player.SendMessage("NeedToDropWeapon");
             }
         }
     }
 
     public void DamIDied() {
-        Debug.Log("k.");
-        CmdDamIDied();
+        GameObject[] output = new GameObject[plrMngr.Players.Count];
+        for(int i = 0; i < plrMngr.Players.Count; i++) {
+            output[i] = plrMngr.Players[i];
+        }
+        CmdDamIDied(output, currentPlayer);
     }
     public void NeedToDropWeapon() {
         if (!isServer) {
