@@ -56,7 +56,6 @@ public class NetworkXYZSync : NetworkBehaviour {
     [Command]
     void CmdSyncXYZTele(Vector3 i) {
         RpcSyncXYZTele(i);
-        Debug.Log("well then");
     }
 
     [ClientRpc]

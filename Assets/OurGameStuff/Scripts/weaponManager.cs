@@ -93,8 +93,8 @@ public class weaponManager : NetworkBehaviour {
         //sounds = GetComponents<AudioSource>();
         //reload = sounds[0];
         //fire = sounds[1];
-       // HitSE = sounds[2];
-      //  Sniper_shot = sounds[5];
+        // HitSE = sounds[2];
+        //  Sniper_shot = sounds[5];
         //Shotgun_shot = sounds[4];
         // reload = sounds[0];
         //animatorz = GetComponent<Animator>();
@@ -134,14 +134,14 @@ public class weaponManager : NetworkBehaviour {
         if (!isLocalPlayer) {
             return;
         }
-        
+
         if (hasWeapon == false) {
             currentWeaponAmmo = 0;
             currentWeaponMaxAmmo = 0;
             CmdSetWeaponPlayer(0);
         }
         CheckCanShoot();
-        if(dropIt == true && !hasDroppedOne) {
+        if (dropIt == true && !hasDroppedOne) {
             lostWeapon();
         }
         // currentPlayer = pl.currentPlayerNo;//remove when weapon select is enabled
@@ -372,7 +372,7 @@ public class weaponManager : NetworkBehaviour {
         //clearWeapon.removeSelfFromList(); //NOT NEEDED
         NetworkServer.Destroy(objectToDestory.transform.gameObject);
     }
-    
+
     void weaponFirstSpawn(int weaponToSpawn) {
         hasWeapon = false;
         canShoot = false;
@@ -556,7 +556,7 @@ public class weaponManager : NetworkBehaviour {
                 AimSpread = Quaternion.RotateTowards(AimSpread, SpreadGenerator, Random.Range(0.0f, ShotgunSpread));
                 RaycastHit hit3;
                 if (Physics.Raycast(Camera.main.transform.position, AimSpread * Vector3.forward, out hit3, Mathf.Infinity)) {
-                    
+
                     if (hit3.transform.tag == "Player") {
                         Shotgun_shot.Play();
                         ShotGunParticle.Play();
@@ -567,12 +567,12 @@ public class weaponManager : NetworkBehaviour {
                         HitMarker.SetActive(true);
                         ShotgunDmg = ShotgunDmg * 1 - (distance / 100);
                         int damageS = (int)ShotgunDmg;
-                        CmdDamageDealer(hit3.transform.gameObject, damageS,currentPlayer);
+                        CmdDamageDealer(hit3.transform.gameObject, damageS, currentPlayer);
                         spawnhole = false;
                     }
                 }
             }
-        } else if (weaponOut ==3 && Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit2)) {
+        } else if (weaponOut == 3 && Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit2)) {
             if (hit2.transform.tag == "Player") {
                 Sniper_shot.Play();
                 SniperParticle.Play();
@@ -583,7 +583,7 @@ public class weaponManager : NetworkBehaviour {
                 HitMarker.SetActive(true);
                 sniperDmg = sniperDmg * 1 - (distance / 500);
                 int damageSn = (int)sniperDmg;
-                CmdDamageDealer(hit2.transform.gameObject, damageSn,currentPlayer);
+                CmdDamageDealer(hit2.transform.gameObject, damageSn, currentPlayer);
                 spawnhole = false;
 
                 //HitMarkersound here;
@@ -646,7 +646,7 @@ public class weaponManager : NetworkBehaviour {
 
 
     [Command]
-    void CmdDamageDealer(GameObject hit,  int damage, int playerNumber) {
+    void CmdDamageDealer(GameObject hit, int damage, int playerNumber) {
         int[] tempSend = new int[2];
         tempSend[0] = damage;
         tempSend[1] = playerNumber;
@@ -661,34 +661,39 @@ public class weaponManager : NetworkBehaviour {
         //reload.Play();
         inReload = true;
         canShoot = false;
-        
+
         //transform.Find("crystal").gameObject.GetComponent<Animation>().Play("Take 001");
         yield return new WaitForSeconds(RELOAD_TIME);
         currentWeaponAmmo = currentWeaponMaxAmmo;
-        
+
         canShoot = true;
         inReload = false;
-        
+
     }
     void CheckCanShoot() {
         if (inReload || !hasWeapon) {
             return;
         }
-        if(currentWeaponAmmo == 0) {
+        if (currentWeaponAmmo == 0) {
             canShoot = false;
         }
-        if(currentWeaponAmmo > 0) {
+        if (currentWeaponAmmo > 0) {
             canShoot = true;
         }
     }
 
-    public void DamIDied() {
-        foreach(GameObject player in plrMngr.Players) {
-            if(player.GetComponent<weaponManager>().currentWeaponPlayer == currentPlayer) {
-                Debug.Log("k.");
+    [Command]
+    private void CmdDamIDied() {
+        foreach (GameObject player in plrMngr.Players) {
+            if (player.GetComponent<weaponManager>().currentWeaponPlayer == currentPlayer) {
                 player.SendMessage("NeedToDropWeapon");
             }
         }
+    }
+
+    public void DamIDied() {
+        Debug.Log("k.");
+        CmdDamIDied();
     }
     public void NeedToDropWeapon() {
         if (!isServer) {
@@ -702,8 +707,8 @@ public class weaponManager : NetworkBehaviour {
         hasDroppedOne = false;
     }
     void lostWeapon() {
-            loseWeapon();
-            hasDroppedOne = true;
-            CmdKIDroppedIt();
+        loseWeapon();
+        hasDroppedOne = true;
+        CmdKIDroppedIt();
     }
 }

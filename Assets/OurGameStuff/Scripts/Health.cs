@@ -116,14 +116,17 @@ public class Health : NetworkBehaviour {
 
         //healthL = Healthz;
         if (healthL <= 0) {
-            teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
-        }
-        //player dying animation player wait for done then reset to give feedback
-        if (Healthz <= 0) {
             this.gameObject.GetComponent<weaponManager>().DamIDied();
             CmdPlayerDied(playerNumber.currentPlayerNo);
             CmdRespawn();
             teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
+        }
+        //player dying animation player wait for done then reset to give feedback
+        if (Healthz <= 0) {
+           // this.gameObject.GetComponent<weaponManager>().DamIDied();
+            //CmdPlayerDied(playerNumber.currentPlayerNo);
+          //  CmdRespawn();
+          //  teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
         }
         if (Input.GetKeyDown("o") && isLocalPlayer) {
             CmdTestDamage();
