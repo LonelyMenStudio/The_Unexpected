@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class GameTimer : NetworkBehaviour {
 
@@ -11,16 +10,16 @@ public class GameTimer : NetworkBehaviour {
     public GameObject timerObject;
     private Text timer;
     private string timeDisplay = "";
-    public bool gameTimeOver = false;
     private PrepPhase scoreboard;
     private PlayerManager playerManager;
-    
+    int timerMinutes;
+    int timerSeconds;
 
     [SyncVar]
     public float gameTime = GAME_TIME_LENGTH;
+    [SyncVar]
+    public bool gameTimeOver = false;
 
-    int timerMinutes;
-    int timerSeconds;
 
     void getTime() {
         timerMinutes = (int)(gameTime / 60);
@@ -36,13 +35,13 @@ public class GameTimer : NetworkBehaviour {
         if (gameTime <= 0) {
             gameTime = 0;
             gameTimeOver = true;
+            StartCoroutine(LoadMainMenu());
         }
     }
 
 
     // Use this for initialization
     void Start() {
-        
         scoreboard = this.gameObject.GetComponent<PrepPhase>();
         playerManager = this.gameObject.GetComponent<PlayerManager>();
         timer = timerObject.GetComponent<Text>();
@@ -53,11 +52,10 @@ public class GameTimer : NetworkBehaviour {
     void Update() {
         getTime();
         timer.text = timeDisplay;
-        if(gameTimeOver == true) {
+        if (gameTimeOver == true) {
             ShowScoreboard();
             UnlockMouse();
             //game over camera maybe
-            StartCoroutine(LoadMainMenu());
         }
     }
 
@@ -68,7 +66,7 @@ public class GameTimer : NetworkBehaviour {
     }
 
     void UnlockMouse() {
-        for(int i = 0; i < playerManager.Players.Count; i++) {
+        for (int i = 0; i < playerManager.Players.Count; i++) {
             UnityStandardAssets.Characters.FirstPerson.FirstPersonController Controller = playerManager.Players[i].GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
             Controller.enabled = false;
         }
@@ -78,20 +76,14 @@ public class GameTimer : NetworkBehaviour {
     }
 
     IEnumerator LoadMainMenu() {
-        Debug.Log("tried 1");
         yield return new WaitForSeconds(10);
-        Debug.Log("tried 2");
         FindObjectOfType<NetworkLobbyManager>().ServerReturnToLobby();
-        //clearNetwork();
-        //SceneManager.LoadScene(0);
-        
-        Debug.Log("tried 3");
     }
 
     void clearNetwork() {
         FindObjectOfType<NetworkLobbyManager>().StopServer();
         GameObject lobby = GameObject.Find("LobbyNetworkManagr");
-        if(lobby != null) {
+        if (lobby != null) {
             Destroy(lobby);
         }
         GameObject lobbyP = GameObject.Find("Lobby Player (Clone)");

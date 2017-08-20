@@ -15,7 +15,6 @@ public class weaponManager : NetworkBehaviour {
     public bool hasWeapon = false;
     public int currentWeaponAmmo;
     public int currentWeaponMaxAmmo;
-    private int currentWeaponDamage = 10;
     private float AkDamage = 10;
     private float ShotgunDmg = 15;
     private float sniperDmg = 100;
@@ -692,6 +691,9 @@ public class weaponManager : NetworkBehaviour {
     }
 
     public void DamIDied() {
+        if(currentPlayer != currentWeaponPlayer) {
+            dropWeapon();
+        }
         GameObject[] output = new GameObject[plrMngr.Players.Count];
         for(int i = 0; i < plrMngr.Players.Count; i++) {
             output[i] = plrMngr.Players[i];
