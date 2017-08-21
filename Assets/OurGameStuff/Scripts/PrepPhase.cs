@@ -37,14 +37,14 @@ public class PrepPhase : MonoBehaviour {
         ErrorText = GameObject.FindWithTag("ErrorText");
         ErrorText.SetActive(false);
         //players = GameObject.FindWithTag("Player");
-        for(int i = 0; i < Players.Count; i++) {
-            Players[i].name = "Player " + i; 
-        }
+        
     }
 
     // Update is called once per frame
     void Update() {
-
+        for (int i = 1; i < Players.Count; i++) {
+            Players[i].name = "Player " + i;
+        }
 
         if (inPrep) {
             timeRemaining -= Time.deltaTime;
