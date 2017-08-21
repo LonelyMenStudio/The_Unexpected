@@ -899,6 +899,8 @@ GameObject:
   - component: {fileID: 114745008644251660}
   - component: {fileID: 82200749759078656}
   - component: {fileID: 82006957919769958}
+  - component: {fileID: 95916744912085670}
+  - component: {fileID: 114169098746975604}
   m_Layer: 0
   m_Name: HumanEdited (2) 1
   m_TagString: Player
@@ -1512,11 +1514,11 @@ Transform:
   m_LocalPosition: {x: -77.91, y: 14.525739, z: 63.540337}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4748478115934466}
   - {fileID: 4800931770401630}
   - {fileID: 4140854986614102}
   - {fileID: 4525730824997994}
   - {fileID: 4815686083423102}
-  - {fileID: 4748478115934466}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1570,7 +1572,7 @@ Transform:
   m_LocalScale: {x: 100, y: 100.00001, z: 99.99999}
   m_Children: []
   m_Father: {fileID: 4060365334837042}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4148568856624836
 Transform:
@@ -2091,7 +2093,7 @@ Transform:
   m_LocalScale: {x: 6.570305, y: 6.647351, z: 6.556066}
   m_Children: []
   m_Father: {fileID: 4060365334837042}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4527915193229038
 Transform:
@@ -2381,7 +2383,7 @@ Transform:
   - {fileID: 4090218616026780}
   - {fileID: 4495872724635456}
   m_Father: {fileID: 4060365334837042}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4750020651709206
 Transform:
@@ -2462,7 +2464,7 @@ Transform:
   m_Children:
   - {fileID: 4860649677139620}
   m_Father: {fileID: 4060365334837042}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4815686083423102
 Transform:
@@ -2475,7 +2477,7 @@ Transform:
   m_LocalScale: {x: 100.00001, y: 100, z: 100}
   m_Children: []
   m_Father: {fileID: 4060365334837042}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4824228365822508
 Transform:
@@ -3587,6 +3589,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!95 &95916744912085670
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1573824661568188}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: e5e8376990054bc4e83fa85731329d95, type: 3}
+  m_Controller: {fileID: 9100000, guid: a833622f3b886c248a27afd1485106ff, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114008228428726876
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3619,6 +3638,25 @@ MonoBehaviour:
     i15: 239
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &114169098746975604
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1573824661568188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 95916744912085670}
+  m_ParameterSendBits: 1
+  param0: 
+  param1: 
+  param2: 
+  param3: 
+  param4: 
+  param5: 
 --- !u!114 &114329641344930412
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3779,14 +3817,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1573824661568188}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dca5f427240d96740983b57fa9200e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Rig: {fileID: 1573824661568188}
   wep: {fileID: 0}
-  player: {fileID: 0}
+  player: {fileID: 1573824661568188}
   Variables: {fileID: 0}
 --- !u!114 &114745008644251660
 MonoBehaviour:
@@ -3911,7 +3949,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1573824661568188}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2.2
   m_Direction: 1

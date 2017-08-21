@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 
 public class FindingWep : NetworkBehaviour {
-    //Not working in muilt atm trying to think how to reference it to the weapon, may end up moving everything to another script
+    
     public float distance; // Distance from the assigned wep
     //public PlayerManager target; //This is the players assigned weapon
     public AudioSource[] sounds;
@@ -53,11 +53,11 @@ public class FindingWep : NetworkBehaviour {
         if (!isLocalPlayer) {
             return;
         }
-
+        Playerz.RemoveAll(item => item == null);
         pManager.droppedWeapons.RemoveAll(item => item == null);
         if (gObject.inPrep == false) {
             Canvas.SetActive(true);
-            
+
             // for (int i = 1; i < pManager.Players.Count; i++) {
             foreach (GameObject weapon in droppedWeps) {
                 if (weapon != null) {
@@ -70,18 +70,22 @@ public class FindingWep : NetworkBehaviour {
                     }
                 }
             }
-        }
-      /*  Playerz.RemoveAll(item => item == null);
-        foreach (GameObject EPlayer in Playerz) {
-                   PlayerAssignGet PlayerNum = EPlayer.GetComponent<PlayerAssignGet>();
-                   if (playerno != PlayerNum.currentPlayerNo) {
-                       weaponManager EnemyHasWep = EPlayer.GetComponent<weaponManager>();
-                       if (playerno == EnemyHasWep.currentWeaponPlayer) {
-                       distanceCheck(EPlayer);
-                       }
-                   }
-           }*/
 
+
+            foreach (GameObject EPlayer in Playerz) {
+                if (EPlayer != null) {
+                    PlayerAssignGet PlayerNum = EPlayer.GetComponent<PlayerAssignGet>();
+                    if (playerno != PlayerNum.currentPlayerNo) {
+                        player = this.gameObject.GetComponent<PlayerAssignGet>();
+                        playerno = player.currentPlayerNo;
+                        weaponManager EnemyHasWep = EPlayer.GetComponent<weaponManager>();
+                        if (playerno == EnemyHasWep.currentWeaponPlayer) {
+                            distanceCheck(EPlayer);
+                        }
+                    }
+                }
+            }
+        }
     }
     
 void distanceCheck(GameObject target) {

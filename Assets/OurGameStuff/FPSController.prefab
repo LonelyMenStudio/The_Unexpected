@@ -1514,7 +1514,7 @@ GameObject:
   - component: {fileID: 4849435907057154}
   - component: {fileID: 136232297736133606}
   - component: {fileID: 114010545187179926}
-  - component: {fileID: 114292553177564562}
+  - component: {fileID: 95068839707239556}
   m_Layer: 0
   m_Name: HumanEdited (2) 1
   m_TagString: Untagged
@@ -5484,6 +5484,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!95 &95068839707239556
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1573973259095556}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: e5e8376990054bc4e83fa85731329d95, type: 3}
+  m_Controller: {fileID: 9100000, guid: a833622f3b886c248a27afd1485106ff, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95323114182394786
 Animator:
   serializedVersion: 3
@@ -5613,38 +5630,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 42e65e088b3f4374e851b8dbd38f3df9, type: 3}
   m_JumpSound: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
   m_LandSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
---- !u!114 &114292553177564562
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1573973259095556}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 187
-    i1: 221
-    i2: 122
-    i3: 120
-    i4: 215
-    i5: 180
-    i6: 139
-    i7: 116
-    i8: 58
-    i9: 85
-    i10: 153
-    i11: 162
-    i12: 233
-    i13: 76
-    i14: 145
-    i15: 116
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!114 &114301083989393812
 MonoBehaviour:
   m_ObjectHideFlags: 1
