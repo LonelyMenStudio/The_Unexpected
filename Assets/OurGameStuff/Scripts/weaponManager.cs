@@ -40,6 +40,13 @@ public class weaponManager : NetworkBehaviour {
     private float counter = 0.0f;
     private bool canShoot = false;
     public GameObject bulletHole;
+    public GameObject bulletHole1;
+    public GameObject Hole;
+    public GameObject bulletHoleS;
+    //public GameObject bulletHoleSG;
+    public GameObject bulletHoleSG1;
+    //public GameObject bulletHoleS;
+    public GameObject bulletHoleS1;
     public ParticleSystem ShotParticle;
     public ParticleSystem ShotFlash;
     public ParticleSystem ShotGunParticle;
@@ -600,6 +607,7 @@ public class weaponManager : NetworkBehaviour {
             Ray ray = new Ray(Camera.main.transform.position, childRoot.transform.forward);
             if (Physics.Raycast(ray, out hit, 100f) && spawnhole) {
                 Instantiate(bulletHole, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
+                Instantiate(bulletHole1, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
             }
             spawnhole = true;
 
@@ -614,6 +622,7 @@ public class weaponManager : NetworkBehaviour {
                 if (Physics.Raycast(Camera.main.transform.position, AimSpread * Vector3.forward, out hit4, Mathf.Infinity)) {
                     ShotGunParticle.Play();
                     Instantiate(bulletHole, hit4.point, Quaternion.FromToRotation(Vector3.up, hit4.normal));
+                    Instantiate(bulletHoleSG1, hit4.point, Quaternion.FromToRotation(Vector3.up, hit4.normal));
                 }
                 spawnhole = true;
             }
@@ -623,7 +632,8 @@ public class weaponManager : NetworkBehaviour {
             RaycastHit hit;
             Ray ray = new Ray(Camera.main.transform.position, childRoot.transform.forward);
             if (Physics.Raycast(ray, out hit, 100f) && spawnhole) {
-                Instantiate(bulletHole, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
+                Instantiate(bulletHoleS, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
+                Instantiate(bulletHoleS1, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
             }
             spawnhole = true;
 
@@ -656,6 +666,7 @@ public class weaponManager : NetworkBehaviour {
         yield return new WaitForSeconds(hitmarkertime);
         HitMarker.SetActive(false);
     }
+
     IEnumerator Reload() {
         //reload.Play();
         inReload = true;
