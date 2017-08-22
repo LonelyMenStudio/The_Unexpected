@@ -135,8 +135,9 @@ public class Health : NetworkBehaviour {
             if (!inRespawn) {
                 inRespawn = true;
                 CmdRespawn();
+                healthL = maxHealth;
             }
-
+            
             teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
 
         }
