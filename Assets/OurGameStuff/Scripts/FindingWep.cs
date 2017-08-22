@@ -30,25 +30,20 @@ public class FindingWep : NetworkBehaviour {
 
         Canvas = GameObject.FindWithTag("Radar pulse");
         Beepsound = sounds[0];
-
         Variables = GameObject.FindWithTag("Start");
         ManagerGet = Variables.GetComponent<VariablesScript>();
         Manager = ManagerGet.variables;
         gObject = Manager.GetComponent<PrepPhase>();
         pManager = Manager.GetComponent<PlayerManager>();
         droppedWeps = pManager.droppedWeapons;
-         Playerz = pManager.Players;
-
-
+        Playerz = pManager.Players;
 
         if (!isLocalPlayer) {
             return;
         }
         Radar = Canvas.GetComponent<Image>();
         Canvas.SetActive(false);
-        //put references
     }
-
     void Update() {
         if (!isLocalPlayer) {
             return;
@@ -57,8 +52,6 @@ public class FindingWep : NetworkBehaviour {
         pManager.droppedWeapons.RemoveAll(item => item == null);
         if (gObject.inPrep == false) {
             Canvas.SetActive(true);
-
-            // for (int i = 1; i < pManager.Players.Count; i++) {
             foreach (GameObject weapon in droppedWeps) {
                 if (weapon != null) {
                     player = this.gameObject.GetComponent<PlayerAssignGet>();
@@ -70,7 +63,6 @@ public class FindingWep : NetworkBehaviour {
                     }
                 }
             }
-
 
             foreach (GameObject EPlayer in Playerz) {
                 if (EPlayer != null) {

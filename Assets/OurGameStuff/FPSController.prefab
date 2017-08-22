@@ -5752,6 +5752,15 @@ MonoBehaviour:
   Sniper_shot: {fileID: 82071231840848010}
   Shotgun_shot: {fileID: 82857958574800358}
   bulletHole: {fileID: 1866046136907596, guid: ffb5b35563eb748458e3b5c787b25e41, type: 2}
+  bulletHole1: {fileID: 1063656013003576, guid: c399c6a1cc8e8e14e8ee01f128652894,
+    type: 2}
+  Hole: {fileID: 0}
+  bulletHoleS: {fileID: 1989590179095660, guid: 5a2579a7e1db62349a316adb6b4300f5,
+    type: 2}
+  bulletHoleSG1: {fileID: 1542725696782184, guid: 035aa94f9a881a643a5d2c8b1f3871f7,
+    type: 2}
+  bulletHoleS1: {fileID: 1394617243201748, guid: 7a056be16596d094fb4855e72e1c18a3,
+    type: 2}
   ShotParticle: {fileID: 198874976756946804}
   ShotFlash: {fileID: 198182644933194702}
   ShotGunParticle: {fileID: 198418580269223328}
@@ -5919,6 +5928,7 @@ MonoBehaviour:
   respawn: {fileID: 1483357294802534, guid: 0f19f0d556f7e014db4ccc82b72eb748, type: 2}
   Healthbar: {fileID: 0}
   PlayerHud: {fileID: 0}
+  DamageScreen: {fileID: 0}
   fillAmount: 0
   barImage: {fileID: 0}
   playerName: 
@@ -5926,6 +5936,7 @@ MonoBehaviour:
   GetHit: {fileID: 82523442537038390}
   respawnLocations: []
   Variables: {fileID: 0}
+  death: 0
   Healthz: 300
   healthL: 0
 --- !u!136 &136232297736133606
