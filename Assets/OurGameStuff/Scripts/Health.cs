@@ -12,6 +12,7 @@ public class Health : NetworkBehaviour {
     private const int maxHealth = 300;
     public Image Healthbar;
     public Image PlayerHud;
+    public Image DamageScreen;
     Text text;
     public float fillAmount;
     public GameObject barImage;
@@ -29,7 +30,10 @@ public class Health : NetworkBehaviour {
     private VariablesScript ManagerGet;
     private NetworkXYZSync teleporter;
     private bool inRespawn = false;
-
+    public bool death = false;
+    private GameObject HitMarker;
+    //private Color red;
+    //private Color reset;
 
     [SyncVar(hook = "OnChangeHealth")]
     public int Healthz = maxHealth;
@@ -43,7 +47,7 @@ public class Health : NetworkBehaviour {
     }
     // Use this for initialization
     void Start() {
-
+        
         ManagerGet = Variables.GetComponent<VariablesScript>();
         manager = ManagerGet.variables;
         //playerID = GetComponent<PrepPhase>().playerIDs;
@@ -59,12 +63,17 @@ public class Health : NetworkBehaviour {
         Healthbar = barImage.GetComponent<Image>();
         //To Find the player HUD
         HudImage = prepPhase.PlayerHUD;
+        HitMarker = prepPhase.HitScreen;
+        HitMarker.SetActive(false);
+        DamageScreen = HitMarker.GetComponent<Image>();
         PlayerHud = HudImage.GetComponent<Image>();
         //To Find Player number and Send massage to PlayerManager
         playerNumber = this.gameObject.GetComponent<PlayerAssignGet>();//should work
         deathMessage = manager.GetComponent<PlayerManager>();
         teleporter = this.gameObject.GetComponent<NetworkXYZSync>();
         healthL = maxHealth;
+        //reset = new Color(50, 80, 150, 255);
+        //PlayerHud.color = reset;
     }
 
     public void TakeDamage(int[] damageInfo) {
@@ -114,16 +123,20 @@ public class Health : NetworkBehaviour {
     }
     // Update is called once per frame
     void Update() {
-
+        if (!isLocalPlayer) {
+            return;
+        }
         //healthL = Healthz;
         if (healthL <= 0 && !inRespawn) {
             //inRespawn = true;
             this.gameObject.GetComponent<weaponManager>().DamIDied();
             CmdPlayerDied(playerNumber.currentPlayerNo);
+            death = true;
             if (!inRespawn) {
                 inRespawn = true;
                 CmdRespawn();
             }
+
             teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
 
         }
@@ -155,6 +168,7 @@ public class Health : NetworkBehaviour {
             Healthbar.fillAmount = Map(health, 300, 0, 0, 1);
             healthL = health;
             StartCoroutine(Flash());
+            
         }
     }
 
@@ -164,9 +178,13 @@ public class Health : NetworkBehaviour {
 
 
     IEnumerator Flash() {
-        PlayerHud.color = Color.Lerp(PlayerHud.color, Color.red, 30 * Time.deltaTime);
-        yield return new WaitForSeconds(0.8F);
-        PlayerHud.color = new Color(255, 255, 255, 255);
+        //red = new Color(255, 0, 0, 255);
+        HudImage.SetActive(false);
+        HitMarker.SetActive(true);
+        //PlayerHud.color = Color.Lerp(PlayerHud.color, red, 30 * Time.deltaTime);
+        yield return new WaitForSeconds(1);
+        HudImage.SetActive(true);
+        HitMarker.SetActive(false);
     }
 
 }

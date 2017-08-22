@@ -19,6 +19,7 @@ public class Playeranimations : NetworkBehaviour {
     public GameObject player;
     public GameObject Variables;
     private VariablesScript ManagerGet;
+    private Health isDead;
 
     void Awake() {
         Variables = GameObject.FindWithTag("Start");
@@ -32,6 +33,7 @@ public class Playeranimations : NetworkBehaviour {
         ph = manager.GetComponent<PrepPhase>();
         //wep = GameObject.FindWithTag("Player");
         wloss = gameObject.GetComponent<weaponManager>();
+        isDead = gameObject.GetComponent<Health>();
     }
 	
 	// Update is called once per frame
@@ -43,10 +45,19 @@ public class Playeranimations : NetworkBehaviour {
         lossWep = ph.playwep;
         bool isWalkingPressed = Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.LeftShift) ;
         bool isRunning = Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W);
-        
+        bool StraftRight = Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.LeftShift);
+        bool StraftLeft = Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.LeftShift);
+
         animatorz.SetBool("isWalking", isWalkingPressed);
         animatorz.SetBool("HasWep", haswep);
         animatorz.SetBool("Sprint", isRunning);
+        animatorz.SetBool("StraftRight", StraftRight);
+        animatorz.SetBool("StraftLeft", StraftLeft);
+
+        if ( isDead.death == true) {
+            animatorz.Play("Death");
+            isDead.death = false;
+        }
         
         if (lossWep == true) {
             animatorz.Play("GunLost");

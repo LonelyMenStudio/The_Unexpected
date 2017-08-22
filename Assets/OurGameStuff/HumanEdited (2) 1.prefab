@@ -900,7 +900,6 @@ GameObject:
   - component: {fileID: 82200749759078656}
   - component: {fileID: 82006957919769958}
   - component: {fileID: 95916744912085670}
-  - component: {fileID: 114169098746975604}
   m_Layer: 0
   m_Name: HumanEdited (2) 1
   m_TagString: Player
@@ -3638,25 +3637,6 @@ MonoBehaviour:
     i15: 239
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
---- !u!114 &114169098746975604
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1573824661568188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Animator: {fileID: 95916744912085670}
-  m_ParameterSendBits: 1
-  param0: 
-  param1: 
-  param2: 
-  param3: 
-  param4: 
-  param5: 
 --- !u!114 &114329641344930412
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3760,13 +3740,15 @@ MonoBehaviour:
   respawn: {fileID: 1483357294802534, guid: 0f19f0d556f7e014db4ccc82b72eb748, type: 2}
   Healthbar: {fileID: 0}
   PlayerHud: {fileID: 0}
+  DamageScreen: {fileID: 0}
   fillAmount: 0
   barImage: {fileID: 0}
   playerName: 
   manager: {fileID: 0}
-  GetHit: {fileID: 0}
+  GetHit: {fileID: 82139326884991812}
   respawnLocations: []
   Variables: {fileID: 0}
+  death: 0
   Healthz: 300
   healthL: 0
 --- !u!114 &114513892508667514
@@ -4079,7 +4061,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1.1, z: 0}
 --- !u!198 &198039689050274476
 ParticleSystem:
   m_ObjectHideFlags: 1

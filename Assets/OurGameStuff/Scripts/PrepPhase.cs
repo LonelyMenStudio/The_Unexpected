@@ -22,6 +22,7 @@ public class PrepPhase : MonoBehaviour {
     public GameObject PlayerHUD;
     public GameObject HitMark;
     public GameObject PlayerScores;
+    public GameObject HitScreen;
     public List<GameObject> Players = new List<GameObject>();
     // public int playerIDs = 0;
     private PlayerManager assignTime;
