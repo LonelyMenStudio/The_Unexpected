@@ -602,8 +602,8 @@ PlayerSettings:
     UNet: 1
   facebookSdkVersion: 7.9.1
   apiCompatibilityLevel: 2
-  cloudProjectId: 77fb17bf-0496-4e49-a420-42b6b6ded0dc
+  cloudProjectId: d2ee5049-97f4-4049-a8b5-62c29b461623
   projectName: Menu up
-  organizationId: markrot
+  organizationId: lonely_men_studio
   cloudEnabled: 0
   enableNewInputSystem: 0
