@@ -105,10 +105,15 @@ public class Health : NetworkBehaviour {
 
 
     [Command]
-    void CmdRespawn() {
+    void CmdRespawn(GameObject toPlayer) {
         Healthz = maxHealth;
         playerNumber.deaths++;
-        inRespawn = false;
+        RpcCanResapwnAgain(toPlayer);
+        //inRespawn = false;
+    }
+    [ClientRpc]
+    void RpcCanResapwnAgain(GameObject toPlayer) {
+        toPlayer.GetComponent<Health>().inRespawn = false;
     }
 
     void sendKill(int killerNumber) {
@@ -134,7 +139,7 @@ public class Health : NetworkBehaviour {
             death = true;
             if (!inRespawn) {
                 inRespawn = true;
-                CmdRespawn();
+                CmdRespawn(this.gameObject);
                 healthL = maxHealth;
             }
             
