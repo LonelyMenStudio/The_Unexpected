@@ -717,11 +717,11 @@ public class weaponManager : NetworkBehaviour {
     }
 
     public void DamIDied() {
-        if(currentPlayer != currentWeaponPlayer) {
+        if (currentPlayer != currentWeaponPlayer) {
             dropWeapon();
         }
         GameObject[] output = new GameObject[plrMngr.Players.Count];
-        for(int i = 0; i < plrMngr.Players.Count; i++) {
+        for (int i = 0; i < plrMngr.Players.Count; i++) {
             output[i] = plrMngr.Players[i];
         }
         CmdDamIDied(output, currentPlayer);

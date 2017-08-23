@@ -19,34 +19,34 @@ public class PlayerManager : NetworkBehaviour {
     private GameObject[] playerSpawner;
     private PrepPhase getSpawns;
 
-/*
-    [SyncVar]
-    public bool player1Dead;
-    [SyncVar]
-    public bool player2Dead; 
-    [SyncVar]
-    public bool player3Dead;
-    [SyncVar]
-    public bool player4Dead;
-
-
-    
-    
-
-
     /*
-    [Command]
-    public void CmdAddWeapon(GameObject weapon) {
-        droppedWeapons.Add(weapon);
-    }
-    [Command]
-    public void CmdRemoveWeapon(GameObject weapon) {
-        droppedWeapons.Remove(weapon);
-    }
-    */
+        [SyncVar]
+        public bool player1Dead;
+        [SyncVar]
+        public bool player2Dead; 
+        [SyncVar]
+        public bool player3Dead;
+        [SyncVar]
+        public bool player4Dead;
 
-	// Use this for initialization
-	void Start () {
+
+
+
+
+
+        /*
+        [Command]
+        public void CmdAddWeapon(GameObject weapon) {
+            droppedWeapons.Add(weapon);
+        }
+        [Command]
+        public void CmdRemoveWeapon(GameObject weapon) {
+            droppedWeapons.Remove(weapon);
+        }
+        */
+
+    // Use this for initialization
+    void Start() {
         playerAssign = this.gameObject.GetComponent<PlayerAssign>();
         getSpawns = this.gameObject.GetComponent<PrepPhase>();
         weaponPortLocations = new GameObject[playerAssign.weaponRespawnPoints.Length];
@@ -60,7 +60,7 @@ public class PlayerManager : NetworkBehaviour {
     }
     public bool finishedWaiting = true;
     public void assignPlayerNumbers() {
-        for(int i = 0; i < Players.Count; i++) {
+        for (int i = 0; i < Players.Count; i++) {
             PlayerAssignGet sendPlayerNumber = Players[i].GetComponent<PlayerAssignGet>();
             sendPlayerNumber.takePlayerNumber();
         }
@@ -90,7 +90,7 @@ public class PlayerManager : NetworkBehaviour {
     */
 
     // Update is called once per frame
-    void Update () {
+    void Update() {
         scanForMissing();
         /*
         if (player1Dead) {
@@ -127,7 +127,7 @@ public class PlayerManager : NetworkBehaviour {
     //void telePlayer(int i) {
     //    Players[i].transform.position = playerSpawner[Random.Range(0, playerSpawner.Length)].transform.position;
     //}
-    
+
     public void deathMessenger(int playerDead) {
         /* teleport trying
         for (int i = 0; i < Players.Count; i++) {
@@ -145,7 +145,7 @@ public class PlayerManager : NetworkBehaviour {
                 //    if (player.GetComponent<weaponManager>().currentWeaponPlayer == 1) {
                 //        player.GetComponent<weaponManager>().CallHadWeapon();
                 //    }
-               // }
+                // }
                 checkWeapons(1);
             }
             //Cmd1Died();
@@ -173,15 +173,15 @@ public class PlayerManager : NetworkBehaviour {
         }
         //need to redo wmaybe because of wonky player numbers
     }
-    
+
 
     void SendMessageEach() {//GameObject player, int val) {//possibly could rework
-        //player.SendMessage("CheckWeaponNumber", val);
-       // foreach (GameObject player in Players) {
-       //     if (player.GetComponent<weaponManager>().currentWeaponPlayer == 1) {
-       //         player.GetComponent<weaponManager>().CallHadWeapon();
-       //     }
-        //}
+                            //player.SendMessage("CheckWeaponNumber", val);
+                            // foreach (GameObject player in Players) {
+                            //     if (player.GetComponent<weaponManager>().currentWeaponPlayer == 1) {
+                            //         player.GetComponent<weaponManager>().CallHadWeapon();
+                            //     }
+                            //}
     }
 
     /*
@@ -218,9 +218,9 @@ public class PlayerManager : NetworkBehaviour {
     }
     */
     private void checkWeapons(int playerThatDied) {
-        foreach(GameObject weapon in droppedWeapons) {
+        foreach (GameObject weapon in droppedWeapons) {
             weaponSettings weaponPlayerCheck = weapon.GetComponent<weaponSettings>();
-            if(playerThatDied == weaponPlayerCheck.playerNo) {
+            if (playerThatDied == weaponPlayerCheck.playerNo) {
                 weapon.transform.position = weaponPortLocations[Random.Range(0, 7)].transform.position;// not a command and therfore needs update
                 return;
             }
@@ -228,6 +228,6 @@ public class PlayerManager : NetworkBehaviour {
     }
 
     private void scanForMissing() {
-       droppedWeapons.RemoveAll(item => item == null);
+        droppedWeapons.RemoveAll(item => item == null);
     }
 }
