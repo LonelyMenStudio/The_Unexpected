@@ -153,13 +153,13 @@ public class Health : NetworkBehaviour {
           //  CmdRespawn();
           //  teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
         }
-        if (Input.GetKeyDown("o") && isLocalPlayer) {
-            CmdTestDamage();
-        }
+       // if (Input.GetKeyDown("o") && isLocalPlayer) {
+       //     CmdTestDamage();
+       // }
     }
     [Command]
     void CmdTestDamage() { 
-        Healthz = Healthz - 20;
+        Healthz = Healthz - 150;
         GetHit.Play();
     }
 
