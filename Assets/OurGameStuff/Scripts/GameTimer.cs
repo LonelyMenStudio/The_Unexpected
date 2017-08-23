@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameTimer : NetworkBehaviour {
 
-    private const float GAME_TIME_LENGTH = 120;
+    private const float GAME_TIME_LENGTH = 300;
     public GameObject timerObject;
     private Text timer;
     private string timeDisplay = "";
