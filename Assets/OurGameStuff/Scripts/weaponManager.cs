@@ -733,13 +733,18 @@ public class weaponManager : NetworkBehaviour {
         dropIt = true;
     }
     [Command]
-    private void CmdKIDroppedIt() {
+    private void CmdKIDroppedIt(GameObject thePlayer) {
         dropIt = false;
-        hasDroppedOne = false;
+        //hasDroppedOne = false;
+        RpcSingleWeaponDrop(thePlayer);
+    }
+    [ClientRpc]
+    void RpcSingleWeaponDrop(GameObject thePlayer) {
+        thePlayer.GetComponent<weaponManager>().hasDroppedOne = false;
     }
     void lostWeapon() {
         loseWeapon();
         hasDroppedOne = true;
-        CmdKIDroppedIt();
+        CmdKIDroppedIt(this.gameObject);
     }
 }
