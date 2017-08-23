@@ -18,7 +18,7 @@ public class PlayerManager : NetworkBehaviour {
     // public Transform weapon1, weapon2, weapon3, weapon4;// will need a dynamic length array
     private GameObject[] playerSpawner;
     private PrepPhase getSpawns;
-
+    
     /*
         [SyncVar]
         public bool player1Dead;
@@ -47,6 +47,7 @@ public class PlayerManager : NetworkBehaviour {
 
     // Use this for initialization
     void Start() {
+        
         playerAssign = this.gameObject.GetComponent<PlayerAssign>();
         getSpawns = this.gameObject.GetComponent<PrepPhase>();
         weaponPortLocations = new GameObject[playerAssign.weaponRespawnPoints.Length];
