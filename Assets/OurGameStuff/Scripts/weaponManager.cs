@@ -379,6 +379,7 @@ public class weaponManager : NetworkBehaviour {
         NetworkServer.Destroy(objectToDestory.transform.gameObject);
     }
 
+
     void weaponFirstSpawn(int weaponToSpawn) {
         hasWeapon = false;
         canShoot = false;
@@ -641,7 +642,21 @@ public class weaponManager : NetworkBehaviour {
             Debug.Log("Not Shotting or not Hit player");
         }
     }
+    /*
+    [Command]
+    void CmdBulletHoleRifle(RaycastHit hit) {
+        GameObject BulletHole = (GameObject)Instantiate(bulletHole, transform.root.transform.position + new Vector3(0, 1, 0) + transform.forward, Quaternion.identity) as GameObject;//***
+        NetworkServer.Spawn(BulletHole);
+    }
+    [Command]
+    void CmdBulletHoleShotgun(RaycastHit hit) {
 
+    }
+    [Command]
+    void CmdBulletHoleSniper(RaycastHit hit) {
+
+    }
+    */
     /*
     void CheckWeaponNumber(int playerNum) {
        // if (!isLocalPlayer) {//????
