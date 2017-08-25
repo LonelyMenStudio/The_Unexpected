@@ -45,8 +45,8 @@ public class Playeranimations : NetworkBehaviour {
         lossWep = ph.playwep;
         bool isWalkingPressed = Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.LeftShift) ;
         bool isRunning = Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W);
-        bool StraftRight = Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.LeftShift);
-        bool StraftLeft = Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.LeftShift);
+        bool StraftRight = Input.GetKey(KeyCode.D);
+        bool StraftLeft = Input.GetKey(KeyCode.A);
 
         animatorz.SetBool("isWalking", isWalkingPressed);
         animatorz.SetBool("HasWep", haswep);
@@ -54,39 +54,28 @@ public class Playeranimations : NetworkBehaviour {
         animatorz.SetBool("StraftRight", StraftRight);
         animatorz.SetBool("StraftLeft", StraftLeft);
 
+
         if ( isDead.death == true) {
             animatorz.Play("Death");
             isDead.death = false;
         }
-        
         if (lossWep == true) {
             animatorz.Play("GunLost");
             ph.playwep = false;
         }
-        else if (Input.GetKey(KeyCode.C) && isCrounched == true) {
-            animatorz.SetBool("Crounched", false);
-            isCrounched = false;
-        } 
-        else if (Input.GetMouseButtonDown(1) && Aim == false) {
+
+        if (Input.GetMouseButtonDown(1) && Aim == false) {
             animatorz.SetBool("Aim", true);
             Aim = true;
-        }
-        else if (Input.GetMouseButtonDown(1) && Aim == true) {
+        } else if (Input.GetMouseButtonDown(1) && Aim == true) {
             animatorz.SetBool("Aim", false);
             Aim = false;
         }
-        else if (Input.GetKey(KeyCode.Space) && haswep == false) {
+
+        if (Input.GetKey(KeyCode.Space) && haswep == false) {
             animatorz.Play("JumpNoGun");
-        }
-        else if (Input.GetKey(KeyCode.Space) && haswep == true) {
+        } else if (Input.GetKey(KeyCode.Space) && haswep == true) {
             animatorz.Play("JumpWithGun");
-        }
-       else if (Input.GetKey(KeyCode.C) && isCrounched == false) {
-            animatorz.SetBool("Crounched", true);
-            isCrounched = true;
-        }
-            else {
-            //needed to make the last else if work
-        }
+        } 
     }
 }
