@@ -17,8 +17,7 @@ public class PlayerAssignGet : NetworkBehaviour {
     private Transform PlayerKD;
     private Text DisplayKD;
     private GameTimer checkGameState;
-    public Material[] TeamColors;
-    private GameObject TeamColor;
+    
 
     [SyncVar]
     public int currentPlayerNo;
@@ -76,8 +75,7 @@ public class PlayerAssignGet : NetworkBehaviour {
 
     // Update is called once per frame
     void Update () {
-        //TeamColor = this.gameObject.transform.GetChild(3).gameObject;
-        //TeamColor.GetComponent<Renderer>().material = TeamColors[currentPlayerNo -1];
+        
         if (currentPlayerNo == 1) {
             PlayerKD = PlayerScore.transform.Find("Player1");
             DisplayKD = PlayerKD.GetComponent<Text>();

@@ -23,6 +23,8 @@ public class FindingWep : NetworkBehaviour {
     public List<GameObject> droppedWeps;
      private List<GameObject> Playerz;
     private PrepPhase gObject;
+    public Material[] TeamColors;
+    private GameObject TeamColor;
 
 
     void Start() {
@@ -37,7 +39,10 @@ public class FindingWep : NetworkBehaviour {
         pManager = Manager.GetComponent<PlayerManager>();
         droppedWeps = pManager.droppedWeapons;
         Playerz = pManager.Players;
-
+        player = this.gameObject.GetComponent<PlayerAssignGet>();
+        playerno = player.currentPlayerNo;
+        TeamColor = this.gameObject.transform.GetChild(3).gameObject;
+        TeamColor.GetComponent<Renderer>().material = TeamColors[playerno];
         if (!isLocalPlayer) {
             return;
         }
@@ -45,9 +50,11 @@ public class FindingWep : NetworkBehaviour {
         Canvas.SetActive(false);
     }
     void Update() {
+        
         if (!isLocalPlayer) {
             return;
         }
+       
         Playerz.RemoveAll(item => item == null);
         pManager.droppedWeapons.RemoveAll(item => item == null);
         if (gObject.inPrep == false) {

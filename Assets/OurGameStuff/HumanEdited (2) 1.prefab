@@ -3802,6 +3802,11 @@ MonoBehaviour:
   Canvas: {fileID: 0}
   playerno: 0
   droppedWeps: []
+  TeamColors:
+  - {fileID: 2100000, guid: c27430962a322f342bee6409cbe3475d, type: 2}
+  - {fileID: 2100000, guid: d30a9edc9cbd09248a92ac7c3d68c7da, type: 2}
+  - {fileID: 2100000, guid: 3987e5f29ccb31d418ac983fdbc6d827, type: 2}
+  - {fileID: 2100000, guid: 31e7e7d042f04ac4d83994ed98046e2a, type: 2}
 --- !u!114 &114555961905924968
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3885,11 +3890,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerScore: {fileID: 0}
   Variables: {fileID: 0}
-  TeamColors:
-  - {fileID: 2100000, guid: c27430962a322f342bee6409cbe3475d, type: 2}
-  - {fileID: 2100000, guid: 3987e5f29ccb31d418ac983fdbc6d827, type: 2}
-  - {fileID: 2100000, guid: d30a9edc9cbd09248a92ac7c3d68c7da, type: 2}
-  - {fileID: 2100000, guid: 31e7e7d042f04ac4d83994ed98046e2a, type: 2}
   currentPlayerNo: 0
   kills: 0
   deaths: 0
