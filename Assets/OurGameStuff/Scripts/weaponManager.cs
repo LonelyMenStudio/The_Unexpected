@@ -43,7 +43,7 @@ public class weaponManager : NetworkBehaviour {
     public GameObject bulletHole1;
     public GameObject Hole;
     public GameObject bulletHoleS;
-    //public GameObject bulletHoleSG;
+    public GameObject bulletHoleSG;
     public GameObject bulletHoleSG1;
     //public GameObject bulletHoleS;
     public GameObject bulletHoleS1;
@@ -655,7 +655,7 @@ public class weaponManager : NetworkBehaviour {
     }
     [Command]
     void CmdBulletHoleShotgun(Vector3 point, Vector3 normal) {
-        GameObject BulletHole = (GameObject)Instantiate(bulletHole, point, Quaternion.FromToRotation(Vector3.up, normal)) as GameObject;//***
+        GameObject BulletHole = (GameObject)Instantiate(bulletHoleSG, point, Quaternion.FromToRotation(Vector3.up, normal)) as GameObject;//***
         NetworkServer.Spawn(BulletHole);
         BulletHole = (GameObject)Instantiate(bulletHoleSG1, point, Quaternion.FromToRotation(Vector3.up, normal)) as GameObject;//***
         NetworkServer.Spawn(BulletHole);
