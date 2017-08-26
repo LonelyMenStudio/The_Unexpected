@@ -601,8 +601,9 @@ public class weaponManager : NetworkBehaviour {
             Debug.Log("Missed player");
         }
         if (weaponOut == 1) {
-            fire.Play();
-            ShotParticle.Play();
+            //fire.Play();
+            //ShotParticle.Play();
+            CmdPlayRifleEffect();
             //ShotFlash.Play();
             RaycastHit hit;
             Ray ray = new Ray(Camera.main.transform.position, childRoot.transform.forward);
@@ -645,7 +646,7 @@ public class weaponManager : NetworkBehaviour {
             Debug.Log("Not Shotting or not Hit player");
         }
     }
-    
+
     [Command]
     void CmdBulletHoleRifle(Vector3 hit, Vector3 normal) {
         GameObject BulletHole = (GameObject)Instantiate(bulletHole, hit, Quaternion.FromToRotation(Vector3.up, normal)) as GameObject;//***
@@ -667,7 +668,19 @@ public class weaponManager : NetworkBehaviour {
         BulletHole = (GameObject)Instantiate(bulletHoleS1, point, Quaternion.FromToRotation(Vector3.up, normal)) as GameObject;//***
         NetworkServer.Spawn(BulletHole);
     }
-    
+    [Command]
+    void CmdPlayRifleEffect() {
+        RpcPlayRifleEffect();
+    }
+    [ClientRpc]
+    void RpcPlayRifleEffect() {
+        LclPlayRifleEffect();
+    }
+    void LclPlayRifleEffect() {
+        fire.Play();
+        ShotParticle.Play();
+    }
+
     /*
     void CheckWeaponNumber(int playerNum) {
        // if (!isLocalPlayer) {//????
