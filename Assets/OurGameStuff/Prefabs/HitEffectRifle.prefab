@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 198926559010287298}
   - component: {fileID: 199874141854072896}
   - component: {fileID: 114646663356199652}
+  - component: {fileID: 114203578199802720}
   m_Layer: 0
   m_Name: HitEffectRifle
   m_TagString: Untagged
@@ -42,6 +43,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &114203578199802720
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1063656013003576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 195
+    i1: 153
+    i2: 198
+    i3: 161
+    i4: 204
+    i5: 142
+    i6: 142
+    i7: 20
+    i8: 232
+    i9: 238
+    i10: 1
+    i11: 241
+    i12: 40
+    i13: 101
+    i14: 40
+    i15: 148
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114646663356199652
 MonoBehaviour:
   m_ObjectHideFlags: 1

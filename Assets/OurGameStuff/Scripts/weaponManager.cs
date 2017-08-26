@@ -607,8 +607,9 @@ public class weaponManager : NetworkBehaviour {
             RaycastHit hit;
             Ray ray = new Ray(Camera.main.transform.position, childRoot.transform.forward);
             if (Physics.Raycast(ray, out hit, 100f) && spawnhole) {
-                Instantiate(bulletHole, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
-                Instantiate(bulletHole1, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
+                //Instantiate(bulletHole, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
+                //Instantiate(bulletHole1, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
+                CmdBulletHoleRifle(hit.point, hit.normal);
             }
             spawnhole = true;
 
@@ -622,8 +623,9 @@ public class weaponManager : NetworkBehaviour {
                 AimSpread = Quaternion.RotateTowards(AimSpread, SpreadGenerator, Random.Range(0.0f, ShotgunSpread));
                 if (Physics.Raycast(Camera.main.transform.position, AimSpread * Vector3.forward, out hit4, Mathf.Infinity)) {
                     ShotGunParticle.Play();
-                    Instantiate(bulletHole, hit4.point, Quaternion.FromToRotation(Vector3.up, hit4.normal));
-                    Instantiate(bulletHoleSG1, hit4.point, Quaternion.FromToRotation(Vector3.up, hit4.normal));
+                    //Instantiate(bulletHole, hit4.point, Quaternion.FromToRotation(Vector3.up, hit4.normal));
+                    //Instantiate(bulletHoleSG1, hit4.point, Quaternion.FromToRotation(Vector3.up, hit4.normal));
+                    CmdBulletHoleShotgun(hit4.point, hit4.normal);
                 }
                 spawnhole = true;
             }
@@ -633,8 +635,9 @@ public class weaponManager : NetworkBehaviour {
             RaycastHit hit;
             Ray ray = new Ray(Camera.main.transform.position, childRoot.transform.forward);
             if (Physics.Raycast(ray, out hit, 100f) && spawnhole) {
-                Instantiate(bulletHoleS, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
-                Instantiate(bulletHoleS1, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
+                //Instantiate(bulletHoleS, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
+                //Instantiate(bulletHoleS1, hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
+                CmdBulletHoleSniper(hit.point, hit.normal);
             }
             spawnhole = true;
 
@@ -642,21 +645,29 @@ public class weaponManager : NetworkBehaviour {
             Debug.Log("Not Shotting or not Hit player");
         }
     }
-    /*
+    
     [Command]
-    void CmdBulletHoleRifle(RaycastHit hit) {
-        GameObject BulletHole = (GameObject)Instantiate(bulletHole, transform.root.transform.position + new Vector3(0, 1, 0) + transform.forward, Quaternion.identity) as GameObject;//***
+    void CmdBulletHoleRifle(Vector3 hit, Vector3 normal) {
+        GameObject BulletHole = (GameObject)Instantiate(bulletHole, hit, Quaternion.FromToRotation(Vector3.up, normal)) as GameObject;//***
+        NetworkServer.Spawn(BulletHole);
+        BulletHole = (GameObject)Instantiate(bulletHole1, hit, Quaternion.FromToRotation(Vector3.up, normal)) as GameObject;//***
         NetworkServer.Spawn(BulletHole);
     }
     [Command]
-    void CmdBulletHoleShotgun(RaycastHit hit) {
-
+    void CmdBulletHoleShotgun(Vector3 point, Vector3 normal) {
+        GameObject BulletHole = (GameObject)Instantiate(bulletHole, point, Quaternion.FromToRotation(Vector3.up, normal)) as GameObject;//***
+        NetworkServer.Spawn(BulletHole);
+        BulletHole = (GameObject)Instantiate(bulletHoleSG1, point, Quaternion.FromToRotation(Vector3.up, normal)) as GameObject;//***
+        NetworkServer.Spawn(BulletHole);
     }
     [Command]
-    void CmdBulletHoleSniper(RaycastHit hit) {
-
+    void CmdBulletHoleSniper(Vector3 point, Vector3 normal) {
+        GameObject BulletHole = (GameObject)Instantiate(bulletHoleS, point, Quaternion.FromToRotation(Vector3.up, normal)) as GameObject;//***
+        NetworkServer.Spawn(BulletHole);
+        BulletHole = (GameObject)Instantiate(bulletHoleS1, point, Quaternion.FromToRotation(Vector3.up, normal)) as GameObject;//***
+        NetworkServer.Spawn(BulletHole);
     }
-    */
+    
     /*
     void CheckWeaponNumber(int playerNum) {
        // if (!isLocalPlayer) {//????

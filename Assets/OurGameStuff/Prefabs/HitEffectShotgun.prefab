@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 198482614130643832}
   - component: {fileID: 199801890343262640}
   - component: {fileID: 114274358261331440}
+  - component: {fileID: 114526793415283106}
   m_Layer: 0
   m_Name: HitEffectShotgun
   m_TagString: Untagged
@@ -53,6 +54,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace5bcb9d0e0f2740beec4649919b437, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114526793415283106
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1542725696782184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 3
+    i1: 90
+    i2: 169
+    i3: 79
+    i4: 154
+    i5: 136
+    i6: 26
+    i7: 100
+    i8: 58
+    i9: 93
+    i10: 44
+    i11: 139
+    i12: 31
+    i13: 56
+    i14: 113
+    i15: 247
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!198 &198482614130643832
 ParticleSystem:
   m_ObjectHideFlags: 1
