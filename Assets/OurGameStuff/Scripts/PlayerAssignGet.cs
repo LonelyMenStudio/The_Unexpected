@@ -25,6 +25,8 @@ public class PlayerAssignGet : NetworkBehaviour {
     public int kills = 0;
     [SyncVar]
     public int deaths = 0;
+    [SyncVar]
+    public string playerName;
 
     void Awake() {
         Variables = GameObject.FindWithTag("Start");
@@ -79,19 +81,19 @@ public class PlayerAssignGet : NetworkBehaviour {
         if (currentPlayerNo == 1) {
             PlayerKD = PlayerScore.transform.Find("Player1");
             DisplayKD = PlayerKD.GetComponent<Text>();
-            DisplayKD.text = ("Player One       " + kills + "        " + deaths);
+            DisplayKD.text = (playerName + "       " + kills + "        " + deaths);
         } else if (currentPlayerNo == 2) {
             PlayerKD = PlayerScore.transform.Find("Player2");
             DisplayKD = PlayerKD.GetComponent<Text>();
-            DisplayKD.text = ("Player Two       " + kills + "        " + deaths);
+            DisplayKD.text = (playerName + "       " + kills + "        " + deaths);
         } else if (currentPlayerNo == 3) {
             PlayerKD = PlayerScore.transform.Find("Player3");
             DisplayKD = PlayerKD.GetComponent<Text>();
-            DisplayKD.text = ("Player Three       " + kills + "        " + deaths);
+            DisplayKD.text = (playerName + "       " + kills + "        " + deaths);
         } else if (currentPlayerNo == 4) {
             PlayerKD = PlayerScore.transform.Find("Player4");
             DisplayKD = PlayerKD.GetComponent<Text>();
-            DisplayKD.text = ("Player Four       " + kills + "        " + deaths);
+            DisplayKD.text = (playerName + "       " + kills + "        " + deaths);
         } else {
             Debug.Log("No Player found");
         }

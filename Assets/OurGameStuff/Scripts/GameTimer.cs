@@ -24,7 +24,18 @@ public class GameTimer : NetworkBehaviour {
     void getTime() {
         timerMinutes = (int)(gameTime / 60);
         timerSeconds = (int)(gameTime - (timerMinutes * 60));
-        timeDisplay = timerMinutes + ":" + timerSeconds;
+        string min, sec;
+        if (timerMinutes < 10) {
+            min = "0" + timerMinutes;
+        } else {
+            min = "" + timerMinutes;
+        }
+        if (timerSeconds < 10) {
+            sec = "0" + timerSeconds;
+        } else {
+            sec = "" + timerSeconds;
+        }
+        timeDisplay = min + ":" + sec;
     }
 
     public void Countdown() {
