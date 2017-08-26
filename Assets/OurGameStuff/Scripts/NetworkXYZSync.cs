@@ -39,7 +39,7 @@ public class NetworkXYZSync : NetworkBehaviour {
         }
     }
 
-    public void Teleport(Vector3 whereTo) {//could change to gameObject
+    public void Teleport(Vector3 whereTo) {
         teleportTo = whereTo;
         startTele = true;
     }

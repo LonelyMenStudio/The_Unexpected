@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 
 public class Health : NetworkBehaviour {
-    //public GameObject Textz;
 
     public GameObject respawn;
     private const int maxHealth = 300;
@@ -47,28 +46,22 @@ public class Health : NetworkBehaviour {
     }
     // Use this for initialization
     void Start() {
-        
         ManagerGet = Variables.GetComponent<VariablesScript>();
         manager = ManagerGet.variables;
-        //playerID = GetComponent<PrepPhase>().playerIDs;
         prepPhase = manager.GetComponent<PrepPhase>();
         prepPhase.Players.Add(this.gameObject);
-        //getRespawns = manager.GetComponent<PlayerAssign>();
         respawnLocations = new GameObject[prepPhase.spawn.Length];
         for (int i = 0; i < prepPhase.spawn.Length; i++) {
             respawnLocations[i] = prepPhase.spawn[i];
         }
-        //To Find the Health Bar
         barImage = prepPhase.healthObject;
         Healthbar = barImage.GetComponent<Image>();
-        //To Find the player HUD
         HudImage = prepPhase.PlayerHUD;
         HitMarker = prepPhase.HitScreen;
         HitMarker.SetActive(false);
         DamageScreen = HitMarker.GetComponent<Image>();
         PlayerHud = HudImage.GetComponent<Image>();
-        //To Find Player number and Send massage to PlayerManager
-        playerNumber = this.gameObject.GetComponent<PlayerAssignGet>();//should work
+        playerNumber = this.gameObject.GetComponent<PlayerAssignGet>();
         deathMessage = manager.GetComponent<PlayerManager>();
         teleporter = this.gameObject.GetComponent<NetworkXYZSync>();
         healthL = maxHealth;
@@ -83,23 +76,9 @@ public class Health : NetworkBehaviour {
         int amount = damageInfo[0];
         int damageFrom = damageInfo[1];
         Healthz -= amount;
-        /* bool getDamage = true;
-         if (getDamage) {
-             Color Opaque = new Color(1, 1, 1, 1);
-             PlayerHud.color = Color.Lerp(PlayerHud.color, Opaque, 20 * Time.deltaTime);
-             if (PlayerHud.color.a >= 0.8) {
-                 getDamage = false;
-             }
-         }
-         if (!getDamage) {
-             Color Transparent = new Color(1, 1, 1, 0);
-             PlayerHud.color = Color.Lerp(PlayerHud.color, Transparent, 20 * Time.deltaTime);
-         }*/
-
-
         if (Healthz <= 0) {
             Healthz = 0;
-            sendKill(damageFrom);//All good??? NOPE
+            sendKill(damageFrom);
         }
     }
 
@@ -131,9 +110,7 @@ public class Health : NetworkBehaviour {
         if (!isLocalPlayer) {
             return;
         }
-        //healthL = Healthz;
         if (healthL <= 0 && !inRespawn) {
-            //inRespawn = true;
             this.gameObject.GetComponent<weaponManager>().DamIDied();
             CmdPlayerDied(playerNumber.currentPlayerNo);
             death = true;
@@ -142,23 +119,17 @@ public class Health : NetworkBehaviour {
                 CmdRespawn(this.gameObject);
                 healthL = maxHealth;
             }
-            
+
             teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
 
         }
         //player dying animation player wait for done then reset to give feedback
         if (Healthz <= 0) {
-           // this.gameObject.GetComponent<weaponManager>().DamIDied();
-            //CmdPlayerDied(playerNumber.currentPlayerNo);
-          //  CmdRespawn();
-          //  teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
+            //uses local
         }
-       // if (Input.GetKeyDown("o") && isLocalPlayer) {
-       //     CmdTestDamage();
-       // }
     }
     [Command]
-    void CmdTestDamage() { 
+    void CmdTestDamage() {
         Healthz = Healthz - 150;
         GetHit.Play();
     }
@@ -166,7 +137,7 @@ public class Health : NetworkBehaviour {
     [Command]
     void CmdPlayerDied(int playerNum) {
         deathMessage.deathMessenger(playerNum);
-        
+
     }
 
     void OnChangeHealth(int health) {
@@ -174,7 +145,7 @@ public class Health : NetworkBehaviour {
             Healthbar.fillAmount = Map(health, 300, 0, 0, 1);
             healthL = health;
             StartCoroutine(Flash());
-            
+
         }
     }
 

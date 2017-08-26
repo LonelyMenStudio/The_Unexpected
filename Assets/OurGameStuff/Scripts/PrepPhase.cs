@@ -17,14 +17,12 @@ public class PrepPhase : MonoBehaviour {
     public bool teleport = false;
     public bool playwep = false;
     public GameObject ammoObject;
-    //public GameObject[] players;
     public GameObject healthObject;
     public GameObject PlayerHUD;
     public GameObject HitMark;
     public GameObject PlayerScores;
     public GameObject HitScreen;
     public List<GameObject> Players = new List<GameObject>();
-    // public int playerIDs = 0;
     private PlayerManager assignTime;
     private bool canAssign = true;
     public GameObject ErrorText;
@@ -36,9 +34,7 @@ public class PrepPhase : MonoBehaviour {
         text = timer.GetComponent<Text>();
         assignTime = this.gameObject.GetComponent<PlayerManager>();
         ErrorText = GameObject.FindWithTag("ErrorText");
-        ErrorText.SetActive(false);
-        //players = GameObject.FindWithTag("Player");
-        
+        ErrorText.SetActive(false);     
     }
 
     // Update is called once per frame
@@ -77,14 +73,6 @@ public class PrepPhase : MonoBehaviour {
                 Players[i].transform.position = spawn[indexspawn].transform.position;
                 teleport = false;
             }
-            /*      if (players == null)
-             players = GameObject.FindGameObjectsWithTag("Player");
-             foreach (GameObject player in players) {
-
-                 int indexspawn = Random.Range(0, spawn.Length);
-                 player.transform.position = spawn[indexspawn].transform.position;
-                 teleport = false;
-             }*/
         }
 
     }
@@ -92,8 +80,4 @@ public class PrepPhase : MonoBehaviour {
         yield return new WaitForSeconds(4);
         ErrorText.SetActive(false);
     }
-
-
-
-
 }

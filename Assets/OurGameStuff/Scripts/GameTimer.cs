@@ -72,8 +72,6 @@ public class GameTimer : NetworkBehaviour {
 
     void ShowScoreboard() {
         scoreboard.PlayerScores.gameObject.SetActive(true);
-        //stop it constantlybeing hidden by other script
-        //need to do something in PlayerAssignGet for this but cant right now
     }
 
     void UnlockMouse() {
