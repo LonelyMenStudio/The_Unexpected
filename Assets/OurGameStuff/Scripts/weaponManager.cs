@@ -186,7 +186,7 @@ public class weaponManager : NetworkBehaviour {
             StartCoroutine(Reload());
         }
         if (Input.GetKeyDown(KeyCode.E)) {
-            weaponhold.ikActive = true;
+            
             PickupWeapon();
         }
         if (Input.GetKeyDown(KeyCode.F) && hasWeapon) {
@@ -207,6 +207,7 @@ public class weaponManager : NetworkBehaviour {
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit)) {
             if (hit.transform.tag == "weapon") {
+                weaponhold.ikActive = true;
                 if (hit.transform.gameObject.name.Contains("alienrifle")) {
                     replaceWeapon(hit);
                     changeWeapon(1);
