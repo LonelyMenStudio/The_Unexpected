@@ -13,14 +13,16 @@ public class IKControl : MonoBehaviour {
     public Transform LeftHandObj = null;
     public GameObject righthand;
     public GameObject righthandaim;
+    public Transform righthandposition;
+    public Transform righthandpositionAim;
+    public Transform lefhandpositonaim;
     private Playeranimations aim;
-    //public Transform lookObj = null;
+    public Transform lookObj = null;
 
     void Start() {
         animator = GetComponent<Animator>();
         aim = this.gameObject.GetComponent<Playeranimations>();
     }
-
     //a callback for calculating IK
     void OnAnimatorIK() {
         if (animator) {
@@ -43,18 +45,27 @@ public class IKControl : MonoBehaviour {
                     if (!aim.Aim) {
                         rightHandObj.position = righthand.transform.position;
                         rightHandObj.rotation = righthand.transform.rotation;
+                        animator.SetIKPosition(AvatarIKGoal.RightHand, righthandposition.transform.position);
+                        animator.SetIKRotation(AvatarIKGoal.RightHand, righthandposition.transform.rotation);
+                        animator.SetIKPosition(AvatarIKGoal.LeftHand, LeftHandObj.transform.position);
+                        animator.SetIKRotation(AvatarIKGoal.LeftHand, LeftHandObj.transform.rotation);
                     } else if (aim.Aim) {
-                        rightHandObj.position = righthandaim.transform.position;
-                        rightHandObj.rotation = righthandaim.transform.rotation;
+                         rightHandObj.position = righthandaim.transform.position;
+                         rightHandObj.rotation = righthandaim.transform.rotation;
+                        //animator.SetIKPosition(AvatarIKGoal.RightHand,  righthandaim.transform.position);
+                        //animator.SetIKRotation(AvatarIKGoal.RightHand, righthandaim.transform.rotation);
+                        animator.SetIKPosition(AvatarIKGoal.RightHand, righthandpositionAim.transform.position);
+                        animator.SetIKRotation(AvatarIKGoal.RightHand, righthandpositionAim.transform.rotation);
+                        animator.SetIKPosition(AvatarIKGoal.LeftHand, lefhandpositonaim.transform.position);
+                        animator.SetIKRotation(AvatarIKGoal.LeftHand, lefhandpositonaim.transform.rotation);
+                            animator.SetLookAtWeight(1);
+                            animator.SetLookAtPosition(lookObj.position);
                     }
-                    //animator.SetIKPosition(AvatarIKGoal.RightHand,  rightHandObj.position);
-                    //animator.SetIKRotation(AvatarIKGoal.RightHand, rightHandObj.rotation);
-                    animator.SetIKPosition(AvatarIKGoal.LeftHand, LeftHandObj.position);
-                    animator.SetIKRotation(AvatarIKGoal.LeftHand, LeftHandObj.rotation);
+
+
                 }
 
             }
-
             //if the IK is not active, set the position and rotation of the hand and head back to the original position
             else {
                 //animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 0);
