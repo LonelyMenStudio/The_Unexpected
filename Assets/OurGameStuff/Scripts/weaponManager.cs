@@ -56,6 +56,7 @@ public class weaponManager : NetworkBehaviour {
     private PlayerAssignGet pl;
     public int currentPlayer;
     public bool hasDroppedOne = false;
+    
 
     [SyncVar]
     public int currentWeaponPlayer;
@@ -74,6 +75,7 @@ public class weaponManager : NetworkBehaviour {
     public GameObject Variables;
     private VariablesScript ManagerGet;
     private PlayerManager plrMngr;
+    private IKControl weaponhold;
 
     //=======
 
@@ -90,7 +92,7 @@ public class weaponManager : NetworkBehaviour {
 
     // Use this for initialization
     void Start() {
-
+        weaponhold = GetComponent<IKControl>();
         ManagerGet = Variables.GetComponent<VariablesScript>();
         //sounds = GetComponents<AudioSource>();
         //reload = sounds[0];
@@ -184,10 +186,12 @@ public class weaponManager : NetworkBehaviour {
             StartCoroutine(Reload());
         }
         if (Input.GetKeyDown(KeyCode.E)) {
+            weaponhold.ikActive = true;
             PickupWeapon();
         }
         if (Input.GetKeyDown(KeyCode.F) && hasWeapon) {
             dropWeapon();
+            weaponhold.ikActive = false;
         }
         ammoText.text = currentWeaponAmmo + "/" + currentWeaponMaxAmmo;
         if (currentWeaponAmmo <= 0) {

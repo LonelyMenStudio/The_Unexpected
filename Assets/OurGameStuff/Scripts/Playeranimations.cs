@@ -15,7 +15,7 @@ public class Playeranimations : NetworkBehaviour {
     private weaponManager wloss;
     private bool haswep = false;
     private bool lossWep = false;
-    private bool Aim = false;
+    public bool Aim = false;
     public GameObject player;
     public GameObject Variables;
     private VariablesScript ManagerGet;
