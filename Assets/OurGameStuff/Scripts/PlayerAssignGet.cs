@@ -69,6 +69,10 @@ public class PlayerAssignGet : NetworkBehaviour {
     public void CmdIncreaseKill() {
         kills++;
     }
+    [Command]
+    public void CmdDecreaseKill() {
+        kills--;
+    }
 
     public void takePlayerNumber() {
         // if (isLocalPlayer) {

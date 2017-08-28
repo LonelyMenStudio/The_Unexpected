@@ -81,7 +81,19 @@ public class Health : NetworkBehaviour {
             sendKill(damageFrom);
         }
     }
-
+    public void DeathByWater() {
+        if (isLocalPlayer) {
+            CmdWaterDeath();
+            playerNumber.CmdLoseKill();
+        }
+    }
+    [Command]
+    void CmdWaterDeath() {
+        Healthz = Healthz - Healthz;
+        if (Healthz <= 0) {
+            Healthz = 0;
+        }
+    }
 
     [Command]
     void CmdRespawn(GameObject toPlayer) {
