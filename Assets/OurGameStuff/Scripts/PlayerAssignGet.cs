@@ -70,7 +70,7 @@ public class PlayerAssignGet : NetworkBehaviour {
         kills++;
     }
     [Command]
-    public void CmdDecreaseKill() {
+    public void CmdLoseKill() {
         kills--;
     }
 
