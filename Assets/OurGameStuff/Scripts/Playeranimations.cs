@@ -54,7 +54,12 @@ public class Playeranimations : NetworkBehaviour {
         animatorz.SetBool("StraftRight", StraftRight);
         animatorz.SetBool("StraftLeft", StraftLeft);
 
-
+        if (Input.GetKey(KeyCode.Space)) {
+            Aim = false;
+        }
+        if (Input.GetKey(KeyCode.LeftShift)) {
+            Aim = false;
+        }
         if ( isDead.death == true) {
             animatorz.Play("Death");
             isDead.death = false;

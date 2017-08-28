@@ -76,7 +76,7 @@ public class weaponManager : NetworkBehaviour {
     private VariablesScript ManagerGet;
     private PlayerManager plrMngr;
     private IKControl weaponhold;
-
+    private Playeranimations Aimming;
     //=======
 
 
@@ -92,6 +92,7 @@ public class weaponManager : NetworkBehaviour {
 
     // Use this for initialization
     void Start() {
+        Aimming = GetComponent<Playeranimations>();
         weaponhold = GetComponent<IKControl>();
         ManagerGet = Variables.GetComponent<VariablesScript>();
         //sounds = GetComponents<AudioSource>();
@@ -179,6 +180,7 @@ public class weaponManager : NetworkBehaviour {
         }
 
         if (Input.GetKey(KeyCode.Mouse0) && hasWeapon && canShoot && counter > delayTime) { // probs can be cut down to only 1 raycast
+            Aimming.Aim = true;
             shoot();
         }
         counter += Time.deltaTime;//counter to ensure not infinite fire rate
@@ -186,7 +188,6 @@ public class weaponManager : NetworkBehaviour {
             StartCoroutine(Reload());
         }
         if (Input.GetKeyDown(KeyCode.E)) {
-            
             PickupWeapon();
         }
         if (Input.GetKeyDown(KeyCode.F) && hasWeapon) {
