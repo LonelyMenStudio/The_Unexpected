@@ -17,7 +17,7 @@ public class PlayerAssignGet : NetworkBehaviour {
     private Transform PlayerKD;
     private Text DisplayKD;
     private GameTimer checkGameState;
-    
+
 
     [SyncVar]
     public int currentPlayerNo;
@@ -27,14 +27,16 @@ public class PlayerAssignGet : NetworkBehaviour {
     public int deaths = 0;
     [SyncVar]
     public string playerName;
+    [SyncVar]
+    public bool isWinning = false;
 
     void Awake() {
         Variables = GameObject.FindWithTag("Start");
     }
 
     // Use this for initialization
-    void Start () {
-        
+    void Start() {
+
         ManagerGet = Variables.GetComponent<VariablesScript>();
         manager = ManagerGet.variables;
         sm = manager.GetComponent<PlayerAssign>();
@@ -49,35 +51,46 @@ public class PlayerAssignGet : NetworkBehaviour {
             CmdGetNum();
         }
         // CmdSetPlayerNum(sm.playerNo);
-        
+
         //playerArray.AddSelf(this.gameObject, currentPlayerNo);
         //playerAdd.CmdAddSelf(this.gameObject, currentPlayerNo);
     }
-    
+
     [Command]
     void CmdGetNum() {
         sm.playerNo++;
         currentPlayerNo = sm.playerNo;
     }
     //[Command]
-   // void CmdSetPlayerNum(int num) {
+    // void CmdSetPlayerNum(int num) {
     ///    currentPlayerNo = num;
-   // }
+    // }
     [Command]
     public void CmdIncreaseKill() {
         kills++;
     }
 
     public void takePlayerNumber() {
-       // if (isLocalPlayer) {
-         //   CmdGetNum();
-       //     CmdSetPlayerNum(sm.playerNo);
-      //  }
+        // if (isLocalPlayer) {
+        //   CmdGetNum();
+        //     CmdSetPlayerNum(sm.playerNo);
+        //  }
     }
 
     // Update is called once per frame
-    void Update () {
-        
+    void Update() {
+        SetupScoreboard();
+        if (!isLocalPlayer || checkGameState.gameTimeOver) { //uncomment when everything added into scene currently would just error
+            return;
+        }
+        if (Input.GetKey(KeyCode.Tab)) {
+            PlayerScore.SetActive(true);
+        } else {
+            PlayerScore.SetActive(false);
+        }
+    }
+
+    private void SetupScoreboard() {
         if (currentPlayerNo == 1) {
             PlayerKD = PlayerScore.transform.Find("Player1");
             DisplayKD = PlayerKD.GetComponent<Text>();
@@ -97,14 +110,14 @@ public class PlayerAssignGet : NetworkBehaviour {
         } else {
             Debug.Log("No Player found");
         }
-        if (!isLocalPlayer || checkGameState.gameTimeOver) { //uncomment when everything added into scene currently would just error
-            return;
+    }
+    public void SetWinning(bool i) {
+        if (isLocalPlayer) {
+            CmdSetWinning(i);
         }
-        if (Input.GetKey(KeyCode.Tab)) {
-            PlayerScore.SetActive(true);
-        } else {
-            PlayerScore.SetActive(false);
-        }
-       
+    }
+    [Command]
+    void CmdSetWinning(bool i) {
+        isWinning = i;
     }
 }
