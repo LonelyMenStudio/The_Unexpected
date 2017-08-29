@@ -155,7 +155,7 @@ public class weaponManager : NetworkBehaviour {
         }
         if (inWeaponSelect) {
             currentPlayer = pl.currentPlayerNo;
-            if (Input.GetKeyDown(KeyCode.E)) {  // need to investigate further control options
+            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse0) && !hasWeapon) {  // need to investigate further control options
                 RaycastHit hit;
                 if (Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit)) {
                     if (hit.transform.tag == "weaponPrep") {
@@ -187,7 +187,7 @@ public class weaponManager : NetworkBehaviour {
         if (Input.GetKeyDown(KeyCode.R) && hasWeapon) {
             StartCoroutine(Reload());
         }
-        if (Input.GetKeyDown(KeyCode.E)) {
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse0) && !hasWeapon) {
             PickupWeapon();
         }
         if (Input.GetKeyDown(KeyCode.F) && hasWeapon) {

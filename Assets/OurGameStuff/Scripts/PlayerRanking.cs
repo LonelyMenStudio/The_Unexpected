@@ -14,7 +14,9 @@ public class PlayerRanking : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         //if !prep
-        playerRanking();
+        if (this.GetComponent<GameTimer>().outOfPrep) {
+            playerRanking();
+        }
     }
 
     void playerRanking() {

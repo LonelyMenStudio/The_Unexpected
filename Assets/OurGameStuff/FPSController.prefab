@@ -5626,7 +5626,7 @@ MonoBehaviour:
   m_WalkSpeed: 5
   m_RunSpeed: 10
   m_RunstepLenghten: 0.7
-  m_JumpSpeed: 10
+  m_JumpSpeed: 1
   m_StickToGroundForce: 10
   m_GravityMultiplier: 2
   m_MouseLook:
@@ -5745,7 +5745,6 @@ MonoBehaviour:
   body: {fileID: 1163954766165120}
   ammoDisplay: {fileID: 0}
   Hitmark: {fileID: 0}
-  prepHud: {fileID: 0}
   fire: {fileID: 82608617551021818}
   reload: {fileID: 82734291373227446}
   HitSE: {fileID: 82115233822092764}
@@ -5757,6 +5756,7 @@ MonoBehaviour:
   Hole: {fileID: 0}
   bulletHoleS: {fileID: 1989590179095660, guid: 5a2579a7e1db62349a316adb6b4300f5,
     type: 2}
+  bulletHoleSG: {fileID: 0}
   bulletHoleSG1: {fileID: 1542725696782184, guid: 035aa94f9a881a643a5d2c8b1f3871f7,
     type: 2}
   bulletHoleS1: {fileID: 1394617243201748, guid: 7a056be16596d094fb4855e72e1c18a3,
@@ -5798,9 +5798,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerScore: {fileID: 0}
   Variables: {fileID: 0}
+  targetMe: {fileID: 0}
   currentPlayerNo: 0
   kills: 0
   deaths: 0
+  playerName: 
+  isWinning: 0
 --- !u!114 &114399018703621760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5814,6 +5817,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rig: {fileID: 1573973259095556}
   wep: {fileID: 0}
+  Aim: 0
   player: {fileID: 1163954766165120}
   Variables: {fileID: 0}
 --- !u!114 &114406190893968786
@@ -5914,6 +5918,7 @@ MonoBehaviour:
   Canvas: {fileID: 0}
   playerno: 0
   droppedWeps: []
+  TeamColors: []
 --- !u!114 &114999644553244406
 MonoBehaviour:
   m_ObjectHideFlags: 1
