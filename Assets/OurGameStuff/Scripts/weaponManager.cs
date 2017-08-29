@@ -198,7 +198,7 @@ public class weaponManager : NetworkBehaviour {
         if (currentWeaponAmmo <= 0) {
             canShoot = false;
         }
-
+        
     }
 
     void PickupWeapon() {
