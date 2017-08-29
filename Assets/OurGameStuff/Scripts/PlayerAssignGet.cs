@@ -51,6 +51,10 @@ public class PlayerAssignGet : NetworkBehaviour {
         if (isLocalPlayer) {
             CmdGetNum();
         }
+        // CmdSetPlayerNum(sm.playerNo);
+
+        //playerArray.AddSelf(this.gameObject, currentPlayerNo);
+        //playerAdd.CmdAddSelf(this.gameObject, currentPlayerNo);
         SetupPlayerKD();
     }
 
@@ -126,10 +130,16 @@ public class PlayerAssignGet : NetworkBehaviour {
     public void CmdIncreaseKill() {
         kills++;
     }
-
     [Command]
     public void CmdLoseKill() {
         kills--;
+    }
+
+    public void takePlayerNumber() {
+        // if (isLocalPlayer) {
+        //   CmdGetNum();
+        //     CmdSetPlayerNum(sm.playerNo);
+        //  }
     }
 
     public void SetWinning(bool i) {
@@ -137,7 +147,6 @@ public class PlayerAssignGet : NetworkBehaviour {
             CmdSetWinning(i);
         }
     }
-
     [Command]
     void CmdSetWinning(bool i) {
         isWinning = i;

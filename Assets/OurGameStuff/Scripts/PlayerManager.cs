@@ -28,6 +28,7 @@ public class PlayerManager : NetworkBehaviour {
         }
     }
     public bool finishedWaiting = true;
+
     public void assignPlayerNumbers() {
         for (int i = 0; i < Players.Count; i++) {
             PlayerAssignGet sendPlayerNumber = Players[i].GetComponent<PlayerAssignGet>();
