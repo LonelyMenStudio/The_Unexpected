@@ -51,36 +51,9 @@ public class PlayerAssignGet : NetworkBehaviour {
         if (isLocalPlayer) {
             CmdGetNum();
         }
-        // CmdSetPlayerNum(sm.playerNo);
-
-        //playerArray.AddSelf(this.gameObject, currentPlayerNo);
-        //playerAdd.CmdAddSelf(this.gameObject, currentPlayerNo);
+        SetupPlayerKD();
     }
 
-    [Command]
-    void CmdGetNum() {
-        sm.playerNo++;
-        currentPlayerNo = sm.playerNo;
-    }
-    //[Command]
-    // void CmdSetPlayerNum(int num) {
-    ///    currentPlayerNo = num;
-    // }
-    [Command]
-    public void CmdIncreaseKill() {
-        kills++;
-    }
-    [Command]
-    public void CmdLoseKill() {
-        kills--;
-    }
-
-    public void takePlayerNumber() {
-        // if (isLocalPlayer) {
-        //   CmdGetNum();
-        //     CmdSetPlayerNum(sm.playerNo);
-        //  }
-    }
 
     // Update is called once per frame
     void Update() {
@@ -103,7 +76,24 @@ public class PlayerAssignGet : NetworkBehaviour {
         }
     }
 
+    private void SetupPlayerKD() {
+        if (currentPlayerNo == 1) {
+            PlayerKD = PlayerScore.transform.Find("Player1");
+        } else if (currentPlayerNo == 2) {
+            PlayerKD = PlayerScore.transform.Find("Player2");
+        } else if (currentPlayerNo == 3) {
+            PlayerKD = PlayerScore.transform.Find("Player3");
+        } else if (currentPlayerNo == 4) {
+            PlayerKD = PlayerScore.transform.Find("Player4");
+        } else {
+            Debug.Log("No Player found");
+        }
+    }
+
     private void SetupScoreboard() {
+        DisplayKD = PlayerKD.GetComponent<Text>();
+        DisplayKD.text = (playerName + "       " + kills + "        " + deaths);
+        /*
         if (currentPlayerNo == 1) {
             PlayerKD = PlayerScore.transform.Find("Player1");
             DisplayKD = PlayerKD.GetComponent<Text>();
@@ -123,12 +113,31 @@ public class PlayerAssignGet : NetworkBehaviour {
         } else {
             Debug.Log("No Player found");
         }
+        */
     }
+
+    [Command]
+    void CmdGetNum() {
+        sm.playerNo++;
+        currentPlayerNo = sm.playerNo;
+    }
+
+    [Command]
+    public void CmdIncreaseKill() {
+        kills++;
+    }
+
+    [Command]
+    public void CmdLoseKill() {
+        kills--;
+    }
+
     public void SetWinning(bool i) {
         if (isLocalPlayer) {
             CmdSetWinning(i);
         }
     }
+
     [Command]
     void CmdSetWinning(bool i) {
         isWinning = i;
