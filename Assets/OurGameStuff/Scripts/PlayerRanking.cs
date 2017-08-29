@@ -13,7 +13,6 @@ public class PlayerRanking : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        //if !prep
         if (this.GetComponent<GameTimer>().outOfPrep) {
             playerRanking();
         }
@@ -24,7 +23,6 @@ public class PlayerRanking : MonoBehaviour {
         //int[] playerNumber = new int[pn];
         int[] playerKills = new int[pn];
         for (int i = 0; i < pn; i++) {
-            //playerNumber[i] = playerList.Players[i].GetComponent<PlayerAssignGet>().currentPlayerNo;
             playerKills[i] = playerList.Players[i].GetComponent<PlayerAssignGet>().kills;
         }
         int highestKills = playerKills[0];
