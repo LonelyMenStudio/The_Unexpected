@@ -7,8 +7,9 @@ using UnityEngine.Networking;
 
 public class PrepPhase : MonoBehaviour {
 
+    private const float TOTAL_PREP_TIME = 20;
     public GameObject[] spawn;
-    private float timeRemaining = 20;
+    private float timeRemaining = TOTAL_PREP_TIME;
     private string tr = "Entering Battle in: ";
     private string timeR = "";
     public GameObject timer;
@@ -75,6 +76,13 @@ public class PrepPhase : MonoBehaviour {
             }
         }
 
+    }
+    public bool checkCounting() {
+        if(timeRemaining < TOTAL_PREP_TIME) {
+            return true;
+        } else {
+            return false;
+        }
     }
     IEnumerator ShowError() {
         yield return new WaitForSeconds(4);
