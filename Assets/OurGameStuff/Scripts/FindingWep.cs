@@ -92,7 +92,7 @@ void distanceCheck(GameObject target) {
     Beeping = distance / 30;
     if (radarsound == true) {
             //Radar.fillAmount = 1 - (distance / 300);
-            Radar.transform.localScale = new Vector3(3 *( 1- distance/300),2 * (1- distance / 300), 0);
+            Radar.transform.localScale = new Vector3(5 *( 1- distance/300),2.5f * (1- distance / 300), 0);
            // Radar.GetComponent(RectTransform).sizeDelta = new Vector2(100 * (1 - distance / 300), 100 * (1 - distance / 300));
         radarsound = false;
         StartCoroutine(Beep());
