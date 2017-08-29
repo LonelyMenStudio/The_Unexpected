@@ -55,7 +55,7 @@ public class PlayerAssignGet : NetworkBehaviour {
 
         //playerArray.AddSelf(this.gameObject, currentPlayerNo);
         //playerAdd.CmdAddSelf(this.gameObject, currentPlayerNo);
-        SetupPlayerKD();
+        //SetupPlayerKD();
     }
 
 
@@ -95,9 +95,9 @@ public class PlayerAssignGet : NetworkBehaviour {
     }
 
     private void SetupScoreboard() {
-        DisplayKD = PlayerKD.GetComponent<Text>();
-        DisplayKD.text = (playerName + "       " + kills + "        " + deaths);
-        /*
+        //DisplayKD = PlayerKD.GetComponent<Text>();
+        //DisplayKD.text = (playerName + "       " + kills + "        " + deaths);
+        
         if (currentPlayerNo == 1) {
             PlayerKD = PlayerScore.transform.Find("Player1");
             DisplayKD = PlayerKD.GetComponent<Text>();
@@ -117,7 +117,7 @@ public class PlayerAssignGet : NetworkBehaviour {
         } else {
             Debug.Log("No Player found");
         }
-        */
+        
     }
 
     [Command]
