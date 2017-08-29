@@ -14,6 +14,7 @@ public class GameTimer : NetworkBehaviour {
     private PlayerManager playerManager;
     int timerMinutes;
     int timerSeconds;
+    public bool halfTime = false;
 
     [SyncVar]
     public float gameTime = GAME_TIME_LENGTH;
@@ -36,6 +37,11 @@ public class GameTimer : NetworkBehaviour {
             sec = "" + timerSeconds;
         }
         timeDisplay = min + ":" + sec;
+        if(gameTime <= (GAME_TIME_LENGTH / 2)) {
+            halfTime = true;
+        } else {
+            halfTime = false;
+        }
     }
 
     public void Countdown() {

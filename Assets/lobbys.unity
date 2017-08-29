@@ -925,7 +925,7 @@ Prefab:
     - target: {fileID: 11475086, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 2}
       propertyPath: m_GamePlayerPrefab
       value: 
-      objectReference: {fileID: 1573824661568188, guid: 8fec39ea4e4f3c642aef34fdca4797ef,
+      objectReference: {fileID: 1413133620876976, guid: 7074f32da22062f4b9fe4f4571481831,
         type: 2}
     - target: {fileID: 11475086, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 2}
       propertyPath: m_SpawnPrefabs.Array.data[0]

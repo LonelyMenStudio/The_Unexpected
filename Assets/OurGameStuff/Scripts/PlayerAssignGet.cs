@@ -17,6 +17,7 @@ public class PlayerAssignGet : NetworkBehaviour {
     private Transform PlayerKD;
     private Text DisplayKD;
     private GameTimer checkGameState;
+    public GameObject targetMe;
 
 
     [SyncVar]
@@ -83,6 +84,7 @@ public class PlayerAssignGet : NetworkBehaviour {
 
     // Update is called once per frame
     void Update() {
+        
         SetupScoreboard();
         if (!isLocalPlayer || checkGameState.gameTimeOver) { //uncomment when everything added into scene currently would just error
             return;
@@ -91,6 +93,11 @@ public class PlayerAssignGet : NetworkBehaviour {
             PlayerScore.SetActive(true);
         } else {
             PlayerScore.SetActive(false);
+        }
+        if (checkGameState.halfTime && isWinning) {
+            //targetMe.SetActive(true);
+        } else {
+            //targetMe.SetActive(false);
         }
     }
 
