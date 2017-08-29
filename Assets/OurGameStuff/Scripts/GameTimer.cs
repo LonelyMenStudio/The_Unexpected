@@ -15,6 +15,7 @@ public class GameTimer : NetworkBehaviour {
     int timerMinutes;
     int timerSeconds;
     public bool halfTime = false;
+    public bool outOfPrep = false;
 
     [SyncVar]
     public float gameTime = GAME_TIME_LENGTH;
@@ -67,6 +68,7 @@ public class GameTimer : NetworkBehaviour {
 
     // Update is called once per frame
     void Update() {
+        outOfPrep = !scoreboard.inPrep;
         getTime();
         timer.text = timeDisplay;
         if (gameTimeOver == true) {
@@ -95,16 +97,4 @@ public class GameTimer : NetworkBehaviour {
         FindObjectOfType<NetworkLobbyManager>().ServerReturnToLobby();
     }
 
-    void clearNetwork() {
-        FindObjectOfType<NetworkLobbyManager>().StopServer();
-        GameObject lobby = GameObject.Find("LobbyNetworkManagr");
-        if (lobby != null) {
-            Destroy(lobby);
-        }
-        GameObject lobbyP = GameObject.Find("Lobby Player (Clone)");
-        if (lobbyP != null) {
-            Destroy(lobbyP);
-        }
-
-    }
 }

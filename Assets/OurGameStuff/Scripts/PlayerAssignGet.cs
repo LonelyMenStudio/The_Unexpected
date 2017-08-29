@@ -84,7 +84,11 @@ public class PlayerAssignGet : NetworkBehaviour {
 
     // Update is called once per frame
     void Update() {
-        
+        if (checkGameState.halfTime && isWinning && checkGameState.outOfPrep) {
+            targetMe.SetActive(true);
+        } else {
+            targetMe.SetActive(false);
+        }
         SetupScoreboard();
         if (!isLocalPlayer || checkGameState.gameTimeOver) { //uncomment when everything added into scene currently would just error
             return;
@@ -94,10 +98,8 @@ public class PlayerAssignGet : NetworkBehaviour {
         } else {
             PlayerScore.SetActive(false);
         }
-        if (checkGameState.halfTime && isWinning) {
-            //targetMe.SetActive(true);
-        } else {
-            //targetMe.SetActive(false);
+        if (isLocalPlayer) {
+            targetMe.SetActive(false);
         }
     }
 
