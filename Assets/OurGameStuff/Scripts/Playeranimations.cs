@@ -20,7 +20,8 @@ public class Playeranimations : NetworkBehaviour {
     public GameObject Variables;
     private VariablesScript ManagerGet;
     private Health isDead;
-
+    private bool reloading = true;
+    private const float RELOAD_TIME = 2.0f;
     void Awake() {
         Variables = GameObject.FindWithTag("Start");
     }
@@ -47,13 +48,18 @@ public class Playeranimations : NetworkBehaviour {
         bool isRunning = Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W);
         bool StraftRight = Input.GetKey(KeyCode.D);
         bool StraftLeft = Input.GetKey(KeyCode.A);
-
+        
         animatorz.SetBool("isWalking", isWalkingPressed);
         animatorz.SetBool("HasWep", haswep);
         animatorz.SetBool("Sprint", isRunning);
         animatorz.SetBool("StraftRight", StraftRight);
         animatorz.SetBool("StraftLeft", StraftLeft);
 
+
+        if (haswep && Input.GetKey(KeyCode.R) && reloading) {
+            reloading = false;
+            StartCoroutine(Reload());
+        }
         if (Input.GetKey(KeyCode.Space)) {
             Aim = false;
         }
@@ -81,6 +87,14 @@ public class Playeranimations : NetworkBehaviour {
             animatorz.Play("JumpNoGun");
         } else if (Input.GetKey(KeyCode.Space) && haswep == true) {
             animatorz.Play("JumpWithGun");
-        } 
+        }
+     
+    }
+    IEnumerator Reload() {
+        //reload.Play();
+        //transform.Find("crystal").gameObject.GetComponent<Animation>().Play("Take 001");
+        yield return new WaitForSeconds(RELOAD_TIME);
+        reloading = true;
+
     }
 }
