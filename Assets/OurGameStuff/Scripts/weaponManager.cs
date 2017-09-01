@@ -47,6 +47,12 @@ public class weaponManager : NetworkBehaviour {
     public ParticleSystem ShotFlash;
     public ParticleSystem ShotGunParticle;
     public ParticleSystem SniperParticle;
+    private GameObject Gunout1;
+    private GameObject Gunout2;
+    private GameObject Gunout3;
+    public GameObject Gunout4;
+    public GameObject Gunout5;
+    public GameObject Gunout6;
     // public AudioSource[] sounds;
     public GameObject AmmoObject;
     private bool spawnhole = true;
@@ -92,6 +98,7 @@ public class weaponManager : NetworkBehaviour {
 
     // Use this for initialization
     void Start() {
+        
         Aimming = GetComponent<Playeranimations>();
         weaponhold = GetComponent<IKControl>();
         ManagerGet = Variables.GetComponent<VariablesScript>();
@@ -119,6 +126,8 @@ public class weaponManager : NetworkBehaviour {
         weaponRespawnLocation = new GameObject[wrl.weaponRespawnPoints.Length];
         for (int i = 0; i < wrl.weaponRespawnPoints.Length; i++) {
             weaponRespawnLocation[i] = wrl.weaponRespawnPoints[i];
+
+           
         }
         if (isLocalPlayer) {
             body.layer = 2;
@@ -127,6 +136,21 @@ public class weaponManager : NetworkBehaviour {
         pl = this.gameObject.GetComponent<PlayerAssignGet>();
         //currentPlayer = pl.currentPlayerNo;//activating too early need to make it on first action this is needed
         plrMngr = manager.GetComponent<PlayerManager>();
+        if (!isLocalPlayer) {
+            return;
+        }
+        Gunout1 = gObject.HUGgun1;
+        Gunout2 = gObject.HUGgun2;
+        Gunout3 = gObject.HUGgun3;
+        Gunout1.SetActive(false);
+        Gunout2.SetActive(false);
+        Gunout3.SetActive(false);
+        Gunout4 = gObject.HUGgun4;
+        Gunout5 = gObject.HUGgun5;
+        Gunout6 = gObject.HUGgun6;
+        Gunout4.SetActive(false);
+        Gunout5.SetActive(false);
+        Gunout6.SetActive(false);
     }
     [Command]
     void CmdSetWeaponPlayer(int setTo) {
@@ -161,12 +185,21 @@ public class weaponManager : NetworkBehaviour {
                     if (hit.transform.tag == "weaponPrep") {
                         if (hit.transform.gameObject.name.Contains("PrepRifle")) {
                             weaponOnEnd = 0;
+                            Gunout1.SetActive(true);
+                            Gunout2.SetActive(false);
+                            Gunout3.SetActive(false);
                             changeWeapon(1);
                         } else if (hit.transform.gameObject.name.Contains("PrepShotty")) {
                             weaponOnEnd = 1;
+                            Gunout1.SetActive(false);
+                            Gunout2.SetActive(true);
+                            Gunout3.SetActive(false);
                             changeWeapon(2);
                         } else if (hit.transform.gameObject.name.Contains("PrepSniper")) {
                             weaponOnEnd = 2;
+                            Gunout1.SetActive(false);
+                            Gunout2.SetActive(false);
+                            Gunout3.SetActive(true);
                             changeWeapon(3);
                         }
                     }
@@ -193,6 +226,9 @@ public class weaponManager : NetworkBehaviour {
         if (Input.GetKeyDown(KeyCode.F) && hasWeapon) {
             dropWeapon();
             weaponhold.ikActive = false;
+            Gunout1.SetActive(false);
+            Gunout2.SetActive(false);
+            Gunout3.SetActive(false);
         }
         ammoText.text = currentWeaponAmmo + "/" + currentWeaponMaxAmmo;
         if (currentWeaponAmmo <= 0) {
@@ -212,14 +248,23 @@ public class weaponManager : NetworkBehaviour {
                 if (hit.transform.gameObject.name.Contains("alienrifle")) {
                     replaceWeapon(hit);
                     changeWeapon(1);
+                    Gunout1.SetActive(true);
+                    Gunout2.SetActive(false);
+                    Gunout3.SetActive(false);
                 }
                 if (hit.transform.gameObject.name.Contains("Shotty")) {
                     replaceWeapon(hit);
                     changeWeapon(2);
+                    Gunout1.SetActive(false);
+                    Gunout2.SetActive(true);
+                    Gunout3.SetActive(false);
                 }
                 if (hit.transform.gameObject.name.Contains("AlienSniper")) {
                     replaceWeapon(hit);
                     changeWeapon(3);
+                    Gunout1.SetActive(false);
+                    Gunout2.SetActive(false);
+                    Gunout3.SetActive(true);
                 }
 
             }
@@ -344,6 +389,9 @@ public class weaponManager : NetworkBehaviour {
     void weaponFirstSpawn(int weaponToSpawn) {
         hasWeapon = false;
         canShoot = false;
+        Gunout1.SetActive(false);
+        Gunout2.SetActive(false);
+        Gunout3.SetActive(false);
         if (!isServer) {
             CmdSwitchWeapon(0);
         } else {
@@ -351,10 +399,19 @@ public class weaponManager : NetworkBehaviour {
         }
         if (weaponToSpawn == 0) {
             CmdRespawnAK();
+            Gunout4.SetActive(true);
+            Gunout5.SetActive(false);
+            Gunout6.SetActive(false);
         } else if (weaponToSpawn == 1) {
             CmdRespawnPistol();
+            Gunout4.SetActive(false);
+            Gunout5.SetActive(true);
+            Gunout6.SetActive(false);
         } else if (weaponToSpawn == 2) {
             CmdRespawnSniper();
+            Gunout4.SetActive(false);
+            Gunout5.SetActive(false);
+            Gunout6.SetActive(true);
         } else {
             Debug.Log("problem spawning the weapon");
         }
@@ -367,6 +424,9 @@ public class weaponManager : NetworkBehaviour {
         }
         hasWeapon = false;
         canShoot = false;
+        Gunout1.SetActive(false);
+        Gunout2.SetActive(false);
+        Gunout3.SetActive(false);
         if (!isServer) {
             CmdSwitchWeapon(0);
         } else {
@@ -374,12 +434,22 @@ public class weaponManager : NetworkBehaviour {
         }
         if (weaponOut == 1) {
             RespawnAK();
+            Gunout4.SetActive(true);
+            Gunout5.SetActive(false);
+            Gunout6.SetActive(false);
         }
         if (weaponOut == 2) {
             RespawnPistol();
+            Gunout4.SetActive(false);
+            Gunout5.SetActive(true);
+            Gunout6.SetActive(false);
         }
         if (weaponOut == 3) {
+            
             RespawnSniper();
+            Gunout4.SetActive(false);
+            Gunout5.SetActive(false);
+            Gunout6.SetActive(true);
         }
     }
 

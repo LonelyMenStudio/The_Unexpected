@@ -4420,6 +4420,9 @@ MonoBehaviour:
   ShotFlash: {fileID: 198148673251209032}
   ShotGunParticle: {fileID: 198306402143902012}
   SniperParticle: {fileID: 198053215982986912}
+  Gunout4: {fileID: 0}
+  Gunout5: {fileID: 0}
+  Gunout6: {fileID: 0}
   AmmoObject: {fileID: 0}
   Shotgunshells: 6
   ShotgunSpread: 10

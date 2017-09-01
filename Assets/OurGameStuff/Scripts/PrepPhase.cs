@@ -23,6 +23,12 @@ public class PrepPhase : MonoBehaviour {
     public GameObject HitMark;
     public GameObject PlayerScores;
     public GameObject HitScreen;
+    public GameObject HUGgun1;
+    public GameObject HUGgun2;
+    public GameObject HUGgun3;
+    public GameObject HUGgun4;
+    public GameObject HUGgun5;
+    public GameObject HUGgun6;
     public List<GameObject> Players = new List<GameObject>();
     private PlayerManager assignTime;
     private bool canAssign = true;

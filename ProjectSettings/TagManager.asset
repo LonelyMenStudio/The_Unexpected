@@ -23,6 +23,12 @@ TagManager:
   - Ammo
   - ErrorText
   - NetWork
+  - RilfeIcon
+  - ShottyIcon
+  - SniperIcon
+  - Rifle1
+  - Shotgun1
+  - Sniper1
   layers:
   - Default
   - TransparentFX

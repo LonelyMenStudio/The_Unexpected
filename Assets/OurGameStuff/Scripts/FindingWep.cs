@@ -25,11 +25,15 @@ public class FindingWep : NetworkBehaviour {
     private PrepPhase gObject;
     public Material[] TeamColors;
     private GameObject TeamColor;
+    private bool Beepsoundz = true;
+    private GameObject Gunout7;
+    private GameObject Gunout8;
+    private GameObject Gunout9;
+    private weaponManager temp;
 
 
     void Start() {
-
-
+        temp = GetComponent<weaponManager>();
         Canvas = GameObject.FindWithTag("Radar pulse");
         Beepsound = sounds[0];
         Variables = GameObject.FindWithTag("Start");
@@ -54,7 +58,14 @@ public class FindingWep : NetworkBehaviour {
         if (!isLocalPlayer) {
             return;
         }
-       
+       if ( playerno == this.gameObject.GetComponent<weaponManager>().currentWeaponPlayer) {
+            Gunout7 = temp.Gunout4;
+            Gunout8 = temp.Gunout5;
+            Gunout9 = temp.Gunout6;
+            Gunout7.SetActive(false);
+            Gunout8.SetActive(false);
+            Gunout9.SetActive(false);
+        }
         Playerz.RemoveAll(item => item == null);
         pManager.droppedWeapons.RemoveAll(item => item == null);
         if (gObject.inPrep == false) {
@@ -90,19 +101,27 @@ public class FindingWep : NetworkBehaviour {
 void distanceCheck(GameObject target) {
     distance = Vector3.Distance(transform.position, target.transform.position);
     Beeping = distance / 30;
+        if (Beepsoundz == true && distance > 10) {
+            StartCoroutine(Beep());
+            Beepsoundz = false;
+        }
     if (radarsound == true) {
             //Radar.fillAmount = 1 - (distance / 300);
             Radar.transform.localScale = new Vector3(5 *( 1- distance/300),2.5f * (1- distance / 300), 0);
            // Radar.GetComponent(RectTransform).sizeDelta = new Vector2(100 * (1 - distance / 300), 100 * (1 - distance / 300));
         radarsound = false;
-        StartCoroutine(Beep());
+            StartCoroutine(RadarCheck());
     }
 }
 
     IEnumerator Beep() {
         Beepsound.Play();
         yield return new WaitForSeconds(Beeping);
-        radarsound = true;
+        Beepsoundz = true;
   }
+    IEnumerator RadarCheck() {
+        yield return new WaitForSeconds(0.5f);
+        radarsound = true;
+    }
 
 }
