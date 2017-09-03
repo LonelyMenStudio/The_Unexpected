@@ -33,6 +33,7 @@ public class Health : NetworkBehaviour {
     private GameObject HitMarker;
     //private Color red;
     //private Color reset;
+    private bool canSendKill = true;
 
     [SyncVar(hook = "OnChangeHealth")]
     public int Healthz = maxHealth;
@@ -78,7 +79,10 @@ public class Health : NetworkBehaviour {
         Healthz -= amount;
         if (Healthz <= 0) {
             Healthz = 0;
-            sendKill(damageFrom);
+            if (canSendKill) {
+                canSendKill = false;
+                sendKill(damageFrom);
+            }
         }
     }
     public void DeathByWater() {
@@ -98,13 +102,14 @@ public class Health : NetworkBehaviour {
     [Command]
     void CmdRespawn(GameObject toPlayer) {
         Healthz = maxHealth;
-        playerNumber.deaths++;
-        RpcCanResapwnAgain(toPlayer);
+        playerNumber.deaths++;//increase death
+        RpcCanRespawnAgain(toPlayer);
         //inRespawn = false;
     }
     [ClientRpc]
-    void RpcCanResapwnAgain(GameObject toPlayer) {
+    void RpcCanRespawnAgain(GameObject toPlayer) {
         toPlayer.GetComponent<Health>().inRespawn = false;
+        toPlayer.GetComponent<Health>().canSendKill = true;
     }
 
     void sendKill(int killerNumber) {
@@ -123,17 +128,12 @@ public class Health : NetworkBehaviour {
             return;
         }
         if (healthL <= 0 && !inRespawn) {
+            inRespawn = true;
             this.gameObject.GetComponent<weaponManager>().DamIDied();
             CmdPlayerDied(playerNumber.currentPlayerNo);
             death = true;
-            if (!inRespawn) {
-                inRespawn = true;
-                CmdRespawn(this.gameObject);
-                healthL = maxHealth;
-            }
-
+            CmdRespawn(this.gameObject);// call death
             teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
-
         }
         //player dying animation player wait for done then reset to give feedback
         if (Healthz <= 0) {
