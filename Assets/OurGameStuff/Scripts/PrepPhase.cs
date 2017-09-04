@@ -91,7 +91,7 @@ public class PrepPhase : MonoBehaviour {
         }
     }
     IEnumerator ShowError() {
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(6);
         ErrorText.SetActive(false);
     }
 }
