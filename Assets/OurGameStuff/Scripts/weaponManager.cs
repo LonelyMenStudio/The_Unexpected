@@ -89,7 +89,7 @@ public class weaponManager : NetworkBehaviour {
     //>>>>>>> c3943934d6b06f638b2c283b56224c49b4642929
     //Animator animatorz;
 
-    private const float RELOAD_TIME = 2.0f;
+    private const float RELOAD_TIME = 3.0f;
     private const float hitmarkertime = 1.0f;
 
     void Awake() {

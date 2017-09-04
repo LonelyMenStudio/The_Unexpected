@@ -16,12 +16,15 @@ public class IKControl : MonoBehaviour {
     public Transform righthandposition;
     public Transform righthandpositionAim;
     public Transform lefhandpositonaim;
+    public GameObject reloadpos;
     private Playeranimations aim;
     public Transform lookObj = null;
+    private bool reload;
 
     void Start() {
         animator = GetComponent<Animator>();
         aim = this.gameObject.GetComponent<Playeranimations>();
+
     }
     //a callback for calculating IK
     void OnAnimatorIK() {
@@ -60,6 +63,14 @@ public class IKControl : MonoBehaviour {
                         animator.SetIKRotation(AvatarIKGoal.LeftHand, lefhandpositonaim.transform.rotation);
                             animator.SetLookAtWeight(1);
                             animator.SetLookAtPosition(lookObj.position);
+                    }
+                    if (!aim.reloading) {
+                        rightHandObj.position = reloadpos.transform.position;
+                        rightHandObj.rotation = reloadpos.transform.rotation;
+                        animator.SetIKPosition(AvatarIKGoal.RightHand, righthandposition.transform.position);
+                        animator.SetIKRotation(AvatarIKGoal.RightHand, righthandposition.transform.rotation);
+                        animator.SetIKPosition(AvatarIKGoal.LeftHand, LeftHandObj.transform.position);
+                        animator.SetIKRotation(AvatarIKGoal.LeftHand, LeftHandObj.transform.rotation);
                     }
 
 

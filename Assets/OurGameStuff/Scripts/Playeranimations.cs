@@ -20,8 +20,8 @@ public class Playeranimations : NetworkBehaviour {
     public GameObject Variables;
     private VariablesScript ManagerGet;
     private Health isDead;
-    private bool reloading = true;
-    private const float RELOAD_TIME = 2.0f;
+    public bool reloading = true;
+    private const float RELOAD_TIME = 3.0f;
     void Awake() {
         Variables = GameObject.FindWithTag("Start");
     }
