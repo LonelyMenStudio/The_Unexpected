@@ -56,8 +56,9 @@ public class Playeranimations : NetworkBehaviour {
         animatorz.SetBool("StraftLeft", StraftLeft);
 
 
-        if (haswep && Input.GetKey(KeyCode.R) && reloading) {
+        if ( Input.GetKey(KeyCode.R) && reloading && haswep) {
             reloading = false;
+            animatorz.Play("Reload");
             StartCoroutine(Reload());
         }
         if (Input.GetKey(KeyCode.Space)) {
