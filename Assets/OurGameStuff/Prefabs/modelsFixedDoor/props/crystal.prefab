@@ -22,9 +22,11 @@ GameObject:
   - component: {fileID: 33076576966032206}
   - component: {fileID: 23103666062226784}
   - component: {fileID: 64747701513680350}
+  - component: {fileID: 114218889539869194}
+  - component: {fileID: 114379293872425694}
   m_Layer: 0
   m_Name: crystal
-  m_TagString: Untagged
+  m_TagString: Crystal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,3 +98,47 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 9fae736f97730074f8eb3d0d66675372, type: 3}
+--- !u!114 &114218889539869194
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1895772640624262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 59
+    i1: 90
+    i2: 138
+    i3: 249
+    i4: 60
+    i5: 2
+    i6: 54
+    i7: 132
+    i8: 88
+    i9: 190
+    i10: 130
+    i11: 156
+    i12: 84
+    i13: 19
+    i14: 50
+    i15: 133
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+--- !u!114 &114379293872425694
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1895772640624262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80dc46b48c2f64a488c44d02510a329f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crystalHealth: 50

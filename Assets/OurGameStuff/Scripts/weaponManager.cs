@@ -550,6 +550,9 @@ public class weaponManager : NetworkBehaviour {
                 HitMarker.SetActive(true);
                 StartCoroutine(hit());
             }
+            if(hit2.transform.tag == "Crystal") {
+                CmdDamageCrystal(hit2.transform.gameObject, AkDamage);
+            }
 
         } else if (weaponOut == 2) {
             for (int i = 0; i < Shotgunshells; i++) {
@@ -573,6 +576,9 @@ public class weaponManager : NetworkBehaviour {
                         CmdDamageDealer(hit3.transform.gameObject, damageS, currentPlayer);
                         spawnhole = false;
                     }
+                    if(hit3.transform.tag == "Crystal") {
+                        CmdDamageCrystal(hit3.transform.gameObject, ShotgunDmg);
+                    }
                 }
             }
         } else if (weaponOut == 3 && Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit2)) {
@@ -588,6 +594,9 @@ public class weaponManager : NetworkBehaviour {
                 int damageSn = (int)sniperDmg;
                 CmdDamageDealer(hit2.transform.gameObject, damageSn, currentPlayer);
                 spawnhole = false;
+            }
+            if(hit2.transform.tag == "Crystal") {
+                CmdDamageCrystal(hit2.transform.gameObject, sniperDmg);
             }
         } else {
             Debug.Log("Missed player");
@@ -632,6 +641,12 @@ public class weaponManager : NetworkBehaviour {
             Debug.Log("Not Shotting or not Hit player");
         }
     }
+
+    [Command]
+    void CmdDamageCrystal(GameObject hit, float damage) {
+        hit.SendMessage("DamageCrystal", damage);
+    }
+
 
     [Command]
     void CmdBulletHoleRifle(Vector3 hit, Vector3 normal) {

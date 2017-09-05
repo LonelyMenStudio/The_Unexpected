@@ -29,6 +29,7 @@ TagManager:
   - Rifle1
   - Shotgun1
   - Sniper1
+  - Crystal
   layers:
   - Default
   - TransparentFX
