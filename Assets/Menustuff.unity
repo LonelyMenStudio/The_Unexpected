@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.4964127, b: 0.57481724, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1400,6 +1400,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &382882862 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11400000, guid: b6a1cf4e3eeaf9a4ca38bf8acb910a6d,
+    type: 2}
+  m_PrefabInternal: {fileID: 996510956}
+  m_Script: {fileID: -113659843, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &388674857
 Prefab:
   m_ObjectHideFlags: 0
@@ -1701,6 +1707,12 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &408040960 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11400000, guid: b6a1cf4e3eeaf9a4ca38bf8acb910a6d,
+    type: 2}
+  m_PrefabInternal: {fileID: 562819630}
+  m_Script: {fileID: -113659843, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &418686620
 GameObject:
   m_ObjectHideFlags: 0
@@ -2312,9 +2324,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 501365808}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8ea40a1b93f87a42b1a5b97eb1c493a, type: 3}
+  m_Script: {fileID: 11500000, guid: c9787d8525b64ec49ad0fa6b41ec40d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixer: {fileID: 24100000, guid: 3b580b6d80b45b04dbd6817adae51ce6, type: 2}
+  masterVol: {fileID: 509833303}
+  masterText: {fileID: 881271871}
+  sfxVol: {fileID: 408040960}
+  sfxText: {fileID: 1012106636}
+  musicVol: {fileID: 382882862}
+  musicText: {fileID: 87106801}
 --- !u!114 &501365810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2398,6 +2417,12 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &509833303 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11400000, guid: b6a1cf4e3eeaf9a4ca38bf8acb910a6d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1659445095}
+  m_Script: {fileID: -113659843, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &531225749
 GameObject:
   m_ObjectHideFlags: 0
@@ -2673,9 +2698,10 @@ GameObject:
   m_Component:
   - component: {fileID: 610026997}
   - component: {fileID: 610026996}
+  - component: {fileID: 610026998}
   m_Layer: 0
-  m_Name: main_unexpected (1)
-  m_TagString: Untagged
+  m_Name: MusicPlayer
+  m_TagString: MenuMusic
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2688,7 +2714,7 @@ AudioSource:
   m_GameObject: {fileID: 610026995}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 243646359876389120, guid: 0a5b6071240239641b33fb3a0e42c516,
+  OutputAudioMixerGroup: {fileID: 243646359876389120, guid: 3b580b6d80b45b04dbd6817adae51ce6,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: eba6c6e028f80c94ba3cae8ae07722f5, type: 3}
   m_PlayOnAwake: 1
@@ -2774,6 +2800,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &610026998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 610026995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9cff05fb6831e146b287bf2f1426b7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneNumber: 0
 --- !u!224 &626570457 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 22400008, guid: b6a1cf4e3eeaf9a4ca38bf8acb910a6d,

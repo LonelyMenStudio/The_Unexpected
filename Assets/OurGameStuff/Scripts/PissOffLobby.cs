@@ -11,7 +11,7 @@ public class PissOffLobby : MonoBehaviour {
     }
     // Use this for initialization
     public void loadscene(int sceneIndex) {
-        
+        /*
         GameObject lobby = GameObject.Find("LobbyNetworkManagr");
         if (lobby != null) {
             Destroy(lobby);
@@ -21,6 +21,7 @@ public class PissOffLobby : MonoBehaviour {
             Destroy(lobbyP);
         }
         Lobby.SetActive(false);
+        */
         SceneManager.LoadScene(sceneIndex);
 
 
