@@ -34,7 +34,8 @@ public class PrepPhase : MonoBehaviour {
     private bool canAssign = true;
     public GameObject ErrorText;
     private GameTimerCommander timerStarter;
-
+    private float speed = 1.5f;
+    public bool lookingforweapon = false;
 
     // Use this for initialization
     void Start() {
@@ -56,23 +57,22 @@ public class PrepPhase : MonoBehaviour {
             text.text = tr + timeR;
 
         }
-        if(timeRemaining <= 10 && canAssign) {
+        if (timeRemaining <= 10 && canAssign) {
             assignTime.assignPlayerNumbers();
             canAssign = false;
         }
         if (timeRemaining <= 0) {
+            lookingforweapon = true;
             teleport = true;
             playwep = true;
             timeRemaining = 2;
             inPrep = false;
             timer.SetActive(false);
-            for(int i = 0; i < Players.Count; i++) {
+            for (int i = 0; i < Players.Count; i++) {
                 timerStarter = Players[i].gameObject.GetComponent<GameTimerCommander>();
                 timerStarter.TryStart();
             }
             ErrorText.SetActive(true);
-            StartCoroutine(ShowError());
-
         }
         if (teleport == true) {
             for (int i = 0; i < Players.Count; i++) {
@@ -81,8 +81,18 @@ public class PrepPhase : MonoBehaviour {
                 teleport = false;
             }
         }
-
+        if (lookingforweapon) {
+            Vector3 x = ErrorText.transform.position;
+            if (x.x <= 0) {
+                speed = -750;
+            } else {
+                speed = 6f;
+            }
+            ErrorText.transform.Translate(-speed, 0, 0);
+            //  StartCoroutine(ShowError());
+        }
     }
+    
     public bool checkCounting() {
         if(timeRemaining < TOTAL_PREP_TIME) {
             return true;
@@ -90,8 +100,8 @@ public class PrepPhase : MonoBehaviour {
             return false;
         }
     }
-    IEnumerator ShowError() {
+   /* IEnumerator ShowError() {
         yield return new WaitForSeconds(6);
         ErrorText.SetActive(false);
-    }
+    }*/
 }
