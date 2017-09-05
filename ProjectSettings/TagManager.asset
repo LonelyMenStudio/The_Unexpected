@@ -30,7 +30,7 @@ TagManager:
   - Shotgun1
   - Sniper1
   - Crystal
-  - Weapon Connected
+  - Connected
   layers:
   - Default
   - TransparentFX

@@ -33,7 +33,7 @@ public class PrepPhase : MonoBehaviour {
     private PlayerManager assignTime;
     private bool canAssign = true;
    public GameObject ErrorText;
-  //  public GameObject WeaponText;
+   private GameObject WeaponText;
     private GameTimerCommander timerStarter;
     private float speed = 1.5f;
     public bool lookingforweapon = false;
@@ -44,7 +44,7 @@ public class PrepPhase : MonoBehaviour {
         text = timer.GetComponent<Text>();
         assignTime = this.gameObject.GetComponent<PlayerManager>();
        ErrorText = GameObject.FindWithTag("ErrorText");
-      // WeaponText = GameObject.FindWithTag("Weapon Connected");
+       WeaponText = GameObject.FindWithTag("Connected");
         ErrorText.SetActive(false);
        // WeaponText.SetActive(false);   
     }
@@ -99,7 +99,7 @@ public class PrepPhase : MonoBehaviour {
             ErrorText.SetActive(false);
         }
         if (Foundwep) {
-          //  WeaponText.SetActive(true);
+            WeaponText.SetActive(true);
             StartCoroutine(ShowError());
         }
     }
@@ -113,6 +113,6 @@ public class PrepPhase : MonoBehaviour {
     }
     IEnumerator ShowError() {
         yield return new WaitForSeconds(6);
-       // WeaponText.SetActive(false);
+       WeaponText.SetActive(false);
     }
 }
