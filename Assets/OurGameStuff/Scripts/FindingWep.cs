@@ -66,7 +66,7 @@ public class FindingWep : NetworkBehaviour {
             Gunout7.SetActive(false);
             Gunout8.SetActive(false);
             Gunout9.SetActive(false);
-            gObject.lookingforweapon = false;
+           gObject.lookingforweapon = false;
             if (check == false) {
                 check = true;
                 gObject.Foundwep = true;

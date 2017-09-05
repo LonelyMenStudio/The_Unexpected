@@ -4617,16 +4617,16 @@ MonoBehaviour:
   Sniper_shot: {fileID: 82311097837685832}
   Shotgun_shot: {fileID: 82491047569942712}
   bulletHole: {fileID: 1866046136907596, guid: ffb5b35563eb748458e3b5c787b25e41, type: 2}
-  bulletHole1: {fileID: 1063656013003576, guid: c399c6a1cc8e8e14e8ee01f128652894,
+  bulletHole1: {fileID: 1423792814199912, guid: c5273571c4ef11e49b88645913106ced,
     type: 2}
   Hole: {fileID: 0}
   bulletHoleS: {fileID: 1989590179095660, guid: 5a2579a7e1db62349a316adb6b4300f5,
     type: 2}
   bulletHoleSG: {fileID: 1544814712817408, guid: bf65677182ef0a743893e93e40f00c19,
     type: 2}
-  bulletHoleSG1: {fileID: 1542725696782184, guid: 035aa94f9a881a643a5d2c8b1f3871f7,
+  bulletHoleSG1: {fileID: 1900758349723970, guid: 19a82ed9bd78d0a488954a95889ae390,
     type: 2}
-  bulletHoleS1: {fileID: 1394617243201748, guid: 7a056be16596d094fb4855e72e1c18a3,
+  bulletHoleS1: {fileID: 1317677418539572, guid: 753fbde1ce0245141b822da3f4213a36,
     type: 2}
   ShotParticle: {fileID: 198659737815035984}
   ShotFlash: {fileID: 198257159896889190}

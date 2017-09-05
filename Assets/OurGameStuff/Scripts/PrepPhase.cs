@@ -32,8 +32,8 @@ public class PrepPhase : MonoBehaviour {
     public List<GameObject> Players = new List<GameObject>();
     private PlayerManager assignTime;
     private bool canAssign = true;
-    public GameObject ErrorText;
-    public GameObject WeaponText;
+   public GameObject ErrorText;
+  //  public GameObject WeaponText;
     private GameTimerCommander timerStarter;
     private float speed = 1.5f;
     public bool lookingforweapon = false;
@@ -43,10 +43,10 @@ public class PrepPhase : MonoBehaviour {
     void Start() {
         text = timer.GetComponent<Text>();
         assignTime = this.gameObject.GetComponent<PlayerManager>();
-        ErrorText = GameObject.FindWithTag("ErrorText");
-        WeaponText = GameObject.FindWithTag("Weapon Connected");
+       ErrorText = GameObject.FindWithTag("ErrorText");
+      // WeaponText = GameObject.FindWithTag("Weapon Connected");
         ErrorText.SetActive(false);
-        WeaponText.SetActive(false);   
+       // WeaponText.SetActive(false);   
     }
 
     // Update is called once per frame
@@ -67,7 +67,7 @@ public class PrepPhase : MonoBehaviour {
             canAssign = false;
         }
         if (timeRemaining <= 0) {
-            lookingforweapon = true;
+           lookingforweapon = true;
             teleport = true;
             playwep = true;
             timeRemaining = 2;
@@ -77,7 +77,7 @@ public class PrepPhase : MonoBehaviour {
                 timerStarter = Players[i].gameObject.GetComponent<GameTimerCommander>();
                 timerStarter.TryStart();
             }
-            ErrorText.SetActive(true);
+           ErrorText.SetActive(true);
         }
         if (teleport == true) {
             for (int i = 0; i < Players.Count; i++) {
@@ -99,7 +99,7 @@ public class PrepPhase : MonoBehaviour {
             ErrorText.SetActive(false);
         }
         if (Foundwep) {
-            WeaponText.SetActive(true);
+          //  WeaponText.SetActive(true);
             StartCoroutine(ShowError());
         }
     }
@@ -113,6 +113,6 @@ public class PrepPhase : MonoBehaviour {
     }
     IEnumerator ShowError() {
         yield return new WaitForSeconds(6);
-        WeaponText.SetActive(false);
+       // WeaponText.SetActive(false);
     }
 }
