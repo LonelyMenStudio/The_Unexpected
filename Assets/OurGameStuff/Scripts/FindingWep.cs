@@ -30,6 +30,7 @@ public class FindingWep : NetworkBehaviour {
     private GameObject Gunout8;
     private GameObject Gunout9;
     private weaponManager temp;
+    private bool check = false;
 
 
     void Start() {
@@ -65,6 +66,13 @@ public class FindingWep : NetworkBehaviour {
             Gunout7.SetActive(false);
             Gunout8.SetActive(false);
             Gunout9.SetActive(false);
+            gObject.lookingforweapon = false;
+            if (check == false) {
+                check = true;
+                gObject.Foundwep = true;
+            }else {
+                
+            }
         }
         Playerz.RemoveAll(item => item == null);
         pManager.droppedWeapons.RemoveAll(item => item == null);

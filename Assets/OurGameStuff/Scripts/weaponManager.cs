@@ -8,7 +8,7 @@ public class weaponManager : NetworkBehaviour {
     public GameObject shotty;
     public GameObject ak;
     public GameObject Sniper;
-    private int weaponOut = 0;//1 rifle, 2 shotgun, 3 sniper
+    public int weaponOut = 0;//1 rifle, 2 shotgun, 3 sniper
     private int secondWeapon = 0;
     public bool hasWeapon = false;
     public int currentWeaponAmmo;
