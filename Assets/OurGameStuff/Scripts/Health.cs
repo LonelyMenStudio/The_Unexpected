@@ -11,7 +11,7 @@ public class Health : NetworkBehaviour {
     private const int maxHealth = 300;
     public Image Healthbar;
     public Image PlayerHud;
-    public Image DamageScreen;
+    public Image DamageScreenTop;
     Text text;
     public float fillAmount;
     public GameObject barImage;
@@ -30,6 +30,7 @@ public class Health : NetworkBehaviour {
     private NetworkXYZSync teleporter;
     private bool inRespawn = false;
     public bool death = false;
+    public bool getHit = false;
     private GameObject HitMarker;
     //private Color red;
     //private Color reset;
@@ -60,7 +61,7 @@ public class Health : NetworkBehaviour {
         HudImage = prepPhase.PlayerHUD;
         HitMarker = prepPhase.HitScreen;
         HitMarker.SetActive(false);
-        DamageScreen = HitMarker.GetComponent<Image>();
+        DamageScreenTop = HitMarker.GetComponent<Image>();
         PlayerHud = HudImage.GetComponent<Image>();
         playerNumber = this.gameObject.GetComponent<PlayerAssignGet>();
         deathMessage = manager.GetComponent<PlayerManager>();
@@ -71,6 +72,7 @@ public class Health : NetworkBehaviour {
     }
 
     public void TakeDamage(int[] damageInfo) {
+        getHit = true;
         if (!isServer) {
             return;
         }
@@ -138,6 +140,19 @@ public class Health : NetworkBehaviour {
         //player dying animation player wait for done then reset to give feedback
         if (Healthz <= 0) {
             //uses local
+        }
+        //flash red code
+        if (getHit) {
+            Color Opaque = new Color(1, 1, 1, 1);
+            DamageScreenTop.color = Color.Lerp(DamageScreenTop.color, Opaque, 20 * Time.deltaTime);
+            if (DamageScreenTop.color.a >= 0.8)
+            {
+                getHit = false;
+            }
+        }
+        if (!getHit) {
+            Color Transparent = new Color(1, 1, 1, 0);
+            DamageScreenTop.color = Color.Lerp(DamageScreenTop.color, Transparent, 20 * Time.deltaTime);
         }
     }
     [Command]
