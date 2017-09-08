@@ -145,8 +145,7 @@ public class Health : NetworkBehaviour {
         if (getHit) {
             Color Opaque = new Color(1, 1, 1, 1);
             DamageScreenTop.color = Color.Lerp(DamageScreenTop.color, Opaque, 20 * Time.deltaTime);
-            if (DamageScreenTop.color.a >= 0.8)
-            {
+            if (DamageScreenTop.color.a >= 0.8) {
                 getHit = false;
             }
         }
@@ -191,4 +190,24 @@ public class Health : NetworkBehaviour {
         HitMarker.SetActive(false);
     }
 
+    public void CrystalHeal(int amount) {
+        if (!isLocalPlayer) {
+            return;
+        }
+        CmdEnviromentEffect(false, amount);
+    }
+    public void BarrelDamage(int amount) {
+        if (!isLocalPlayer) {
+            return;
+        }
+        CmdEnviromentEffect(true, amount);
+    }
+    [Command]
+    void CmdEnviromentEffect(bool damage, int amount) {
+        if (damage) {
+            Healthz = Healthz - amount;
+        } else {
+            Healthz = Healthz + amount;
+        }
+    }
 }

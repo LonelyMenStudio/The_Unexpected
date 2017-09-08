@@ -8,6 +8,8 @@ public class CrystalAction : NetworkBehaviour {
     [SyncVar]
     public float crystalHealth = 50;
 
+    private bool crystalDestoryed = false;
+
     // Use this for initialization
     void Start() {
 
@@ -15,8 +17,11 @@ public class CrystalAction : NetworkBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (crystalHealth <= 0) {
-            Destroy(this.gameObject);//should be ok actually iffy  might need some sort of network destory because well reasonsst
+        if (crystalHealth <= 0 && !crystalDestoryed) {
+            Destroy(this.gameObject.GetComponent<MeshCollider>());
+            Destroy(this.gameObject.GetComponent<MeshRenderer>());
+            crystalDestoryed = true;
+            //Destroy(this.gameObject);//should be ok actually iffy  might need some sort of network destory because well reasonsst
             //Instantiate (on network) particle effect
         }
     }
