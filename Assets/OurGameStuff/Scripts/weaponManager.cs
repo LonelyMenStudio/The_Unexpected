@@ -402,20 +402,23 @@ public class weaponManager : NetworkBehaviour {
             Gunout4.SetActive(true);
             Gunout5.SetActive(false);
             Gunout6.SetActive(false);
+            CmdWeaponAmmoDrop(weaponDropperTemp, 30, 30, currentPlayer);
         } else if (weaponToSpawn == 1) {
             CmdRespawnPistol();
             Gunout4.SetActive(false);
             Gunout5.SetActive(true);
             Gunout6.SetActive(false);
+            CmdWeaponAmmoDrop(weaponDropperTemp, 30, 30, currentPlayer);
         } else if (weaponToSpawn == 2) {
             CmdRespawnSniper();
             Gunout4.SetActive(false);
             Gunout5.SetActive(false);
             Gunout6.SetActive(true);
+            CmdWeaponAmmoDrop(weaponDropperTemp, 10, 10, currentPlayer);
         } else {
             Debug.Log("problem spawning the weapon");
         }
-        CmdWeaponAmmoDrop(weaponDropperTemp, 30, 30, currentPlayer);
+        
     }
 
     void loseWeapon() {
