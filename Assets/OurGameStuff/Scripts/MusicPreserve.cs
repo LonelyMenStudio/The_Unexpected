@@ -22,7 +22,7 @@ public class MusicPreserve : MonoBehaviour
 	{
 		sceneNumber = SceneManager.GetActiveScene ().buildIndex;
 	
-		if (sceneNumber > 1) {
+		if (sceneNumber == 2) {
 			Destroy (this.gameObject);
 		}
 	}
@@ -30,7 +30,7 @@ public class MusicPreserve : MonoBehaviour
 
 	void Awake ()
 	{
-		if (sceneNumber <= 1) {
+		if (sceneNumber != 2) {
 			DontDestroyOnLoad (this.gameObject);
 		}
 	}
