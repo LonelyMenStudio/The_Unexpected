@@ -5221,7 +5221,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -5735,6 +5735,7 @@ MonoBehaviour:
   shotty: {fileID: 1257477043979730, guid: e7afb36a5768af845be0a10702ad069b, type: 2}
   ak: {fileID: 1859313212312494, guid: f2a2dc18e67bd73449675ed62d367586, type: 2}
   Sniper: {fileID: 1149199930595854, guid: 6b5f3d0be9123f1479a61a85edc57e3a, type: 2}
+  weaponOut: 0
   hasWeapon: 0
   currentWeaponAmmo: 0
   currentWeaponMaxAmmo: 0
@@ -5765,6 +5766,9 @@ MonoBehaviour:
   ShotFlash: {fileID: 198182644933194702}
   ShotGunParticle: {fileID: 198418580269223328}
   SniperParticle: {fileID: 198601844308399620}
+  Gunout4: {fileID: 0}
+  Gunout5: {fileID: 0}
+  Gunout6: {fileID: 0}
   AmmoObject: {fileID: 0}
   Shotgunshells: 6
   ShotgunSpread: 10
@@ -5820,6 +5824,7 @@ MonoBehaviour:
   Aim: 0
   player: {fileID: 1163954766165120}
   Variables: {fileID: 0}
+  reloading: 1
 --- !u!114 &114406190893968786
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5933,7 +5938,7 @@ MonoBehaviour:
   respawn: {fileID: 1483357294802534, guid: 0f19f0d556f7e014db4ccc82b72eb748, type: 2}
   Healthbar: {fileID: 0}
   PlayerHud: {fileID: 0}
-  DamageScreen: {fileID: 0}
+  DamageScreenTop: {fileID: 0}
   fillAmount: 0
   barImage: {fileID: 0}
   playerName: 
@@ -5942,6 +5947,7 @@ MonoBehaviour:
   respawnLocations: []
   Variables: {fileID: 0}
   death: 0
+  getHit: 0
   Healthz: 300
   healthL: 0
 --- !u!136 &136232297736133606
