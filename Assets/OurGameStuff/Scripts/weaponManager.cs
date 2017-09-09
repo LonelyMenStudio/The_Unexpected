@@ -567,7 +567,11 @@ public class weaponManager : NetworkBehaviour {
                 if (Physics.Raycast(Camera.main.transform.position, AimSpread * Vector3.forward, out hit3, Mathf.Infinity)) {
 
                     if (hit3.transform.tag == "Player") {
-                        Shotgun_shot.Play();
+						if (!isServer) {
+							CmdPlayShotgunAudio();
+						} else {
+							RpcPlayShotgunAudio();
+						}
                         ShotGunParticle.Play();
                         float distance = Vector3.Distance(transform.position, hit3.transform.position);
                         if (distance >= 100) {
@@ -586,7 +590,11 @@ public class weaponManager : NetworkBehaviour {
             }
         } else if (weaponOut == 3 && Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit2)) {
             if (hit2.transform.tag == "Player") {
-                Sniper_shot.Play();
+				if (!isServer) {
+					CmdPlaySniperAudio();
+				} else {
+					RpcPlaySniperAudio();
+				}
                 SniperParticle.Play();
                 float distance = Vector3.Distance(transform.position, hit2.transform.position);
                 if (distance >= 500) {
@@ -617,7 +625,11 @@ public class weaponManager : NetworkBehaviour {
             spawnhole = true;
 
         } else if (weaponOut == 2) {
-            Shotgun_shot.Play();
+			if (!isServer) {
+				CmdPlayShotgunAudio();
+			} else {
+				RpcPlayShotgunAudio();
+			}
             RaycastHit hit4;
             for (int i = 0; i < Shotgunshells; i++) {
                 Vector3 ShotgunAim = Camera.main.transform.forward;
@@ -631,7 +643,11 @@ public class weaponManager : NetworkBehaviour {
                 spawnhole = true;
             }
         } else if (weaponOut == 3) {
-            Sniper_shot.Play();
+			if (!isServer) {
+				CmdPlaySniperAudio();
+			} else {
+				RpcPlaySniperAudio();
+			}
             SniperParticle.Play();
             RaycastHit hit;
             Ray ray = new Ray(Camera.main.transform.position, childRoot.transform.forward);
@@ -761,4 +777,25 @@ public class weaponManager : NetworkBehaviour {
         hasDroppedOne = true;
         CmdKIDroppedIt(this.gameObject);
     }
+
+	//addition
+	[Command]
+	void CmdPlaySniperAudio() {
+		RpcPlaySniperAudio();
+	}
+
+	[ClientRpc]
+	void RpcPlaySniperAudio() {
+		Sniper_shot.Play();
+	}
+
+	[Command]
+	void CmdPlayShotgunAudio() {
+		RpcPlayShotgunAudio();
+	}
+
+	[ClientRpc]
+	void RpcPlayShotgunAudio() {
+		Shotgun_shot.Play();
+	}
 }
