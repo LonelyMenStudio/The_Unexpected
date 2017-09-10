@@ -524,7 +524,11 @@ MonoBehaviour:
 
     LMB - Shoot
 
+    RMB - Aim Down Sights
+
     F - Drop Weapon
+
+    R - Reload
 
 '
 --- !u!222 &1783637405
