@@ -63,6 +63,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Update is called once per frame
         private void Update()
         {
+            if (Input.GetKey(KeyCode.LeftShift)) {
+                this.gameObject.GetComponent<weaponManager>().isSprinting = true;
+            } else {
+                this.gameObject.GetComponent<weaponManager>().isSprinting = false;
+            }
+
             RotateView();
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump)
