@@ -64,6 +64,7 @@ public class weaponManager : NetworkBehaviour {
     private PlayerAssignGet pl;
     public int currentPlayer;
     public bool hasDroppedOne = false;
+    public bool isSprinting = false;
 
 
     [SyncVar]
@@ -169,7 +170,7 @@ public class weaponManager : NetworkBehaviour {
             currentWeaponMaxAmmo = 0;
             CmdSetWeaponPlayer(0);
         }
-        CheckCanShoot();
+        CheckCanShoot();    
         AutoReload();
         if (dropIt == true && !hasDroppedOne) {
             lostWeapon();
@@ -214,7 +215,7 @@ public class weaponManager : NetworkBehaviour {
             weaponFirstSpawn(weaponOnEnd);
         }
 
-        if (Input.GetKey(KeyCode.Mouse0) && hasWeapon && canShoot && counter > delayTime) { // probs can be cut down to only 1 raycast
+        if (Input.GetKey(KeyCode.Mouse0) && hasWeapon && canShoot && counter > delayTime && !isSprinting) { // probs can be cut down to only 1 raycast
             Aimming.Aim = true;
             shoot();
         }
