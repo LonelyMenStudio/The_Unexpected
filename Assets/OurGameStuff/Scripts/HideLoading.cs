@@ -16,6 +16,7 @@ public class HideLoading : MonoBehaviour {
         ManagerGet = Variables.GetComponent<VariablesScript>();
         manager = ManagerGet.variables;
         prepPhase = manager.GetComponent<PrepPhase>();
+        this.gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -23,6 +24,7 @@ public class HideLoading : MonoBehaviour {
         if (runOnce == true) {
             return;
         }
+        this.gameObject.SetActive(true);
         if (prepPhase.checkCounting()) {
             runOnce = true;
             this.gameObject.SetActive(false);
