@@ -57,9 +57,7 @@ public class Playeranimations : NetworkBehaviour {
 
 
         if ( Input.GetKey(KeyCode.R) && reloading && haswep) {
-            reloading = false;
-            animatorz.Play("Reload");
-            StartCoroutine(Reload());
+            ReloadAnim();
         }
         if (Input.GetKey(KeyCode.Space)) {
             Aim = false;
@@ -90,6 +88,12 @@ public class Playeranimations : NetworkBehaviour {
             animatorz.Play("JumpWithGun");
         }
      
+    }
+
+    public void ReloadAnim() {
+        reloading = false;
+        animatorz.Play("Reload");
+        StartCoroutine(Reload());
     }
     IEnumerator Reload() {
         //reload.Play();

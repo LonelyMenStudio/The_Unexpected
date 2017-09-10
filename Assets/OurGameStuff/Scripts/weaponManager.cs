@@ -244,6 +244,7 @@ public class weaponManager : NetworkBehaviour {
         if (currentWeaponAmmo == 0 && !startedAuto) {
             startedAuto = true;
             StartCoroutine(Reload());
+            this.GetComponent<Playeranimations>().ReloadAnim();
         }
     }
 
