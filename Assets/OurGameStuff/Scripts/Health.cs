@@ -28,7 +28,7 @@ public class Health : NetworkBehaviour {
     public GameObject Variables;
     private VariablesScript ManagerGet;
     private NetworkXYZSync teleporter;
-    private bool inRespawn = false;
+    public bool inRespawn = false;
     public bool death = false;
     public bool getHit = false;
     private GameObject HitMarker;
@@ -100,18 +100,25 @@ public class Health : NetworkBehaviour {
             Healthz = 0;
         }
     }
-
+    //this only place to icnrease deaths
     [Command]
     void CmdRespawn(GameObject toPlayer) {
         Healthz = maxHealth;
         playerNumber.deaths++;//increase death
-        RpcCanRespawnAgain(toPlayer);
-        //inRespawn = false;
+        //RpcCanRespawnAgain(toPlayer);
+        //inRespawn = false;// this was here????
     }
-    [ClientRpc]
-    void RpcCanRespawnAgain(GameObject toPlayer) {
-        toPlayer.GetComponent<Health>().inRespawn = false;
-        toPlayer.GetComponent<Health>().canSendKill = true;
+   // [ClientRpc]
+    //void RpcCanRespawnAgain(GameObject toPlayer) {
+      //  toPlayer.GetComponent<Health>().inRespawn = false;
+       // toPlayer.GetComponent<Health>().canSendKill = true;
+    //}
+    IEnumerator delayRespawn() {
+        //reload.Play();
+        //transform.Find("crystal").gameObject.GetComponent<Animation>().Play("Take 001");
+        yield return new WaitForSeconds(0.5f);
+        inRespawn = false;
+
     }
 
     void sendKill(int killerNumber) {
@@ -125,6 +132,7 @@ public class Health : NetworkBehaviour {
         Debug.Log("couldnt give kill");
     }
     // Update is called once per frame
+    // only place to call respawn
     void Update() {
         if (!isLocalPlayer) {
             return;
@@ -136,6 +144,7 @@ public class Health : NetworkBehaviour {
             death = true;
             CmdRespawn(this.gameObject);// call death
             teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
+            StartCoroutine(delayRespawn());
         }
         //player dying animation player wait for done then reset to give feedback
         if (Healthz <= 0) {
@@ -152,6 +161,9 @@ public class Health : NetworkBehaviour {
         if (!getHit) {
             Color Transparent = new Color(1, 1, 1, 0);
             DamageScreenTop.color = Color.Lerp(DamageScreenTop.color, Transparent, 20 * Time.deltaTime);
+        }
+        if (Input.GetKeyDown(KeyCode.O)) {
+            CmdTestDamage();
         }
     }
     [Command]
