@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class weaponManager : NetworkBehaviour {
 
+    private bool startedAuto = false;
     private bool picking = false;
     public GameObject shotty;
     public GameObject ak;
@@ -169,6 +170,7 @@ public class weaponManager : NetworkBehaviour {
             CmdSetWeaponPlayer(0);
         }
         CheckCanShoot();
+        AutoReload();
         if (dropIt == true && !hasDroppedOne) {
             lostWeapon();
         }
@@ -236,6 +238,12 @@ public class weaponManager : NetworkBehaviour {
             canShoot = false;
         }
 
+    }
+    void AutoReload() {
+        if (currentWeaponAmmo == 0 && !startedAuto) {
+            startedAuto = true;
+            StartCoroutine(Reload());
+        }
     }
 
     void PickupWeapon() {
@@ -723,6 +731,7 @@ public class weaponManager : NetworkBehaviour {
         currentWeaponAmmo = currentWeaponMaxAmmo;
         canShoot = true;
         inReload = false;
+        startedAuto = false;
     }
     void CheckCanShoot() {
         if (inReload || !hasWeapon) {
