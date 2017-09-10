@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnvBarrelDamage : MonoBehaviour {
 
     public int damageAmount = 80;
+    private bool sendMessage = false;
 
     // Use this for initialization
     void Start() {
@@ -18,7 +19,17 @@ public class EnvBarrelDamage : MonoBehaviour {
 
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Player") {
-            other.transform.SendMessage("BarrelDamage", damageAmount);
+            sendMessage = true;
         }
     }
+    void OnTriggerExit(Collider other) {
+        if (other.gameObject.tag == "Player") {
+            sendMessage = false;
+        }
+    }
+
+    void Action(Collider other) {
+        other.transform.SendMessage("BarrelDamage", damageAmount);
+    }
+
 }
