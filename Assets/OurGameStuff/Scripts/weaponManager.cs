@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class weaponManager : NetworkBehaviour {
 
+
     public GameObject shotty;
     public GameObject ak;
     public GameObject Sniper;
@@ -62,7 +63,7 @@ public class weaponManager : NetworkBehaviour {
     private PlayerAssignGet pl;
     public int currentPlayer;
     public bool hasDroppedOne = false;
-    
+
 
     [SyncVar]
     public int currentWeaponPlayer;
@@ -89,6 +90,7 @@ public class weaponManager : NetworkBehaviour {
     //>>>>>>> c3943934d6b06f638b2c283b56224c49b4642929
     //Animator animatorz;
 
+    private const int distancePickup = 5;
     private const float RELOAD_TIME = 3.0f;
     private const float hitmarkertime = 1.0f;
 
@@ -98,7 +100,7 @@ public class weaponManager : NetworkBehaviour {
 
     // Use this for initialization
     void Start() {
-        
+
         Aimming = GetComponent<Playeranimations>();
         weaponhold = GetComponent<IKControl>();
         ManagerGet = Variables.GetComponent<VariablesScript>();
@@ -127,7 +129,7 @@ public class weaponManager : NetworkBehaviour {
         for (int i = 0; i < wrl.weaponRespawnPoints.Length; i++) {
             weaponRespawnLocation[i] = wrl.weaponRespawnPoints[i];
 
-           
+
         }
         if (isLocalPlayer) {
             body.layer = 2;
@@ -181,7 +183,7 @@ public class weaponManager : NetworkBehaviour {
             currentPlayer = pl.currentPlayerNo;
             if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse0) && !hasWeapon) {  // need to investigate further control options
                 RaycastHit hit;
-                if (Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit)) {
+                if (Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit, distancePickup)) {
                     if (hit.transform.tag == "weaponPrep") {
                         if (hit.transform.gameObject.name.Contains("PrepRifle")) {
                             weaponOnEnd = 0;
@@ -234,7 +236,7 @@ public class weaponManager : NetworkBehaviour {
         if (currentWeaponAmmo <= 0) {
             canShoot = false;
         }
-        
+
     }
 
     void PickupWeapon() {
@@ -242,7 +244,7 @@ public class weaponManager : NetworkBehaviour {
             switchWeapon();
         }
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit)) {
+        if (Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit, distancePickup)) {
             if (hit.transform.tag == "weapon") {
                 weaponhold.ikActive = true;
                 if (hit.transform.gameObject.name.Contains("alienrifle")) {
@@ -418,7 +420,7 @@ public class weaponManager : NetworkBehaviour {
         } else {
             Debug.Log("problem spawning the weapon");
         }
-        
+
     }
 
     void loseWeapon() {
@@ -448,7 +450,7 @@ public class weaponManager : NetworkBehaviour {
             Gunout6.SetActive(false);
         }
         if (weaponOut == 3) {
-            
+
             RespawnSniper();
             Gunout4.SetActive(false);
             Gunout5.SetActive(false);
@@ -553,7 +555,7 @@ public class weaponManager : NetworkBehaviour {
                 HitMarker.SetActive(true);
                 StartCoroutine(hit());
             }
-            if(hit2.transform.tag == "Crystal") {
+            if (hit2.transform.tag == "Crystal") {
                 CmdDamageCrystal(hit2.transform.gameObject, AkDamage);
             }
 
@@ -567,11 +569,11 @@ public class weaponManager : NetworkBehaviour {
                 if (Physics.Raycast(Camera.main.transform.position, AimSpread * Vector3.forward, out hit3, Mathf.Infinity)) {
 
                     if (hit3.transform.tag == "Player") {
-						if (!isServer) {
-							CmdPlayShotgunAudio();
-						} else {
-							RpcPlayShotgunAudio();
-						}
+                        if (!isServer) {
+                            CmdPlayShotgunAudio();
+                        } else {
+                            RpcPlayShotgunAudio();
+                        }
                         ShotGunParticle.Play();
                         float distance = Vector3.Distance(transform.position, hit3.transform.position);
                         if (distance >= 100) {
@@ -583,18 +585,18 @@ public class weaponManager : NetworkBehaviour {
                         CmdDamageDealer(hit3.transform.gameObject, damageS, currentPlayer);
                         spawnhole = false;
                     }
-                    if(hit3.transform.tag == "Crystal") {
+                    if (hit3.transform.tag == "Crystal") {
                         CmdDamageCrystal(hit3.transform.gameObject, ShotgunDmg);
                     }
                 }
             }
         } else if (weaponOut == 3 && Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit2)) {
             if (hit2.transform.tag == "Player") {
-				if (!isServer) {
-					CmdPlaySniperAudio();
-				} else {
-					RpcPlaySniperAudio();
-				}
+                if (!isServer) {
+                    CmdPlaySniperAudio();
+                } else {
+                    RpcPlaySniperAudio();
+                }
                 SniperParticle.Play();
                 float distance = Vector3.Distance(transform.position, hit2.transform.position);
                 if (distance >= 500) {
@@ -606,7 +608,7 @@ public class weaponManager : NetworkBehaviour {
                 CmdDamageDealer(hit2.transform.gameObject, damageSn, currentPlayer);
                 spawnhole = false;
             }
-            if(hit2.transform.tag == "Crystal") {
+            if (hit2.transform.tag == "Crystal") {
                 CmdDamageCrystal(hit2.transform.gameObject, sniperDmg);
             }
         } else {
@@ -625,11 +627,11 @@ public class weaponManager : NetworkBehaviour {
             spawnhole = true;
 
         } else if (weaponOut == 2) {
-			if (!isServer) {
-				CmdPlayShotgunAudio();
-			} else {
-				RpcPlayShotgunAudio();
-			}
+            if (!isServer) {
+                CmdPlayShotgunAudio();
+            } else {
+                RpcPlayShotgunAudio();
+            }
             RaycastHit hit4;
             for (int i = 0; i < Shotgunshells; i++) {
                 Vector3 ShotgunAim = Camera.main.transform.forward;
@@ -643,11 +645,11 @@ public class weaponManager : NetworkBehaviour {
                 spawnhole = true;
             }
         } else if (weaponOut == 3) {
-			if (!isServer) {
-				CmdPlaySniperAudio();
-			} else {
-				RpcPlaySniperAudio();
-			}
+            if (!isServer) {
+                CmdPlaySniperAudio();
+            } else {
+                RpcPlaySniperAudio();
+            }
             SniperParticle.Play();
             RaycastHit hit;
             Ray ray = new Ray(Camera.main.transform.position, childRoot.transform.forward);
@@ -778,24 +780,24 @@ public class weaponManager : NetworkBehaviour {
         CmdKIDroppedIt(this.gameObject);
     }
 
-	//addition
-	[Command]
-	void CmdPlaySniperAudio() {
-		RpcPlaySniperAudio();
-	}
+    //addition
+    [Command]
+    void CmdPlaySniperAudio() {
+        RpcPlaySniperAudio();
+    }
 
-	[ClientRpc]
-	void RpcPlaySniperAudio() {
-		Sniper_shot.Play();
-	}
+    [ClientRpc]
+    void RpcPlaySniperAudio() {
+        Sniper_shot.Play();
+    }
 
-	[Command]
-	void CmdPlayShotgunAudio() {
-		RpcPlayShotgunAudio();
-	}
+    [Command]
+    void CmdPlayShotgunAudio() {
+        RpcPlayShotgunAudio();
+    }
 
-	[ClientRpc]
-	void RpcPlayShotgunAudio() {
-		Shotgun_shot.Play();
-	}
+    [ClientRpc]
+    void RpcPlayShotgunAudio() {
+        Shotgun_shot.Play();
+    }
 }
