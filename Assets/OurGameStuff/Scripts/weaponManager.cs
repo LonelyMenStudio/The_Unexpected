@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class weaponManager : NetworkBehaviour {
 
-
+    private bool picking = false;
     public GameObject shotty;
     public GameObject ak;
     public GameObject Sniper;
@@ -128,15 +128,12 @@ public class weaponManager : NetworkBehaviour {
         weaponRespawnLocation = new GameObject[wrl.weaponRespawnPoints.Length];
         for (int i = 0; i < wrl.weaponRespawnPoints.Length; i++) {
             weaponRespawnLocation[i] = wrl.weaponRespawnPoints[i];
-
-
         }
         if (isLocalPlayer) {
             body.layer = 2;
         }
         childRoot = transform.Find("FirstPersonCharacter").gameObject;
         pl = this.gameObject.GetComponent<PlayerAssignGet>();
-        //currentPlayer = pl.currentPlayerNo;//activating too early need to make it on first action this is needed
         plrMngr = manager.GetComponent<PlayerManager>();
         if (!isLocalPlayer) {
             return;
@@ -154,6 +151,7 @@ public class weaponManager : NetworkBehaviour {
         Gunout5.SetActive(false);
         Gunout6.SetActive(false);
     }
+
     [Command]
     void CmdSetWeaponPlayer(int setTo) {
         currentWeaponPlayer = setTo;
@@ -222,7 +220,8 @@ public class weaponManager : NetworkBehaviour {
         if (Input.GetKeyDown(KeyCode.R) && hasWeapon) {
             StartCoroutine(Reload());
         }
-        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse0) && !hasWeapon) {
+        if ((Input.GetKeyDown(KeyCode.E) || (Input.GetKeyDown(KeyCode.Mouse0) && !hasWeapon)) && !picking) {
+            picking = true;
             PickupWeapon();
         }
         if (Input.GetKeyDown(KeyCode.F) && hasWeapon) {
@@ -271,6 +270,7 @@ public class weaponManager : NetworkBehaviour {
 
             }
         }
+        picking = false;
     }
 
     void changeWeapon(int num) {
@@ -717,16 +717,12 @@ public class weaponManager : NetworkBehaviour {
     }
 
     IEnumerator Reload() {
-        //reload.Play();
         inReload = true;
         canShoot = false;
-        //transform.Find("crystal").gameObject.GetComponent<Animation>().Play("Take 001");
         yield return new WaitForSeconds(RELOAD_TIME);
         currentWeaponAmmo = currentWeaponMaxAmmo;
-
         canShoot = true;
         inReload = false;
-
     }
     void CheckCanShoot() {
         if (inReload || !hasWeapon) {
