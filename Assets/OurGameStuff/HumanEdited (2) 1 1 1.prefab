@@ -3233,13 +3233,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1201245495272106}
-  m_LocalRotation: {x: 0.6858796, y: -0.5109611, z: -0.4530078, w: -0.2515392}
-  m_LocalPosition: {x: -0.03, y: -0.09, z: 0.54}
+  m_LocalRotation: {x: 0.8323739, y: -0.4697528, z: -0.2788078, w: -0.093553595}
+  m_LocalPosition: {x: -0.219, y: 0.1, z: 0.359}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4609871647832720}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: -53.9, y: -141.8, z: -126.6}
+  m_LocalEulerAnglesHint: {x: -24.688002, y: -155.537, z: -126.55601}
 --- !u!4 &4871810579637032
 Transform:
   m_ObjectHideFlags: 1
@@ -4607,6 +4607,7 @@ MonoBehaviour:
   ShotgunSpread: 10
   currentPlayer: 0
   hasDroppedOne: 0
+  isSprinting: 0
   currentWeaponPlayer: 0
   dropIt: 0
   Variables: {fileID: 0}
@@ -4681,6 +4682,7 @@ MonoBehaviour:
   GetHit: {fileID: 82246068282188652}
   respawnLocations: []
   Variables: {fileID: 0}
+  inRespawn: 0
   death: 0
   getHit: 0
   Healthz: 300
