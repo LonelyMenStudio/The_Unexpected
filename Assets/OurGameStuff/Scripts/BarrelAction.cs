@@ -7,7 +7,7 @@ public class BarrelAction : NetworkBehaviour {
 
     [SyncVar]
     public float barrelHealth = 50;
-
+    public ParticleSystem Explosion;
     private bool barrelDestoryed = false;
 
     // Use this for initialization
@@ -22,7 +22,7 @@ public class BarrelAction : NetworkBehaviour {
             Destroy(this.gameObject.GetComponent<MeshRenderer>());
             barrelDestoryed = true;
             this.gameObject.GetComponent<EnvBarrelDamage>().barrelHasBeenDestoryed = barrelDestoryed;
-            //Instantiate particle effect
+            Explosion.Play();
         }
 
     }

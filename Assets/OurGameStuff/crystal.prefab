@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 64631667239881096}
   - component: {fileID: 114009093785779332}
   - component: {fileID: 114120403139922968}
+  - component: {fileID: 114806108147853646}
   m_Layer: 0
   m_Name: crystal
   m_TagString: Crystal
@@ -205,6 +206,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crystalHealth: 50
   Explosion: {fileID: 198535117532181878}
+--- !u!114 &114806108147853646
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1581100708244680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af3e216d2393e1c4c846e15f7e5bc49b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crystalHasBeenDestoryed: 0
 --- !u!198 &198535117532181878
 ParticleSystem:
   m_ObjectHideFlags: 1

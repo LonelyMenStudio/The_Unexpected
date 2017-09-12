@@ -22,8 +22,9 @@ GameObject:
   - component: {fileID: 33154578409149254}
   - component: {fileID: 23738480122198652}
   - component: {fileID: 64326412547633786}
-  - component: {fileID: 114768451349981622}
   - component: {fileID: 114182389210492038}
+  - component: {fileID: 114634841010865940}
+  - component: {fileID: 114252505977321382}
   m_Layer: 0
   m_Name: barrel
   m_TagString: Crystal
@@ -191,7 +192,7 @@ MonoBehaviour:
     i15: 159
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
---- !u!114 &114768451349981622
+--- !u!114 &114252505977321382
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -199,10 +200,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1672355005762000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80dc46b48c2f64a488c44d02510a329f, type: 3}
+  m_Script: {fileID: 11500000, guid: e5554015b16ce524dbd2216f759427fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crystalHealth: 50
+  barrelHasBeenDestoryed: 0
+--- !u!114 &114634841010865940
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1672355005762000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ae423b1b51ea3b498371bcc849b54a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barrelHealth: 50
   Explosion: {fileID: 198089515535118792}
 --- !u!198 &198089515535118792
 ParticleSystem:

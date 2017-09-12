@@ -21,7 +21,7 @@ public class CrystalAction : NetworkBehaviour {
             Destroy(this.gameObject.GetComponent<MeshCollider>());
             Destroy(this.gameObject.GetComponent<MeshRenderer>());
             crystalDestoryed = true;
-           // this.gameObject.GetComponent<EnvCrystalHeal>().crystalHasBeenDestoryed = crystalDestoryed;
+            this.gameObject.GetComponent<EnvCrystalHeal>().crystalHasBeenDestoryed = crystalDestoryed;
             Explosion.Play();
         }
         
