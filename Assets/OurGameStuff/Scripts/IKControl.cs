@@ -70,7 +70,7 @@ public class IKControl : NetworkBehaviour {
                 // Set the right hand target position and rotation, if one has been assigned
 
 
-                if (rightHandObj != null) {
+                if (rightHandObj != null || rightShotty != null || rightSniper != null) {
                     animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
                     animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
                     animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
@@ -82,41 +82,41 @@ public class IKControl : NetworkBehaviour {
                     repos = reloadpos.transform.position;
                     reloadrot = reloadpos.transform.rotation;
                     if (!aim.Aim) {
-                            HandStuff( weapon.weaponOut, Notaimpos, Notaimrot);
-                        } else if (aim.Aim) {
-                            HandStuff( weapon.weaponOut, aimpos, aimrot);                        }
-                        if (!aim.reloading) {
-                            HandStuff( weapon.weaponOut, repos,reloadrot) ;
-                        
+                        HandStuff(weapon.weaponOut, Notaimpos, Notaimrot);
+                    } else if (aim.Aim) {
+                        HandStuff(weapon.weaponOut, aimpos, aimrot); }
+                    if (!aim.reloading) {
+                        HandStuff(weapon.weaponOut, repos, reloadrot);
+
                     }
 
 
 
+                    if (weapon.weaponOut == 1 || weapon.weaponOut == 2 || weapon.weaponOut == 3) {
 
+                        if (!aim.Aim) {
+                            animator.SetIKPosition(AvatarIKGoal.RightHand, righthandposition.transform.position);
+                            animator.SetIKRotation(AvatarIKGoal.RightHand, righthandposition.transform.rotation);
+                            animator.SetIKPosition(AvatarIKGoal.LeftHand, LeftHandObj.transform.position);
+                            animator.SetIKRotation(AvatarIKGoal.LeftHand, LeftHandObj.transform.rotation);
+                        } else if (aim.Aim) {
 
-                     if (!aim.Aim) {
-                               animator.SetIKPosition(AvatarIKGoal.RightHand, righthandposition.transform.position);
-             animator.SetIKRotation(AvatarIKGoal.RightHand, righthandposition.transform.rotation);
-             animator.SetIKPosition(AvatarIKGoal.LeftHand, LeftHandObj.transform.position);
-             animator.SetIKRotation(AvatarIKGoal.LeftHand, LeftHandObj.transform.rotation);
-                     } else if (aim.Aim) {
+                            //animator.SetIKPosition(AvatarIKGoal.RightHand,  righthandaim.transform.position);
+                            //animator.SetIKRotation(AvatarIKGoal.RightHand, righthandaim.transform.rotation);
+                            animator.SetIKPosition(AvatarIKGoal.RightHand, righthandpositionAim.transform.position);
+                            animator.SetIKRotation(AvatarIKGoal.RightHand, righthandpositionAim.transform.rotation);
+                            animator.SetIKPosition(AvatarIKGoal.LeftHand, lefhandpositonaim.transform.position);
+                            animator.SetIKRotation(AvatarIKGoal.LeftHand, lefhandpositonaim.transform.rotation);
 
-                         //animator.SetIKPosition(AvatarIKGoal.RightHand,  righthandaim.transform.position);
-                         //animator.SetIKRotation(AvatarIKGoal.RightHand, righthandaim.transform.rotation);
-                         animator.SetIKPosition(AvatarIKGoal.RightHand, righthandpositionAim.transform.position);
-                         animator.SetIKRotation(AvatarIKGoal.RightHand, righthandpositionAim.transform.rotation);
-                         animator.SetIKPosition(AvatarIKGoal.LeftHand, lefhandpositonaim.transform.position);
-                         animator.SetIKRotation(AvatarIKGoal.LeftHand, lefhandpositonaim.transform.rotation);
+                        }
+                        if (!aim.reloading) {
 
-                     }
-                     if (!aim.reloading) {
-
-                         animator.SetIKPosition(AvatarIKGoal.RightHand, righthandposition.transform.position);
-                         animator.SetIKRotation(AvatarIKGoal.RightHand, righthandposition.transform.rotation);
-                         animator.SetIKPosition(AvatarIKGoal.LeftHand, LeftHandObj.transform.position);
-                         animator.SetIKRotation(AvatarIKGoal.LeftHand, LeftHandObj.transform.rotation);
-                     }
-
+                            animator.SetIKPosition(AvatarIKGoal.RightHand, righthandposition.transform.position);
+                            animator.SetIKRotation(AvatarIKGoal.RightHand, righthandposition.transform.rotation);
+                            animator.SetIKPosition(AvatarIKGoal.LeftHand, LeftHandObj.transform.position);
+                            animator.SetIKRotation(AvatarIKGoal.LeftHand, LeftHandObj.transform.rotation);
+                        }
+                    }
 
                 }
 

@@ -98,6 +98,9 @@ public class Playeranimations : NetworkBehaviour {
                 else
                     OnUnScoped();*/
             }
+            if (wepout == 0) {
+                Aim = false;
+            }
         }
 
         if (Input.GetKey(KeyCode.Space) && haswep == false) {

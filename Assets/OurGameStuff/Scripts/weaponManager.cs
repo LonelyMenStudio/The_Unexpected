@@ -65,6 +65,7 @@ public class weaponManager : NetworkBehaviour {
     public int currentPlayer;
     public bool hasDroppedOne = false;
     public bool isSprinting = false;
+    public int temp;
 
 
     [SyncVar]
@@ -102,7 +103,6 @@ public class weaponManager : NetworkBehaviour {
 
     // Use this for initialization
     void Start() {
-
         Aimming = GetComponent<Playeranimations>();
         weaponhold = GetComponent<IKControl>();
         ManagerGet = Variables.GetComponent<VariablesScript>();
@@ -357,13 +357,21 @@ public class weaponManager : NetworkBehaviour {
 
     [Command]
     void CmdRespawnAK() {
-        GameObject weaponDropper = (GameObject)Instantiate(ak, weaponRespawnLocation[Random.Range(0, 7)].transform.position, Quaternion.identity) as GameObject;
+        int temp2 = temp;
+        while (temp2 == temp) {
+            temp = Random.Range(0, 7);
+        }
+        GameObject weaponDropper = (GameObject)Instantiate(ak, weaponRespawnLocation[temp].transform.position, Quaternion.identity) as GameObject;
         NetworkServer.Spawn(weaponDropper);
         weaponDropperTemp = weaponDropper;
     }
     [Command]
     void CmdRespawnPistol() {
-        GameObject weaponDropper = (GameObject)Instantiate(shotty, weaponRespawnLocation[Random.Range(0, 7)].transform.position, Quaternion.identity) as GameObject;
+        int temp2 = temp;
+        while (temp2 == temp) {
+            temp = Random.Range(0, 7);
+        }
+        GameObject weaponDropper = (GameObject)Instantiate(shotty, weaponRespawnLocation[temp].transform.position, Quaternion.identity) as GameObject;
         NetworkServer.Spawn(weaponDropper);
         weaponDropperTemp = weaponDropper;
     }
@@ -382,7 +390,11 @@ public class weaponManager : NetworkBehaviour {
     }
     [Command]
     void CmdRespawnSniper() {
-        GameObject weaponDropper = (GameObject)Instantiate(Sniper, weaponRespawnLocation[Random.Range(0, 7)].transform.position, Quaternion.identity) as GameObject;
+        int temp2 = temp;
+        while (temp2 == temp) {
+            temp = Random.Range(0, 7);
+        }
+        GameObject weaponDropper = (GameObject)Instantiate(Sniper, weaponRespawnLocation[temp].transform.position, Quaternion.identity) as GameObject;
         NetworkServer.Spawn(weaponDropper);
         weaponDropperTemp = weaponDropper;
     }

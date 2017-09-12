@@ -204,7 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80dc46b48c2f64a488c44d02510a329f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crystalHealth: 50
+  crystalHealth: 5
   Explosion: {fileID: 198535117532181878}
 --- !u!114 &114806108147853646
 MonoBehaviour:
