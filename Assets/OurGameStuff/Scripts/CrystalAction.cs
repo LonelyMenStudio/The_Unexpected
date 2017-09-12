@@ -9,7 +9,6 @@ public class CrystalAction : NetworkBehaviour {
     public float crystalHealth = 50;
 
     private bool crystalDestoryed = false;
-    public GameObject childTrigger;
 
     // Use this for initialization
     void Start() {
@@ -22,9 +21,7 @@ public class CrystalAction : NetworkBehaviour {
             Destroy(this.gameObject.GetComponent<MeshCollider>());
             Destroy(this.gameObject.GetComponent<MeshRenderer>());
             crystalDestoryed = true;
-            if (childTrigger != null) {
-                childTrigger.GetComponent<EnvCrystalHeal>().crystalHasBeenDestoryed = crystalDestoryed;
-            }
+            this.gameObject.GetComponent<EnvCrystalHeal>().crystalHasBeenDestoryed = crystalDestoryed;
             //Instantiate particle effect
         }
         

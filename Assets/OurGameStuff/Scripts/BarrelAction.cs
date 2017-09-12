@@ -9,7 +9,6 @@ public class BarrelAction : NetworkBehaviour {
     public float barrelHealth = 50;
 
     private bool barrelDestoryed = false;
-    public GameObject childTrigger;
 
     // Use this for initialization
     void Start() {
@@ -22,9 +21,7 @@ public class BarrelAction : NetworkBehaviour {
             Destroy(this.gameObject.GetComponent<MeshCollider>());
             Destroy(this.gameObject.GetComponent<MeshRenderer>());
             barrelDestoryed = true;
-            if (childTrigger != null) {
-                childTrigger.GetComponent<EnvCrystalHeal>().crystalHasBeenDestoryed = barrelDestoryed;
-            }
+            this.gameObject.GetComponent<EnvBarrelDamage>().barrelHasBeenDestoryed = barrelDestoryed;
             //Instantiate particle effect
         }
 

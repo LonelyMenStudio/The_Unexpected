@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class EnvCrystalHeal : MonoBehaviour {
 
-    public int healAmount = 80;
-    private bool sendMessage = false;
+    public const int HEAL_AMOUNT = 80;
+    //private bool sendMessage = false;
     public bool crystalHasBeenDestoryed = false;
     private bool healOnce = false;
-    List<GameObject> playersInside = new List<GameObject>();
+    //List<GameObject> playersInside = new List<GameObject>();
+    private GameObject Variables;
+    private VariablesScript ManagerGet;
+    private GameObject manager;
+    private PlayerManager playerList;
+    private const float MAX_DISTANCE = 5.0f;
 
     // Use this for initialization
     void Start() {
-
+        Variables = GameObject.FindWithTag("Start");
+        ManagerGet = Variables.GetComponent<VariablesScript>();
+        manager = ManagerGet.variables;
+        playerList = manager.GetComponent<PlayerManager>();
     }
 
     // Update is called once per frame
@@ -20,14 +28,26 @@ public class EnvCrystalHeal : MonoBehaviour {
         if (healOnce) {
             return;
         }
+
+        if (crystalHasBeenDestoryed) {
+            for (int i = 0; i < playerList.Players.Count; i++) {
+                float distance = Vector3.Distance(this.transform.position, playerList.Players[i].transform.position);
+                if (distance < MAX_DISTANCE) {
+                    Action(playerList.Players[i]);
+                }
+            }
+            healOnce = true;
+        }
+        /*
         if (crystalHasBeenDestoryed && sendMessage) {
             for (int i = 0; i < playersInside.Count; i++) {
                 Action(playersInside[i]);
             }
             healOnce = true;
         }
+        */
     }
-
+    /*
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Player") {
             sendMessage = true;
@@ -40,8 +60,9 @@ public class EnvCrystalHeal : MonoBehaviour {
             playersInside.Remove(other.gameObject);
         }
     }
+    */
 
     void Action(GameObject other) {
-        other.transform.SendMessage("CrystalHeal", healAmount);
+        other.transform.SendMessage("CrystalHeal", HEAL_AMOUNT);
     }
 }
