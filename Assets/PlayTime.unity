@@ -61357,7 +61357,7 @@ MonoBehaviour:
   timerObject: {fileID: 737126791}
   halfTime: 0
   outOfPrep: 0
-  gameTime: 30000
+  gameTime: 360
   gameTimeOver: 0
 --- !u!114 &1180721785
 MonoBehaviour:

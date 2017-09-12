@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 public class BarrelAction : NetworkBehaviour {
 
     [SyncVar]
-    public float barrelHealth = 50;
+    public float barrelHealth = 5;
     public ParticleSystem Explosion;
     private bool barrelDestoryed = false;
 
