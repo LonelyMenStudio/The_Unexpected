@@ -7,6 +7,7 @@ using UnityEngine.Networking;
 
 public class Health : NetworkBehaviour {
 
+    private const bool TESTING = false;
     public GameObject respawn;
     private const int maxHealth = 300;
     public Image Healthbar;
@@ -162,7 +163,7 @@ public class Health : NetworkBehaviour {
             Color Transparent = new Color(1, 1, 1, 0);
             DamageScreenTop.color = Color.Lerp(DamageScreenTop.color, Transparent, 20 * Time.deltaTime);
         }
-        if (Input.GetKeyDown(KeyCode.O)) {
+        if (TESTING && Input.GetKeyDown(KeyCode.O)) {
             CmdTestDamage();
         }
     }
