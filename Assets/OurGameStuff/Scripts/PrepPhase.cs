@@ -33,6 +33,7 @@ public class PrepPhase : MonoBehaviour {
     private PlayerManager assignTime;
     private bool canAssign = true;
    public GameObject ErrorText;
+   // public GameObject Scopein;
    //private GameObject WeaponText;
     private GameTimerCommander timerStarter;
     private float speed = 1.5f;
@@ -41,6 +42,7 @@ public class PrepPhase : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+       // Scopein.SetActive(false);
         text = timer.GetComponent<Text>();
         assignTime = this.gameObject.GetComponent<PlayerManager>();
        ErrorText = GameObject.FindWithTag("ErrorText");

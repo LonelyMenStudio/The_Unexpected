@@ -60,7 +60,7 @@ public class Health : NetworkBehaviour {
         Healthbar = barImage.GetComponent<Image>();
         HudImage = prepPhase.PlayerHUD;
         HitMarker = prepPhase.HitScreen;
-        HitMarker.SetActive(false);
+       // HitMarker.SetActive(false);
         DamageScreenTop = HitMarker.GetComponent<Image>();
         PlayerHud = HudImage.GetComponent<Image>();
         playerNumber = this.gameObject.GetComponent<PlayerAssignGet>();
@@ -182,7 +182,7 @@ public class Health : NetworkBehaviour {
         if (isLocalPlayer) {
             Healthbar.fillAmount = Map(health, 300, 0, 0, 1);
             healthL = health;
-            StartCoroutine(Flash());
+         //   StartCoroutine(Flash());
 
         }
     }
@@ -192,7 +192,7 @@ public class Health : NetworkBehaviour {
     }
 
 
-    IEnumerator Flash() {
+  /*  IEnumerator Flash() {
         //red = new Color(255, 0, 0, 255);
         HudImage.SetActive(false);
         HitMarker.SetActive(true);
@@ -200,7 +200,7 @@ public class Health : NetworkBehaviour {
         yield return new WaitForSeconds(1);
         HudImage.SetActive(true);
         HitMarker.SetActive(false);
-    }
+    }*/
 
     public void CrystalHeal(int amount) {
         if (!isLocalPlayer) {

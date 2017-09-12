@@ -86,6 +86,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1045538230534756
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4016555989994908}
+  - component: {fileID: 20347409624307242}
+  m_Layer: 2
+  m_Name: Scope
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1073111055370262
 GameObject:
   m_ObjectHideFlags: 1
@@ -158,7 +174,7 @@ GameObject:
   - component: {fileID: 4475251203589284}
   - component: {fileID: 33612107361344724}
   - component: {fileID: 23140170514164578}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: AlienSniper
   m_TagString: weapon
   m_Icon: {fileID: 0}
@@ -378,7 +394,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1238303779715492
 GameObject:
   m_ObjectHideFlags: 1
@@ -389,7 +405,7 @@ GameObject:
   - component: {fileID: 4248237906762588}
   - component: {fileID: 33432971119283208}
   - component: {fileID: 23188262286166114}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: alienShotty (1)
   m_TagString: weapon
   m_Icon: {fileID: 0}
@@ -404,7 +420,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4038486237425482}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: Shotty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -481,7 +497,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4512158703494026}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: PickUpGunLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1053,7 +1069,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4201528323507952}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RightHandpoistion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1113,7 +1129,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4823389554348816}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: PickUpGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1298,7 +1314,7 @@ GameObject:
   - component: {fileID: 4713263749258268}
   - component: {fileID: 198132763568932346}
   - component: {fileID: 199833054730025934}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LaserGunEffects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1313,7 +1329,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4544094288668250}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: Sniper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1373,7 +1389,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4746387464749344}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RightHandAimposition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1450,7 +1466,7 @@ GameObject:
   - component: {fileID: 4751816973955782}
   - component: {fileID: 33856662125627962}
   - component: {fileID: 23225075209630214}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: alienrifleIronSights (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1557,7 +1573,7 @@ GameObject:
   - component: {fileID: 4719968789897702}
   - component: {fileID: 198477068479665988}
   - component: {fileID: 199575330338174500}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LaserGunEffects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1634,7 +1650,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4882688132184254}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: PickUpGunLeftaim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1713,7 +1729,7 @@ GameObject:
   - component: {fileID: 4847933443659638}
   - component: {fileID: 198942223594766022}
   - component: {fileID: 199728717500032114}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LaserGunEffects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1838,6 +1854,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4274487254173508}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4016555989994908
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1045538230534756}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4813065340603144}
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4018586646318016
 Transform:
@@ -2393,13 +2422,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1211888947854004}
-  m_LocalRotation: {x: -0.024755932, y: -0.004988688, z: 0.70403796, w: 0.7097133}
-  m_LocalPosition: {x: 0.95000374, y: -0.5800003, z: -5.1700015}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.3, z: 0.5}
   m_Children: []
   m_Father: {fileID: 4813065340603144}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: -178.389, y: 177.595, z: -90.425995}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4437381638489812
 Transform:
   m_ObjectHideFlags: 1
@@ -2605,7 +2634,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1284764923199046}
-  m_LocalRotation: {x: -0.014776976, y: 0.53060925, z: -0.84713084, w: 0.024590848}
+  m_LocalRotation: {x: -0.014776978, y: 0.5306093, z: -0.84713095, w: 0.024590852}
   m_LocalPosition: {x: -0.004529869, y: 0.0050994675, z: -0.003900068}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -3143,6 +3172,7 @@ Transform:
   - {fileID: 4823389554348816}
   - {fileID: 4544094288668250}
   - {fileID: 4038486237425482}
+  - {fileID: 4016555989994908}
   m_Father: {fileID: 4737713931388600}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3180,13 +3210,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1268017209899322}
-  m_LocalRotation: {x: -0.024755932, y: -0.004988688, z: 0.70403796, w: 0.7097133}
-  m_LocalPosition: {x: 0.95, y: -0.58, z: -5.17}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.15, y: 0.2, z: 0.5}
   m_Children: []
   m_Father: {fileID: 4813065340603144}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: -178.389, y: 177.595, z: -90.425995}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4835860199424260
 Transform:
   m_ObjectHideFlags: 1
@@ -3207,13 +3237,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1959550239231814}
-  m_LocalRotation: {x: -0.020860532, y: -0.023013184, z: 0.7037177, w: 0.7098004}
-  m_LocalPosition: {x: 0.88, y: -0.33, z: -3.88}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.5}
   m_Children: []
   m_Father: {fileID: 4813065340603144}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: -180.159, y: 176.444, z: -90.497986}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4847933443659638
 Transform:
   m_ObjectHideFlags: 1
@@ -3445,12 +3475,48 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294967039
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
+  m_AllowMSAA: 1
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+  m_StereoMirrorMode: 0
+--- !u!20 &20347409624307242
+Camera:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1045538230534756}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 3
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.01
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 256
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
   m_AllowMSAA: 1
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -4653,7 +4719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Animator: {fileID: 95718906671174488}
-  m_ParameterSendBits: 511
+  m_ParameterSendBits: 2007
   param0: 
   param1: 
   param2: 
@@ -4842,6 +4908,9 @@ MonoBehaviour:
   player: {fileID: 1563336106517594}
   Variables: {fileID: 0}
   reloading: 1
+  Scopecam: {fileID: 1045538230534756}
+  MainCam: {fileID: 20171943377976394}
+  scopedFOV: 15
 --- !u!114 &114918440470137116
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4897,6 +4966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bec070d2edc3c6408dad0235db0fb19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   ikActive: 0
   rightHandObj: {fileID: 4823389554348816}
   rightShotty: {fileID: 4038486237425482}
@@ -4909,6 +4979,8 @@ MonoBehaviour:
   lefhandpositonaim: {fileID: 4794047342429148}
   reloadpos: {fileID: 1817620813614404}
   lookObj: {fileID: 4751816973955782}
+  playerno: 0
+  Hands: 0
 --- !u!136 &136771798956421222
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -5081,7 +5153,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 2107431973
+  randomSeed: -2121058019
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5525,7 +5597,7 @@ ParticleSystem:
     serializedVersion: 4
     enabled: 1
     type: 4
-    angle: 3
+    angle: 10
     length: 5
     boxX: 1
     boxY: 1
@@ -5638,7 +5710,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 250
+      scalar: 200
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -11141,7 +11213,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1675022582
+  randomSeed: -1797737846
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -17201,7 +17273,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1642882826
+  randomSeed: -1281850368
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -26303,7 +26375,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 478911232
+  randomSeed: 1117615862
   InitialModule:
     serializedVersion: 3
     enabled: 1
