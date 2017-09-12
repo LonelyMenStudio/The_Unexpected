@@ -115,9 +115,7 @@ public class Health : NetworkBehaviour {
        // toPlayer.GetComponent<Health>().canSendKill = true;
     //}
     IEnumerator delayRespawn() {
-        //reload.Play();
-        //transform.Find("crystal").gameObject.GetComponent<Animation>().Play("Take 001");
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         inRespawn = false;
 
     }
