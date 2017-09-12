@@ -2,14 +2,19 @@
 using System;
 using System.Collections;
 using UnityEngine.Networking;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Animator))]
 
 public class IKControl : NetworkBehaviour {
 
-    protected Animator animator;
+    public Animator animator;
 
     public bool ikActive = false;
+    private GameObject Variables;
+    private GameObject Manager;
+    private PlayerManager pManager;
+    private VariablesScript ManagerGet;
     public Transform rightHandObj = null;
     public Transform rightShotty = null;
     public Transform rightSniper = null;
@@ -24,16 +29,27 @@ public class IKControl : NetworkBehaviour {
     public Transform lookObj = null;
     private weaponManager weapon;
     private bool reload;
+    private List<GameObject> Playerz;
+    private PlayerAssignGet player;
+    public int playerno;
     Vector3 Notaimpos;
     Vector3 aimpos;
     Vector3 repos;
     Quaternion Notaimrot;
     Quaternion aimrot;
     Quaternion reloadrot;
+    public int Hands;
 
     void Start() {
+        Variables = GameObject.FindWithTag("Start");
+        ManagerGet = Variables.GetComponent<VariablesScript>();
+        Manager = ManagerGet.variables;
+        pManager = Manager.GetComponent<PlayerManager>();
+        Playerz = pManager.Players;
         animator = GetComponent<Animator>();
         aim = this.gameObject.GetComponent<Playeranimations>();
+        player = this.gameObject.GetComponent<PlayerAssignGet>();
+        playerno = player.currentPlayerNo;
         weapon = GetComponent<weaponManager>();
     }
     void update() {
@@ -116,9 +132,22 @@ public class IKControl : NetworkBehaviour {
                 animator.SetLookAtWeight(0);
             }
         }
-    }
-    void OnAnimatorIK(int i) {
+       /* if (isLocalPlayer) {
+            foreach (GameObject EPlayer in Playerz) {
 
+                PlayerAssignGet PlayerNum = EPlayer.GetComponent<PlayerAssignGet>();
+                if (playerno != PlayerNum.currentPlayerNo) {
+                   IKControl temp = EPlayer.GetComponent<IKControl>();
+                    if (temp.Hands == 1) {
+                        temp.animator.SetIKPosition(AvatarIKGoal.RightHand, temp.righthandposition.transform.position);
+                        temp.animator.SetIKRotation(AvatarIKGoal.RightHand, temp.righthandposition.transform.rotation);
+                        temp.animator.SetIKPosition(AvatarIKGoal.LeftHand, temp.LeftHandObj.transform.position);
+                        temp.animator.SetIKRotation(AvatarIKGoal.LeftHand, temp.LeftHandObj.transform.rotation);
+                    }
+                }
+
+            }
+        }*/
     }
     void HandStuff( int wep, Vector3 psi, Quaternion rot) {
         if (!isServer) {
@@ -137,13 +166,16 @@ public class IKControl : NetworkBehaviour {
         if (outwep == 1) {
             rightHandObj.position = pos;
             rightHandObj.rotation = rotation;
+            Hands = 1;
         } else if (outwep == 2) {
             rightShotty.position = pos;
             rightShotty.rotation = rotation;
+            Hands = 2;
 
         } else if (outwep == 3) {
                 rightSniper.position = pos;
                 rightSniper.rotation = rotation;
+            Hands = 3;
             
         }
         

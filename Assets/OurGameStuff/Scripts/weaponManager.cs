@@ -590,6 +590,7 @@ public class weaponManager : NetworkBehaviour {
                             distance = 99;
                         }
                         HitMarker.SetActive(true);
+                        StartCoroutine(hit());
                         ShotgunDmg = ShotgunDmg * 1 - (distance / 100);
                         int damageS = (int)ShotgunDmg;
                         CmdDamageDealer(hit3.transform.gameObject, damageS, currentPlayer);
@@ -613,6 +614,7 @@ public class weaponManager : NetworkBehaviour {
                     distance = 499;
                 }
                 HitMarker.SetActive(true);
+                StartCoroutine(hit());
                 sniperDmg = sniperDmg * 1 - (distance / 500);
                 int damageSn = (int)sniperDmg;
                 CmdDamageDealer(hit2.transform.gameObject, damageSn, currentPlayer);

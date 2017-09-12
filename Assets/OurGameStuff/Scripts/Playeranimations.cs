@@ -22,12 +22,20 @@ public class Playeranimations : NetworkBehaviour {
     private Health isDead;
     public bool reloading = true;
     private const float RELOAD_TIME = 3.0f;
+    private GameObject scope;
+    public GameObject Scopecam;
+    private int wepout;
+    public Camera MainCam;
+    private float normalFOV;
+    public float scopedFOV = 15f;
+
     void Awake() {
         Variables = GameObject.FindWithTag("Start");
     }
 
     // Use this for initialization
     void Start () {
+        Scopecam.SetActive(false);
         ManagerGet = Variables.GetComponent<VariablesScript>();
         animatorz = Rig.GetComponent<Animator>();
         manager = ManagerGet.variables;
@@ -35,6 +43,11 @@ public class Playeranimations : NetworkBehaviour {
         //wep = GameObject.FindWithTag("Player");
         wloss = gameObject.GetComponent<weaponManager>();
         isDead = gameObject.GetComponent<Health>();
+       // scope = ph.Scopein;
+        if (!isLocalPlayer) {
+            return;
+        }
+        Scopecam.SetActive(true);
     }
 	
 	// Update is called once per frame
@@ -44,6 +57,7 @@ public class Playeranimations : NetworkBehaviour {
           }
         haswep = wloss.hasWeapon;
         lossWep = ph.playwep;
+        wepout = wloss.weaponOut;
         bool isWalkingPressed = Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.LeftShift) ;
         bool isRunning = Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W);
         bool StraftRight = Input.GetKey(KeyCode.D);
@@ -75,12 +89,15 @@ public class Playeranimations : NetworkBehaviour {
             ph.playwep = false;
         }
 
-        if (Input.GetMouseButtonDown(1) && Aim == false) {
-            animatorz.SetBool("Aim", true);
-            Aim = true;
-        } else if (Input.GetMouseButtonDown(1) && Aim == true) {
-            animatorz.SetBool("Aim", false);
-            Aim = false;
+        if (Input.GetMouseButtonDown(1)) {
+            Aim = !Aim;
+            animatorz.SetBool("Aim", Aim);
+            if (wepout == 3) {
+              /*  if (Aim)
+                    StartCoroutine(OnScoped());
+                else
+                    OnUnScoped();*/
+            }
         }
 
         if (Input.GetKey(KeyCode.Space) && haswep == false) {
@@ -90,6 +107,11 @@ public class Playeranimations : NetworkBehaviour {
         }
      
     }
+  /*  void OnUnScoped() {
+        scope.SetActive(false);
+        Scopecam.SetActive(true);
+        MainCam.fieldOfView = normalFOV;
+    }*/
 
     public void ReloadAnim() {
         reloading = false;
@@ -103,4 +125,12 @@ public class Playeranimations : NetworkBehaviour {
         reloading = true;
 
     }
+   /* IEnumerator OnScoped() {
+        yield return new WaitForSeconds(.15f);
+        scope.SetActive(true);
+       Scopecam.SetActive(false);
+
+        normalFOV = MainCam.fieldOfView;
+       /MainCam.fieldOfView = scopedFOV;
+    }*/
 }
