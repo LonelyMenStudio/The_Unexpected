@@ -24,6 +24,12 @@ public class IKControl : NetworkBehaviour {
     public Transform lookObj = null;
     private weaponManager weapon;
     private bool reload;
+    Vector3 Notaimpos;
+    Vector3 aimpos;
+    Vector3 repos;
+    Quaternion Notaimrot;
+    Quaternion aimrot;
+    Quaternion reloadrot;
 
     void Start() {
         animator = GetComponent<Animator>();
@@ -50,13 +56,18 @@ public class IKControl : NetworkBehaviour {
                     animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
                     animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
                     animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1);
-                    
-                        if (!aim.Aim) {
-                            HandStuff(1, weapon.weaponOut);
+                    Notaimpos = righthand.transform.position;
+                    Notaimrot = righthand.transform.rotation;
+                    aimpos = righthandaim.transform.position;
+                    aimrot = righthandaim.transform.rotation;
+                    repos = reloadpos.transform.position;
+                    reloadrot = reloadpos.transform.rotation;
+                    if (!aim.Aim) {
+                            HandStuff( weapon.weaponOut, Notaimpos, Notaimrot);
                         } else if (aim.Aim) {
-                            HandStuff(2, weapon.weaponOut);                        }
+                            HandStuff( weapon.weaponOut, aimpos, aimrot);                        }
                         if (!aim.reloading) {
-                            HandStuff(3, weapon.weaponOut);
+                            HandStuff( weapon.weaponOut, repos,reloadrot) ;
                         
                     }
 
@@ -103,61 +114,31 @@ public class IKControl : NetworkBehaviour {
             }
         }
     }
-    void HandStuff(int num, int wep) {
+    void HandStuff( int wep, Vector3 psi, Quaternion rot) {
         if (!isServer) {
-            CmdSwitchWeapon(num, wep);
+            CmdSwitchWeapon( wep, psi, rot);
         } else {
-            RpcSwitchWeapon(num, wep);
+            RpcSwitchWeapon( wep, psi, rot);
         }
     }
 
     [Command]
-    void CmdSwitchWeapon(int handlocation, int outwep) {
-        RpcSwitchWeapon(handlocation, outwep);
+    void CmdSwitchWeapon( int outwep, Vector3 pos, Quaternion rotation) {
+        RpcSwitchWeapon( outwep, pos, rotation);
     }
     [ClientRpc]
-    void RpcSwitchWeapon(int handlocation, int outwep) {
+    void RpcSwitchWeapon( int outwep, Vector3 pos, Quaternion rotation) {
         if (outwep == 1) {
-            if (handlocation == 1) {
-                rightHandObj.position = righthand.transform.position;
-                rightHandObj.rotation = righthand.transform.rotation;
-            } else if (handlocation == 2) {
-                rightHandObj.position = righthandaim.transform.position;
-                rightHandObj.rotation = righthandaim.transform.rotation;
-                animator.SetLookAtWeight(1);
-                animator.SetLookAtPosition(lookObj.position);
-            } else if (handlocation == 3) {
-                rightHandObj.position = reloadpos.transform.position;
-                rightHandObj.rotation = reloadpos.transform.rotation;
-            }
-        }
-        else if (outwep == 2) {
-            if (handlocation == 1) {
-                rightShotty.position = righthand.transform.position;
-                rightShotty.rotation = righthand.transform.rotation;
-            } else if (handlocation == 2) {
-                rightShotty.position = righthandaim.transform.position;
-                rightShotty.rotation = righthandaim.transform.rotation;
-                animator.SetLookAtWeight(1);
-                animator.SetLookAtPosition(lookObj.position);
-            } else if (handlocation == 3) {
-                rightShotty.position = reloadpos.transform.position;
-                rightShotty.rotation = reloadpos.transform.rotation;
-            }
-        } else if (outwep == 3) {
-                if (handlocation == 1) {
-                rightSniper.position = righthand.transform.position;
-                rightSniper.rotation = righthand.transform.rotation;
-            } else if (handlocation == 2) {
-                rightSniper.position = righthandaim.transform.position;
-                rightSniper.rotation = righthandaim.transform.rotation;
-                animator.SetLookAtWeight(1);
-                animator.SetLookAtPosition(lookObj.position);
-            } else if (handlocation == 3) {
-                rightSniper.position = reloadpos.transform.position;
-                rightSniper.rotation = reloadpos.transform.rotation;
+            rightHandObj.position = pos;
+            rightHandObj.rotation = rotation;
+        } else if (outwep == 2) {
+            rightShotty.position = pos;
+            rightShotty.rotation = rotation;
 
-            }
+        } else if (outwep == 3) {
+                rightSniper.position = pos;
+                rightSniper.rotation = rotation;
+            
         }
         
     }
