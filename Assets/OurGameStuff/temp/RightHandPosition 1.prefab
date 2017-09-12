@@ -9,33 +9,33 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1627526759032740}
+  m_RootGameObject: {fileID: 1954708382399350}
   m_IsPrefabParent: 1
---- !u!1 &1627526759032740
+--- !u!1 &1954708382399350
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4045772022690582}
+  - component: {fileID: 4418659891493010}
   m_Layer: 0
-  m_Name: RightHandpoistion
+  m_Name: RightHandPosition 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4045772022690582
+--- !u!4 &4418659891493010
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1627526759032740}
-  m_LocalRotation: {x: -0.45780638, y: 0.027810434, z: 0.016838036, w: 0.8884573}
-  m_LocalPosition: {x: 0.15, y: 0.08, z: 0.103}
+  m_GameObject: {fileID: 1954708382399350}
+  m_LocalRotation: {x: 0.6940164, y: -0.46876657, z: -0.50531125, w: -0.2079897}
+  m_LocalPosition: {x: 0.02, y: -0.12, z: 0.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -54.53, y: 3.3590002, z: 0.44000003}
+  m_LocalEulerAnglesHint: {x: -49.68, y: -128.5, z: -137.1}

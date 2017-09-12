@@ -48,14 +48,13 @@ public class Playeranimations : NetworkBehaviour {
         bool isRunning = Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W);
         bool StraftRight = Input.GetKey(KeyCode.D);
         bool StraftLeft = Input.GetKey(KeyCode.A);
-        bool Backward = Input.GetKey(KeyCode.S);
         
         animatorz.SetBool("isWalking", isWalkingPressed);
         animatorz.SetBool("HasWep", haswep);
         animatorz.SetBool("Sprint", isRunning);
         animatorz.SetBool("StraftRight", StraftRight);
         animatorz.SetBool("StraftLeft", StraftLeft);
-        animatorz.SetBool("Backwards", Backward);
+
 
         if ( Input.GetKey(KeyCode.R) && reloading && haswep) {
             ReloadAnim();

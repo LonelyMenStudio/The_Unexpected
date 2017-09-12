@@ -7,7 +7,7 @@ public class CrystalAction : NetworkBehaviour {
 
     [SyncVar]
     public float crystalHealth = 50;
-    public ParticleSystem Explosion;
+
     private bool crystalDestoryed = false;
 
     // Use this for initialization
@@ -21,8 +21,8 @@ public class CrystalAction : NetworkBehaviour {
             Destroy(this.gameObject.GetComponent<MeshCollider>());
             Destroy(this.gameObject.GetComponent<MeshRenderer>());
             crystalDestoryed = true;
-           // this.gameObject.GetComponent<EnvCrystalHeal>().crystalHasBeenDestoryed = crystalDestoryed;
-            Explosion.Play();
+            this.gameObject.GetComponent<EnvCrystalHeal>().crystalHasBeenDestoryed = crystalDestoryed;
+            //Instantiate particle effect
         }
         
     }
