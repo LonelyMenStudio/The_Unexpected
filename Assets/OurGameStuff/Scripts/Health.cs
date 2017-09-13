@@ -165,7 +165,7 @@ public class Health : NetworkBehaviour {
             CmdTestDamage();
         }
         if (TESTING && Input.GetKeyDown(KeyCode.P)) {
-            CmdTestDamage();
+            tpWeapon();
         }
     }
     [Command]
@@ -226,8 +226,9 @@ public class Health : NetworkBehaviour {
     }
 
     void tpWeapon() {
-        for(int i = 0; i < this.GetComponent<PlayerManager>().droppedWeapons.Count; i++) {
-            this.GetComponent<PlayerManager>().droppedWeapons[i].transform.position = this.transform.position;
+        for(int i = 0; i < manager.GetComponent<PlayerManager>().droppedWeapons.Count; i++) {
+            manager.GetComponent<PlayerManager>().droppedWeapons[i].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 4, this.transform.position.z);
+            
         }
     }
 }
