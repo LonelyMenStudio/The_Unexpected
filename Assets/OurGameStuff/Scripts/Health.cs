@@ -36,6 +36,7 @@ public class Health : NetworkBehaviour {
     //private Color red;
     //private Color reset;
     private bool canSendKill = true;
+    public string killMessage = "Died to ";
 
     [SyncVar(hook = "OnChangeHealth")]
     public int Healthz = maxHealth;
@@ -85,6 +86,7 @@ public class Health : NetworkBehaviour {
             if (canSendKill) {
                 canSendKill = false;
                 sendKill(damageFrom);
+                killMessage = killMessage + "Player " + damageFrom;
             }
         }
     }
@@ -92,6 +94,7 @@ public class Health : NetworkBehaviour {
         if (isLocalPlayer) {
             CmdWaterDeath();
             playerNumber.CmdLoseKill();
+            killMessage = killMessage + "Enviroment";
         }
     }
     [Command]
