@@ -74,10 +74,10 @@ public class InverseKinematics : NetworkBehaviour {
         if (currentWeapon == 1) {
             target = R1.transform;
             leftTarget = L1.transform;
-        } else if (currentWeapon == 2) {
+        } else if (currentWeapon == 3) {
             target = R2.transform;
             leftTarget = L2.transform;
-        } else if (currentWeapon == 3) {
+        } else if (currentWeapon == 2) {
             target = R3.transform;
             leftTarget = L3.transform;
         }
