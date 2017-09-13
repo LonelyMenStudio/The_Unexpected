@@ -39,11 +39,9 @@ public class IKControl : NetworkBehaviour {
     Quaternion aimrot;
     Quaternion reloadrot;
     public int Hands;
-
-    [SyncVar]
+   
     public AvatarIKGoal rightHand = AvatarIKGoal.RightHand;
 
-    [SyncVar]
     public AvatarIKGoal leftHand = AvatarIKGoal.LeftHand;
 
 
