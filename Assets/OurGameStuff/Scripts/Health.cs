@@ -164,6 +164,9 @@ public class Health : NetworkBehaviour {
         if (TESTING && Input.GetKeyDown(KeyCode.O)) {
             CmdTestDamage();
         }
+        if (TESTING && Input.GetKeyDown(KeyCode.P)) {
+            CmdTestDamage();
+        }
     }
     [Command]
     void CmdTestDamage() {
@@ -219,6 +222,12 @@ public class Health : NetworkBehaviour {
             Healthz = Healthz - amount;
         } else {
             Healthz = Healthz + amount;
+        }
+    }
+
+    void tpWeapon() {
+        for(int i = 0; i < this.GetComponent<PlayerManager>().droppedWeapons.Count; i++) {
+            this.GetComponent<PlayerManager>().droppedWeapons[i].transform.position = this.transform.position;
         }
     }
 }
