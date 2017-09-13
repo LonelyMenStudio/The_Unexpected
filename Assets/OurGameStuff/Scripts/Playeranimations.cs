@@ -35,7 +35,7 @@ public class Playeranimations : NetworkBehaviour {
 
     // Use this for initialization
     void Start () {
-        Scopecam.SetActive(false);
+        //Scopecam.SetActive(false);
         ManagerGet = Variables.GetComponent<VariablesScript>();
         animatorz = Rig.GetComponent<Animator>();
         manager = ManagerGet.variables;
@@ -47,7 +47,7 @@ public class Playeranimations : NetworkBehaviour {
         if (!isLocalPlayer) {
             return;
         }
-        Scopecam.SetActive(true);
+        //Scopecam.SetActive(true);
     }
 	
 	// Update is called once per frame

@@ -47,7 +47,7 @@ public class FindingWep : NetworkBehaviour {
         player = this.gameObject.GetComponent<PlayerAssignGet>();
         playerno = player.currentPlayerNo;
         TeamColor = this.gameObject.transform.GetChild(3).gameObject;
-        TeamColor.GetComponent<Renderer>().material = TeamColors[playerno];
+        //TeamColor.GetComponent<Renderer>().material = TeamColors[playerno];
         if (!isLocalPlayer) {
             return;
         }

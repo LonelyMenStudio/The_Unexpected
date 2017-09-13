@@ -39,6 +39,7 @@ public class IKControl : NetworkBehaviour {
     Quaternion aimrot;
     Quaternion reloadrot;
     public int Hands;
+    private InverseKinematics handsIK;
    
     public AvatarIKGoal rightHand = AvatarIKGoal.RightHand;
 
@@ -56,17 +57,18 @@ public class IKControl : NetworkBehaviour {
         player = this.gameObject.GetComponent<PlayerAssignGet>();
         playerno = player.currentPlayerNo;
         weapon = GetComponent<weaponManager>();
+        handsIK = this.GetComponent<InverseKinematics>();
     }
     void update() {
 
     }
     //a callback for calculating IK
     void OnAnimatorIK() {
+
         if (animator) {
-
             //if the IK is active, set the position and rotation directly to the goal. 
+            handsIK.CmdSetRunning(ikActive);
             if (ikActive) {
-
                 // Set the look target position, if one has been assigned
                 //if (lookObj != null) {
                 //    animator.SetLookAtWeight(1);
@@ -98,7 +100,7 @@ public class IKControl : NetworkBehaviour {
 
 
 
-                    if (weapon.weaponOut == 1 || weapon.weaponOut == 2 || weapon.weaponOut == 3) {
+                 /*   if (weapon.weaponOut == 1 || weapon.weaponOut == 2 || weapon.weaponOut == 3) {
 
                         if (!aim.Aim) {
                             animator.SetIKPosition(rightHand, righthandposition.transform.position);
@@ -122,7 +124,7 @@ public class IKControl : NetworkBehaviour {
                             animator.SetIKPosition(leftHand, LeftHandObj.transform.position);
                             animator.SetIKRotation(leftHand, LeftHandObj.transform.rotation);
                         }
-                    }
+                    }*/
 
                 }
 
@@ -133,9 +135,9 @@ public class IKControl : NetworkBehaviour {
             else {
                 //animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 0);
                 //animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 0);
-                animator.SetIKPositionWeight(leftHand, 0);
-                animator.SetIKRotationWeight(leftHand, 0);
-                animator.SetLookAtWeight(0);
+               // animator.SetIKPositionWeight(leftHand, 0);
+             //   animator.SetIKRotationWeight(leftHand, 0);
+             //   animator.SetLookAtWeight(0);
             }
         }
         /* if (isLocalPlayer) {
@@ -155,6 +157,8 @@ public class IKControl : NetworkBehaviour {
              }
          }*/
     }
+
+
     void HandStuff(int wep, Vector3 psi, Quaternion rot) {
         if (!isServer) {
             CmdSwitchWeapon(wep, psi, rot);

@@ -7,27 +7,27 @@ using UnityEngine.Networking;
 
 public class InverseKinematics : NetworkBehaviour {
 
-	public Transform leftUpperArm;
-	public Transform leftForearm;
-	public Transform leftHand;
-	public Transform leftElbow;
-	public Transform leftTarget;
-	[Space(20)]
-	public Vector3 leftUpperArm_OffsetRotation;
-	public Vector3 leftForearm_OffsetRotation;
-	public Vector3 leftHand_OffsetRotation;
-	[Space(20)]
-	public bool lefHandMatchesTargetRotation = true;
-	[Space(20)]
-	public bool leftDebug;
+    public Transform leftUpperArm;
+    public Transform leftForearm;
+    public Transform leftHand;
+    public Transform leftElbow;
+    public Transform leftTarget;
+    [Space(20)]
+    public Vector3 leftUpperArm_OffsetRotation;
+    public Vector3 leftForearm_OffsetRotation;
+    public Vector3 leftHand_OffsetRotation;
+    [Space(20)]
+    public bool lefHandMatchesTargetRotation = true;
+    [Space(20)]
+    public bool leftDebug;
 
 
-	float leftAngle;
-	float leftUpperArm_Length;
-	float leftForearm_Length;
-	float leftArm_Length;
-	float leftTargetDistance;
-	float leftAdyacent;
+    float leftAngle;
+    float leftUpperArm_Length;
+    float leftForearm_Length;
+    float leftArm_Length;
+    float leftTargetDistance;
+    float leftAdyacent;
 
     [Space(50)]
 
@@ -55,20 +55,35 @@ public class InverseKinematics : NetworkBehaviour {
     [SyncVar]
     public bool runIK = false;
 
+    private weaponManager weapon;
+    private int currentWeapon;
+
+    public GameObject L1, R1, L2, R2, L3, R3;
 
     // Use this for initialization
-    void Start () {
+    void Start() {
+        weapon = this.GetComponent<weaponManager>();
+    }
 
-	}
-	
-	// Update is called once per frame
-	void LateUpdate () {
+    // Update is called once per frame
+    void LateUpdate() {
         if (!runIK) {
             return;
         }
+        currentWeapon = weapon.weaponOut;
+        if (currentWeapon == 1) {
+            target = R1.transform;
+            leftTarget = L1.transform;
+        } else if (currentWeapon == 2) {
+            target = R2.transform;
+            leftTarget = L2.transform;
+        } else if (currentWeapon == 3) {
+            target = R3.transform;
+            leftTarget = L3.transform;
+        }
         LeftAction();
         RightAction();
-	}
+    }
 
 
 
@@ -157,19 +172,19 @@ public class InverseKinematics : NetworkBehaviour {
 
     }
 
-    void LeftOnDrawGizmos(){
-		if (leftDebug) {
-			if(leftUpperArm != null && leftElbow != null && leftHand != null && leftTarget != null && leftElbow != null){
-				Gizmos.color = Color.gray;
-				Gizmos.DrawLine (leftUpperArm.position, leftForearm.position);
-				Gizmos.DrawLine (leftForearm.position, leftHand.position);
-				Gizmos.color = Color.red;
-				Gizmos.DrawLine (leftUpperArm.position, leftTarget.position);
-				Gizmos.color = Color.blue;
-				Gizmos.DrawLine (leftForearm.position, leftElbow.position);
-			}
-		}
-	}
+    void LeftOnDrawGizmos() {
+        if (leftDebug) {
+            if (leftUpperArm != null && leftElbow != null && leftHand != null && leftTarget != null && leftElbow != null) {
+                Gizmos.color = Color.gray;
+                Gizmos.DrawLine(leftUpperArm.position, leftForearm.position);
+                Gizmos.DrawLine(leftForearm.position, leftHand.position);
+                Gizmos.color = Color.red;
+                Gizmos.DrawLine(leftUpperArm.position, leftTarget.position);
+                Gizmos.color = Color.blue;
+                Gizmos.DrawLine(leftForearm.position, leftElbow.position);
+            }
+        }
+    }
 
     void OnDrawGizmos() {
         if (debug) {
@@ -183,6 +198,11 @@ public class InverseKinematics : NetworkBehaviour {
                 Gizmos.DrawLine(forearm.position, elbow.position);
             }
         }
+    }
+
+    [Command]
+    public void CmdSetRunning(bool state) {
+        runIK = state;
     }
 
 }
