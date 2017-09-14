@@ -34,7 +34,7 @@ public class Playeranimations : NetworkBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         //Scopecam.SetActive(false);
         ManagerGet = Variables.GetComponent<VariablesScript>();
         animatorz = Rig.GetComponent<Animator>();
@@ -43,27 +43,27 @@ public class Playeranimations : NetworkBehaviour {
         //wep = GameObject.FindWithTag("Player");
         wloss = gameObject.GetComponent<weaponManager>();
         isDead = gameObject.GetComponent<Health>();
-       // scope = ph.Scopein;
+        // scope = ph.Scopein;
         if (!isLocalPlayer) {
             return;
         }
         //Scopecam.SetActive(true);
     }
-	
-	// Update is called once per frame
-	void Update () {
-         if (!isLocalPlayer) { //what is this script on???
-         return;
-          }
+
+    // Update is called once per frame
+    void Update() {
+        if (!isLocalPlayer) { //what is this script on???
+            return;
+        }
         haswep = wloss.hasWeapon;
         lossWep = ph.playwep;
         wepout = wloss.weaponOut;
-        bool isWalkingPressed = Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.LeftShift) ;
+        bool isWalkingPressed = Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.LeftShift);
         bool isRunning = Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W);
         bool StraftRight = Input.GetKey(KeyCode.D);
         bool StraftLeft = Input.GetKey(KeyCode.A);
         bool Backward = Input.GetKey(KeyCode.S);
-        
+
         animatorz.SetBool("isWalking", isWalkingPressed);
         animatorz.SetBool("HasWep", haswep);
         animatorz.SetBool("Sprint", isRunning);
@@ -71,7 +71,7 @@ public class Playeranimations : NetworkBehaviour {
         animatorz.SetBool("StraftLeft", StraftLeft);
         animatorz.SetBool("Backwards", Backward);
 
-        if ( Input.GetKey(KeyCode.R) && reloading && haswep) {
+        if (Input.GetKey(KeyCode.R) && reloading && haswep) {
             ReloadAnim();
         }
         if (Input.GetKey(KeyCode.Space)) {
@@ -80,7 +80,7 @@ public class Playeranimations : NetworkBehaviour {
         if (Input.GetKey(KeyCode.LeftShift)) {
             Aim = false;
         }
-        if ( isDead.death == true) {
+        if (isDead.death == true) {
             animatorz.Play("Death");
             isDead.death = false;
         }
@@ -88,15 +88,17 @@ public class Playeranimations : NetworkBehaviour {
             animatorz.Play("GunLost");
             ph.playwep = false;
         }
-
+        if (!wloss.hasWeapon) {
+            Aim = false;
+        }
         if (Input.GetMouseButtonDown(1)) {
             Aim = !Aim;
             animatorz.SetBool("Aim", Aim);
             if (wepout == 3) {
-              /*  if (Aim)
-                    StartCoroutine(OnScoped());
-                else
-                    OnUnScoped();*/
+                /*  if (Aim)
+                      StartCoroutine(OnScoped());
+                  else
+                      OnUnScoped();*/
             }
             if (wepout == 0) {
                 Aim = false;
@@ -108,13 +110,13 @@ public class Playeranimations : NetworkBehaviour {
         } else if (Input.GetKey(KeyCode.Space) && haswep == true) {
             animatorz.Play("JumpWithGun");
         }
-     
+
     }
-  /*  void OnUnScoped() {
-        scope.SetActive(false);
-        Scopecam.SetActive(true);
-        MainCam.fieldOfView = normalFOV;
-    }*/
+    /*  void OnUnScoped() {
+          scope.SetActive(false);
+          Scopecam.SetActive(true);
+          MainCam.fieldOfView = normalFOV;
+      }*/
 
     public void ReloadAnim() {
         reloading = false;
@@ -128,12 +130,12 @@ public class Playeranimations : NetworkBehaviour {
         reloading = true;
 
     }
-   /* IEnumerator OnScoped() {
-        yield return new WaitForSeconds(.15f);
-        scope.SetActive(true);
-       Scopecam.SetActive(false);
+    /* IEnumerator OnScoped() {
+         yield return new WaitForSeconds(.15f);
+         scope.SetActive(true);
+        Scopecam.SetActive(false);
 
-        normalFOV = MainCam.fieldOfView;
-       /MainCam.fieldOfView = scopedFOV;
-    }*/
+         normalFOV = MainCam.fieldOfView;
+        /MainCam.fieldOfView = scopedFOV;
+     }*/
 }
