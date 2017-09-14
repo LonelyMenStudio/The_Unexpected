@@ -7,58 +7,46 @@ using UnityEngine.Networking;
 
 public class InverseKinematics : NetworkBehaviour {
 
+    [SyncVar]
+    public bool runIK = false;
+    [Space(20)]
     public Transform leftUpperArm;
     public Transform leftForearm;
     public Transform leftHand;
     public Transform leftElbow;
     public Transform leftTarget;
-    [Space(20)]
     public Vector3 leftUpperArm_OffsetRotation;
     public Vector3 leftForearm_OffsetRotation;
     public Vector3 leftHand_OffsetRotation;
-    [Space(20)]
     public bool lefHandMatchesTargetRotation = true;
-    [Space(20)]
     public bool leftDebug;
-
-
     float leftAngle;
     float leftUpperArm_Length;
     float leftForearm_Length;
     float leftArm_Length;
     float leftTargetDistance;
     float leftAdyacent;
-
     [Space(50)]
-
     public Transform upperArm;
     public Transform forearm;
     public Transform hand;
     public Transform elbow;
     public Transform target;
-    [Space(20)]
     public Vector3 uppperArm_OffsetRotation;
     public Vector3 forearm_OffsetRotation;
     public Vector3 hand_OffsetRotation;
-    [Space(20)]
     public bool handMatchesTargetRotation = true;
-    [Space(20)]
     public bool debug;
-
     float angle;
     float upperArm_Length;
     float forearm_Length;
     float arm_Length;
     float targetDistance;
     float adyacent;
-
-    [SyncVar]
-    public bool runIK = false;
-
     private weaponManager weapon;
     private int currentWeapon;
-
-    public GameObject L1, R1, L2, R2, L3, R3;
+    public GameObject L1, R1, L2, R2, L3, R3, DL, DR;
+    private bool onceAfterStop = false;
 
     // Use this for initialization
     void Start() {
@@ -67,9 +55,18 @@ public class InverseKinematics : NetworkBehaviour {
 
     // Update is called once per frame
     void LateUpdate() {
+        CmdSetRunning(weapon.hasWeapon);
         if (!runIK) {
+            if (onceAfterStop) {
+                target = DR.transform;
+                leftTarget = DL.transform;
+                LeftAction();
+                RightAction();
+                onceAfterStop = false;
+            }
             return;
         }
+        onceAfterStop = true;
         currentWeapon = weapon.weaponOut;
         if (currentWeapon == 1) {
             target = R1.transform;

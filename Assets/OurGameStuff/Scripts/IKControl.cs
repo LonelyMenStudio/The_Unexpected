@@ -67,7 +67,7 @@ public class IKControl : NetworkBehaviour {
 
         if (animator) {
             //if the IK is active, set the position and rotation directly to the goal. 
-            handsIK.CmdSetRunning(ikActive);
+            //handsIK.CmdSetRunning(ikActive);
             if (ikActive) {
                 // Set the look target position, if one has been assigned
                 //if (lookObj != null) {
