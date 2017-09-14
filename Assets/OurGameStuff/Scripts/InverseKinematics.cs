@@ -55,7 +55,9 @@ public class InverseKinematics : NetworkBehaviour {
 
     // Update is called once per frame
     void LateUpdate() {
-        CmdSetRunning(weapon.hasWeapon);
+        if (isLocalPlayer) {
+            CmdSetRunning(weapon.hasWeapon);
+        }
         if (!runIK) {
             if (onceAfterStop) {
                 target = DR.transform;
