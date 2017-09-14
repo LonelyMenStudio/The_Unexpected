@@ -225,6 +225,9 @@ public class Health : NetworkBehaviour {
             Healthz = Healthz - amount;
         } else {
             Healthz = Healthz + amount;
+            if(Healthz > maxHealth) {
+                Healthz = maxHealth;
+            }
         }
     }
 
