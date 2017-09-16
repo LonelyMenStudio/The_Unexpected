@@ -189,7 +189,7 @@ public class Health : NetworkBehaviour {
             tpWeapon();
         }
         if (turnOffController) {
-            con.enabled = false;
+           // con.enabled = false;
         } else {
             turnOffController = true;
         }

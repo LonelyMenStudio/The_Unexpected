@@ -45,11 +45,13 @@ public class InverseKinematics : NetworkBehaviour {
     float adyacent;
     private weaponManager weapon;
     private int currentWeapon;
-    public GameObject L1, R1, L2, R2, L3, R3, DL, DR;
+    public GameObject L1, R1, Re1, Le1, RL1, RR1, L2, R2, Re2, Le2 , L3, R3, Re3, Le3, DL, DR;
     private bool onceAfterStop = false;
+    private Playeranimations aim;
 
     // Use this for initialization
     void Start() {
+        aim = this.gameObject.GetComponent<Playeranimations>();
         weapon = this.GetComponent<weaponManager>();
     }
 
@@ -71,14 +73,34 @@ public class InverseKinematics : NetworkBehaviour {
         onceAfterStop = true;
         currentWeapon = weapon.weaponOut;
         if (currentWeapon == 1) {
-            target = R1.transform;
-            leftTarget = L1.transform;
+            if (!aim.Aim) {
+                target = R1.transform;
+                leftTarget = L1.transform;
+            }else if (aim.Aim) {
+                target = Re1.transform;
+                leftTarget = Le1.transform;
+            }
+          /* else if (!aim.reloading) {
+                target = RL1.transform;
+                leftTarget = RR1.transform;
+            }*/
         } else if (currentWeapon == 3) {
-            target = R2.transform;
-            leftTarget = L2.transform;
+            if (!aim.Aim) {
+                target = R2.transform;
+                leftTarget = L2.transform;
+            }
+            else if (aim.Aim) {
+                target = Re2.transform;
+                leftTarget = Le2.transform;
+            }
         } else if (currentWeapon == 2) {
-            target = R3.transform;
-            leftTarget = L3.transform;
+            if (!aim.Aim) {
+                target = R3.transform;
+                leftTarget = L3.transform;
+            }else if (aim.Aim) {
+                target = Re3.transform;
+                leftTarget = Le3.transform;
+            }
         }
         LeftAction();
         RightAction();
