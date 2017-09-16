@@ -46,6 +46,19 @@ public class IKControl : NetworkBehaviour {
     public AvatarIKGoal leftHand = AvatarIKGoal.LeftHand;
 
 
+    // Here
+    private Vector3 Movetopos;
+    private Vector3 MoveFrompos;
+    private Vector3 Movetoposy;
+    private Vector3 MoveFromposy;
+    private Vector3 Movetoposz;
+    private Vector3 MoveFromposz;
+    //private float speedMove = 0.2f;
+    private float lerpTime = 1;
+    public float currentlerp = 0;
+    private bool movingTo = true;
+   // private bool reset = false;
+
     void Start() {
         Variables = GameObject.FindWithTag("Start");
         ManagerGet = Variables.GetComponent<VariablesScript>();
@@ -58,6 +71,7 @@ public class IKControl : NetworkBehaviour {
         playerno = player.currentPlayerNo;
         weapon = GetComponent<weaponManager>();
         handsIK = this.GetComponent<InverseKinematics>();
+      
     }
     void update() {
 
@@ -88,13 +102,32 @@ public class IKControl : NetworkBehaviour {
                     aimrot = righthandaim.transform.rotation;
                     repos = reloadpos.transform.position;
                     reloadrot = reloadpos.transform.rotation;
-                    if (!aim.Aim) {
-                        HandStuff(weapon.weaponOut, Notaimpos, Notaimrot);
-                    } else if (aim.Aim) {
-                        HandStuff(weapon.weaponOut, aimpos, aimrot);
+                    // MoveFrompos = righthand.transform.position;
+                    // Movetopos = righthandaim.transform.position;
+                    if (aim.Change == true) {
+                        movingTo = true;
+                        currentlerp = 0;
+                        aim.Change = false;
                     }
-                    if (!aim.reloading) {
-                        HandStuff(weapon.weaponOut, repos, reloadrot);
+                    if (movingTo == true || !aim.reloading) {
+                        currentlerp += Time.deltaTime;
+                        if(currentlerp >= lerpTime) {
+                            currentlerp = lerpTime;
+                            movingTo = false;
+                           // currentlerp = 0;
+                        }
+                    }
+                    float Perc = currentlerp / lerpTime;
+                    if (!aim.Aim && aim.reloading) {
+                       // movingTo = true;
+                        
+                        HandStuff(weapon.weaponOut, Notaimpos, Notaimrot, Perc);
+                        
+                    } else if (aim.Aim && aim.reloading) {
+                        HandStuff(weapon.weaponOut, aimpos, aimrot, Perc);
+                    }
+                    else if (!aim.reloading) {
+                        HandStuff(weapon.weaponOut, repos, reloadrot, Perc);
 
                     }
 
@@ -159,23 +192,23 @@ public class IKControl : NetworkBehaviour {
     }
 
 
-    void HandStuff(int wep, Vector3 psi, Quaternion rot) {
+    void HandStuff(int wep, Vector3 psi, Quaternion rot, float perc) {
         if (!isServer) {
-            CmdSwitchWeapon(wep, psi, rot);
+            CmdSwitchWeapon(wep, psi, rot, perc);
         } else {
-            RpcSwitchWeapon(wep, psi, rot);
+            RpcSwitchWeapon(wep, psi, rot, perc);
         }
     }
 
     [Command]
-    void CmdSwitchWeapon(int outwep, Vector3 pos, Quaternion rotation) {
-        RpcSwitchWeapon(outwep, pos, rotation);
+    void CmdSwitchWeapon(int outwep, Vector3 pos, Quaternion rotation, float percent) {
+        RpcSwitchWeapon(outwep, pos, rotation, percent);
     }
     [ClientRpc]
-    void RpcSwitchWeapon(int outwep, Vector3 pos, Quaternion rotation) {
+    void RpcSwitchWeapon(int outwep, Vector3 pos, Quaternion rotation, float percent) {
         if (outwep == 1) {
-            rightHandObj.position = pos;
-            rightHandObj.rotation = rotation;
+            rightHandObj.position = Vector3.Lerp(rightHandObj.position, pos, percent);
+            rightHandObj.rotation = Quaternion.Lerp(rightHandObj.rotation, rotation, percent);
             Hands = 1;
         } else if (outwep == 2) {
             rightShotty.position = pos;

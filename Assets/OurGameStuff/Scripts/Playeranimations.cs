@@ -28,7 +28,9 @@ public class Playeranimations : NetworkBehaviour {
     public Camera MainCam;
     private float normalFOV;
     public float scopedFOV = 15f;
-
+    public bool Change = false;
+    private IKControl resetlerp;
+    private bool aiming;
     void Awake() {
         Variables = GameObject.FindWithTag("Start");
     }
@@ -43,6 +45,7 @@ public class Playeranimations : NetworkBehaviour {
         //wep = GameObject.FindWithTag("Player");
         wloss = gameObject.GetComponent<weaponManager>();
         isDead = gameObject.GetComponent<Health>();
+        resetlerp = gameObject.GetComponent<IKControl>();
         // scope = ph.Scopein;
         if (!isLocalPlayer) {
             return;
@@ -72,6 +75,11 @@ public class Playeranimations : NetworkBehaviour {
         animatorz.SetBool("Backwards", Backward);
 
         if (Input.GetKey(KeyCode.R) && reloading && haswep) {
+            aiming = Aim;
+            if (aiming) {
+                Aim = false;
+            }
+            resetlerp.currentlerp = 0;
             ReloadAnim();
         }
         if (Input.GetKey(KeyCode.Space)) {
@@ -92,6 +100,7 @@ public class Playeranimations : NetworkBehaviour {
             Aim = false;
         }
         if (Input.GetMouseButtonDown(1)) {
+            Change = true;
             Aim = !Aim;
             animatorz.SetBool("Aim", Aim);
             if (wepout == 3) {
@@ -123,11 +132,19 @@ public class Playeranimations : NetworkBehaviour {
         animatorz.Play("Reload");
         StartCoroutine(Reload());
     }
+    public void TakeAim() {
+        Change = true;
+       // Aim = true;
+    }
     IEnumerator Reload() {
         //reload.Play();
         //transform.Find("crystal").gameObject.GetComponent<Animation>().Play("Take 001");
         yield return new WaitForSeconds(RELOAD_TIME);
         reloading = true;
+        if (aiming) {
+            Aim = true;
+            Change = true;
+        }
 
     }
     /* IEnumerator OnScoped() {

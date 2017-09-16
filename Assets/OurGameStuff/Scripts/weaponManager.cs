@@ -87,6 +87,7 @@ public class weaponManager : NetworkBehaviour {
     private PlayerManager plrMngr;
     private IKControl weaponhold;
     private Playeranimations Aimming;
+    private bool TakeAim2 = true;
     //=======
 
 
@@ -215,9 +216,19 @@ public class weaponManager : NetworkBehaviour {
             weaponFirstSpawn(weaponOnEnd);
         }
 
-        if (Input.GetKey(KeyCode.Mouse0) && hasWeapon && canShoot && counter > delayTime && !isSprinting) { // probs can be cut down to only 1 raycast
-            Aimming.Aim = true;
-            shoot();
+        if (Input.GetKey(KeyCode.Mouse0) && hasWeapon && canShoot && counter > delayTime && !isSprinting && TakeAim2) { // probs can be cut down to only 1 raycast
+            if (!Aimming.Aim) {
+                Aimming.Change = true;
+                Aimming.Aim = true;
+                TakeAim2 = false;
+                StartCoroutine(TakeAim());
+          
+            } else {
+                Aimming.Aim = true;
+                shoot();
+            }
+            
+            
         }
         counter += Time.deltaTime;//counter to ensure not infinite fire rate
         if (Input.GetKeyDown(KeyCode.R) && hasWeapon) {
@@ -739,7 +750,15 @@ public class weaponManager : NetworkBehaviour {
         yield return new WaitForSeconds(hitmarkertime);
         HitMarker.SetActive(false);
     }
+    IEnumerator TakeAim() {
 
+        yield return new WaitForSeconds(1);
+        TakeAim2 = true;
+        //canShoot = true;
+       // shoot();
+        //Aimming.TakeAim();
+    }
+   // Aimming.Aim = true;
     IEnumerator Reload() {
         inReload = true;
         canShoot = false;

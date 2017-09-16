@@ -76,11 +76,11 @@ public class InverseKinematics : NetworkBehaviour {
             if (!aim.Aim) {
                 target = R1.transform;
                 leftTarget = L1.transform;
-            }else if (aim.Aim) {
+            }/*else if (aim.Aim) {
                 target = Re1.transform;
                 leftTarget = Le1.transform;
             }
-          /* else if (!aim.reloading) {
+          else if (!aim.reloading) {
                 target = RL1.transform;
                 leftTarget = RR1.transform;
             }*/
