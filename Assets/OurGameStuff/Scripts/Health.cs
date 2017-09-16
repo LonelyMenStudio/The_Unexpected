@@ -37,6 +37,8 @@ public class Health : NetworkBehaviour {
     //private Color reset;
     private bool canSendKill = true;
     public string killMessage = "Died to ";
+    UnityStandardAssets.Characters.FirstPerson.FirstPersonController con;
+    private bool turnOffController = false;
 
     [SyncVar(hook = "OnChangeHealth")]
     public int Healthz = maxHealth;
@@ -62,7 +64,7 @@ public class Health : NetworkBehaviour {
         Healthbar = barImage.GetComponent<Image>();
         HudImage = prepPhase.PlayerHUD;
         HitMarker = prepPhase.HitScreen;
-       // HitMarker.SetActive(false);
+        // HitMarker.SetActive(false);
         DamageScreenTop = HitMarker.GetComponent<Image>();
         PlayerHud = HudImage.GetComponent<Image>();
         playerNumber = this.gameObject.GetComponent<PlayerAssignGet>();
@@ -71,6 +73,7 @@ public class Health : NetworkBehaviour {
         healthL = maxHealth;
         //reset = new Color(50, 80, 150, 255);
         //PlayerHud.color = reset;
+        UnityStandardAssets.Characters.FirstPerson.FirstPersonController con;
     }
 
     public void TakeDamage(int[] damageInfo) {
@@ -112,15 +115,30 @@ public class Health : NetworkBehaviour {
         //RpcCanRespawnAgain(toPlayer);
         //inRespawn = false;// this was here????
     }
-   // [ClientRpc]
+    // [ClientRpc]
     //void RpcCanRespawnAgain(GameObject toPlayer) {
-      //  toPlayer.GetComponent<Health>().inRespawn = false;
-       // toPlayer.GetComponent<Health>().canSendKill = true;
+    //  toPlayer.GetComponent<Health>().inRespawn = false;
+    // toPlayer.GetComponent<Health>().canSendKill = true;
     //}
+
+
     IEnumerator delayRespawn() {
+
         yield return new WaitForSeconds(1f);
         inRespawn = false;
 
+    }
+    IEnumerator timedRespawn() {
+        inRespawn = true;
+        turnOffController = true;
+        this.gameObject.GetComponent<weaponManager>().DamIDied();
+        CmdPlayerDied(playerNumber.currentPlayerNo);
+        death = true;
+        yield return new WaitForSeconds(3f);
+        CmdRespawn(this.gameObject);
+        teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
+        StartCoroutine(delayRespawn());
+        turnOffController = false;
     }
 
     void sendKill(int killerNumber) {
@@ -170,6 +188,11 @@ public class Health : NetworkBehaviour {
         if (TESTING && Input.GetKeyDown(KeyCode.P)) {
             tpWeapon();
         }
+        if (turnOffController) {
+            con.enabled = false;
+        } else {
+            turnOffController = true;
+        }
     }
     [Command]
     void CmdTestDamage() {
@@ -187,7 +210,7 @@ public class Health : NetworkBehaviour {
         if (isLocalPlayer) {
             Healthbar.fillAmount = Map(health, 300, 0, 0, 1);
             healthL = health;
-         //   StartCoroutine(Flash());
+            //   StartCoroutine(Flash());
 
         }
     }
@@ -197,15 +220,15 @@ public class Health : NetworkBehaviour {
     }
 
 
-  /*  IEnumerator Flash() {
-        //red = new Color(255, 0, 0, 255);
-        HudImage.SetActive(false);
-        HitMarker.SetActive(true);
-        //PlayerHud.color = Color.Lerp(PlayerHud.color, red, 30 * Time.deltaTime);
-        yield return new WaitForSeconds(1);
-        HudImage.SetActive(true);
-        HitMarker.SetActive(false);
-    }*/
+    /*  IEnumerator Flash() {
+          //red = new Color(255, 0, 0, 255);
+          HudImage.SetActive(false);
+          HitMarker.SetActive(true);
+          //PlayerHud.color = Color.Lerp(PlayerHud.color, red, 30 * Time.deltaTime);
+          yield return new WaitForSeconds(1);
+          HudImage.SetActive(true);
+          HitMarker.SetActive(false);
+      }*/
 
     public void CrystalHeal(int amount) {
         if (!isLocalPlayer) {
@@ -225,16 +248,16 @@ public class Health : NetworkBehaviour {
             Healthz = Healthz - amount;
         } else {
             Healthz = Healthz + amount;
-            if(Healthz > maxHealth) {
+            if (Healthz > maxHealth) {
                 Healthz = maxHealth;
             }
         }
     }
 
     void tpWeapon() {
-        for(int i = 0; i < manager.GetComponent<PlayerManager>().droppedWeapons.Count; i++) {
+        for (int i = 0; i < manager.GetComponent<PlayerManager>().droppedWeapons.Count; i++) {
             manager.GetComponent<PlayerManager>().droppedWeapons[i].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 4, this.transform.position.z);
-            
+
         }
     }
 }
