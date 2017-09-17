@@ -1161,6 +1161,7 @@ GameObject:
   - component: {fileID: 114740899458021154}
   - component: {fileID: 114717468629864832}
   - component: {fileID: 114298477976427546}
+  - component: {fileID: 114082650977512934}
   m_Layer: 0
   m_Name: HumanEdited (2) 1 1 1
   m_TagString: Player
@@ -3123,7 +3124,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1284764923199046}
-  m_LocalRotation: {x: -0.014776978, y: 0.5306093, z: -0.84713095, w: 0.024590852}
+  m_LocalRotation: {x: -0.014776976, y: 0.53060925, z: -0.84713084, w: 0.024590848}
   m_LocalPosition: {x: -0.004529869, y: 0.0050994675, z: -0.003900068}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -5267,6 +5268,40 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e9714160ce34f2b4ab63ff8c27bd68e1, type: 3}
   m_JumpSound: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
   m_LandSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
+--- !u!114 &114082650977512934
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1563336106517594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 826ef2605c4972a44b30a18483082e21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rock:
+  - {fileID: 8300000, guid: 6cc2e8eace24bc941bf57b7549b50cd5, type: 3}
+  - {fileID: 8300000, guid: f4f1bcd1ca854c942a107b51b09b6ea8, type: 3}
+  - {fileID: 8300000, guid: 537effb537ba2294d91e13dd33650fb3, type: 3}
+  - {fileID: 8300000, guid: f49ebde31e318f34ab8c4e9532394bed, type: 3}
+  floor:
+  - {fileID: 8300000, guid: 931f5e8de9e46744bbbde60a4a13fe02, type: 3}
+  - {fileID: 8300000, guid: 4c539055bf6fdd04e9e59142d980a46d, type: 3}
+  - {fileID: 8300000, guid: 9f06e9479cef203428a109028464fe20, type: 3}
+  - {fileID: 8300000, guid: 8bdd75898486a0244b57d244ceda484d, type: 3}
+  grass:
+  - {fileID: 8300000, guid: 0f96752c7e38563499a0d3b5d9bda1dd, type: 3}
+  - {fileID: 8300000, guid: a76490c71c0da2b4fa0edb3b3f61d34a, type: 3}
+  - {fileID: 8300000, guid: 9df045f1782c6ca46b0f9db9f19ebb91, type: 3}
+  - {fileID: 8300000, guid: 5661ccf1435dfcb489ece13e0c268e5e, type: 3}
+  - {fileID: 8300000, guid: c6fbf1bd8150e8247a5213dc7951108d, type: 3}
+  - {fileID: 8300000, guid: 1d2b5b1ace2217d45960a262c34a41a4, type: 3}
+  - {fileID: 8300000, guid: 6830a68118b34a6428ac2a25abda1ae3, type: 3}
+  - {fileID: 8300000, guid: 26af38ff278e4954da7b70f03bafed94, type: 3}
+  - {fileID: 8300000, guid: eab021a701403ef44af2bbc50fc9d4af, type: 3}
+  audioStepLengthWalk: 0.45
+  audioStepLengthRun: 0.25
+  footstepCue: {fileID: 0}
 --- !u!114 &114110177806874438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5337,6 +5372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e67acaaf197a08c44b8980310fd44b6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stop: 0
 --- !u!114 &114163317995499940
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5647,6 +5683,7 @@ MonoBehaviour:
   Scopecam: {fileID: 0}
   MainCam: {fileID: 20171943377976394}
   scopedFOV: 15
+  Change: 0
 --- !u!114 &114918440470137116
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5719,6 +5756,7 @@ MonoBehaviour:
   Hands: 0
   rightHand: 3
   leftHand: 2
+  currentlerp: 0
 --- !u!135 &135051820601824468
 SphereCollider:
   m_ObjectHideFlags: 1
