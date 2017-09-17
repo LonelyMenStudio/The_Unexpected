@@ -134,7 +134,7 @@ public class Playeranimations : NetworkBehaviour {
     }
     public void TakeAim() {
         Change = true;
-       // Aim = true;
+        // Aim = true;
     }
     IEnumerator Reload() {
         //reload.Play();

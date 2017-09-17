@@ -10,6 +10,7 @@ public class PrepCheck : NetworkBehaviour {
     //public bool prep;
     UnityStandardAssets.Characters.FirstPerson.FirstPersonController con;
     //public GameObject self;
+    public bool stop = false;
     
 
     // Use this for initialization
@@ -18,6 +19,7 @@ public class PrepCheck : NetworkBehaviour {
             Destroy(this);
             //return; maybe add this
         }
+
         //prepManager = GameObject.Find("PrepPhaseManager");
         //prepCheck = prepManager.GetComponent<PrepPhase>();
         con = this.gameObject.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
@@ -26,6 +28,9 @@ public class PrepCheck : NetworkBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (stop) {
+            return;
+        }
         con.enabled = true;//only needs to do it once
 
         //if (prep) {

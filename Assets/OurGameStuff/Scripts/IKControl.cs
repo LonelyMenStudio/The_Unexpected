@@ -40,7 +40,7 @@ public class IKControl : NetworkBehaviour {
     Quaternion reloadrot;
     public int Hands;
     private InverseKinematics handsIK;
-    
+
 
     public AvatarIKGoal rightHand = AvatarIKGoal.RightHand;
 

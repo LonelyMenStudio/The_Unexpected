@@ -73,7 +73,7 @@ public class Health : NetworkBehaviour {
         healthL = maxHealth;
         //reset = new Color(50, 80, 150, 255);
         //PlayerHud.color = reset;
-        UnityStandardAssets.Characters.FirstPerson.FirstPersonController con;
+        con = this.gameObject.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
     }
 
     public void TakeDamage(int[] damageInfo) {
@@ -131,10 +131,10 @@ public class Health : NetworkBehaviour {
     IEnumerator timedRespawn() {
         inRespawn = true;
         turnOffController = true;
-        this.gameObject.GetComponent<weaponManager>().DamIDied();
-        CmdPlayerDied(playerNumber.currentPlayerNo);
         death = true;
         yield return new WaitForSeconds(3f);
+        this.gameObject.GetComponent<weaponManager>().DamIDied();
+        CmdPlayerDied(playerNumber.currentPlayerNo);
         CmdRespawn(this.gameObject);
         teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
         StartCoroutine(delayRespawn());
@@ -158,6 +158,7 @@ public class Health : NetworkBehaviour {
             return;
         }
         if (healthL <= 0 && !inRespawn) {
+            /*
             inRespawn = true;
             this.gameObject.GetComponent<weaponManager>().DamIDied();
             CmdPlayerDied(playerNumber.currentPlayerNo);
@@ -165,6 +166,8 @@ public class Health : NetworkBehaviour {
             CmdRespawn(this.gameObject);// call death
             teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
             StartCoroutine(delayRespawn());
+            */
+            StartCoroutine(timedRespawn());
         }
         //player dying animation player wait for done then reset to give feedback
         if (Healthz <= 0) {
@@ -189,9 +192,11 @@ public class Health : NetworkBehaviour {
             tpWeapon();
         }
         if (turnOffController) {
-           // con.enabled = false;
+            this.gameObject.GetComponent<PrepCheck>().stop = true;
+            con.enabled = false;
         } else {
-            turnOffController = true;
+            this.gameObject.GetComponent<PrepCheck>().stop = false;
+            //turnOffController = true;
         }
     }
     [Command]
