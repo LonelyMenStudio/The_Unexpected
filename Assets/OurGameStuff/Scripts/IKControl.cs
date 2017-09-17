@@ -40,7 +40,8 @@ public class IKControl : NetworkBehaviour {
     Quaternion reloadrot;
     public int Hands;
     private InverseKinematics handsIK;
-   
+    
+
     public AvatarIKGoal rightHand = AvatarIKGoal.RightHand;
 
     public AvatarIKGoal leftHand = AvatarIKGoal.LeftHand;
@@ -57,7 +58,7 @@ public class IKControl : NetworkBehaviour {
     private float lerpTime = 1;
     public float currentlerp = 0;
     private bool movingTo = true;
-   // private bool reset = false;
+    // private bool reset = false;
 
     void Start() {
         Variables = GameObject.FindWithTag("Start");
@@ -71,7 +72,7 @@ public class IKControl : NetworkBehaviour {
         playerno = player.currentPlayerNo;
         weapon = GetComponent<weaponManager>();
         handsIK = this.GetComponent<InverseKinematics>();
-      
+
     }
     void update() {
 
@@ -111,53 +112,52 @@ public class IKControl : NetworkBehaviour {
                     }
                     if (movingTo == true || !aim.reloading) {
                         currentlerp += Time.deltaTime;
-                        if(currentlerp >= lerpTime) {
+                        if (currentlerp >= lerpTime) {
                             currentlerp = lerpTime;
                             movingTo = false;
-                           // currentlerp = 0;
+                            // currentlerp = 0;
                         }
                     }
                     float Perc = currentlerp / lerpTime;
                     if (!aim.Aim && aim.reloading) {
-                       // movingTo = true;
-                        
+                        // movingTo = true;
+
                         HandStuff(weapon.weaponOut, Notaimpos, Notaimrot, Perc);
-                        
+
                     } else if (aim.Aim && aim.reloading) {
                         HandStuff(weapon.weaponOut, aimpos, aimrot, Perc);
-                    }
-                    else if (!aim.reloading) {
+                    } else if (!aim.reloading) {
                         HandStuff(weapon.weaponOut, repos, reloadrot, Perc);
 
                     }
 
 
 
-                 /*   if (weapon.weaponOut == 1 || weapon.weaponOut == 2 || weapon.weaponOut == 3) {
+                    /*   if (weapon.weaponOut == 1 || weapon.weaponOut == 2 || weapon.weaponOut == 3) {
 
-                        if (!aim.Aim) {
-                            animator.SetIKPosition(rightHand, righthandposition.transform.position);
-                            animator.SetIKRotation(rightHand, righthandposition.transform.rotation);
-                            animator.SetIKPosition(leftHand, LeftHandObj.transform.position);
-                            animator.SetIKRotation(leftHand, LeftHandObj.transform.rotation);
-                        } else if (aim.Aim) {
+                           if (!aim.Aim) {
+                               animator.SetIKPosition(rightHand, righthandposition.transform.position);
+                               animator.SetIKRotation(rightHand, righthandposition.transform.rotation);
+                               animator.SetIKPosition(leftHand, LeftHandObj.transform.position);
+                               animator.SetIKRotation(leftHand, LeftHandObj.transform.rotation);
+                           } else if (aim.Aim) {
 
-                            //animator.SetIKPosition(AvatarIKGoal.RightHand,  righthandaim.transform.position);
-                            //animator.SetIKRotation(AvatarIKGoal.RightHand, righthandaim.transform.rotation);
-                            animator.SetIKPosition(rightHand, righthandpositionAim.transform.position);
-                            animator.SetIKRotation(rightHand, righthandpositionAim.transform.rotation);
-                            animator.SetIKPosition(leftHand, lefhandpositonaim.transform.position);
-                            animator.SetIKRotation(leftHand, lefhandpositonaim.transform.rotation);
+                               //animator.SetIKPosition(AvatarIKGoal.RightHand,  righthandaim.transform.position);
+                               //animator.SetIKRotation(AvatarIKGoal.RightHand, righthandaim.transform.rotation);
+                               animator.SetIKPosition(rightHand, righthandpositionAim.transform.position);
+                               animator.SetIKRotation(rightHand, righthandpositionAim.transform.rotation);
+                               animator.SetIKPosition(leftHand, lefhandpositonaim.transform.position);
+                               animator.SetIKRotation(leftHand, lefhandpositonaim.transform.rotation);
 
-                        }
-                        if (!aim.reloading) {
+                           }
+                           if (!aim.reloading) {
 
-                            animator.SetIKPosition(rightHand, righthandposition.transform.position);
-                            animator.SetIKRotation(rightHand, righthandposition.transform.rotation);
-                            animator.SetIKPosition(leftHand, LeftHandObj.transform.position);
-                            animator.SetIKRotation(leftHand, LeftHandObj.transform.rotation);
-                        }
-                    }*/
+                               animator.SetIKPosition(rightHand, righthandposition.transform.position);
+                               animator.SetIKRotation(rightHand, righthandposition.transform.rotation);
+                               animator.SetIKPosition(leftHand, LeftHandObj.transform.position);
+                               animator.SetIKRotation(leftHand, LeftHandObj.transform.rotation);
+                           }
+                       }*/
 
                 }
 
@@ -168,9 +168,9 @@ public class IKControl : NetworkBehaviour {
             else {
                 //animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 0);
                 //animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 0);
-               // animator.SetIKPositionWeight(leftHand, 0);
-             //   animator.SetIKRotationWeight(leftHand, 0);
-             //   animator.SetLookAtWeight(0);
+                // animator.SetIKPositionWeight(leftHand, 0);
+                //   animator.SetIKRotationWeight(leftHand, 0);
+                //   animator.SetLookAtWeight(0);
             }
         }
         /* if (isLocalPlayer) {
@@ -193,19 +193,24 @@ public class IKControl : NetworkBehaviour {
 
 
     void HandStuff(int wep, Vector3 psi, Quaternion rot, float perc) {
+        SwitchWeapon(wep, psi, rot, perc);
+        /*
         if (!isServer) {
             CmdSwitchWeapon(wep, psi, rot, perc);
         } else {
             RpcSwitchWeapon(wep, psi, rot, perc);
         }
+        */
     }
 
     [Command]
     void CmdSwitchWeapon(int outwep, Vector3 pos, Quaternion rotation, float percent) {
-        RpcSwitchWeapon(outwep, pos, rotation, percent);
+        //RpcSwitchWeapon(outwep, pos, rotation, percent);
     }
-    [ClientRpc]
-    void RpcSwitchWeapon(int outwep, Vector3 pos, Quaternion rotation, float percent) {
+
+    //[ClientRpc]
+    //void RpcSwitchWeapon(int outwep, Vector3 pos, Quaternion rotation, float percent) {
+    void SwitchWeapon(int outwep, Vector3 pos, Quaternion rotation, float percent) {
         if (outwep == 1) {
             rightHandObj.position = Vector3.Lerp(rightHandObj.position, pos, percent);
             rightHandObj.rotation = Quaternion.Lerp(rightHandObj.rotation, rotation, percent);
