@@ -39,6 +39,7 @@ public class Health : NetworkBehaviour {
     public string killMessage = "Died to ";
     UnityStandardAssets.Characters.FirstPerson.FirstPersonController con;
     private bool turnOffController = false;
+    public GameObject deathPop;
 
     [SyncVar(hook = "OnChangeHealth")]
     public int Healthz = maxHealth;
@@ -52,6 +53,7 @@ public class Health : NetworkBehaviour {
     }
     // Use this for initialization
     void Start() {
+        deathPop = transform.Find("DeathPopMessage").gameObject;
         ManagerGet = Variables.GetComponent<VariablesScript>();
         manager = ManagerGet.variables;
         prepPhase = manager.GetComponent<PrepPhase>();
@@ -132,10 +134,16 @@ public class Health : NetworkBehaviour {
         inRespawn = true;
         turnOffController = true;
         death = true;
+        if(deathPop != null) {
+            deathPop.SetActive(true);
+        }
         yield return new WaitForSeconds(3f);
         this.gameObject.GetComponent<weaponManager>().DamIDied();
         CmdPlayerDied(playerNumber.currentPlayerNo);
         CmdRespawn(this.gameObject);
+        if (deathPop != null) {
+            deathPop.SetActive(false);
+        }
         teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
         StartCoroutine(delayRespawn());
         turnOffController = false;
