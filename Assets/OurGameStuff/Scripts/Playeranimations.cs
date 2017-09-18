@@ -31,6 +31,7 @@ public class Playeranimations : NetworkBehaviour {
     public bool Change = false;
     private IKControl resetlerp;
     private bool aiming;
+    public bool outofaimrun;
     void Awake() {
         Variables = GameObject.FindWithTag("Start");
     }
@@ -78,15 +79,26 @@ public class Playeranimations : NetworkBehaviour {
             aiming = Aim;
             if (aiming) {
                 Aim = false;
+               // animatorz.SetBool("Aim", Aim);
             }
             resetlerp.currentlerp = 0;
             ReloadAnim();
         }
         if (Input.GetKey(KeyCode.Space)) {
-            Aim = false;
+            outofaimrun = Aim;
+            if (outofaimrun) {
+                Change = true;
+                Aim = false;
+                animatorz.SetBool("Aim", Aim);
+            }
         }
         if (Input.GetKey(KeyCode.LeftShift)) {
-            Aim = false;
+            outofaimrun = Aim;
+            if (outofaimrun) {
+                Change = true;
+                Aim = false;
+                animatorz.SetBool("Aim", Aim);
+            }
         }
         if (isDead.death == true) {
             animatorz.Play("Death");
@@ -97,7 +109,11 @@ public class Playeranimations : NetworkBehaviour {
             ph.playwep = false;
         }
         if (!wloss.hasWeapon) {
-            Aim = false;
+            outofaimrun = Aim;
+            if (outofaimrun) {
+                Change = true;
+                Aim = false;
+            }
         }
         if (Input.GetMouseButtonDown(1)) {
             Change = true;
@@ -110,7 +126,12 @@ public class Playeranimations : NetworkBehaviour {
                       OnUnScoped();*/
             }
             if (wepout == 0) {
-                Aim = false;
+                outofaimrun = Aim;
+                if (outofaimrun) {
+                    Change = true;
+                    Aim = false;
+                    animatorz.SetBool("Aim", Aim);
+                }
             }
         }
 

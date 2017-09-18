@@ -118,6 +118,9 @@ public class IKControl : NetworkBehaviour {
                             // currentlerp = 0;
                         }
                     }
+                    if (aim.outofaimrun && !movingTo) {
+                        aim.outofaimrun = false;
+                    }
                     float Perc = currentlerp / lerpTime;
                     if (!aim.Aim && aim.reloading) {
                         // movingTo = true;
