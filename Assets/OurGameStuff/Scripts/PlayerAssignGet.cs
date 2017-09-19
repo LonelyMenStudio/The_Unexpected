@@ -18,6 +18,7 @@ public class PlayerAssignGet : NetworkBehaviour {
     private Text DisplayKD;
     private GameTimer checkGameState;
     public GameObject targetMe;
+    private int killsOld = 0;
 
 
     [SyncVar]
@@ -50,6 +51,7 @@ public class PlayerAssignGet : NetworkBehaviour {
         PlayerScore.SetActive(false);
         if (isLocalPlayer) {
             CmdGetNum();
+            checkKills();
         }
         // CmdSetPlayerNum(sm.playerNo);
 
@@ -78,6 +80,13 @@ public class PlayerAssignGet : NetworkBehaviour {
         if (isLocalPlayer) {
             targetMe.SetActive(false);
         }
+    }
+
+    void checkKills() {
+        if(killsOld < kills) {
+            //display got a kill
+        }
+        killsOld = kills;
     }
 
     private void SetupPlayerKD() {
