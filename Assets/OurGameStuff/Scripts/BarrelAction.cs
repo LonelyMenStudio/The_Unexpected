@@ -33,13 +33,13 @@ public class BarrelAction : NetworkBehaviour {
 
     }
     //bad name but hey
-    public void DamageCrystal(int[] damage) {
+    public void DamageCrystal(int damage) {
         if (!isServer) {
             return;
         }
-        barrelHealth = barrelHealth - damage[0];
+        barrelHealth = barrelHealth - damage;
         if (barrelHealth <= 0) {
-            tempDamageFrom = damage[1];
+            tempDamageFrom = damage;
             done = true;
         }
     }
