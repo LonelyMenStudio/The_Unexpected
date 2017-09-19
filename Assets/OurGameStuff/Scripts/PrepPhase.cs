@@ -49,7 +49,7 @@ public class PrepPhase : MonoBehaviour {
         ErrorText = GameObject.FindWithTag("ErrorText");
         // WeaponText = GameObject.FindWithTag("Connected");
         ErrorText.SetActive(false);
-         WeaponText.SetActive(false);   
+        WeaponText.SetActive(false);
     }
 
     // Update is called once per frame
@@ -102,7 +102,7 @@ public class PrepPhase : MonoBehaviour {
             ErrorText.SetActive(false);
         }
         if (Foundwep) {
-              WeaponText.SetActive(true);
+            WeaponText.SetActive(true);
             StartCoroutine(ShowError());
         }
     }

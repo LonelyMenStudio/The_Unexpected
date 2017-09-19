@@ -13,11 +13,11 @@ public class BarrelAction : NetworkBehaviour {
     private int tempDamageFrom;
     public ParticleSystem Explosion;
     private bool barrelDestoryed = false;
-	private AudioSource boom;
+    private AudioSource boom;
 
     // Use this for initialization
     void Start() {
-		boom = this.gameObject.GetComponent<AudioSource> ();
+        boom = this.gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -25,11 +25,11 @@ public class BarrelAction : NetworkBehaviour {
         if (barrelHealth <= 0 && !barrelDestoryed && done) {
             Destroy(this.gameObject.GetComponent<MeshCollider>());
             Destroy(this.gameObject.GetComponent<MeshRenderer>());
-			if (!isServer) {
-				CmdPlayAudio();
-			} else {
-				RpcPlayAudio();
-			}
+            if (!isServer) {
+                CmdPlayAudio();
+            } else {
+                RpcPlayAudio();
+            }
             barrelDestoryed = true;
             this.gameObject.GetComponent<EnvBarrelDamage>().damageFrom(tempDamageFrom);
             this.gameObject.GetComponent<EnvBarrelDamage>().barrelHasBeenDestoryed = barrelDestoryed;
@@ -48,17 +48,17 @@ public class BarrelAction : NetworkBehaviour {
             done = true;
         }
     }
-	[Command]
-	void CmdPlayAudio() {
-		RpcPlayAudio();
-	}
+    [Command]
+    void CmdPlayAudio() {
+        RpcPlayAudio();
+    }
 
-	[ClientRpc]
-	void RpcPlayAudio() {
-		try {
-			boom.Play();
-		} catch {
-			return;
-		}
-	}
+    [ClientRpc]
+    void RpcPlayAudio() {
+        try {
+            boom.Play();
+        } catch {
+            return;
+        }
+    }
 }

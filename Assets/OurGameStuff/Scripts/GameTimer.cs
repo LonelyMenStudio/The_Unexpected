@@ -38,7 +38,7 @@ public class GameTimer : NetworkBehaviour {
             sec = "" + timerSeconds;
         }
         timeDisplay = min + ":" + sec;
-        if(gameTime <= (GAME_TIME_LENGTH / 2)) {
+        if (gameTime <= (GAME_TIME_LENGTH / 2)) {
             halfTime = true;
         } else {
             halfTime = false;
