@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 60004159b75842546b67ce824ae3f9c2
-timeCreated: 1459588890
-licenseType: Store
+guid: 7313b301f1885094aab1eb5b1d925254
+timeCreated: 1505819429
+licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
@@ -9,8 +9,8 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: tropicalPlant_01
-    9500000: //RootNode
+    4300000: tree_Heliconia_Stems
+    4300002: tropicalPlant_01
   materials:
     importMaterials: 1
     materialName: 0
@@ -37,7 +37,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 2
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -73,9 +73,9 @@ ModelImporter:
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
-    skeletonHasParents: 0
+    skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
