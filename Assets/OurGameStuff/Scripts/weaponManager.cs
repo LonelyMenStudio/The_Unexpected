@@ -196,18 +196,27 @@ public class weaponManager : NetworkBehaviour {
                             childWeapon1.SetActive(false);//***
                             childWeapon2.SetActive(false);//***
                             childWeapon3.SetActive(false);//***
+                            Gunout1.SetActive(true);
+                            Gunout2.SetActive(false);
+                            Gunout3.SetActive(false);
                             changeWeapon(1);
                         } else if (hit.transform.gameObject.name.Contains("PrepShotty")) {
                             weaponOnEnd = 1;
                             childWeapon1.SetActive(false);//***
                             childWeapon2.SetActive(false);//***
                             childWeapon3.SetActive(false);//***
+                            Gunout1.SetActive(false);
+                            Gunout2.SetActive(true);
+                            Gunout3.SetActive(false);
                             changeWeapon(2);
                         } else if (hit.transform.gameObject.name.Contains("PrepSniper")) {
                             weaponOnEnd = 2;
                             childWeapon1.SetActive(false);//***
                             childWeapon2.SetActive(false);//***
                             childWeapon3.SetActive(false);//***
+                            Gunout1.SetActive(false);
+                            Gunout2.SetActive(false);
+                            Gunout3.SetActive(true);
                             changeWeapon(3);
                         }
                     }
@@ -249,6 +258,9 @@ public class weaponManager : NetworkBehaviour {
             childWeapon1.SetActive(false);//***
             childWeapon2.SetActive(false);//***
             childWeapon3.SetActive(false);//***
+            Gunout1.SetActive(false);
+            Gunout2.SetActive(false);
+            Gunout3.SetActive(false);
         }
         ammoText.text = currentWeaponAmmo + "/" + currentWeaponMaxAmmo;
         if (currentWeaponAmmo <= 0) {
@@ -278,6 +290,9 @@ public class weaponManager : NetworkBehaviour {
                     childWeapon1.SetActive(false);//***
                     childWeapon2.SetActive(false);//***
                     childWeapon3.SetActive(false);//***
+                    Gunout1.SetActive(true);
+                    Gunout2.SetActive(false);
+                    Gunout3.SetActive(false);
                 }
                 if (hit.transform.gameObject.name.Contains("Shotty")) {
                     replaceWeapon(hit);
@@ -285,6 +300,9 @@ public class weaponManager : NetworkBehaviour {
                     childWeapon1.SetActive(false);//***
                     childWeapon2.SetActive(false);//***
                     childWeapon3.SetActive(false);//***
+                    Gunout1.SetActive(false);
+                    Gunout2.SetActive(true);
+                    Gunout3.SetActive(false);
                 }
                 if (hit.transform.gameObject.name.Contains("AlienSniper")) {
                     replaceWeapon(hit);
@@ -292,6 +310,9 @@ public class weaponManager : NetworkBehaviour {
                     childWeapon1.SetActive(false);//***
                     childWeapon2.SetActive(false);//***
                     childWeapon3.SetActive(false);//***
+                    Gunout1.SetActive(false);
+                    Gunout2.SetActive(false);
+                    Gunout3.SetActive(true);
                 }
 
             }
@@ -505,12 +526,21 @@ public class weaponManager : NetworkBehaviour {
             RpcSwitchWeapon(0);
         }
         if (weaponOut == 1) {
+            Gunout4.SetActive(true);
+            Gunout5.SetActive(false);
+            Gunout6.SetActive(false);
             spawnAK();
             CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
         } else if (weaponOut == 2) {
+            Gunout4.SetActive(false);
+            Gunout5.SetActive(true);
+            Gunout6.SetActive(false);
             spawnPistol();
             CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
         } else if (weaponOut == 3) {
+            Gunout4.SetActive(false);
+            Gunout5.SetActive(false);
+            Gunout6.SetActive(true);
             spawnSniper();
             CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
         }
@@ -594,7 +624,7 @@ public class weaponManager : NetworkBehaviour {
                     StartCoroutine(hit());
                 }
                 if (hit2.transform.tag == "Crystal") {
-                    prepareDamageCrystal(hit2.transform.gameObject, AkDamage);
+                    CmdDamageCrystal(hit2.transform.gameObject, AkDamage);
                 }
 
             } else if (weaponOut == 2) {
@@ -625,7 +655,7 @@ public class weaponManager : NetworkBehaviour {
                             spawnhole = false;
                         }
                         if (hit3.transform.tag == "Crystal") {
-                            prepareDamageCrystal(hit3.transform.gameObject, ShotgunDmg);
+                            CmdDamageCrystal(hit3.transform.gameObject, ShotgunDmg);
                         }
                     }
                 }
@@ -649,7 +679,7 @@ public class weaponManager : NetworkBehaviour {
                     spawnhole = false;
                 }
                 if (hit2.transform.tag == "Crystal") {
-                    prepareDamageCrystal(hit2.transform.gameObject, sniperDmg);
+                    CmdDamageCrystal(hit2.transform.gameObject, sniperDmg);
                 }
             } else {
                 Debug.Log("Missed player");
@@ -704,16 +734,10 @@ public class weaponManager : NetworkBehaviour {
     }
 
     [Command]
-    void CmdDamageCrystal(GameObject hit, int[] message) {
-        hit.SendMessage("DamageCrystal", message);
+    void CmdDamageCrystal(GameObject hit, float damage) {
+        hit.SendMessage("DamageCrystal", damage);
     }
 
-    void prepareDamageCrystal(GameObject hit, float damage) {
-        int[] prepare = new int[2];
-        prepare[0] = (int)damage;
-        prepare[1] = currentPlayer;
-        CmdDamageCrystal(hit, prepare);
-    }
 
     [Command]
     void CmdBulletHoleRifle(Vector3 hit, Vector3 normal) {

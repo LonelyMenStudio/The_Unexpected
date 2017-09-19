@@ -21861,7 +21861,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &386161235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21992,6 +21992,7 @@ MonoBehaviour:
   HUGgun6: {fileID: 0}
   Players: []
   ErrorText: {fileID: 0}
+  WeaponText: {fileID: 0}
   lookingforweapon: 0
   Foundwep: 0
 --- !u!1 &387616303
@@ -38668,7 +38669,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 18, y: -151.00006}
+  m_AnchoredPosition: {x: 18, y: -151.00008}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &675573273
@@ -65693,6 +65694,7 @@ MonoBehaviour:
   HUGgun6: {fileID: 289149244}
   Players: []
   ErrorText: {fileID: 0}
+  WeaponText: {fileID: 2045433497}
   lookingforweapon: 0
   Foundwep: 0
 --- !u!4 &1180721780
@@ -112159,12 +112161,12 @@ GameObject:
   - component: {fileID: 2045433500}
   - component: {fileID: 2045433499}
   m_Layer: 5
-  m_Name: PlayerHelpText (1)
+  m_Name: Connect
   m_TagString: Connected
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2045433498
 RectTransform:
   m_ObjectHideFlags: 0
