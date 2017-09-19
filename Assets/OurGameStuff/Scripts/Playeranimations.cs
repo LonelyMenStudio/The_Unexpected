@@ -152,6 +152,7 @@ public class Playeranimations : NetworkBehaviour {
         reloading = false;
         animatorz.Play("Reload");
         StartCoroutine(Reload());
+        Change = true;
     }
     public void TakeAim() {
         Change = true;

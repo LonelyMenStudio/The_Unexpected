@@ -55,7 +55,7 @@ public class IKControl : NetworkBehaviour {
     private Vector3 Movetoposz;
     private Vector3 MoveFromposz;
     //private float speedMove = 0.2f;
-    private float lerpTime = 1;
+    private float lerpTime = 0.6f;
     public float currentlerp = 0;
     private bool movingTo = true;
     // private bool reset = false;
@@ -219,13 +219,13 @@ public class IKControl : NetworkBehaviour {
             rightHandObj.rotation = Quaternion.Lerp(rightHandObj.rotation, rotation, percent);
             Hands = 1;
         } else if (outwep == 2) {
-            rightShotty.position = pos;
-            rightShotty.rotation = rotation;
+            rightShotty.position = Vector3.Lerp(rightShotty.position, pos, percent); 
+            rightShotty.rotation = Quaternion.Lerp(rightShotty.rotation, rotation, percent);
             Hands = 2;
 
         } else if (outwep == 3) {
-            rightSniper.position = pos;
-            rightSniper.rotation = rotation;
+            rightSniper.position = Vector3.Lerp(rightSniper.position, pos, percent); 
+            rightSniper.rotation = Quaternion.Lerp(rightSniper.rotation, rotation, percent);
             Hands = 3;
 
         }
