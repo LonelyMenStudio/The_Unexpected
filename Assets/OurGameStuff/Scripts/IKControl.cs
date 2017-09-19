@@ -43,7 +43,6 @@ public class IKControl : NetworkBehaviour {
 
 
     public AvatarIKGoal rightHand = AvatarIKGoal.RightHand;
-
     public AvatarIKGoal leftHand = AvatarIKGoal.LeftHand;
 
 

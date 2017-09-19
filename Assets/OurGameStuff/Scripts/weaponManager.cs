@@ -185,25 +185,29 @@ public class weaponManager : NetworkBehaviour {
             currentPlayer = pl.currentPlayerNo;
             if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse0) && !hasWeapon) {  // need to investigate further control options
                 RaycastHit hit;
+                
                 if (Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit, distancePickup)) {
                     if (hit.transform.tag == "weaponPrep") {
+                        weaponhold.ikActive = true;
+                        hasWeapon = true;
                         if (hit.transform.gameObject.name.Contains("PrepRifle")) {
                             weaponOnEnd = 0;
-                            Gunout1.SetActive(true);
-                            Gunout2.SetActive(false);
-                            Gunout3.SetActive(false);
+                            //weaponOut = 1
+                            childWeapon1.SetActive(false);//***
+                            childWeapon2.SetActive(false);//***
+                            childWeapon3.SetActive(false);//***
                             changeWeapon(1);
                         } else if (hit.transform.gameObject.name.Contains("PrepShotty")) {
                             weaponOnEnd = 1;
-                            Gunout1.SetActive(false);
-                            Gunout2.SetActive(true);
-                            Gunout3.SetActive(false);
+                            childWeapon1.SetActive(false);//***
+                            childWeapon2.SetActive(false);//***
+                            childWeapon3.SetActive(false);//***
                             changeWeapon(2);
                         } else if (hit.transform.gameObject.name.Contains("PrepSniper")) {
                             weaponOnEnd = 2;
-                            Gunout1.SetActive(false);
-                            Gunout2.SetActive(false);
-                            Gunout3.SetActive(true);
+                            childWeapon1.SetActive(false);//***
+                            childWeapon2.SetActive(false);//***
+                            childWeapon3.SetActive(false);//***
                             changeWeapon(3);
                         }
                     }
@@ -222,14 +226,15 @@ public class weaponManager : NetworkBehaviour {
                 Aimming.Aim = true;
                 TakeAim2 = false;
                 StartCoroutine(TakeAim());
-          
+                
             } else {
                 Aimming.Aim = true;
                 shoot();
+
             }
             
-            
         }
+
         counter += Time.deltaTime;//counter to ensure not infinite fire rate
         if (Input.GetKeyDown(KeyCode.R) && hasWeapon) {
             StartCoroutine(Reload());
@@ -241,9 +246,9 @@ public class weaponManager : NetworkBehaviour {
         if (Input.GetKeyDown(KeyCode.F) && hasWeapon) {
             dropWeapon();
             weaponhold.ikActive = false;
-            Gunout1.SetActive(false);
-            Gunout2.SetActive(false);
-            Gunout3.SetActive(false);
+            childWeapon1.SetActive(false);//***
+            childWeapon2.SetActive(false);//***
+            childWeapon3.SetActive(false);//***
         }
         ammoText.text = currentWeaponAmmo + "/" + currentWeaponMaxAmmo;
         if (currentWeaponAmmo <= 0) {
@@ -252,7 +257,7 @@ public class weaponManager : NetworkBehaviour {
 
     }
     void AutoReload() {
-        if (currentWeaponAmmo == 0 && !startedAuto && hasWeapon) {
+        if (currentWeaponAmmo == 0 && !startedAuto && hasWeapon && !inWeaponSelect) {
             startedAuto = true;
             StartCoroutine(Reload());
             this.GetComponent<Playeranimations>().ReloadAnim();
@@ -270,23 +275,23 @@ public class weaponManager : NetworkBehaviour {
                 if (hit.transform.gameObject.name.Contains("alienrifle")) {
                     replaceWeapon(hit);
                     changeWeapon(1);
-                    Gunout1.SetActive(true);
-                    Gunout2.SetActive(false);
-                    Gunout3.SetActive(false);
+                    childWeapon1.SetActive(false);//***
+                    childWeapon2.SetActive(false);//***
+                    childWeapon3.SetActive(false);//***
                 }
                 if (hit.transform.gameObject.name.Contains("Shotty")) {
                     replaceWeapon(hit);
                     changeWeapon(2);
-                    Gunout1.SetActive(false);
-                    Gunout2.SetActive(true);
-                    Gunout3.SetActive(false);
+                    childWeapon1.SetActive(false);//***
+                    childWeapon2.SetActive(false);//***
+                    childWeapon3.SetActive(false);//***
                 }
                 if (hit.transform.gameObject.name.Contains("AlienSniper")) {
                     replaceWeapon(hit);
                     changeWeapon(3);
-                    Gunout1.SetActive(false);
-                    Gunout2.SetActive(false);
-                    Gunout3.SetActive(true);
+                    childWeapon1.SetActive(false);//***
+                    childWeapon2.SetActive(false);//***
+                    childWeapon3.SetActive(false);//***
                 }
 
             }
@@ -573,82 +578,82 @@ public class weaponManager : NetworkBehaviour {
 
         }
         RaycastHit hit2;
-        if (weaponOut == 1 && Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit2)) {
-            if (hit2.transform.tag == "Player") {
-                fire.Play();
-                HitSE.Play();
-                float distance = Vector3.Distance(transform.position, hit2.transform.position);
-                if (distance >= 300) {
-                    distance = 299;
-                }
-                AkDamage = AkDamage * 1 - (distance / 300);
-                int damageAK = (int)AkDamage;
-                CmdDamageDealer(hit2.transform.gameObject, damageAK, currentPlayer);
-                spawnhole = false;
-                HitMarker.SetActive(true);
-                StartCoroutine(hit());
-            }
-            if (hit2.transform.tag == "Crystal") {
-                prepareDamageCrystal(hit2.transform.gameObject, AkDamage);
-            }
-
-        } else if (weaponOut == 2) {
-            for (int i = 0; i < Shotgunshells; i++) {
-                Vector3 ShotgunAim = Camera.main.transform.forward;
-                Quaternion AimSpread = Quaternion.LookRotation(ShotgunAim);
-                Quaternion SpreadGenerator = Random.rotation;
-                AimSpread = Quaternion.RotateTowards(AimSpread, SpreadGenerator, Random.Range(0.0f, ShotgunSpread));
-                RaycastHit hit3;
-                if (Physics.Raycast(Camera.main.transform.position, AimSpread * Vector3.forward, out hit3, Mathf.Infinity)) {
-
-                    if (hit3.transform.tag == "Player") {
-                        if (!isServer) {
-                            CmdPlayShotgunAudio();
-                        } else {
-                            RpcPlayShotgunAudio();
-                        }
-                        ShotGunParticle.Play();
-                        float distance = Vector3.Distance(transform.position, hit3.transform.position);
-                        if (distance >= 100) {
-                            distance = 99;
-                        }
-                        HitMarker.SetActive(true);
-                        StartCoroutine(hit());
-                        ShotgunDmg = ShotgunDmg * 1 - (distance / 100);
-                        int damageS = (int)ShotgunDmg;
-                        CmdDamageDealer(hit3.transform.gameObject, damageS, currentPlayer);
-                        spawnhole = false;
+            if (weaponOut == 1 && Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit2)) {
+                if (hit2.transform.tag == "Player") {
+                    fire.Play();
+                    HitSE.Play();
+                    float distance = Vector3.Distance(transform.position, hit2.transform.position);
+                    if (distance >= 300) {
+                        distance = 299;
                     }
-                    if (hit3.transform.tag == "Crystal") {
-                        prepareDamageCrystal(hit3.transform.gameObject, ShotgunDmg);
+                    AkDamage = AkDamage * 1 - (distance / 300);
+                    int damageAK = (int)AkDamage;
+                    CmdDamageDealer(hit2.transform.gameObject, damageAK, currentPlayer);
+                    spawnhole = false;
+                    HitMarker.SetActive(true);
+                    StartCoroutine(hit());
+                }
+                if (hit2.transform.tag == "Crystal") {
+                    CmdDamageCrystal(hit2.transform.gameObject, AkDamage);
+                }
+
+            } else if (weaponOut == 2) {
+                for (int i = 0; i < Shotgunshells; i++) {
+                    Vector3 ShotgunAim = Camera.main.transform.forward;
+                    Quaternion AimSpread = Quaternion.LookRotation(ShotgunAim);
+                    Quaternion SpreadGenerator = Random.rotation;
+                    AimSpread = Quaternion.RotateTowards(AimSpread, SpreadGenerator, Random.Range(0.0f, ShotgunSpread));
+                    RaycastHit hit3;
+                    if (Physics.Raycast(Camera.main.transform.position, AimSpread * Vector3.forward, out hit3, Mathf.Infinity)) {
+
+                        if (hit3.transform.tag == "Player") {
+                            if (!isServer) {
+                                CmdPlayShotgunAudio();
+                            } else {
+                                RpcPlayShotgunAudio();
+                            }
+                            ShotGunParticle.Play();
+                            float distance = Vector3.Distance(transform.position, hit3.transform.position);
+                            if (distance >= 100) {
+                                distance = 99;
+                            }
+                            HitMarker.SetActive(true);
+                            StartCoroutine(hit());
+                            ShotgunDmg = ShotgunDmg * 1 - (distance / 100);
+                            int damageS = (int)ShotgunDmg;
+                            CmdDamageDealer(hit3.transform.gameObject, damageS, currentPlayer);
+                            spawnhole = false;
+                        }
+                        if (hit3.transform.tag == "Crystal") {
+                            CmdDamageCrystal(hit3.transform.gameObject, ShotgunDmg);
+                        }
                     }
                 }
-            }
-        } else if (weaponOut == 3 && Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit2)) {
-            if (hit2.transform.tag == "Player") {
-                if (!isServer) {
-                    CmdPlaySniperAudio();
-                } else {
-                    RpcPlaySniperAudio();
+            } else if (weaponOut == 3 && Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit2)) {
+                if (hit2.transform.tag == "Player") {
+                    if (!isServer) {
+                        CmdPlaySniperAudio();
+                    } else {
+                        RpcPlaySniperAudio();
+                    }
+                    SniperParticle.Play();
+                    float distance = Vector3.Distance(transform.position, hit2.transform.position);
+                    if (distance >= 500) {
+                        distance = 499;
+                    }
+                    HitMarker.SetActive(true);
+                    StartCoroutine(hit());
+                    sniperDmg = sniperDmg * 1 - (distance / 500);
+                    int damageSn = (int)sniperDmg;
+                    CmdDamageDealer(hit2.transform.gameObject, damageSn, currentPlayer);
+                    spawnhole = false;
                 }
-                SniperParticle.Play();
-                float distance = Vector3.Distance(transform.position, hit2.transform.position);
-                if (distance >= 500) {
-                    distance = 499;
+                if (hit2.transform.tag == "Crystal") {
+                    CmdDamageCrystal(hit2.transform.gameObject, sniperDmg);
                 }
-                HitMarker.SetActive(true);
-                StartCoroutine(hit());
-                sniperDmg = sniperDmg * 1 - (distance / 500);
-                int damageSn = (int)sniperDmg;
-                CmdDamageDealer(hit2.transform.gameObject, damageSn, currentPlayer);
-                spawnhole = false;
+            } else {
+                Debug.Log("Missed player");
             }
-            if (hit2.transform.tag == "Crystal") {
-                prepareDamageCrystal(hit2.transform.gameObject, sniperDmg);
-            }
-        } else {
-            Debug.Log("Missed player");
-        }
         if (weaponOut == 1) {
             //fire.Play();
             //ShotParticle.Play();
@@ -698,16 +703,9 @@ public class weaponManager : NetworkBehaviour {
         }
     }
 
-    void prepareDamageCrystal(GameObject hit, float damage) {
-        int[] prepare = new int[2];
-        prepare[0] = (int)damage;
-        prepare[1] = currentPlayer;
-        CmdDamageCrystal(hit, prepare);
-    }
-
     [Command]
-    void CmdDamageCrystal(GameObject hit, int[] message) {
-        hit.SendMessage("DamageCrystal", message);
+    void CmdDamageCrystal(GameObject hit, float damage) {
+        hit.SendMessage("DamageCrystal", damage);
     }
 
 
@@ -759,7 +757,7 @@ public class weaponManager : NetworkBehaviour {
     }
     IEnumerator TakeAim() {
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         TakeAim2 = true;
         //canShoot = true;
        // shoot();
