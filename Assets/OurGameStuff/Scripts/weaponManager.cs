@@ -797,6 +797,11 @@ public class weaponManager : NetworkBehaviour {
     IEnumerator Reload() {
         inReload = true;
         canShoot = false;
+		if (!isServer) {
+			CmdPlayReloadAudio();
+		} else {
+			RpcPlayReloadAudio();
+		}
         yield return new WaitForSeconds(RELOAD_TIME);
         currentWeaponAmmo = currentWeaponMaxAmmo;
         canShoot = true;
@@ -875,4 +880,13 @@ public class weaponManager : NetworkBehaviour {
     void RpcPlayShotgunAudio() {
         Shotgun_shot.Play();
     }
+	[Command]
+	void CmdPlayReloadAudio() {
+		RpcPlayReloadAudio();
+	}
+
+	[ClientRpc]
+	void RpcPlayReloadAudio() {
+		reload.Play();
+	}
 }
