@@ -79,7 +79,7 @@ public class footsteps : NetworkBehaviour
 	{
 		isStep = false;
 		footstepCue = floor [Random.Range (0, floor.Length)];
-		GetComponent<AudioSource> ().volume = .7f;
+		GetComponent<AudioSource> ().volume = .5f;
 		statusCue = audioStepLengthWalk;
 	}
 
@@ -87,7 +87,7 @@ public class footsteps : NetworkBehaviour
 	{
 		isStep = false;
 		footstepCue = floor [Random.Range (0, floor.Length)];
-		GetComponent<AudioSource> ().volume = 1.0f;
+		GetComponent<AudioSource> ().volume = 0.8f;
 		statusCue = audioStepLengthRun;
 	}
 
