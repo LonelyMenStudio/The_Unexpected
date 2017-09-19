@@ -52,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1179508952974724}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 53.679085, y: 32.077816, z: -18.909088}
+  m_LocalPosition: {x: -72.23541, y: 13.830616, z: -48.575237}
   m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_Children:
   - {fileID: 4946452063886700}
@@ -66,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1202707786379784}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4752378332325398}
@@ -124,7 +124,7 @@ CapsuleCollider:
   m_Radius: 0.31
   m_Height: 4.31
   m_Direction: 1
-  m_Center: {x: 0, y: 2.19, z: 0}
+  m_Center: {x: 0, y: 2.58, z: 0}
 --- !u!205 &205136943093003528
 LODGroup:
   m_ObjectHideFlags: 1
@@ -132,7 +132,7 @@ LODGroup:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1179508952974724}
   serializedVersion: 2
-  m_LocalReferencePoint: {x: -0.20504332, y: 3.4678507, z: -0.19529295}
+  m_LocalReferencePoint: {x: -0.20504332, y: 4.9168506, z: -0.19529295}
   m_Size: 11.144257
   m_FadeMode: 0
   m_AnimateCrossFading: 0
