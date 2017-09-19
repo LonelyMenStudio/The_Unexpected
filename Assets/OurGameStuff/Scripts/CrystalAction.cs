@@ -47,6 +47,10 @@ public class CrystalAction : NetworkBehaviour {
 
 	[ClientRpc]
 	void RpcPlayAudio() {
-		boom.Play();
+		try {
+			boom.Play();
+		} catch {
+			return;
+		}
 	}
 }

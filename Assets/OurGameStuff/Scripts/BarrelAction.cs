@@ -55,6 +55,10 @@ public class BarrelAction : NetworkBehaviour {
 
 	[ClientRpc]
 	void RpcPlayAudio() {
-		boom.Play();
+		try {
+			boom.Play();
+		} catch {
+			return;
+		}
 	}
 }
