@@ -75,7 +75,7 @@ public class Playeranimations : NetworkBehaviour {
         animatorz.SetBool("StraftLeft", StraftLeft);
         animatorz.SetBool("Backwards", Backward);
 
-        if (Input.GetKey(KeyCode.R) && reloading && haswep) {
+        if (Input.GetKeyDown(KeyCode.R) && reloading && haswep) {
             aiming = Aim;
             if (aiming) {
                 Aim = false;
@@ -84,14 +84,20 @@ public class Playeranimations : NetworkBehaviour {
             resetlerp.currentlerp = 0;
             ReloadAnim();
         }
-        if (Input.GetKey(KeyCode.Space)) {
+        if (Input.GetKeyDown(KeyCode.Space)) {
             outofaimrun = Aim;
             if (outofaimrun) {
                 Change = true;
                 Aim = false;
                 animatorz.SetBool("Aim", Aim);
             }
+            if (haswep) {
+                animatorz.Play("JumpWithGun");
+            } else if (!haswep){
+                animatorz.Play("JumpNoGun");
+            }
         }
+
         if (Input.GetKey(KeyCode.LeftShift)) {
             outofaimrun = Aim;
             if (outofaimrun) {
@@ -134,13 +140,6 @@ public class Playeranimations : NetworkBehaviour {
                 }
             }
         }
-
-        if (Input.GetKey(KeyCode.Space) && haswep == false) {
-            animatorz.Play("JumpNoGun");
-        } else if (Input.GetKey(KeyCode.Space) && haswep == true) {
-            animatorz.Play("JumpWithGun");
-        }
-
     }
     /*  void OnUnScoped() {
           scope.SetActive(false);
