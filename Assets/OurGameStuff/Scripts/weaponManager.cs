@@ -594,7 +594,7 @@ public class weaponManager : NetworkBehaviour {
                     StartCoroutine(hit());
                 }
                 if (hit2.transform.tag == "Crystal") {
-                    CmdDamageCrystal(hit2.transform.gameObject, AkDamage);
+                    prepareDamageCrystal(hit2.transform.gameObject, AkDamage);
                 }
 
             } else if (weaponOut == 2) {
@@ -625,7 +625,7 @@ public class weaponManager : NetworkBehaviour {
                             spawnhole = false;
                         }
                         if (hit3.transform.tag == "Crystal") {
-                            CmdDamageCrystal(hit3.transform.gameObject, ShotgunDmg);
+                            prepareDamageCrystal(hit3.transform.gameObject, ShotgunDmg);
                         }
                     }
                 }
@@ -649,7 +649,7 @@ public class weaponManager : NetworkBehaviour {
                     spawnhole = false;
                 }
                 if (hit2.transform.tag == "Crystal") {
-                    CmdDamageCrystal(hit2.transform.gameObject, sniperDmg);
+                    prepareDamageCrystal(hit2.transform.gameObject, sniperDmg);
                 }
             } else {
                 Debug.Log("Missed player");
@@ -704,10 +704,16 @@ public class weaponManager : NetworkBehaviour {
     }
 
     [Command]
-    void CmdDamageCrystal(GameObject hit, float damage) {
-        hit.SendMessage("DamageCrystal", damage);
+    void CmdDamageCrystal(GameObject hit, int[] message) {
+        hit.SendMessage("DamageCrystal", message);
     }
 
+    void prepareDamageCrystal(GameObject hit, float damage) {
+        int[] prepare = new int[2];
+        prepare[0] = (int)damage;
+        prepare[1] = currentPlayer;
+        CmdDamageCrystal(hit, prepare);
+    }
 
     [Command]
     void CmdBulletHoleRifle(Vector3 hit, Vector3 normal) {
