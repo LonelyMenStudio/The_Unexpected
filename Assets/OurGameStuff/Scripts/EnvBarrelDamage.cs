@@ -14,6 +14,7 @@ public class EnvBarrelDamage : MonoBehaviour {
     private GameObject manager;
     private PlayerManager playerList;
     private const float MAX_DISTANCE = 5.0f;
+    private int playerDamageFrom;
 
     // Use this for initialization
     void Start() {
@@ -32,7 +33,7 @@ public class EnvBarrelDamage : MonoBehaviour {
             for (int i = 0; i < playerList.Players.Count; i++) {
                 float distance = Vector3.Distance(this.transform.position, playerList.Players[i].transform.position);
                 if (distance < MAX_DISTANCE) {
-                    Action(playerList.Players[i]);
+                    prepareAction(playerList.Players[i]);
                 }
             }
             damageOnce = true;
@@ -60,9 +61,24 @@ public class EnvBarrelDamage : MonoBehaviour {
         }
     }
     */
-
-    void Action(GameObject other) {
-        other.transform.SendMessage("BarrelDamage", DAMAGE_AMOUNT);
+    public void damageFrom(int num) {
+        playerDamageFrom = num;
     }
+
+    void prepareAction(GameObject player) {
+        int[] prep = new int[2];
+        prep[0] = DAMAGE_AMOUNT;
+        prep[1] = playerDamageFrom;
+        Action(player, prep);
+    }
+
+
+    void Action(GameObject other, int[] input) {
+        other.transform.SendMessage("BarrelDamage", input);
+    }
+
+    /*
+           
+    */
 
 }

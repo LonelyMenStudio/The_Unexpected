@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 public class CrystalAction : NetworkBehaviour {
 
     [SyncVar]
-    public float crystalHealth = 5;
+    public int crystalHealth = 5;
     public ParticleSystem Explosion;
     private bool crystalDestoryed = false;
 
@@ -27,10 +27,10 @@ public class CrystalAction : NetworkBehaviour {
         
     }
 
-    public void DamageCrystal(float damage) {
+    public void DamageCrystal(int[] damage) {
         if (!isServer) {
             return;
         }
-        crystalHealth = crystalHealth - damage;
+        crystalHealth = crystalHealth - damage[0];
     }
 }

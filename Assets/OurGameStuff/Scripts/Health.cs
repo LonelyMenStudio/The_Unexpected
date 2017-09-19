@@ -53,7 +53,7 @@ public class Health : NetworkBehaviour {
     }
     // Use this for initialization
     void Start() {
-        deathPop = transform.Find("DeathPopMessage").gameObject;
+        //deathPop = transform.Find("DeathPopMessage").gameObject;
         ManagerGet = Variables.GetComponent<VariablesScript>();
         manager = ManagerGet.variables;
         prepPhase = manager.GetComponent<PrepPhase>();
@@ -90,7 +90,7 @@ public class Health : NetworkBehaviour {
             Healthz = 0;
             if (canSendKill) {
                 canSendKill = false;
-                sendKill(damageFrom);
+                sendKill(damageFrom);//150
                 killMessage = killMessage + "Player " + damageFrom;
             }
         }
@@ -125,16 +125,18 @@ public class Health : NetworkBehaviour {
 
 
     IEnumerator delayRespawn() {
-
         yield return new WaitForSeconds(1f);
         inRespawn = false;
-
+    }
+    IEnumerator canSendKillAgain() {
+        yield return new WaitForSeconds(1f);
+        canSendKill = true;
     }
     IEnumerator timedRespawn() {
         inRespawn = true;
         turnOffController = true;
         death = true;
-        if(deathPop != null) {
+        if (deathPop != null) {
             deathPop.SetActive(true);
         }
         yield return new WaitForSeconds(3f);
@@ -157,6 +159,7 @@ public class Health : NetworkBehaviour {
                 return;
             }
         }
+        canSendKillAgain();
         Debug.Log("couldnt give kill");
     }
     // Update is called once per frame
@@ -247,24 +250,32 @@ public class Health : NetworkBehaviour {
         if (!isLocalPlayer) {
             return;
         }
-        CmdEnviromentEffect(false, amount);
+        CmdEnviromentEffect(false, amount, 0);
     }
-    public void BarrelDamage(int amount) {
+    public void BarrelDamage(int[] amount) {
         if (!isLocalPlayer) {
             return;
         }
-        CmdEnviromentEffect(true, amount);
+        CmdEnviromentEffect(true, amount[0], amount[1]);
     }
     [Command]
-    void CmdEnviromentEffect(bool damage, int amount) {
+    void CmdEnviromentEffect(bool damage, int amount, int from) {
         if (damage) {
             Healthz = Healthz - amount;
+            if (Healthz <= 0) {
+                Healthz = 0;
+                if (canSendKill) {
+                    canSendKill = false;
+                    sendKill(from);//150
+                }
+            }
         } else {
             Healthz = Healthz + amount;
             if (Healthz > maxHealth) {
                 Healthz = maxHealth;
             }
         }
+
     }
 
     void tpWeapon() {
