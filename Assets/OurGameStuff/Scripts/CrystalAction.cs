@@ -33,11 +33,11 @@ public class CrystalAction : NetworkBehaviour {
 
 	}
 
-	public void DamageCrystal(int damage) {
+	public void DamageCrystal(int[] damage) {
 		if (!isServer) {
 			return;
 		}
-		crystalHealth = crystalHealth - damage;
+		crystalHealth = crystalHealth - damage[0];
 	}
 
 	[Command]

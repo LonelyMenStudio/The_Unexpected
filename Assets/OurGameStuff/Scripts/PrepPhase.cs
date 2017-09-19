@@ -39,6 +39,7 @@ public class PrepPhase : MonoBehaviour {
     private float speed = 1.5f;
     public bool lookingforweapon = false;
     public bool Foundwep = false;
+    public GameObject deathPop;
 
     // Use this for initialization
     void Start() {

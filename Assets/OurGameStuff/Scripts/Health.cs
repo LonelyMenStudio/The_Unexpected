@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 
 public class Health : NetworkBehaviour {
 
-    private const bool TESTING = true;
+    private const bool TESTING = false;
     public GameObject respawn;
     private const int maxHealth = 300;
     public Image Healthbar;
@@ -40,6 +40,7 @@ public class Health : NetworkBehaviour {
     UnityStandardAssets.Characters.FirstPerson.FirstPersonController con;
     private bool turnOffController = false;
     public GameObject deathPop;
+    private Text deathText;
 
     [SyncVar(hook = "OnChangeHealth")]
     public int Healthz = maxHealth;
@@ -53,7 +54,6 @@ public class Health : NetworkBehaviour {
     }
     // Use this for initialization
     void Start() {
-        //deathPop = transform.Find("DeathPopMessage").gameObject;
         ManagerGet = Variables.GetComponent<VariablesScript>();
         manager = ManagerGet.variables;
         prepPhase = manager.GetComponent<PrepPhase>();
@@ -62,6 +62,8 @@ public class Health : NetworkBehaviour {
         for (int i = 0; i < prepPhase.spawn.Length; i++) {
             respawnLocations[i] = prepPhase.spawn[i];
         }
+        deathPop = prepPhase.deathPop;
+        deathText = deathPop.GetComponent<Text>();
         barImage = prepPhase.healthObject;
         Healthbar = barImage.GetComponent<Image>();
         HudImage = prepPhase.PlayerHUD;
@@ -137,6 +139,7 @@ public class Health : NetworkBehaviour {
         turnOffController = true;
         death = true;
         if (deathPop != null) {
+            deathText.text = killMessage;
             deathPop.SetActive(true);
         }
         yield return new WaitForSeconds(3f);
