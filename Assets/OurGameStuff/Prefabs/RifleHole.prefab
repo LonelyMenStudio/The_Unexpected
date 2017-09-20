@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 198615564089088914}
   - component: {fileID: 199047406392066504}
   - component: {fileID: 114385937622478060}
+  - component: {fileID: 114859810042746420}
   m_Layer: 0
   m_Name: RifleHole
   m_TagString: Untagged
@@ -136,6 +137,17 @@ MonoBehaviour:
     i15: 237
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114859810042746420
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1423792814199912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ace5bcb9d0e0f2740beec4649919b437, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198589079657293512
 ParticleSystem:
   m_ObjectHideFlags: 1

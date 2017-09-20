@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnvBarrelDamage : MonoBehaviour {
 
-    public const int DAMAGE_AMOUNT = 80;
+    private const int DAMAGE_AMOUNT = 80;
     // private bool sendMessage = false;
     public bool barrelHasBeenDestoryed = false;
     private bool damageOnce = false;

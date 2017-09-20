@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 198179614772967594}
   - component: {fileID: 199310118575167252}
   - component: {fileID: 114599965057588094}
+  - component: {fileID: 114136182875580782}
   m_Layer: 0
   m_Name: Shotgunwhole
   m_TagString: Untagged
@@ -104,6 +105,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114136182875580782
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1900758349723970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ace5bcb9d0e0f2740beec4649919b437, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114599965057588094
 MonoBehaviour:
   m_ObjectHideFlags: 1

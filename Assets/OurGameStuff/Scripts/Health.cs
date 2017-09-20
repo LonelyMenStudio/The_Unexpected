@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 
 public class Health : NetworkBehaviour {
 
-    private const bool TESTING = false;
+    private const bool TESTING = true;
     public GameObject respawn;
     private const int maxHealth = 300;
     public Image Healthbar;
@@ -36,7 +36,8 @@ public class Health : NetworkBehaviour {
     //private Color red;
     //private Color reset;
     private bool canSendKill = true;
-    public string killMessage = "Died to ";
+    public string killMessage = "";
+    private string startKillMessage = "Died to ";
     UnityStandardAssets.Characters.FirstPerson.FirstPersonController con;
     private bool turnOffController = false;
     public GameObject deathPop;
@@ -93,7 +94,7 @@ public class Health : NetworkBehaviour {
             if (canSendKill) {
                 canSendKill = false;
                 sendKill(damageFrom);//150
-                killMessage = killMessage + "Player " + damageFrom;
+                killMessage = startKillMessage + "Player " + damageFrom;//because its server!!!
             }
         }
     }
