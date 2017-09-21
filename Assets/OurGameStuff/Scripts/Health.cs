@@ -37,11 +37,13 @@ public class Health : NetworkBehaviour {
     //private Color reset;
     private bool canSendKill = true;
     public string killMessage = "";
-    private string startKillMessage = "Died to ";
+    private string startKillMessage = "Died to Player ";
     UnityStandardAssets.Characters.FirstPerson.FirstPersonController con;
     private bool turnOffController = false;
     public GameObject deathPop;
     private Text deathText;
+    private GameObject deathPopText;
+    private int tempDamageFrom;
 
     [SyncVar(hook = "OnChangeHealth")]
     public int Healthz = maxHealth;
@@ -64,7 +66,8 @@ public class Health : NetworkBehaviour {
             respawnLocations[i] = prepPhase.spawn[i];
         }
         deathPop = prepPhase.deathPop;
-        deathText = deathPop.GetComponent<Text>();
+        deathPopText = prepPhase.deathText;
+        deathText = deathPopText.GetComponent<Text>();
         barImage = prepPhase.healthObject;
         Healthbar = barImage.GetComponent<Image>();
         HudImage = prepPhase.PlayerHUD;
@@ -94,7 +97,8 @@ public class Health : NetworkBehaviour {
             if (canSendKill) {
                 canSendKill = false;
                 sendKill(damageFrom);//150
-                killMessage = startKillMessage + "Player " + damageFrom;//because its server!!!
+                tempDamageFrom = damageFrom;
+                //killMessage = startKillMessage + "Player " + damageFrom;//because its server!!!
             }
         }
     }
@@ -102,7 +106,7 @@ public class Health : NetworkBehaviour {
         if (isLocalPlayer) {
             CmdWaterDeath();
             playerNumber.CmdLoseKill();
-            killMessage = killMessage + "Enviroment";
+            killMessage = startKillMessage + "Enviroment";
         }
     }
     [Command]
@@ -140,6 +144,7 @@ public class Health : NetworkBehaviour {
         turnOffController = true;
         death = true;
         if (deathPop != null) {
+            killMessage = startKillMessage + tempDamageFrom;
             deathText.text = killMessage;
             deathPop.SetActive(true);
         }

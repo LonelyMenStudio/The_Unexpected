@@ -40,6 +40,7 @@ public class PrepPhase : MonoBehaviour {
     public bool lookingforweapon = false;
     public bool Foundwep = false;
     public GameObject deathPop;
+    public GameObject deathText;
 
     // Use this for initialization
     void Start() {
