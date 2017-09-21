@@ -9524,7 +9524,7 @@ Transform:
   - {fileID: 744931989}
   - {fileID: 951327218}
   m_Father: {fileID: 386161238}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &201687129 stripped
 GameObject:
@@ -16565,7 +16565,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &335637202
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18539,8 +18539,8 @@ RectTransform:
   - {fileID: 1337779153}
   - {fileID: 1019015601}
   - {fileID: 1606005073}
-  - {fileID: 642203488}
   - {fileID: 197751020}
+  - {fileID: 642203488}
   - {fileID: 958804954}
   - {fileID: 2077294615}
   - {fileID: 238802332}
@@ -32049,7 +32049,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 18, y: -151.00008}
+  m_AnchoredPosition: {x: 18, y: -151.00006}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &675573273
@@ -54268,7 +54268,7 @@ MonoBehaviour:
   Foundwep: 0
   deathPop: {fileID: 740901332}
   deathText: {fileID: 2002171101}
-  killGetMessage: {fileID: 0}
+  killGetMessage: {fileID: 335637201}
 --- !u!4 &1180721780
 Transform:
   m_ObjectHideFlags: 0
@@ -56329,7 +56329,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0.000030517578, y: 222.00002}
+  m_AnchoredPosition: {x: 0.000030517578, y: 222}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1244740755

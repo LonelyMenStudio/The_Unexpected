@@ -82,6 +82,16 @@ public class PlayerAssignGet : NetworkBehaviour {
             targetMe.SetActive(false);
             checkKills();
         }
+        /*
+        if (Input.GetKeyDown(KeyCode.K)) {
+            CmdTestKill();
+        }
+        */
+    }
+
+    [Command]
+    private void CmdTestKill() {
+        kills++;
     }
 
     void checkKills() {
