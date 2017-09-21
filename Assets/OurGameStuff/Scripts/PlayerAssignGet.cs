@@ -9,7 +9,7 @@ public class PlayerAssignGet : NetworkBehaviour {
     private GameObject manager;
     private PlayerAssign sm;
     private PlayerManager playerAdd;
-    public GameObject PlayerScore;
+    //public GameObject PlayerScore;
     private PlayerManagerSelf playerArray;
     public GameObject Variables;
     private PrepPhase PrepPhase;
@@ -21,6 +21,8 @@ public class PlayerAssignGet : NetworkBehaviour {
     private int killsOld = 0;
     private GameObject showKill;
     private GameObject timerDisplay;
+    private ScoreScreen stats;
+    private GameObject statsDisplay;
 
 
     [SyncVar]
@@ -48,10 +50,14 @@ public class PlayerAssignGet : NetworkBehaviour {
         playerArray = this.gameObject.GetComponent<PlayerManagerSelf>();
         checkGameState = manager.GetComponent<GameTimer>();
         PrepPhase = manager.GetComponent<PrepPhase>();
+        stats = PrepPhase.playerStats.GetComponent<ScoreScreen>();
         timerDisplay = PrepPhase.displayTimer;
-        PlayerScore = PrepPhase.PlayerScores;
+        //PlayerScore = PrepPhase.PlayerScores;
         showKill = PrepPhase.killGetMessage;
-        PlayerScore.SetActive(false);
+        //PlayerScore.SetActive(false);
+        statsDisplay = PrepPhase.playerStats;
+        statsDisplay.SetActive(false);
+        
         if (isLocalPlayer) {
             CmdGetNum();
             checkKills();
@@ -76,10 +82,12 @@ public class PlayerAssignGet : NetworkBehaviour {
             return;
         }
         if (Input.GetKey(KeyCode.Tab)) {
-            PlayerScore.SetActive(true);
+            //PlayerScore.SetActive(true);
+            statsDisplay.SetActive(true);
             timerDisplay.SetActive(true);
         } else {
-            PlayerScore.SetActive(false);
+            //PlayerScore.SetActive(false);
+            statsDisplay.SetActive(false);
             timerDisplay.SetActive(false);
         }
         if (isLocalPlayer) {
@@ -111,6 +119,7 @@ public class PlayerAssignGet : NetworkBehaviour {
         showKill.SetActive(false);
     }
 
+    /*
     private void SetupPlayerKD() {
         if (currentPlayerNo == 1) {
             PlayerKD = PlayerScore.transform.Find("Player1");
@@ -124,11 +133,13 @@ public class PlayerAssignGet : NetworkBehaviour {
             Debug.Log("No Player found");
         }
     }
+    */
 
     private void SetupScoreboard() {
         //DisplayKD = PlayerKD.GetComponent<Text>();
         //DisplayKD.text = (playerName + "       " + kills + "        " + deaths);
 
+        /*
         if (currentPlayerNo == 1) {
             PlayerKD = PlayerScore.transform.Find("Player1");
             DisplayKD = PlayerKD.GetComponent<Text>();
@@ -148,7 +159,27 @@ public class PlayerAssignGet : NetworkBehaviour {
         } else {
             Debug.Log("No Player found");
         }
-
+        */
+        if(playerName == "") {
+            playerName = "Player" + currentPlayerNo;
+        }
+        if(currentPlayerNo == 1) {
+            stats.playerNames[0].text = playerName;
+            stats.playerKills[0].text = "" + kills;
+            stats.playerDeaths[0].text = "" + deaths;
+        } else if(currentPlayerNo == 2) {
+            stats.playerNames[1].text = playerName;
+            stats.playerKills[1].text = "" + kills;
+            stats.playerDeaths[1].text = "" + deaths;
+        } else if (currentPlayerNo == 3) {
+            stats.playerNames[2].text = playerName;
+            stats.playerKills[2].text = "" + kills;
+            stats.playerDeaths[2].text = "" + deaths;
+        } else if (currentPlayerNo == 4) {
+            stats.playerNames[3].text = playerName;
+            stats.playerKills[3].text = "" + kills;
+            stats.playerDeaths[3].text = "" + deaths;
+        }
     }
 
     [Command]

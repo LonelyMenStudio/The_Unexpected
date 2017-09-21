@@ -43,6 +43,7 @@ public class PrepPhase : MonoBehaviour {
     public GameObject deathText;
     public GameObject killGetMessage;
     public GameObject displayTimer;
+    public GameObject playerStats;
 
     // Use this for initialization
     void Start() {
