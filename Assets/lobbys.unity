@@ -465,6 +465,10 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: e4ea3ecab6ab0b9489b6ed1016bff7e0,
         type: 3}
+    - target: {fileID: 1445482503501082, guid: f99d6a19ca8e92f43a6b3a19bc797e43, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f99d6a19ca8e92f43a6b3a19bc797e43, type: 2}
   m_IsPrefabParent: 0
@@ -503,7 +507,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 717.0001, y: 537}
+  m_AnchoredPosition: {x: 717.00024, y: 537}
   m_SizeDelta: {x: 400, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1144230086
@@ -1109,7 +1113,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22403912, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -960.00024
+      value: -960.0002
       objectReference: {fileID: 0}
     - target: {fileID: 11475086, guid: c0978251ff7b10d4fb954a4b56acd9f0, type: 2}
       propertyPath: m_OfflineScene

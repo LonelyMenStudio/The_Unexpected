@@ -28,7 +28,8 @@ public class PissOffLobby : MonoBehaviour {
     }
     public void LoadMenu() {
         //Lobby = GameObject.Find("LobbyManager");
-        Destroy(Lobby);
+        
         SceneManager.LoadScene(0);
+        Destroy(Lobby);
     }
 }
