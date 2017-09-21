@@ -10,7 +10,7 @@ public class PrepPhase : MonoBehaviour {
     private const float TOTAL_PREP_TIME = 20;
     public GameObject[] spawn;
     private float timeRemaining = TOTAL_PREP_TIME;
-    private string tr = "Entering Battle in: ";
+    private string tr = "Match starts in: ";
     private string timeR = "";
     public GameObject timer;
     private Text text;

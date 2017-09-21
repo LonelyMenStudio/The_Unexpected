@@ -9651,7 +9651,7 @@ GameObject:
   m_Component:
   - component: {fileID: 197751020}
   m_Layer: 5
-  m_Name: PrepTimer
+  m_Name: PlayerUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9670,9 +9670,8 @@ Transform:
   - {fileID: 1518378265}
   - {fileID: 261498716}
   - {fileID: 744931989}
-  - {fileID: 951327218}
   m_Father: {fileID: 386161238}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &201687129 stripped
 GameObject:
@@ -11435,7 +11434,7 @@ RectTransform:
   - {fileID: 158905163}
   - {fileID: 816642919}
   m_Father: {fileID: 386161238}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -16724,7 +16723,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 386161238}
-  m_RootOrder: 23
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -18686,6 +18685,7 @@ RectTransform:
   - {fileID: 1337779153}
   - {fileID: 1019015601}
   - {fileID: 1606005073}
+  - {fileID: 951327218}
   - {fileID: 197751020}
   - {fileID: 642203488}
   - {fileID: 958804954}
@@ -32630,7 +32630,7 @@ RectTransform:
   - {fileID: 2069648528}
   - {fileID: 2045433498}
   m_Father: {fileID: 386161238}
-  m_RootOrder: 20
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -35323,7 +35323,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 386161238}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -35405,7 +35405,7 @@ RectTransform:
   m_Children:
   - {fileID: 2002171102}
   m_Father: {fileID: 386161238}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -36424,7 +36424,7 @@ RectTransform:
   - {fileID: 722864435}
   - {fileID: 1790074938}
   m_Father: {fileID: 386161238}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -43687,7 +43687,7 @@ GameObject:
   - component: {fileID: 951327220}
   - component: {fileID: 951327219}
   m_Layer: 5
-  m_Name: Timer
+  m_Name: PrepTimer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43704,12 +43704,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 197751020}
-  m_RootOrder: 3
+  m_Father: {fileID: 386161238}
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -74.00003, y: 21}
+  m_AnchoredPosition: {x: 170, y: -70}
   m_SizeDelta: {x: 310.04, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &951327219
@@ -43733,8 +43733,8 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_Font: {fileID: 12800000, guid: 7cb2912222469634ba17a77055919ea8, type: 3}
+    m_FontSize: 34
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
@@ -43745,7 +43745,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Time Remaining: '
+  m_Text: 'Match starts in: 20.0'
 --- !u!222 &951327220
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -44288,7 +44288,7 @@ RectTransform:
   - {fileID: 1034392278}
   - {fileID: 1380004047}
   m_Father: {fileID: 386161238}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -65906,7 +65906,7 @@ Prefab:
     - target: {fileID: 224305520214627496, guid: 4c361af8066a7404293a35ad23f88397,
         type: 2}
       propertyPath: m_RootOrder
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 224305520214627496, guid: 4c361af8066a7404293a35ad23f88397,
         type: 2}
@@ -87631,7 +87631,7 @@ RectTransform:
   m_Children:
   - {fileID: 2101003912}
   m_Father: {fileID: 386161238}
-  m_RootOrder: 22
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -94127,7 +94127,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 386161238}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 13.599001, y: 83.275, z: 1.4440001}
 --- !u!1 &2078120484
 GameObject:
