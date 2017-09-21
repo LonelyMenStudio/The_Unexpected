@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PissOffLobby : MonoBehaviour {
 
-    private GameObject Lobby;
+    public GameObject Lobby;
 
     void Start() {
-        Lobby = GameObject.FindWithTag("NetWork");
+        //Lobby = GameObject.FindWithTag("NetWork");
     }
     // Use this for initialization
     public void loadscene(int sceneIndex) {
@@ -25,5 +25,10 @@ public class PissOffLobby : MonoBehaviour {
         SceneManager.LoadScene(sceneIndex);
 
 
+    }
+    public void LoadMenu() {
+        //Lobby = GameObject.Find("LobbyManager");
+        Destroy(Lobby);
+        SceneManager.LoadScene(0);
     }
 }
