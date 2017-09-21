@@ -20,6 +20,7 @@ public class PlayerAssignGet : NetworkBehaviour {
     public GameObject targetMe;
     private int killsOld = 0;
     private GameObject showKill;
+    private GameObject timerDisplay;
 
 
     [SyncVar]
@@ -47,6 +48,7 @@ public class PlayerAssignGet : NetworkBehaviour {
         playerArray = this.gameObject.GetComponent<PlayerManagerSelf>();
         checkGameState = manager.GetComponent<GameTimer>();
         PrepPhase = manager.GetComponent<PrepPhase>();
+        timerDisplay = PrepPhase.displayTimer;
         PlayerScore = PrepPhase.PlayerScores;
         showKill = PrepPhase.killGetMessage;
         PlayerScore.SetActive(false);
@@ -75,8 +77,10 @@ public class PlayerAssignGet : NetworkBehaviour {
         }
         if (Input.GetKey(KeyCode.Tab)) {
             PlayerScore.SetActive(true);
+            timerDisplay.SetActive(true);
         } else {
             PlayerScore.SetActive(false);
+            timerDisplay.SetActive(false);
         }
         if (isLocalPlayer) {
             targetMe.SetActive(false);
