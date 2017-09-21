@@ -41,6 +41,7 @@ public class PrepPhase : MonoBehaviour {
     public bool Foundwep = false;
     public GameObject deathPop;
     public GameObject deathText;
+    public GameObject killGetMessage;
 
     // Use this for initialization
     void Start() {
