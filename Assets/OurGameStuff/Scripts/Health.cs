@@ -92,6 +92,7 @@ public class Health : NetworkBehaviour {
         int amount = damageInfo[0];
         int damageFrom = damageInfo[1];
         Healthz -= amount;
+		GetHit.Play ();
         if (Healthz <= 0) {
             Healthz = 0;
             if (canSendKill) {
