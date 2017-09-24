@@ -75,7 +75,7 @@ public class Playeranimations : NetworkBehaviour {
         animatorz.SetBool("StraftLeft", StraftLeft);
         animatorz.SetBool("Backwards", Backward);
 
-        if (Input.GetKeyDown(KeyCode.R) && reloading && haswep) {
+		if (Input.GetKeyDown(KeyCode.R) && reloading && haswep && (wloss.currentWeaponAmmo < wloss.currentWeaponMaxAmmo)) {
             aiming = Aim;
             if (aiming) {
                 Aim = false;

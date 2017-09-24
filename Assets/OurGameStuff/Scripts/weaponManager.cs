@@ -35,6 +35,7 @@ public class weaponManager : NetworkBehaviour {
     public AudioSource HitSE;
     public AudioSource Sniper_shot;
     public AudioSource Shotgun_shot;
+	public AudioSource empty;
     private float delayTime = 0.05f;
     private float counter = 0.0f;
     private bool canShoot = false;
@@ -67,6 +68,14 @@ public class weaponManager : NetworkBehaviour {
     public bool isSprinting = false;
     public int temp;
 
+	// vvv- for balancing purpose too -vvv
+	private int rifleAmmo = 30;
+	private int shottyAmmo = 30;
+	private int sniperAmmo = 10;
+	private float rifleFireRate = 0.08f;
+	private float shottyFireRate = 0.65f;
+	private float sniperFireRate = 1.5f;
+	// ^^^- end of balancing variables -^^^
 
     [SyncVar]
     public int currentWeaponPlayer;
@@ -200,6 +209,9 @@ public class weaponManager : NetworkBehaviour {
                             Gunout2.SetActive(false);
                             Gunout3.SetActive(false);
                             changeWeapon(1);
+							currentWeaponAmmo = rifleAmmo;
+							currentWeaponMaxAmmo = rifleAmmo;
+							delayTime = rifleFireRate;
                         } else if (hit.transform.gameObject.name.Contains("PrepShotty")) {
                             weaponOnEnd = 1;
                             childWeapon1.SetActive(false);//***
@@ -209,6 +221,9 @@ public class weaponManager : NetworkBehaviour {
                             Gunout2.SetActive(true);
                             Gunout3.SetActive(false);
                             changeWeapon(2);
+							currentWeaponAmmo = shottyAmmo;
+							currentWeaponMaxAmmo = shottyAmmo;
+							delayTime = shottyFireRate;
                         } else if (hit.transform.gameObject.name.Contains("PrepSniper")) {
                             weaponOnEnd = 2;
                             childWeapon1.SetActive(false);//***
@@ -218,10 +233,47 @@ public class weaponManager : NetworkBehaviour {
                             Gunout2.SetActive(false);
                             Gunout3.SetActive(true);
                             changeWeapon(3);
+							currentWeaponAmmo = sniperAmmo;
+							currentWeaponMaxAmmo = sniperAmmo;
+							delayTime = sniperFireRate;
                         }
                     }
                 }
             }
+			//flaggity flag
+			if (hasWeapon) {
+				canShoot = true;
+			} else {
+				canShoot = false;
+			}
+				
+			counter += Time.deltaTime;
+			if (Input.GetKeyDown (KeyCode.R) && hasWeapon && (currentWeaponAmmo < currentWeaponMaxAmmo)) {
+				StartCoroutine (Reload ());
+			}
+			if (Input.GetKey(KeyCode.Mouse0) && hasWeapon && canShoot && counter > delayTime && !isSprinting && TakeAim2) { // probs can be cut down to only 1 raycast
+				if (!Aimming.Aim) {
+					Aimming.Change = true;
+					Aimming.Aim = true;
+					TakeAim2 = false;
+					StartCoroutine(TakeAim());
+
+				} else {
+					Aimming.Aim = true;
+					if (currentWeaponAmmo > 0) {
+						shoot ();
+					} else {
+						if (Input.GetKeyDown (KeyCode.Mouse0)) {
+							empty.Play ();
+						}
+					}
+				}
+
+			}
+
+
+			ammoText.text = currentWeaponAmmo + "/" + currentWeaponMaxAmmo;
+
             return;
         }
         if (selectionDone && actionOnce) {
@@ -245,9 +297,9 @@ public class weaponManager : NetworkBehaviour {
         }
 
         counter += Time.deltaTime;//counter to ensure not infinite fire rate
-        if (Input.GetKeyDown(KeyCode.R) && hasWeapon) {
-            StartCoroutine(Reload());
-        }
+		if (Input.GetKeyDown (KeyCode.R) && hasWeapon && (currentWeaponAmmo < currentWeaponMaxAmmo)) {
+				StartCoroutine (Reload ());
+		}
         if ((Input.GetKeyDown(KeyCode.E) || (Input.GetKeyDown(KeyCode.Mouse0) && !hasWeapon)) && !picking) {
             picking = true;
             PickupWeapon();
@@ -343,21 +395,21 @@ public class weaponManager : NetworkBehaviour {
         }
         if (weapon == 1) {
             weaponOut = 1;
-            delayTime = 0.05f;
+			delayTime = rifleFireRate;
             childMelee.SetActive(false);//***
             childWeapon1.SetActive(true);//***
             childWeapon2.SetActive(false);//***
             childWeapon3.SetActive(false);//***
         } else if (weapon == 2) {
             weaponOut = 2;
-            delayTime = 0.3f;
+			delayTime = shottyFireRate;
             childMelee.SetActive(false);//***
             childWeapon1.SetActive(false);//***
             childWeapon2.SetActive(true);//***
             childWeapon3.SetActive(false);//***
         } else if (weapon == 3) {
             weaponOut = 3;
-            delayTime = 0.8f;
+			delayTime = sniperFireRate;
             childMelee.SetActive(false);//***
             childWeapon1.SetActive(false);//***
             childWeapon2.SetActive(false);//***
@@ -463,19 +515,19 @@ public class weaponManager : NetworkBehaviour {
             Gunout4.SetActive(true);
             Gunout5.SetActive(false);
             Gunout6.SetActive(false);
-            CmdWeaponAmmoDrop(weaponDropperTemp, 30, 30, currentPlayer);
+			CmdWeaponAmmoDrop(weaponDropperTemp, rifleAmmo, rifleAmmo, currentPlayer);
         } else if (weaponToSpawn == 1) {
             CmdRespawnPistol();
             Gunout4.SetActive(false);
             Gunout5.SetActive(true);
             Gunout6.SetActive(false);
-            CmdWeaponAmmoDrop(weaponDropperTemp, 30, 30, currentPlayer);
+			CmdWeaponAmmoDrop(weaponDropperTemp, shottyAmmo, shottyAmmo, currentPlayer);
         } else if (weaponToSpawn == 2) {
             CmdRespawnSniper();
             Gunout4.SetActive(false);
             Gunout5.SetActive(false);
             Gunout6.SetActive(true);
-            CmdWeaponAmmoDrop(weaponDropperTemp, 10, 10, currentPlayer);
+			CmdWeaponAmmoDrop(weaponDropperTemp, sniperAmmo, sniperAmmo, currentPlayer);
         } else {
             Debug.Log("problem spawning the weapon");
         }
@@ -616,9 +668,11 @@ public class weaponManager : NetworkBehaviour {
                 if (distance >= 300) {
                     distance = 299;
                 }
-                AkDamage = AkDamage * 1 - (distance / 300);
-                int damageAK = (int)AkDamage;
-                CmdDamageDealer(hit2.transform.gameObject, damageAK, currentPlayer);
+				if (!checkingPrep) {
+					AkDamage = AkDamage * 1 - (distance / 300);
+					int damageAK = (int)AkDamage;
+					CmdDamageDealer (hit2.transform.gameObject, damageAK, currentPlayer);
+				}
                 spawnhole = false;
                 HitMarker.SetActive(true);
                 StartCoroutine(hit());
@@ -649,9 +703,11 @@ public class weaponManager : NetworkBehaviour {
                         }
                         HitMarker.SetActive(true);
                         StartCoroutine(hit());
-                        ShotgunDmg = ShotgunDmg * 1 - (distance / 100);
-                        int damageS = (int)ShotgunDmg;
-                        CmdDamageDealer(hit3.transform.gameObject, damageS, currentPlayer);
+						if (!checkingPrep) {
+							ShotgunDmg = ShotgunDmg * 1 - (distance / 100);
+							int damageS = (int)ShotgunDmg;
+							CmdDamageDealer (hit3.transform.gameObject, damageS, currentPlayer);
+						}
                         spawnhole = false;
                     }
                     if (hit3.transform.tag == "Crystal") {
@@ -673,9 +729,11 @@ public class weaponManager : NetworkBehaviour {
                 }
                 HitMarker.SetActive(true);
                 StartCoroutine(hit());
-                sniperDmg = sniperDmg * 1 - (distance / 500);
-                int damageSn = (int)sniperDmg;
-                CmdDamageDealer(hit2.transform.gameObject, damageSn, currentPlayer);
+				if (!checkingPrep) {
+					sniperDmg = sniperDmg * 1 - (distance / 500);
+					int damageSn = (int)sniperDmg;
+					CmdDamageDealer (hit2.transform.gameObject, damageSn, currentPlayer);
+				}
                 spawnhole = false;
             }
             if (hit2.transform.tag == "Crystal") {
