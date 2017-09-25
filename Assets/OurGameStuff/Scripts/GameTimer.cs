@@ -85,6 +85,7 @@ public class GameTimer : NetworkBehaviour {
     void UnlockMouse() {
         for (int i = 0; i < playerManager.Players.Count; i++) {
             UnityStandardAssets.Characters.FirstPerson.FirstPersonController Controller = playerManager.Players[i].GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
+            Controller.gameObject.GetComponent<PrepCheck>().stop = true;
             Controller.enabled = false;
         }
         //change prep check
