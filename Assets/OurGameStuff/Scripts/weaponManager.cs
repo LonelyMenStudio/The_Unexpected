@@ -435,7 +435,7 @@ public class weaponManager : NetworkBehaviour {
         CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
     }
     private void spawnSniper() {
-        CmdSpawnPistol();
+        CmdSpawnSniper();
     }
     private void RespawnSniper() {
         CmdRespawnSniper();
