@@ -42,6 +42,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jumping;
         private AudioSource m_AudioSource;
 
+		private bool canDoubleJump = true;
+
         // Use this for initialization
         private void Start()
         {
@@ -82,6 +84,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 PlayLandingSound();
                 m_MoveDir.y = 0f;
                 m_Jumping = false;
+				canDoubleJump = true;
             }
             if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded)
             {
@@ -131,6 +134,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             else
             {
+				if (m_Jump && canDoubleJump) {
+					m_MoveDir.y = m_JumpSpeed;
+					PlayJumpSound ();
+					canDoubleJump = false;
+					m_Jump = false;
+				}
+
                 m_MoveDir += Physics.gravity*m_GravityMultiplier*Time.fixedDeltaTime;
             }
             m_CollisionFlags = m_CharacterController.Move(m_MoveDir*Time.fixedDeltaTime);

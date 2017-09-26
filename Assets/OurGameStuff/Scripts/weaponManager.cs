@@ -706,6 +706,7 @@ public class weaponManager : NetworkBehaviour {
 						if (!checkingPrep) {
 							ShotgunDmg = ShotgunDmg * 1 - (distance / 100);
 							int damageS = (int)ShotgunDmg;
+							HitSE.Play();
 							CmdDamageDealer (hit3.transform.gameObject, damageS, currentPlayer);
 						}
                         spawnhole = false;
@@ -732,6 +733,7 @@ public class weaponManager : NetworkBehaviour {
 				if (!checkingPrep) {
 					sniperDmg = sniperDmg * 1 - (distance / 500);
 					int damageSn = (int)sniperDmg;
+					HitSE.Play();
 					CmdDamageDealer (hit2.transform.gameObject, damageSn, currentPlayer);
 				}
                 spawnhole = false;
