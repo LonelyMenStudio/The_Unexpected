@@ -122,9 +122,6 @@ AnimatorStateTransition:
     m_ConditionEvent: isWalking
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: HasWep
-    m_EventTreshold: 0
-  - m_ConditionMode: 1
     m_ConditionEvent: Backwards
     m_EventTreshold: 0
   - m_ConditionMode: 2
@@ -153,9 +150,6 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 2
     m_ConditionEvent: Jump
-    m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: HasWep
     m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: Sprint
@@ -246,9 +240,6 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: Sprint
-    m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: HasWep
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102212432423825520}
@@ -538,9 +529,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Sprint
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: HasWep
-    m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: Backwards
     m_EventTreshold: 0
@@ -574,9 +562,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: isWalking
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: HasWep
-    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102212432423825520}
   m_Solo: 0
@@ -603,9 +588,6 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: Backwards
-    m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: HasWep
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: isWalking
@@ -682,9 +664,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: isWalking
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: HasWep
-    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102212432423825520}
   m_Solo: 0
@@ -756,9 +735,6 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 2
     m_ConditionEvent: Jump
-    m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: HasWep
     m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: Sprint
@@ -950,9 +926,6 @@ AnimatorStateTransition:
     m_ConditionEvent: Jump
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: HasWep
-    m_EventTreshold: 0
-  - m_ConditionMode: 1
     m_ConditionEvent: isWalking
     m_EventTreshold: 0
   - m_ConditionMode: 1
@@ -1035,9 +1008,6 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: isWalking
-    m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: HasWep
     m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: Backwards
@@ -1215,9 +1185,6 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: isWalking
-    m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: HasWep
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102477128233938596}
@@ -1462,9 +1429,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: Jump
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: HasWep
-    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102529467915475926}
   m_Solo: 0
@@ -1547,9 +1511,6 @@ AnimatorStateTransition:
     m_ConditionEvent: Sprint
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: HasWep
-    m_EventTreshold: 0
-  - m_ConditionMode: 1
     m_ConditionEvent: Backwards
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
@@ -1607,9 +1568,6 @@ AnimatorStateTransition:
     m_ConditionEvent: Jump
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: HasWep
-    m_EventTreshold: 0
-  - m_ConditionMode: 1
     m_ConditionEvent: isWalking
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
@@ -1662,9 +1620,6 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: Backwards
-    m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: HasWep
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102477128233938596}
@@ -1741,9 +1696,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: isWalking
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: HasWep
-    m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: Backwards
     m_EventTreshold: 0
@@ -1770,9 +1722,6 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 2
     m_ConditionEvent: isWalking
-    m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: HasWep
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102529467915475926}
@@ -1823,9 +1772,6 @@ AnimatorStateTransition:
     m_ConditionEvent: Backwards
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: HasWep
-    m_EventTreshold: 0
-  - m_ConditionMode: 1
     m_ConditionEvent: Sprint
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
@@ -1854,9 +1800,6 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: Sprint
-    m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: HasWep
     m_EventTreshold: 0
   - m_ConditionMode: 1
     m_ConditionEvent: Backwards
