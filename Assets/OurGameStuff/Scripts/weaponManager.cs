@@ -78,7 +78,7 @@ public class weaponManager : NetworkBehaviour {
 	// ^^^- end of balancing variables -^^^
 
     [SyncVar]
-    public int currentWeaponPlayer;
+    public int currentWeaponPlayer = 0;
     [SyncVar]
     public bool dropIt = false;
 

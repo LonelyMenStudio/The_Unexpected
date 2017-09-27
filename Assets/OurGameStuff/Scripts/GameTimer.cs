@@ -79,7 +79,7 @@ public class GameTimer : NetworkBehaviour {
     }
 
     void ShowScoreboard() {
-        scoreboard.PlayerScores.gameObject.SetActive(true);
+        scoreboard.playerStats.gameObject.SetActive(true);
     }
 
     void UnlockMouse() {

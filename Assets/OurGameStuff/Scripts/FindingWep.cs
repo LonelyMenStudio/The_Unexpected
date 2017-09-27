@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 
 public class FindingWep : NetworkBehaviour {
-    
+
     public float distance; // Distance from the assigned wep
     //public PlayerManager target; //This is the players assigned weapon
     public AudioSource[] sounds;
@@ -21,7 +21,7 @@ public class FindingWep : NetworkBehaviour {
     private PlayerAssignGet player;
     public int playerno;
     public List<GameObject> droppedWeps;
-     private List<GameObject> Playerz;
+    private List<GameObject> Playerz;
     private PrepPhase gObject;
     public Material[] TeamColors;
     private GameObject TeamColor;
@@ -55,23 +55,24 @@ public class FindingWep : NetworkBehaviour {
         Canvas.SetActive(false);
     }
     void Update() {
-        
+
         if (!isLocalPlayer) {
             return;
         }
-       if ( playerno == this.gameObject.GetComponent<weaponManager>().currentWeaponPlayer) {
+        playerno = player.currentPlayerNo;
+        if ((playerno == this.gameObject.GetComponent<weaponManager>().currentWeaponPlayer) && (gObject.inPrep == false)) {
             Gunout7 = temp.Gunout4;
             Gunout8 = temp.Gunout5;
             Gunout9 = temp.Gunout6;
             Gunout7.SetActive(false);
             Gunout8.SetActive(false);
             Gunout9.SetActive(false);
-           gObject.lookingforweapon = false;
+            gObject.lookingforweapon = false;
             if (check == false) {
                 check = true;
                 gObject.Foundwep = true;
-            }else {
-                
+            } else {
+
             }
         }
         Playerz.RemoveAll(item => item == null);
@@ -105,28 +106,28 @@ public class FindingWep : NetworkBehaviour {
             }
         }
     }
-    
-void distanceCheck(GameObject target) {
-    distance = Vector3.Distance(transform.position, target.transform.position);
-    Beeping = distance / 30;
+
+    void distanceCheck(GameObject target) {
+        distance = Vector3.Distance(transform.position, target.transform.position);
+        Beeping = distance / 30;
         if (Beepsoundz == true && distance > 10) {
             StartCoroutine(Beep());
             Beepsoundz = false;
         }
-    if (radarsound == true) {
+        if (radarsound == true) {
             //Radar.fillAmount = 1 - (distance / 300);
-            Radar.transform.localScale = new Vector3(5 *( 1- distance/300),2.5f * (1- distance / 300), 0);
-           // Radar.GetComponent(RectTransform).sizeDelta = new Vector2(100 * (1 - distance / 300), 100 * (1 - distance / 300));
-        radarsound = false;
+            Radar.transform.localScale = new Vector3(5 * (1 - distance / 300), 2.5f * (1 - distance / 300), 0);
+            // Radar.GetComponent(RectTransform).sizeDelta = new Vector2(100 * (1 - distance / 300), 100 * (1 - distance / 300));
+            radarsound = false;
             StartCoroutine(RadarCheck());
+        }
     }
-}
 
     IEnumerator Beep() {
         Beepsound.Play();
         yield return new WaitForSeconds(Beeping);
         Beepsoundz = true;
-  }
+    }
     IEnumerator RadarCheck() {
         yield return new WaitForSeconds(0.5f);
         radarsound = true;

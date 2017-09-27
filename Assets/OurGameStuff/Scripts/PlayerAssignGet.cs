@@ -72,6 +72,12 @@ public class PlayerAssignGet : NetworkBehaviour {
 
     // Update is called once per frame
     void Update() {
+        //if (isLocalPlayer) {
+          //  if (Input.GetKeyDown(KeyCode.M)) {
+            //    Debug.Log(currentPlayerNo);
+            //}
+        //}
+
         if (checkGameState.halfTime && isWinning && checkGameState.outOfPrep) {
             targetMe.SetActive(true);
         } else {
@@ -161,8 +167,9 @@ public class PlayerAssignGet : NetworkBehaviour {
         }
         */
         if(playerName == "") {
-            playerName = "Player" + currentPlayerNo;
+            playerName = "Player";
         }
+        
         if(currentPlayerNo == 1) {
             stats.playerNames[0].text = playerName;
             stats.playerKills[0].text = "" + kills;
@@ -180,6 +187,10 @@ public class PlayerAssignGet : NetworkBehaviour {
             stats.playerKills[3].text = "" + kills;
             stats.playerDeaths[3].text = "" + deaths;
         }
+        
+        //stats.playerNames[currentPlayerNo].text = playerName;
+        //stats.playerKills[currentPlayerNo].text = "" + kills;
+        //stats.playerDeaths[currentPlayerNo].text = "" + deaths;
     }
 
     [Command]
