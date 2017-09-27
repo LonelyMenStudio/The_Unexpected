@@ -9,7 +9,7 @@ public class Health : NetworkBehaviour {
 
     private const bool TESTING = true;
     public GameObject respawn;
-    private const int maxHealth = 300;
+    private const int maxHealth = 100;
     public Image Healthbar;
     public Image PlayerHud;
     public Image DamageScreenTop;

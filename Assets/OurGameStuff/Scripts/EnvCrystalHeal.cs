@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnvCrystalHeal : MonoBehaviour {
 
-    public const int HEAL_AMOUNT = 80;
+    public const int HEAL_AMOUNT = 20;
     //private bool sendMessage = false;
     public bool crystalHasBeenDestoryed = false;
     private bool healOnce = false;

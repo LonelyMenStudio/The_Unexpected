@@ -15,9 +15,9 @@ public class weaponManager : NetworkBehaviour {
     public bool hasWeapon = false;
     public int currentWeaponAmmo;
     public int currentWeaponMaxAmmo;
-    private float AkDamage = 10;
-    private float ShotgunDmg = 15;
-    private float sniperDmg = 100;
+    private float AkDamage = 20;
+    private float ShotgunDmg = 20;
+    private float sniperDmg = 90;
     public GameObject childMelee;
     public GameObject childWeapon1;
     public GameObject childWeapon2;
@@ -69,9 +69,9 @@ public class weaponManager : NetworkBehaviour {
     public int temp;
 
 	// vvv- for balancing purpose too -vvv
-	private int rifleAmmo = 30;
-	private int shottyAmmo = 30;
-	private int sniperAmmo = 10;
+	private int rifleAmmo = 45;
+	private int shottyAmmo = 18;
+	private int sniperAmmo = 3;
 	private float rifleFireRate = 0.08f;
 	private float shottyFireRate = 0.65f;
 	private float sniperFireRate = 1.5f;
