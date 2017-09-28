@@ -46,8 +46,8 @@ public class Health : NetworkBehaviour {
     private int tempDamageFrom;
     public GameObject liveCam;
     public GameObject deathCam;
-
-	private float lowHealthThreshold = 0.33f;
+    private Playeranimations aim;
+    private float lowHealthThreshold = 0.33f;
 	public AudioSource lowHealthSound;
 	public AudioSource deathSound;
 	private bool canPlayDeathSound = true;
@@ -87,6 +87,7 @@ public class Health : NetworkBehaviour {
         deathMessage = manager.GetComponent<PlayerManager>();
         teleporter = this.gameObject.GetComponent<NetworkXYZSync>();
         healthL = maxHealth;
+        aim = this.gameObject.GetComponent<Playeranimations>();
         //reset = new Color(50, 80, 150, 255);
         //PlayerHud.color = reset;
         con = this.gameObject.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
@@ -174,6 +175,7 @@ public class Health : NetworkBehaviour {
         turnOffController = false;
         deathCam.SetActive(false);
         liveCam.SetActive(true);
+        aim.lossWep = true;
     }
 
     void sendKill(int killerNumber) {

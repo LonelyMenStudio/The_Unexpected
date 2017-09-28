@@ -305,6 +305,19 @@ public class weaponManager : NetworkBehaviour {
             PickupWeapon();
         }
         if (Input.GetKeyDown(KeyCode.F) && hasWeapon) {
+            if (weaponOut == 1) {
+                Gunout4.SetActive(true);
+                Gunout5.SetActive(false);
+                Gunout6.SetActive(false);
+            } else if (weaponOut == 2) {
+                Gunout4.SetActive(false);
+                Gunout5.SetActive(true);
+                Gunout6.SetActive(false);
+            } else if (weaponOut == 3) {
+                Gunout4.SetActive(false);
+                Gunout5.SetActive(false);
+                Gunout6.SetActive(true);
+            }
             dropWeapon();
             weaponhold.ikActive = false;
             childWeapon1.SetActive(false);//***
@@ -313,6 +326,7 @@ public class weaponManager : NetworkBehaviour {
             Gunout1.SetActive(false);
             Gunout2.SetActive(false);
             Gunout3.SetActive(false);
+
         }
         ammoText.text = currentWeaponAmmo + "/" + currentWeaponMaxAmmo;
         if (currentWeaponAmmo <= 0) {

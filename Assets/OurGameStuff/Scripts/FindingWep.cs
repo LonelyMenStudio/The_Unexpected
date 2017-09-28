@@ -47,6 +47,7 @@ public class FindingWep : NetworkBehaviour {
         player = this.gameObject.GetComponent<PlayerAssignGet>();
         playerno = player.currentPlayerNo;
         TeamColor = this.gameObject.transform.GetChild(3).gameObject;
+
         //TeamColor.GetComponent<Renderer>().material = TeamColors[playerno];
         if (!isLocalPlayer) {
             return;
@@ -61,18 +62,21 @@ public class FindingWep : NetworkBehaviour {
         }
         playerno = player.currentPlayerNo;
         if ((playerno == this.gameObject.GetComponent<weaponManager>().currentWeaponPlayer) && (gObject.inPrep == false)) {
-            Gunout7 = temp.Gunout4;
-            Gunout8 = temp.Gunout5;
-            Gunout9 = temp.Gunout6;
-            Gunout7.SetActive(false);
-            Gunout8.SetActive(false);
-            Gunout9.SetActive(false);
             gObject.lookingforweapon = false;
             if (check == false) {
                 check = true;
                 gObject.Foundwep = true;
             } 
-        } else {
+            if (temp.hasWeapon == true) {
+                Gunout7 = temp.Gunout4;
+                Gunout8 = temp.Gunout5;
+                Gunout9 = temp.Gunout6;
+                Gunout7.SetActive(false);
+                Gunout8.SetActive(false);
+                Gunout9.SetActive(false);
+            }
+        }else {
+            gObject.lookingforweapon = true;
         }
         Playerz.RemoveAll(item => item == null);
         pManager.droppedWeapons.RemoveAll(item => item == null);

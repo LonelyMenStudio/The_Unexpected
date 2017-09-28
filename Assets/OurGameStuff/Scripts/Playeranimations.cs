@@ -14,7 +14,7 @@ public class Playeranimations : NetworkBehaviour {
     private PrepPhase ph;
     private weaponManager wloss;
     private bool haswep = false;
-    private bool lossWep = false;
+    public bool lossWep = false;
     public bool Aim = false;
     public GameObject player;
     public GameObject Variables;
@@ -134,6 +134,7 @@ public class Playeranimations : NetworkBehaviour {
         if (lossWep == true) {
             animatorz.Play("GunLost");
             ph.playwep = false;
+            lossWep = false;
         }
         if (!wloss.hasWeapon) {
             outofaimrun = Aim;
