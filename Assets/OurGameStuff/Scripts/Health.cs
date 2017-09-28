@@ -44,6 +44,8 @@ public class Health : NetworkBehaviour {
     private Text deathText;
     private GameObject deathPopText;
     private int tempDamageFrom;
+    public GameObject liveCam;
+    public GameObject deathCam;
 
 	private float lowHealthThreshold = 0.33f;
 	public AudioSource lowHealthSound;
@@ -158,6 +160,8 @@ public class Health : NetworkBehaviour {
             deathText.text = killMessage;
             deathPop.SetActive(true);
         }
+        liveCam.SetActive(false);
+        deathCam.SetActive(true);
         yield return new WaitForSeconds(3f);
         this.gameObject.GetComponent<weaponManager>().DamIDied();
         CmdPlayerDied(playerNumber.currentPlayerNo);
@@ -168,6 +172,8 @@ public class Health : NetworkBehaviour {
         teleporter.Teleport(respawnLocations[Random.Range(0, respawnLocations.Length)].transform.position);
         StartCoroutine(delayRespawn());
         turnOffController = false;
+        deathCam.SetActive(false);
+        liveCam.SetActive(true);
     }
 
     void sendKill(int killerNumber) {
@@ -229,7 +235,7 @@ public class Health : NetworkBehaviour {
     }
     [Command]
     void CmdTestDamage() {
-        Healthz = Healthz - 150;
+        Healthz = Healthz - 50;
     }
 
     [Command]
@@ -267,7 +273,7 @@ public class Health : NetworkBehaviour {
 
     void OnChangeHealth(int health) {
         if (isLocalPlayer) {
-            Healthbar.fillAmount = Map(health, 300, 0, 0, 1);
+            Healthbar.fillAmount = Map(health, maxHealth, 0, 0, 1);
             healthL = health;
             //   StartCoroutine(Flash());
 
