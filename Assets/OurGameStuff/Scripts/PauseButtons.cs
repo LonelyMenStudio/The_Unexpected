@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseButtons : MonoBehaviour {
 
@@ -9,6 +10,7 @@ public class PauseButtons : MonoBehaviour {
     private GameObject Variables;
     private PlayerManager playM;
     private int player;
+    public GameObject Lobby;
 
     private bool hasGot = false;
 
@@ -21,7 +23,7 @@ public class PauseButtons : MonoBehaviour {
         ManagerGet = Variables.GetComponent<VariablesScript>();
         manager = ManagerGet.variables;
         playM = manager.GetComponent<PlayerManager>();
-
+        Lobby = GameObject.Find("LobbyManager");
     }
 
     void getLocal() {
@@ -48,14 +50,17 @@ public class PauseButtons : MonoBehaviour {
         }
     }
     public void controls() {
-        //shows contols
+
+    }
+    public void hideControls() {
     }
     public void quit() {
         if (player == 1) {
             playM.Players[0].GetComponent<PauseMenu>().EndGame();
         } else {
-
+            SceneManager.LoadScene(0);
+            Destroy(Lobby);
         }
     }
-    
+
 }
