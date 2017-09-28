@@ -76,6 +76,9 @@ public class GameTimer : NetworkBehaviour {
             UnlockMouse();
             //game over camera maybe
         }
+        if(gameTime < 60) {
+            timerObject.SetActive(true);
+        }
     }
 
     void ShowScoreboard() {
