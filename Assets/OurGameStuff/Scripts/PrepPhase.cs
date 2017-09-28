@@ -8,6 +8,7 @@ using UnityEngine.Networking;
 public class PrepPhase : MonoBehaviour {
 
     private const float TOTAL_PREP_TIME = 20;
+    public bool halfPrep = false;
     public GameObject[] spawn;
     private float timeRemaining = TOTAL_PREP_TIME;
     private string tr = "Match starts in: ";
@@ -44,6 +45,7 @@ public class PrepPhase : MonoBehaviour {
     public GameObject killGetMessage;
     public GameObject displayTimer;
     public GameObject playerStats;
+    public GameObject pauseMenu;
 
     // Use this for initialization
     void Start() {
@@ -72,6 +74,7 @@ public class PrepPhase : MonoBehaviour {
         if (timeRemaining <= 10 && canAssign) {
             assignTime.assignPlayerNumbers();
             canAssign = false;
+            halfPrep = true;
         }
         if (timeRemaining <= 0) {
             lookingforweapon = true;

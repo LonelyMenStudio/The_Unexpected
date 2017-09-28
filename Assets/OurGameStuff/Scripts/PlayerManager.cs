@@ -76,5 +76,6 @@ public class PlayerManager : NetworkBehaviour {
 
     private void scanForMissing() {
         droppedWeapons.RemoveAll(item => item == null);
+        Players.RemoveAll(item => item == null);
     }
 }

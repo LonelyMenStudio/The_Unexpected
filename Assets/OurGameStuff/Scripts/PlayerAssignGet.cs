@@ -23,6 +23,7 @@ public class PlayerAssignGet : NetworkBehaviour {
     private GameObject timerDisplay;
     private ScoreScreen stats;
     private GameObject statsDisplay;
+    public bool isLocal = false;
 
 
     [SyncVar]
@@ -59,6 +60,7 @@ public class PlayerAssignGet : NetworkBehaviour {
         statsDisplay.SetActive(false);
 
         if (isLocalPlayer) {
+            isLocal = true;
             CmdGetNum();
             checkKills();
         }

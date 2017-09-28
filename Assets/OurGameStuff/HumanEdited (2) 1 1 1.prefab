@@ -1168,6 +1168,7 @@ GameObject:
   - component: {fileID: 114954532935203760}
   - component: {fileID: 82617295842722316}
   - component: {fileID: 82762093022615856}
+  - component: {fileID: 114859342229497170}
   m_Layer: 0
   m_Name: HumanEdited (2) 1 1 1
   m_TagString: Player
@@ -5626,6 +5627,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Variables: {fileID: 0}
   targetMe: {fileID: 1714725039257184}
+  isLocal: 0
   currentPlayerNo: 0
   kills: 0
   deaths: 0
@@ -5927,6 +5929,18 @@ MonoBehaviour:
   scopedFOV: 15
   Change: 0
   outofaimrun: 0
+--- !u!114 &114859342229497170
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1563336106517594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 423c67a6a53a8a747abda9720d2b8b36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPaused: 0
 --- !u!114 &114918440470137116
 MonoBehaviour:
   m_ObjectHideFlags: 1
