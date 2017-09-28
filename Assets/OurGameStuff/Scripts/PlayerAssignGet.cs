@@ -57,7 +57,7 @@ public class PlayerAssignGet : NetworkBehaviour {
         //PlayerScore.SetActive(false);
         statsDisplay = PrepPhase.playerStats;
         statsDisplay.SetActive(false);
-        
+
         if (isLocalPlayer) {
             CmdGetNum();
             checkKills();
@@ -73,9 +73,9 @@ public class PlayerAssignGet : NetworkBehaviour {
     // Update is called once per frame
     void Update() {
         //if (isLocalPlayer) {
-          //  if (Input.GetKeyDown(KeyCode.M)) {
-            //    Debug.Log(currentPlayerNo);
-            //}
+        //  if (Input.GetKeyDown(KeyCode.M)) {
+        //    Debug.Log(currentPlayerNo);
+        //}
         //}
 
         if (checkGameState.halfTime && isWinning && checkGameState.outOfPrep) {
@@ -87,15 +87,25 @@ public class PlayerAssignGet : NetworkBehaviour {
         if (!isLocalPlayer || checkGameState.gameTimeOver) { //uncomment when everything added into scene currently would just error
             return;
         }
+        if (checkGameState.gameTime < 60) {
+            timerDisplay.SetActive(true);
+        } else {
+            if (Input.GetKey(KeyCode.Tab)) {
+                timerDisplay.SetActive(true);
+            } else {
+                timerDisplay.SetActive(false);
+            }
+        }
         if (Input.GetKey(KeyCode.Tab)) {
             //PlayerScore.SetActive(true);
             statsDisplay.SetActive(true);
-            timerDisplay.SetActive(true);
+            //timerDisplay.SetActive(true);
         } else {
             //PlayerScore.SetActive(false);
             statsDisplay.SetActive(false);
-            timerDisplay.SetActive(false);
+            //timerDisplay.SetActive(false);
         }
+
         if (isLocalPlayer) {
             targetMe.SetActive(false);
             checkKills();
@@ -166,15 +176,15 @@ public class PlayerAssignGet : NetworkBehaviour {
             Debug.Log("No Player found");
         }
         */
-        if(playerName == "") {
+        if (playerName == "") {
             playerName = "Player";
         }
-        
-        if(currentPlayerNo == 1) {
+
+        if (currentPlayerNo == 1) {
             stats.playerNames[0].text = playerName;
             stats.playerKills[0].text = "" + kills;
             stats.playerDeaths[0].text = "" + deaths;
-        } else if(currentPlayerNo == 2) {
+        } else if (currentPlayerNo == 2) {
             stats.playerNames[1].text = playerName;
             stats.playerKills[1].text = "" + kills;
             stats.playerDeaths[1].text = "" + deaths;
@@ -187,7 +197,7 @@ public class PlayerAssignGet : NetworkBehaviour {
             stats.playerKills[3].text = "" + kills;
             stats.playerDeaths[3].text = "" + deaths;
         }
-        
+
         //stats.playerNames[currentPlayerNo].text = playerName;
         //stats.playerKills[currentPlayerNo].text = "" + kills;
         //stats.playerDeaths[currentPlayerNo].text = "" + deaths;
