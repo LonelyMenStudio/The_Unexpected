@@ -11,6 +11,9 @@ public class PauseButtons : MonoBehaviour {
     private PlayerManager playM;
     private int player;
     public GameObject Lobby;
+    private GameObject controlsScreen;
+    private bool canButton = true;
+
 
     private bool hasGot = false;
 
@@ -24,6 +27,7 @@ public class PauseButtons : MonoBehaviour {
         manager = ManagerGet.variables;
         playM = manager.GetComponent<PlayerManager>();
         Lobby = GameObject.Find("LobbyManager");
+        controlsScreen = manager.GetComponent<PrepPhase>().inGameControls;
     }
 
     void getLocal() {
@@ -40,21 +44,37 @@ public class PauseButtons : MonoBehaviour {
             hasGot = true;
             getLocal();
         }
+        if(canButton == false && Input.GetKeyDown(KeyCode.Space)) {
+            hideControls();
+        }
     }
 
     public void resume() {
+        if (!canButton) {
+            return;
+        }
         for (int i = 0; i < playM.Players.Count; i++) {
             if (playM.Players[i].GetComponent<PlayerAssignGet>().currentPlayerNo == player) {
                 playM.Players[i].GetComponent<PauseMenu>().isPaused = false;
             }
         }
-    }
-    public void controls() {
 
     }
+    public void controls() {
+        if (!canButton) {
+            return;
+        }
+        controlsScreen.SetActive(true);
+        canButton = false;
+    }
     public void hideControls() {
+        controlsScreen.SetActive(false);
+        canButton = true;
     }
     public void quit() {
+        if (!canButton) {
+            return;
+        }
         if (player == 1) {
             playM.Players[0].GetComponent<PauseMenu>().EndGame();
         } else {

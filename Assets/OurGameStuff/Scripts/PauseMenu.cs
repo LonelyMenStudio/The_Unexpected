@@ -11,6 +11,7 @@ public class PauseMenu : NetworkBehaviour {
     public bool isPaused;
     private GameObject pauseMenu;
     UnityStandardAssets.Characters.FirstPerson.FirstPersonController con;
+    private GameObject controls;
 
 
     void Awake() {
@@ -24,6 +25,7 @@ public class PauseMenu : NetworkBehaviour {
         manager = ManagerGet.variables;
         pauseMenu = manager.GetComponent<PrepPhase>().pauseMenu;
         con = this.gameObject.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
+        controls = manager.GetComponent<PrepPhase>().inGameControls;
     }
 
     // Update is called once per frame
@@ -31,8 +33,9 @@ public class PauseMenu : NetworkBehaviour {
         if (!isLocalPlayer) {
             return;
         }
-        if (Input.GetKeyDown(KeyCode.Escape)) {
+        if (Input.GetKeyDown(KeyCode.Escape) && manager.GetComponent<PrepPhase>().halfPrep) {
             isPaused = !isPaused;
+            
         }
         if (isPaused) {
             pauseMenu.SetActive(true);
@@ -41,6 +44,7 @@ public class PauseMenu : NetworkBehaviour {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         } else {
+            controls.SetActive(false);
             pauseMenu.SetActive(false);
             this.gameObject.GetComponent<PrepCheck>().stop = false;
         }

@@ -46,6 +46,7 @@ public class PrepPhase : MonoBehaviour {
     public GameObject displayTimer;
     public GameObject playerStats;
     public GameObject pauseMenu;
+    public GameObject inGameControls;
 
     // Use this for initialization
     void Start() {
