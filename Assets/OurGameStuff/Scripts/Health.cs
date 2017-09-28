@@ -162,7 +162,7 @@ public class Health : NetworkBehaviour {
         }
         liveCam.SetActive(false);
         deathCam.SetActive(true);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1.5f);
         this.gameObject.GetComponent<weaponManager>().DamIDied();
         CmdPlayerDied(playerNumber.currentPlayerNo);
         CmdRespawn(this.gameObject);
