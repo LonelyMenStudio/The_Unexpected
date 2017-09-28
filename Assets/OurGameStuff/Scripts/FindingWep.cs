@@ -71,9 +71,8 @@ public class FindingWep : NetworkBehaviour {
             if (check == false) {
                 check = true;
                 gObject.Foundwep = true;
-            } else {
-
-            }
+            } 
+        } else {
         }
         Playerz.RemoveAll(item => item == null);
         pManager.droppedWeapons.RemoveAll(item => item == null);

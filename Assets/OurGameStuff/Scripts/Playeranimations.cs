@@ -76,24 +76,27 @@ public class Playeranimations : NetworkBehaviour {
 
         animatorz.SetBool("HasWep", haswep);
 
-        if (KeyCrossing || KeyCrossing3) {
+        if (KeyCrossing || KeyCrossing3 || (KeyCrossing && isRunning) || (KeyCrossing3 && RunBackwards)) {
             animatorz.SetBool("StraftLeft", true);
             animatorz.SetBool("isWalking", false);
             animatorz.SetBool("Backwards", false);
-
-        } else if (KeyCrossing2 || KeyCrossing4) {
+            animatorz.SetBool("Sprint", false);
+            animatorz.SetBool("RunBack", false);
+            
+        } else if (KeyCrossing2 || KeyCrossing4 || (KeyCrossing && isRunning) || (KeyCrossing3 && RunBackwards)) {
             animatorz.SetBool("StraftRight", true);
             animatorz.SetBool("isWalking", false);
             animatorz.SetBool("Backwards", false);
+            animatorz.SetBool("Sprint", false);
+            animatorz.SetBool("RunBack", false);
         } else {
-
+            animatorz.SetBool("StraftRight", StraftRight);
+            animatorz.SetBool("StraftLeft", StraftLeft);
+            animatorz.SetBool("Backwards", Backward);
+            animatorz.SetBool("isWalking", isWalkingPressed);
+            animatorz.SetBool("Sprint", isRunning);
+            animatorz.SetBool("RunBack", RunBackwards);
         }
-        animatorz.SetBool("isWalking", isWalkingPressed);
-        animatorz.SetBool("StraftRight", StraftRight);
-        animatorz.SetBool("StraftLeft", StraftLeft);
-        animatorz.SetBool("Backwards", Backward);
-        animatorz.SetBool("Sprint", isRunning);
-        animatorz.SetBool("RunBack", RunBackwards);
 
 		if (Input.GetKeyDown(KeyCode.R) && reloading && haswep && (wloss.currentWeaponAmmo < wloss.currentWeaponMaxAmmo)) {
             aiming = Aim;
