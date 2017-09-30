@@ -111,7 +111,7 @@ public class Playeranimations : NetworkBehaviour {
             if (outofaimrun) {
                 Change = true;
                 Aim = false;
-                animatorz.SetBool("Aim", Aim);
+               // animatorz.SetBool("Aim", Aim);
             }
             if (haswep) {
                 animatorz.Play("JumpWithGun");
@@ -124,7 +124,7 @@ public class Playeranimations : NetworkBehaviour {
             if (outofaimrun) {
                 Change = true;
                 Aim = false;
-                animatorz.SetBool("Aim", Aim);
+               // animatorz.SetBool("Aim", Aim);
             }
         }
         if (isDead.death == true) {
@@ -146,7 +146,7 @@ public class Playeranimations : NetworkBehaviour {
         if (Input.GetMouseButtonDown(1)) {
             Change = true;
             Aim = !Aim;
-            animatorz.SetBool("Aim", Aim);
+        //    animatorz.SetBool("Aim", Aim);
             if (wepout == 3) {
                 /*  if (Aim)
                       StartCoroutine(OnScoped());
@@ -158,7 +158,7 @@ public class Playeranimations : NetworkBehaviour {
                 if (outofaimrun) {
                     Change = true;
                     Aim = false;
-                    animatorz.SetBool("Aim", Aim);
+                  //  animatorz.SetBool("Aim", Aim);
                 }
             }
         }
