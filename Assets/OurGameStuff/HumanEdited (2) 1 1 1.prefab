@@ -3610,7 +3610,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1563336106517594}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -73.197754, y: 13.830605, z: -53.851448}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4813065340603144}
@@ -5649,8 +5649,9 @@ MonoBehaviour:
   isCrapGun: 0
   crappyGunObject: {fileID: 1859313212312494, guid: d327414ff9ae6da439f055323633f7cf,
     type: 2}
-  crappyMat: {fileID: 0}
-  standardMat: {fileID: 0}
+  crappyMat: {fileID: 2100000, guid: d263b5952df870d46be363ef65aba9b0, type: 2}
+  standardMat: {fileID: 2100000, guid: bfa420fd696c6c3429e4729eba7e3ce0, type: 2}
+  weaponMatChange: {fileID: 1827348312708950}
   currentWeaponPlayer: 0
   dropIt: 0
   Variables: {fileID: 0}

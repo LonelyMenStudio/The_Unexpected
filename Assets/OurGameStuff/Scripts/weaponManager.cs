@@ -84,6 +84,7 @@ public class weaponManager : NetworkBehaviour {
     public GameObject crappyGunObject;
     public Material crappyMat;
     public Material standardMat;
+    public GameObject weaponMatChange;
 
     [SyncVar]
     public int currentWeaponPlayer = 0;
@@ -362,7 +363,7 @@ public class weaponManager : NetworkBehaviour {
                 weaponhold.ikActive = true;
                 if (hit.transform.gameObject.name.Contains("alienrifle")) {
                     //hit.transform.gameObject.GetComponent<Material>(). = crappyMat;  change material  NOT hit stuff that wrong oops
-
+                    weaponMatChange.gameObject.GetComponent<Renderer>().material = standardMat;
                     replaceWeapon(hit);
                     changeWeapon(1);
                     isCrapGun = false;
@@ -398,6 +399,7 @@ public class weaponManager : NetworkBehaviour {
                 }
                 if (hit.transform.gameObject.name.Contains("crappyRifle")) {
                     //hit.transform.gameObject.GetComponent<Material>(). = crappyMat;  change material
+                    weaponMatChange.gameObject.GetComponent<Renderer>().material = crappyMat;
                     replaceWeapon(hit);
                     changeWeapon(1);
                     isCrapGun = true;
