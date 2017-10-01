@@ -7,12 +7,20 @@ public class BotMovement : MonoBehaviour {
     [SerializeField]
     Transform [] destination;
 
+    Animator animatorz;
+    public GameObject Rig;
     private bool Changelocation = true;
     NavMeshAgent navMeshAgent;
-    public int i;
-	// Use this for initialization
-	void Start () {
+    private int i;
+    private Vector3 tragetVector;
+    public float distance2;
+    public float Timegun; 
+    // Use this for initialization
+    void Start () {
+        animatorz = Rig.GetComponent<Animator>();
+        animatorz.SetBool("isWalking", true);
         i = Random.Range(0, destination.Length);
+        tragetVector = destination[i].transform.position;
         navMeshAgent = this.GetComponent<NavMeshAgent>();
 
         if (navMeshAgent == null) {
@@ -23,15 +31,18 @@ public class BotMovement : MonoBehaviour {
 	}
 	
     private void SetDestination() {
-       
+        distance2 = Vector3.Distance(transform.position, destination[i].transform.position);
         if ( destination != null) {
-            if (Changelocation == true) {
+            if ( distance2 <= 5) {
                 i = Random.Range(0, destination.Length);
-                Changelocation = false;
+                
             }
-
-            Vector3 tragetVector = destination[i].transform.position;
+            tragetVector = destination[i].transform.position;
             navMeshAgent.SetDestination(tragetVector);
         }
+    }
+    void Update() {
+        SetDestination();
+        Timegun += Time.deltaTime;
     }
 }
