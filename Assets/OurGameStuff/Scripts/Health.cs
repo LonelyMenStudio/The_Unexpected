@@ -37,7 +37,7 @@ public class Health : NetworkBehaviour {
     //private Color reset;
     private bool canSendKill = true;
     public string killMessage = "";
-    private string startKillMessage = "Died to Player ";
+    private string startKillMessage = "You have died!";
     UnityStandardAssets.Characters.FirstPerson.FirstPersonController con;
     private bool turnOffController = false;
     public GameObject deathPop;
@@ -157,7 +157,7 @@ public class Health : NetworkBehaviour {
         turnOffController = true;
         death = true;
         if (deathPop != null) {
-            killMessage = startKillMessage + tempDamageFrom;
+            killMessage = startKillMessage;
             deathText.text = killMessage;
             deathPop.SetActive(true);
         }
