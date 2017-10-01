@@ -55,7 +55,7 @@ public class PauseMenu : NetworkBehaviour {
     }
     [Command]
     private void CmdEndGame() {
-        this.gameObject.GetComponent<GameTimer>().gameTime = 0;
+        manager.gameObject.GetComponent<GameTimer>().gameTime = 0;
     }
 
 }
