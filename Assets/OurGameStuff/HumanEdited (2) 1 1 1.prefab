@@ -5646,6 +5646,11 @@ MonoBehaviour:
   hasDroppedOne: 0
   isSprinting: 0
   temp: 0
+  isCrapGun: 0
+  crappyGunObject: {fileID: 1859313212312494, guid: d327414ff9ae6da439f055323633f7cf,
+    type: 2}
+  crappyMat: {fileID: 0}
+  standardMat: {fileID: 0}
   currentWeaponPlayer: 0
   dropIt: 0
   Variables: {fileID: 0}
@@ -5988,6 +5993,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rig: {fileID: 1563336106517594}
   wep: {fileID: 0}
+  lossWep: 0
   Aim: 0
   player: {fileID: 1563336106517594}
   Variables: {fileID: 0}
