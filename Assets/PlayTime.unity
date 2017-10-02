@@ -27414,17 +27414,27 @@ Prefab:
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 76e4a7666d52fe340a8cdfb9a012abf3, type: 2}
+      objectReference: {fileID: 2100000, guid: 2be667725c808554bad8e7598021acd5, type: 2}
     - target: {fileID: 137947527839534348, guid: eb7e33beff171d94888f0078d3320cd9,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 76e4a7666d52fe340a8cdfb9a012abf3, type: 2}
+      objectReference: {fileID: 2100000, guid: 2be667725c808554bad8e7598021acd5, type: 2}
     - target: {fileID: 137406996508826952, guid: eb7e33beff171d94888f0078d3320cd9,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 74498e0244698f4418451d48ab2351b6, type: 2}
+      objectReference: {fileID: 2100000, guid: 330673943fc17dc4fa9207b682f19878, type: 2}
+    - target: {fileID: 137985802102236304, guid: eb7e33beff171d94888f0078d3320cd9,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fb52abd17ea2f4441973e7d7920d0bed, type: 2}
+    - target: {fileID: 137209641474590506, guid: eb7e33beff171d94888f0078d3320cd9,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 18dfa9063e241ab4ca968be7cb65f364, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb7e33beff171d94888f0078d3320cd9, type: 2}
   m_IsPrefabParent: 0
@@ -49574,7 +49584,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 18, y: -151.00002}
+  m_AnchoredPosition: {x: 18, y: -150.99998}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &675573273
@@ -56796,11 +56806,44 @@ MonoBehaviour:
   - {fileID: 472873682}
   - {fileID: 1300504880}
   - {fileID: 968507070}
+  leftUpperArm: {fileID: 0}
+  leftForearm: {fileID: 0}
+  leftHand2: {fileID: 0}
+  leftElbow: {fileID: 0}
+  leftTarget: {fileID: 0}
+  leftUpperArm_OffsetRotation: {x: 0, y: 0, z: 0}
+  leftForearm_OffsetRotation: {x: 0, y: 0, z: 0}
+  leftHand_OffsetRotation: {x: 0, y: 0, z: 0}
+  lefHandMatchesTargetRotation: 1
+  leftDebug: 0
+  upperArm: {fileID: 0}
+  forearm: {fileID: 0}
+  hand: {fileID: 0}
+  elbow: {fileID: 0}
+  target: {fileID: 0}
+  uppperArm_OffsetRotation: {x: 0, y: 0, z: 0}
+  forearm_OffsetRotation: {x: 0, y: 0, z: 0}
+  hand_OffsetRotation: {x: 0, y: 0, z: 0}
+  handMatchesTargetRotation: 1
+  debug: 0
+  R1: {fileID: 0}
+  L1: {fileID: 0}
+  DL: {fileID: 0}
+  DR: {fileID: 0}
+  rightHandObj: {fileID: 0}
+  animator: {fileID: 0}
   Rig: {fileID: 0}
   distance2: 0
   Timegun: 0
   BotsCrappygun: {fileID: 0}
   botcam: {fileID: 0}
+  counter: 0
+  shotParticle: {fileID: 0}
+  BotHealth: 100
+  spawn: []
+  righthand: {fileID: 0}
+  rightHand: 3
+  leftHand: 2
 --- !u!114 &796358688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80852,7 +80895,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0.000030517578, y: 221.99988}
+  m_AnchoredPosition: {x: 0.000030517578, y: 221.99986}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1244740755
@@ -110458,7 +110501,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: -224.99988}
+  m_AnchoredPosition: {x: 0.000061035156, y: -224.99986}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1819572767
