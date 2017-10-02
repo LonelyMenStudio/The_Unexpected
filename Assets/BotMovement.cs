@@ -100,10 +100,6 @@ public class BotMovement : MonoBehaviour {
         tragetVector = destination[i].transform.position;
         navMeshAgent = this.GetComponent<NavMeshAgent>();
         botcam = transform.Find("BotCam").gameObject;
-        int Pcount = Playerz.Count;
-        if(Pcount > 1) {
-            Destroy(gameObject);
-        }
         if (navMeshAgent == null) {
             Debug.LogError("The nav mesh agent compnent is not attached to" + gameObject.name);
         }else {
@@ -158,7 +154,12 @@ public class BotMovement : MonoBehaviour {
             }
         }
     }
+
     void Update() {
+      /*  int Pcount = Playerz.Count;
+        if (Pcount > 1) {
+            Destroy(gameObject);
+        }*/
         if (!hasgun) {
             animatorz.SetBool("isWalking", true);
         } else {

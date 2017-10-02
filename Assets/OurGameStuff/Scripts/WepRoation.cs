@@ -9,6 +9,7 @@ public class WepRoation : MonoBehaviour {
     private float smooth = 2.0f;
     private float tiltAngle = 5.0f;
     private float floatingStrength = 0.03f;
+    public GameObject gun;
 	// Use this for initialization
 	void Start () {
         floatup = false;
@@ -30,17 +31,17 @@ public class WepRoation : MonoBehaviour {
         transform.rotation = Quaternion.Slerp(transform.rotation, target, Time.deltaTime * smooth);
     }
     void floatingup() {
-        float currentx = transform.position.x;
-        float currenty = transform.position.y;
-        float currentz = transform.position.z;
-        transform.position = new Vector3(currentx, currenty + ((float)Mathf.Sin(Time.time) * floatingStrength), currentz);
+        float currentx = gun.transform.position.x;
+        float currenty = gun.transform.position.y;
+        float currentz = gun.transform.position.z;
+        gun.transform.position = new Vector3(currentx, currenty + ((float)Mathf.Sin(Time.time) * floatingStrength), currentz);
         StartCoroutine(Floating());
         floatup = false;
     }
     void floatingdown() {
-        float currentx = transform.position.x;
-        float currenty = transform.position.y;
-        float currentz = transform.position.z;
+        float currentx = gun.transform.position.x;
+        float currenty = gun.transform.position.y;
+        float currentz = gun.transform.position.z;
         //transform.position = new Vector3(currentx, currenty - ((float)Mathf.Sin(Time.time) * floatingStrength), currentz);
         StartCoroutine(Floating());
         floatup = true;
