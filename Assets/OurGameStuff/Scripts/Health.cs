@@ -235,9 +235,12 @@ public class Health : NetworkBehaviour {
             //turnOffController = true;
         }
     }
+    public void ouch() {
+        CmdTestDamage();
+    }
     [Command]
     void CmdTestDamage() {
-        Healthz = Healthz - 50;
+        Healthz = Healthz - 5;
     }
 
     [Command]

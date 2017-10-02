@@ -31,6 +31,8 @@ TagManager:
   - Sniper1
   - Crystal
   - Connected
+  - Grass
+  - Bot
   layers:
   - Default
   - TransparentFX

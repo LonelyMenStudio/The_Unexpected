@@ -743,6 +743,10 @@ public class weaponManager : NetworkBehaviour {
             if (hit2.transform.tag == "Crystal") {
                 prepareDamageCrystal(hit2.transform.gameObject, AkDamage);
             }
+            if (hit2.transform.tag == "Bot") {
+                BotMovement call = hit2.transform.gameObject.GetComponent<BotMovement>();
+                call.TakeDamage(AkDamage);
+            }
 
         } else if (weaponOut == 2) {
             for (int i = 0; i < Shotgunshells; i++) {
@@ -777,6 +781,11 @@ public class weaponManager : NetworkBehaviour {
                     if (hit3.transform.tag == "Crystal") {
                         prepareDamageCrystal(hit3.transform.gameObject, ShotgunDmg);
                     }
+                    if (hit3.transform.tag == "Bot") {
+                        BotMovement call = hit3.transform.gameObject.GetComponent<BotMovement>();
+                        call.TakeDamage(ShotgunDmg);
+                    }
+
                 }
             }
         } else if (weaponOut == 3 && Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit2)) {
@@ -803,6 +812,10 @@ public class weaponManager : NetworkBehaviour {
             }
             if (hit2.transform.tag == "Crystal") {
                 prepareDamageCrystal(hit2.transform.gameObject, sniperDmg);
+            }
+            if (hit2.transform.tag == "Bot") {
+                BotMovement call = hit2.transform.gameObject.GetComponent<BotMovement>();
+                call.TakeDamage( sniperDmg);
             }
         } else {
             Debug.Log("Missed player");
