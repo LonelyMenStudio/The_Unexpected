@@ -233,9 +233,10 @@ public class BotMovement : MonoBehaviour {
         }
     }
                 void lookatplayer() {
-                    Quaternion rotation = Quaternion.LookRotation(Playerz[0].transform.position - transform.position);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime);
-                }
+        botcam.transform.rotation = Quaternion.Slerp(botcam.transform.rotation, Quaternion.LookRotation(Playerz[0].transform.position - botcam.transform.position), 3*Time.deltaTime);
+                 //   Quaternion rotation = Quaternion.LookRotation(Playerz[0].transform.position - botcam.transform.position);
+                 //  transform.rotation = Quaternion.Slerp(botcam.transform.rotation, rotation, 3 * Time.deltaTime);
+    }
     void HandStuff(Vector3 psi, Quaternion rot) {
         SwitchWeapon(psi, rot);
 
