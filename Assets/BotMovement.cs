@@ -87,6 +87,11 @@ public class BotMovement : MonoBehaviour {
 
     public AvatarIKGoal rightHand = AvatarIKGoal.RightHand;
     public AvatarIKGoal leftHand = AvatarIKGoal.LeftHand;
+
+	public AudioSource ded;
+	private bool isDed = false;
+	public AudioSource clem;
+
     // Use this for initialization
     void Start () {
         
@@ -115,6 +120,10 @@ public class BotMovement : MonoBehaviour {
         if (BotHealth <= 0) {
             BotHealth = 0;
             animatorz.Play("Death");
+			if (!isDed) {
+				ded.Play ();
+				isDed = true;
+			}
             StartCoroutine(died());
         }
     }
@@ -213,6 +222,7 @@ public class BotMovement : MonoBehaviour {
                             call.ouch();
                             //Instantiate(shotParticle, botcam.transform.position, botcam.transform.rotation);
                             shotParticle.Play();
+							clem.Play ();
                             //shoot the player
                         
                     }
@@ -241,6 +251,7 @@ public class BotMovement : MonoBehaviour {
         int indexspawn = Random.Range(0, spawn.Length);
         transform.position = spawn[indexspawn].transform.position;
         BotHealth = 100;
+		isDed = false;
     }
     // Update is called once per frame
     void LateUpdate() {
