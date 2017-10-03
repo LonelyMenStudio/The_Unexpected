@@ -1,0 +1,271 @@
+fileFormatVersion: 2
+guid: 3e5097bd81fdc954bbb0c361470d8533
+timeCreated: 1507006246
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Camera
+    100002: Cube.004
+    100004: Empty
+    100006: L Tracker Holder
+    100008: L Tracker Holder.001
+    100010: Lamp
+    100012: Left Wheel 1
+    100014: Left Wheel 2
+    100016: Left Wheel 3
+    100018: Left Wheel 4
+    100020: Left Wheel 5
+    100022: Left Wheel 6
+    100024: Left Wheel Back
+    100026: Left Wheel forward
+    100028: Light
+    100030: Light 2
+    100032: Light1
+    100034: M Gun
+    100036: M Gun Extra Magazine
+    100038: M Gun Extra Magazine 3
+    100040: M Gun Holder
+    100042: 'M Gun Holder(rotate H) '
+    100044: M Gun Magazine
+    100046: Main Gun
+    100048: Main Gun Rotator
+    100050: Main Gun Rotator.001
+    100052: Main Gun Rotator.002
+    100054: Plane
+    100056: Radio
+    100058: Radio.001
+    100060: Right Wheel 1
+    100062: Right Wheel 2
+    100064: Right Wheel 3
+    100066: Right Wheel 4
+    100068: Right Wheel 5
+    100070: Right Wheel 6
+    100072: Right Wheel back
+    100074: Right Wheel Forward
+    100076: //RootNode
+    100078: Tank Body
+    100080: Track L
+    100082: Track R
+    100084: Turret
+    400000: Camera
+    400002: Cube.004
+    400004: Empty
+    400006: L Tracker Holder
+    400008: L Tracker Holder.001
+    400010: Lamp
+    400012: Left Wheel 1
+    400014: Left Wheel 2
+    400016: Left Wheel 3
+    400018: Left Wheel 4
+    400020: Left Wheel 5
+    400022: Left Wheel 6
+    400024: Left Wheel Back
+    400026: Left Wheel forward
+    400028: Light
+    400030: Light 2
+    400032: Light1
+    400034: M Gun
+    400036: M Gun Extra Magazine
+    400038: M Gun Extra Magazine 3
+    400040: M Gun Holder
+    400042: 'M Gun Holder(rotate H) '
+    400044: M Gun Magazine
+    400046: Main Gun
+    400048: Main Gun Rotator
+    400050: Main Gun Rotator.001
+    400052: Main Gun Rotator.002
+    400054: Plane
+    400056: Radio
+    400058: Radio.001
+    400060: Right Wheel 1
+    400062: Right Wheel 2
+    400064: Right Wheel 3
+    400066: Right Wheel 4
+    400068: Right Wheel 5
+    400070: Right Wheel 6
+    400072: Right Wheel back
+    400074: Right Wheel Forward
+    400076: //RootNode
+    400078: Tank Body
+    400080: Track L
+    400082: Track R
+    400084: Turret
+    2300000: Cube.004
+    2300002: L Tracker Holder
+    2300004: L Tracker Holder.001
+    2300006: Left Wheel 1
+    2300008: Left Wheel 2
+    2300010: Left Wheel 3
+    2300012: Left Wheel 4
+    2300014: Left Wheel 5
+    2300016: Left Wheel 6
+    2300018: Left Wheel Back
+    2300020: Left Wheel forward
+    2300022: Light
+    2300024: Light 2
+    2300026: Light1
+    2300028: M Gun
+    2300030: M Gun Extra Magazine
+    2300032: M Gun Extra Magazine 3
+    2300034: M Gun Holder
+    2300036: 'M Gun Holder(rotate H) '
+    2300038: M Gun Magazine
+    2300040: Main Gun
+    2300042: Plane
+    2300044: Radio
+    2300046: Radio.001
+    2300048: Right Wheel 1
+    2300050: Right Wheel 2
+    2300052: Right Wheel 3
+    2300054: Right Wheel 4
+    2300056: Right Wheel 5
+    2300058: Right Wheel 6
+    2300060: Right Wheel back
+    2300062: Right Wheel Forward
+    2300064: Tank Body
+    2300066: Track L
+    2300068: Track R
+    2300070: Turret
+    3300000: Cube.004
+    3300002: L Tracker Holder
+    3300004: L Tracker Holder.001
+    3300006: Left Wheel 1
+    3300008: Left Wheel 2
+    3300010: Left Wheel 3
+    3300012: Left Wheel 4
+    3300014: Left Wheel 5
+    3300016: Left Wheel 6
+    3300018: Left Wheel Back
+    3300020: Left Wheel forward
+    3300022: Light
+    3300024: Light 2
+    3300026: Light1
+    3300028: M Gun
+    3300030: M Gun Extra Magazine
+    3300032: M Gun Extra Magazine 3
+    3300034: M Gun Holder
+    3300036: 'M Gun Holder(rotate H) '
+    3300038: M Gun Magazine
+    3300040: Main Gun
+    3300042: Plane
+    3300044: Radio
+    3300046: Radio.001
+    3300048: Right Wheel 1
+    3300050: Right Wheel 2
+    3300052: Right Wheel 3
+    3300054: Right Wheel 4
+    3300056: Right Wheel 5
+    3300058: Right Wheel 6
+    3300060: Right Wheel back
+    3300062: Right Wheel Forward
+    3300064: Tank Body
+    3300066: Track L
+    3300068: Track R
+    3300070: Turret
+    4300000: Tank Body
+    4300002: Left Wheel 1
+    4300004: Right Wheel Forward
+    4300006: Left Wheel 6
+    4300008: Right Wheel 6
+    4300010: Right Wheel 5
+    4300012: Left Wheel 5
+    4300014: Left Wheel 4
+    4300016: Right Wheel 4
+    4300018: Right Wheel 3
+    4300020: Left Wheel 3
+    4300022: Left Wheel 2
+    4300024: Right Wheel 2
+    4300026: Right Wheel 1
+    4300028: Left Wheel Back
+    4300030: Right Wheel back
+    4300032: L Tracker Holder.001
+    4300034: Track R
+    4300036: M Gun
+    4300038: M Gun Magazine
+    4300040: 'M Gun Holder(rotate H) '
+    4300042: M Gun Holder
+    4300044: M Gun Extra Magazine
+    4300046: M Gun Extra Magazine 3
+    4300048: Radio.001
+    4300050: Main Gun
+    4300052: Turret
+    4300054: Light
+    4300056: Light 2
+    4300058: Light1
+    4300060: Cube.004
+    4300062: Radio
+    4300064: L Tracker Holder
+    4300066: Track L
+    4300068: Left Wheel forward
+    4300070: Plane
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
