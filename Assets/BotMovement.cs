@@ -156,10 +156,10 @@ public class BotMovement : MonoBehaviour {
     }
 
     void Update() {
-      /*  int Pcount = Playerz.Count;
+        int Pcount = pManager.Players.Count;
         if (Pcount > 1) {
             Destroy(gameObject);
-        }*/
+        }
         if (!hasgun) {
             animatorz.SetBool("isWalking", true);
         } else {
