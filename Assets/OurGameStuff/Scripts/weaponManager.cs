@@ -373,8 +373,8 @@ public class weaponManager : NetworkBehaviour {
             if (hit.transform.tag == "weapon") {
                 weaponhold.ikActive = true;
                 if (hit.transform.gameObject.name.Contains("alienrifle")) {
+                    weaponMatChange.gameObject.GetComponent<Renderer>().material = standardMat;
                     CmdSetCrappyTexture(false);
-                    //weaponMatChange.gameObject.GetComponent<Renderer>().material = standardMat;
                     replaceWeapon(hit);
                     changeWeapon(1);
                     isCrapGun = false;
@@ -409,8 +409,8 @@ public class weaponManager : NetworkBehaviour {
                     Gunout3.SetActive(true);
                 }
                 if (hit.transform.gameObject.name.Contains("crappyRifle")) {
+                    weaponMatChange.gameObject.GetComponent<Renderer>().material = crappyMat;
                     CmdSetCrappyTexture(true);
-                    //weaponMatChange.gameObject.GetComponent<Renderer>().material = crappyMat;
                     replaceWeapon(hit);
                     changeWeapon(1);
                     isCrapGun = true;
@@ -826,7 +826,7 @@ public class weaponManager : NetworkBehaviour {
             }
             if (hit2.transform.tag == "Bot") {
                 BotMovement call = hit2.transform.gameObject.GetComponent<BotMovement>();
-                call.TakeDamage( sniperDmg);
+                call.TakeDamage(sniperDmg);
             }
         } else {
             Debug.Log("Missed player");
