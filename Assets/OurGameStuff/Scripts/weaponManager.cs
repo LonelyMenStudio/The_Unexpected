@@ -90,6 +90,8 @@ public class weaponManager : NetworkBehaviour {
     public int currentWeaponPlayer = 0;
     [SyncVar]
     public bool dropIt = false;
+    [SyncVar]
+    private bool crappyTexture = false;
 
     private bool inWeaponSelect = true;
     private bool selectionDone = false;
@@ -179,9 +181,18 @@ public class weaponManager : NetworkBehaviour {
     void CmdSetWeaponPlayer(int setTo) {
         currentWeaponPlayer = setTo;
     }
+    [Command]
+    void CmdSetCrappyTexture(bool i) {
+        crappyTexture = i;
+    }
 
     // Update is called once per frame
     void Update() {
+        if (crappyTexture) {
+            weaponMatChange.gameObject.GetComponent<Renderer>().material = crappyMat;
+        } else {
+            weaponMatChange.gameObject.GetComponent<Renderer>().material = standardMat;
+        }
         if (!isLocalPlayer) {
             return;
         }
@@ -362,8 +373,8 @@ public class weaponManager : NetworkBehaviour {
             if (hit.transform.tag == "weapon") {
                 weaponhold.ikActive = true;
                 if (hit.transform.gameObject.name.Contains("alienrifle")) {
-                    //hit.transform.gameObject.GetComponent<Material>(). = crappyMat;  change material  NOT hit stuff that wrong oops
-                    weaponMatChange.gameObject.GetComponent<Renderer>().material = standardMat;
+                    CmdSetCrappyTexture(false);
+                    //weaponMatChange.gameObject.GetComponent<Renderer>().material = standardMat;
                     replaceWeapon(hit);
                     changeWeapon(1);
                     isCrapGun = false;
@@ -398,8 +409,8 @@ public class weaponManager : NetworkBehaviour {
                     Gunout3.SetActive(true);
                 }
                 if (hit.transform.gameObject.name.Contains("crappyRifle")) {
-                    //hit.transform.gameObject.GetComponent<Material>(). = crappyMat;  change material
-                    weaponMatChange.gameObject.GetComponent<Renderer>().material = crappyMat;
+                    CmdSetCrappyTexture(true);
+                    //weaponMatChange.gameObject.GetComponent<Renderer>().material = crappyMat;
                     replaceWeapon(hit);
                     changeWeapon(1);
                     isCrapGun = true;
