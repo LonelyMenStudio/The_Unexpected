@@ -45,7 +45,7 @@ public class InverseKinematics : NetworkBehaviour {
     float adyacent;
     private weaponManager weapon;
     private int currentWeapon;
-    public GameObject L1, R1, Re1, Le1, RL1, RR1, L2, R2, Re2, Le2 , L3, R3, Re3, Le3, DL, DR;
+    public GameObject L1, R1, Re1, Le1, RL1, RR1, L2, R2, Re2, Le2 , L3, R3, Re3, Le3, BW,BW2, BW3,  DL, DR;
     private bool onceAfterStop = false;
     private Playeranimations aim;
 
@@ -73,7 +73,10 @@ public class InverseKinematics : NetworkBehaviour {
         onceAfterStop = true;
         currentWeapon = weapon.weaponOut;
         if (currentWeapon == 1) {
-            if (!aim.Aim) {
+            if (!aim.Aim && aim.backactive) {
+                target = BW.transform;
+                leftTarget = L1.transform;
+            } else if (!aim.Aim && !aim.backactive) { 
                 target = R1.transform;
                 leftTarget = L1.transform;
             }else if (aim.Aim) {
@@ -85,19 +88,24 @@ public class InverseKinematics : NetworkBehaviour {
                 leftTarget = RR1.transform;
             }
         } else if (currentWeapon == 3) {
-            if (!aim.Aim) {
+            if (!aim.Aim && aim.backactive) {
+                target = BW2.transform;
+                leftTarget = L2.transform;
+            } else if (!aim.Aim && !aim.backactive) {
                 target = R2.transform;
                 leftTarget = L2.transform;
-            }
-            else if (aim.Aim) {
+            } else if (aim.Aim) {
                 target = Re2.transform;
                 leftTarget = Le2.transform;
             }
         } else if (currentWeapon == 2) {
-            if (!aim.Aim) {
+            if (!aim.Aim && aim.backactive) {
+                target = BW3.transform;
+                leftTarget = L3.transform;
+            } else if (!aim.Aim && !aim.backactive) {
                 target = R3.transform;
                 leftTarget = L3.transform;
-            }else if (aim.Aim) {
+            } else if (aim.Aim) {
                 target = Re3.transform;
                 leftTarget = Le3.transform;
             }

@@ -32,6 +32,9 @@ public class Playeranimations : NetworkBehaviour {
     private IKControl resetlerp;
     private bool aiming;
     public bool outofaimrun;
+    public bool Backward;
+    public bool RunBackwards;
+    public bool backactive;
     void Awake() {
         Variables = GameObject.FindWithTag("Start");
     }
@@ -66,13 +69,14 @@ public class Playeranimations : NetworkBehaviour {
         bool isRunning = Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W);
         bool StraftRight = Input.GetKey(KeyCode.D);
         bool StraftLeft = Input.GetKey(KeyCode.A);
-        bool Backward = Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.LeftShift);
-        bool RunBackwards = Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.S);
+        Backward = Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.LeftShift);
+        RunBackwards = Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.S);
         bool KeyCrossing = Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.W);
         bool KeyCrossing2 = Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.W);
         bool KeyCrossing3 = Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.S);
         bool KeyCrossing4 = Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.S);
 
+        backactive = Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D);
 
         animatorz.SetBool("HasWep", haswep);
 
@@ -98,7 +102,31 @@ public class Playeranimations : NetworkBehaviour {
             animatorz.SetBool("RunBack", RunBackwards);
         }
 
-		if (Input.GetKeyDown(KeyCode.R) && reloading && haswep && (wloss.currentWeaponAmmo < wloss.currentWeaponMaxAmmo)) {
+       if (Input.GetKeyDown(KeyCode.S)) {
+            Change = true;
+        }
+        if (Input.GetKeyDown(KeyCode.LeftShift)){
+            Change = true;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift)) {
+            Change = true;
+        }
+        if (Input.GetKeyUp(KeyCode.S)) {
+            Change = true;
+        }
+        if (Input.GetKeyUp(KeyCode.A)) {
+            Change = true;
+        }
+        if (Input.GetKeyUp(KeyCode.D)) {
+            Change = true;
+        }
+        if (Input.GetKeyDown(KeyCode.A)) {
+            Change = true;
+        }
+        if (Input.GetKeyDown(KeyCode.D)) {
+            Change = true;
+        }
+        if (Input.GetKeyDown(KeyCode.R) && reloading && haswep && (wloss.currentWeaponAmmo < wloss.currentWeaponMaxAmmo)) {
             aiming = Aim;
             if (aiming) {
                 Aim = false;

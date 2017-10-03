@@ -32,12 +32,15 @@ public class IKControl : NetworkBehaviour {
     private List<GameObject> Playerz;
     private PlayerAssignGet player;
     public int playerno;
+    public GameObject Backwards;
     Vector3 Notaimpos;
     Vector3 aimpos;
     Vector3 repos;
+    Vector3 backwards;
     Quaternion Notaimrot;
     Quaternion aimrot;
     Quaternion reloadrot;
+    Quaternion backwardsrot;
     public int Hands;
     private InverseKinematics handsIK;
 
@@ -102,6 +105,8 @@ public class IKControl : NetworkBehaviour {
                     aimrot = righthandaim.transform.rotation;
                     repos = reloadpos.transform.position;
                     reloadrot = reloadpos.transform.rotation;
+                    backwards = Backwards.transform.position;
+                    backwardsrot = Backwards.transform.rotation;
                     // MoveFrompos = righthand.transform.position;
                     // Movetopos = righthandaim.transform.position;
                     if (aim.Change == true) {
@@ -121,7 +126,10 @@ public class IKControl : NetworkBehaviour {
                         aim.outofaimrun = false;
                     }
                     float Perc = currentlerp / lerpTime;
-                    if (!aim.Aim && aim.reloading) {
+                    if (aim.backactive && aim.reloading && !aim.Aim) {
+                        HandStuff(weapon.weaponOut, backwards, backwardsrot, Perc);
+                    }
+                     else if (!aim.Aim && aim.reloading && !aim.backactive) {
                         // movingTo = true;
 
                         HandStuff(weapon.weaponOut, Notaimpos, Notaimrot, Perc);
