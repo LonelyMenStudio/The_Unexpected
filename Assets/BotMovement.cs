@@ -83,6 +83,7 @@ public class BotMovement : MonoBehaviour {
     Vector3 Notaimpos;
     public GameObject righthand;
     public float TimetolosePlayer;
+    private bool standstill = false;
 
     public AvatarIKGoal rightHand = AvatarIKGoal.RightHand;
     public AvatarIKGoal leftHand = AvatarIKGoal.LeftHand;
@@ -163,11 +164,15 @@ public class BotMovement : MonoBehaviour {
         if (Pcount > 1) {
             Destroy(gameObject);
         }
-        if (!hasgun) {
+        if (!standstill ) {
             animatorz.SetBool("isWalking", true);
-        } else {
+        } else if (standstill) {
+            animatorz.SetBool("isWalking", false);
+        }
+        if (hasgun){
             animatorz.SetBool("HasWep", true);
         }
+        
         Timegun += Time.deltaTime;
         if (Timegun >= BotGetsGunAT) {
             BotsCrappygun.SetActive(true);
@@ -194,6 +199,9 @@ public class BotMovement : MonoBehaviour {
             if (playerfound) {
                 if (distancefromplayer > 10) {
                     SetDestination();
+                    standstill = false;
+                }else {
+                    standstill = true; 
                 }
                     lookatplayer();
                 int currentplayerhealth= Playerz[0].GetComponent<Health>().Healthz;
