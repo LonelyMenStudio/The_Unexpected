@@ -82,6 +82,7 @@ public class BotMovement : MonoBehaviour {
     Quaternion Notaimrot;
     Vector3 Notaimpos;
     public GameObject righthand;
+    public float TimetolosePlayer;
 
     public AvatarIKGoal rightHand = AvatarIKGoal.RightHand;
     public AvatarIKGoal leftHand = AvatarIKGoal.LeftHand;
@@ -108,6 +109,8 @@ public class BotMovement : MonoBehaviour {
 	}
     public void TakeDamage(float Damage) {
         BotHealth -= Damage;
+        playerfound = true;
+        TimetolosePlayer = counter;
         if (BotHealth <= 0) {
             BotHealth = 0;
             animatorz.Play("Death");
@@ -183,21 +186,31 @@ public class BotMovement : MonoBehaviour {
             distancefromplayer = Vector3.Distance(transform.position, Playerz[0].transform.position);
             if (distancefromplayer <= 50) {
                 playerfound = true;
+                TimetolosePlayer = counter;
+            }else if (distancefromplayer > 50 && TimetolosePlayer + 5 <= counter){
+                playerfound = false;
             }
+           
             if (playerfound) {
-                lookatplayer();
-                SetDestination();
+                if (distancefromplayer > 10) {
+                    SetDestination();
+                }
+                    lookatplayer();
+                int currentplayerhealth= Playerz[0].GetComponent<Health>().Healthz;
                 RaycastHit hit2;
-                if (Physics.Raycast(botcam.transform.position, botcam.transform.forward, out hit2) && counter > delayTime) {
-                    if (hit2.transform.tag == "Player") {
-                        counter = 0;
-                        Health call = hit2.transform.gameObject.GetComponent<Health>();
-                        call.ouch();
-                        //Instantiate(shotParticle, botcam.transform.position, botcam.transform.rotation);
-                        shotParticle.Play();
-                        //shoot the player
+                    if (Physics.Raycast(botcam.transform.position, botcam.transform.forward, out hit2) && counter > delayTime && currentplayerhealth > 0) {
+                        if (hit2.transform.tag == "Player") {
+                            counter = 0;
+                            Health call = hit2.transform.gameObject.GetComponent<Health>();
+                            call.ouch();
+                            //Instantiate(shotParticle, botcam.transform.position, botcam.transform.rotation);
+                            shotParticle.Play();
+                            //shoot the player
+                        
                     }
                 }
+            } else {
+
             }
         }
     }
