@@ -98,7 +98,7 @@ NavMeshSettings:
     agentRadius: 0.4
     agentHeight: 2
     agentSlope: 60
-    agentClimb: 2
+    agentClimb: 1.5
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
@@ -28463,7 +28463,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 35, y: -399.99997}
+  m_AnchoredPosition: {x: 35, y: -400}
   m_SizeDelta: {x: 689, y: 343.93616}
   m_Pivot: {x: 0, y: 0}
 --- !u!223 &570422270
