@@ -206,7 +206,7 @@ public class BotMovement : MonoBehaviour {
             }
            
             if (playerfound) {
-                if (distancefromplayer > 10) {
+                if (distancefromplayer > 5) {
                     SetDestination();
                     standstill = false;
                 }else {
@@ -233,7 +233,7 @@ public class BotMovement : MonoBehaviour {
         }
     }
                 void lookatplayer() {
-        botcam.transform.rotation = Quaternion.Slerp(botcam.transform.rotation, Quaternion.LookRotation(Playerz[0].transform.position - botcam.transform.position), 3*Time.deltaTime);
+        botcam.transform.rotation = Quaternion.Slerp(botcam.transform.rotation, Quaternion.LookRotation(Playerz[0].transform.position - botcam.transform.position), 2*Time.deltaTime);
                  //   Quaternion rotation = Quaternion.LookRotation(Playerz[0].transform.position - botcam.transform.position);
                  //  transform.rotation = Quaternion.Slerp(botcam.transform.rotation, rotation, 3 * Time.deltaTime);
     }
