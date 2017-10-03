@@ -44,6 +44,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 		private bool canDoubleJump = true;
 
+		private float AbsAngleFalloff = 20.0f;
+
         // Use this for initialization
         private void Start()
         {
@@ -70,8 +72,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
             } else {
                 this.gameObject.GetComponent<weaponManager>().isSprinting = false;
             }
-
             RotateView();
+				
+				//m_Camera.transform.rotation = (1 - AbsAngleOffset);
+			
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump)
             {
@@ -107,6 +111,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             float speed;
             GetInput(out speed);
+
             // always move along the camera forward as it is the direction that it being aimed at
             Vector3 desiredMove = transform.forward*m_Input.y/2 + transform.right*m_Input.x;
 
@@ -224,7 +229,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // Read input
             float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
             float vertical = CrossPlatformInputManager.GetAxis("Vertical");
-
             bool waswalking = m_IsWalking;
 
 #if !MOBILE_INPUT
@@ -255,6 +259,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void RotateView()
         {
             m_MouseLook.LookRotation (transform, m_Camera.transform);
+			//print (m_Camera.transform.localEulerAngles.x);
+			if ((m_Camera.transform.localEulerAngles.x < (270 + AbsAngleFalloff)) && m_Camera.transform.localEulerAngles.x >= 270)  {
+				m_Camera.transform.localEulerAngles = new Vector3 ((270 + AbsAngleFalloff), 0, 0);
+			} 
+			if ((m_Camera.transform.localEulerAngles.x > (90 - AbsAngleFalloff)) && m_Camera.transform.localEulerAngles.x <= 90) {
+				m_Camera.transform.localEulerAngles = new Vector3 ((90 - AbsAngleFalloff), 0, 0);
+			}
         }
 
 
