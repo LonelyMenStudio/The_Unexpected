@@ -19028,6 +19028,7 @@ MonoBehaviour:
   playerStats: {fileID: 0}
   pauseMenu: {fileID: 0}
   inGameControls: {fileID: 0}
+  theCanvas: {fileID: 0}
 --- !u!1001 &388301015
 Prefab:
   m_ObjectHideFlags: 0
@@ -28463,7 +28464,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 35, y: -399.99997}
+  m_AnchoredPosition: {x: 35, y: -400}
   m_SizeDelta: {x: 689, y: 343.93616}
   m_Pivot: {x: 0, y: 0}
 --- !u!223 &570422270
@@ -57237,7 +57238,7 @@ MonoBehaviour:
   HUGgun5: {fileID: 1825248679}
   HUGgun6: {fileID: 289149244}
   Players: []
-  ErrorText: {fileID: 0}
+  ErrorText: {fileID: 2069648527}
   WeaponText: {fileID: 2045433497}
   lookingforweapon: 0
   Foundwep: 0
@@ -57248,6 +57249,7 @@ MonoBehaviour:
   playerStats: {fileID: 768760683}
   pauseMenu: {fileID: 1955476090}
   inGameControls: {fileID: 570422268}
+  theCanvas: {fileID: 386161234}
 --- !u!4 &1180721780
 Transform:
   m_ObjectHideFlags: 0
@@ -59268,7 +59270,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0.000030517578, y: 221.99986}
+  m_AnchoredPosition: {x: 0.000030517578, y: 221.99988}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1244740755
@@ -84809,7 +84811,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: -224.99986}
+  m_AnchoredPosition: {x: 0.000061035156, y: -224.99988}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1819572767

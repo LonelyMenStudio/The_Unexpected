@@ -47,13 +47,14 @@ public class PrepPhase : MonoBehaviour {
     public GameObject playerStats;
     public GameObject pauseMenu;
     public GameObject inGameControls;
+    public GameObject theCanvas;
 
     // Use this for initialization
     void Start() {
         // Scopein.SetActive(false);
         text = timer.GetComponent<Text>();
         assignTime = this.gameObject.GetComponent<PlayerManager>();
-        ErrorText = GameObject.FindWithTag("ErrorText");
+        // ErrorText = GameObject.FindWithTag("ErrorText");
         // WeaponText = GameObject.FindWithTag("Connected");
         ErrorText.SetActive(false);
         WeaponText.SetActive(false);

@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 
 public class Health : NetworkBehaviour {
 
-    private const bool TESTING = false;
+    private const bool TESTING = true;
     public GameObject respawn;
     private const int maxHealth = 100;
     public Image Healthbar;
@@ -48,10 +48,12 @@ public class Health : NetworkBehaviour {
     public GameObject deathCam;
     private Playeranimations aim;
     private float lowHealthThreshold = 0.33f;
-	public AudioSource lowHealthSound;
-	public AudioSource deathSound;
-	private bool canPlayDeathSound = true;
-	private int tempHP;
+    public AudioSource lowHealthSound;
+    public AudioSource deathSound;
+    private bool canPlayDeathSound = true;
+    private int tempHP;
+    private GameObject theCanvas;
+    private bool sw = true;
 
     [SyncVar(hook = "OnChangeHealth")]
     public int Healthz = maxHealth;
@@ -88,6 +90,7 @@ public class Health : NetworkBehaviour {
         teleporter = this.gameObject.GetComponent<NetworkXYZSync>();
         healthL = maxHealth;
         aim = this.gameObject.GetComponent<Playeranimations>();
+        theCanvas = prepPhase.theCanvas;
         //reset = new Color(50, 80, 150, 255);
         //PlayerHud.color = reset;
         con = this.gameObject.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
@@ -101,16 +104,16 @@ public class Health : NetworkBehaviour {
         int amount = damageInfo[0];
         int damageFrom = damageInfo[1];
         Healthz -= amount;
-		//GetHit.Play ();
-		if (Healthz <= 0) {
-			Healthz = 0;
-			if (canSendKill) {
-				canSendKill = false;
-				sendKill (damageFrom);//150
-				tempDamageFrom = damageFrom;
-				//killMessage = startKillMessage + "Player " + damageFrom;//because its server!!!
-			}
-		}
+        //GetHit.Play ();
+        if (Healthz <= 0) {
+            Healthz = 0;
+            if (canSendKill) {
+                canSendKill = false;
+                sendKill(damageFrom);//150
+                tempDamageFrom = damageFrom;
+                //killMessage = startKillMessage + "Player " + damageFrom;//because its server!!!
+            }
+        }
     }
     public void DeathByWater() {
         if (isLocalPlayer) {
@@ -130,9 +133,9 @@ public class Health : NetworkBehaviour {
     [Command]
     void CmdRespawn(GameObject toPlayer) {
         Healthz = maxHealth;
-		tempHP = Healthz;
+        tempHP = Healthz;
         playerNumber.deaths++;//increase death
-		canPlayDeathSound = true;
+        canPlayDeathSound = true;
 
         //RpcCanRespawnAgain(toPlayer);
         //inRespawn = false;// this was here????
@@ -208,7 +211,7 @@ public class Health : NetworkBehaviour {
             StartCoroutine(timedRespawn());
         }
         //player dying animation player wait for done then reset to give feedback
-		SoundCheck ();
+        SoundCheck();
         //flash red code
         if (getHit) {
             Color Opaque = new Color(1, 1, 1, 1);
@@ -227,6 +230,10 @@ public class Health : NetworkBehaviour {
         if (TESTING && Input.GetKeyDown(KeyCode.P)) {
             tpWeapon();
         }
+        if (TESTING && Input.GetKeyDown(KeyCode.L)) {
+            canvasOff();
+        }
+
         if (turnOffController) {
             this.gameObject.GetComponent<PrepCheck>().stop = true;
             con.enabled = false;
@@ -235,6 +242,11 @@ public class Health : NetworkBehaviour {
             //turnOffController = true;
         }
     }
+    private void canvasOff() {
+        sw = !sw;
+        theCanvas.SetActive(sw);
+    }
+
     public void ouch() {
         CmdTestDamage();
     }
@@ -249,32 +261,32 @@ public class Health : NetworkBehaviour {
 
     }
 
-	void SoundCheck() {
-		if (Healthz <= 0) {
-			lowHealthSound.Stop ();
-			if (canPlayDeathSound) {
-				if (!isServer) {
-					CmdPlayDeathAudio();
-				} else {
-					RpcPlayDeathAudio();
-				}
-				canPlayDeathSound = false;
-			} 
-			//uses local
-		} else if (Healthz < (maxHealth * lowHealthThreshold)) {
-			if (!lowHealthSound.isPlaying) {
-				//print ("playing");
-				lowHealthSound.Play ();
-			}
-		} else {
-			//print ("stop");
-			lowHealthSound.Stop ();
-		}
-		if (Healthz < tempHP) {
-			GetHit.Play ();
-		}
-		tempHP = Healthz;
-	}
+    void SoundCheck() {
+        if (Healthz <= 0) {
+            lowHealthSound.Stop();
+            if (canPlayDeathSound) {
+                if (!isServer) {
+                    CmdPlayDeathAudio();
+                } else {
+                    RpcPlayDeathAudio();
+                }
+                canPlayDeathSound = false;
+            }
+            //uses local
+        } else if (Healthz < (maxHealth * lowHealthThreshold)) {
+            if (!lowHealthSound.isPlaying) {
+                //print ("playing");
+                lowHealthSound.Play();
+            }
+        } else {
+            //print ("stop");
+            lowHealthSound.Stop();
+        }
+        if (Healthz < tempHP) {
+            GetHit.Play();
+        }
+        tempHP = Healthz;
+    }
 
     void OnChangeHealth(int health) {
         if (isLocalPlayer) {
@@ -339,13 +351,13 @@ public class Health : NetworkBehaviour {
         }
     }
 
-	[Command]
-	void CmdPlayDeathAudio() {
-		RpcPlayDeathAudio();
-	}
+    [Command]
+    void CmdPlayDeathAudio() {
+        RpcPlayDeathAudio();
+    }
 
-	[ClientRpc]
-	void RpcPlayDeathAudio() {
-		deathSound.Play();
-	}
+    [ClientRpc]
+    void RpcPlayDeathAudio() {
+        deathSound.Play();
+    }
 }
