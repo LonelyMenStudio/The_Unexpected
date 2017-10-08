@@ -54,6 +54,7 @@ public class Health : NetworkBehaviour {
     private int tempHP;
     private GameObject theCanvas;
     private bool sw = true;
+	public int botDamage;
 
     [SyncVar(hook = "OnChangeHealth")]
     public int Healthz = maxHealth;
@@ -252,7 +253,7 @@ public class Health : NetworkBehaviour {
     }
     [Command]
     void CmdTestDamage() {
-        Healthz = Healthz - 5;
+		Healthz = Healthz - botDamage;
     }
 
     [Command]

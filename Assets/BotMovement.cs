@@ -215,7 +215,7 @@ public class BotMovement : MonoBehaviour {
                     lookatplayer();
                 int currentplayerhealth= Playerz[0].GetComponent<Health>().Healthz;
                 RaycastHit hit2;
-                    if (Physics.Raycast(botcam.transform.position, botcam.transform.forward, out hit2) && counter > delayTime && currentplayerhealth > 0) {
+				if ((Physics.Raycast(botcam.transform.position, botcam.transform.forward, out hit2) && counter > delayTime && currentplayerhealth > 0) && !isDed) {
                         if (hit2.transform.tag == "Player") {
                             counter = 0;
                             Health call = hit2.transform.gameObject.GetComponent<Health>();
