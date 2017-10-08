@@ -16,6 +16,8 @@ public class footsteps : NetworkBehaviour
 	private float statusCue;
 	private bool shouldPlay = true;
 
+	public bool botControl = false;
+
 	IEnumerator OnControllerColliderHit (ControllerColliderHit hit)
 	{
 		CharacterController controller = GetComponent<CharacterController> ();
@@ -55,23 +57,54 @@ public class footsteps : NetworkBehaviour
 			GetComponent<AudioSource> ().clip = footstepCue;
 
 			if (!isServer) {
-				CmdPlayAudio();
+				CmdPlayAudio ();
 			} else {
-				RpcPlayAudio();
+				RpcPlayAudio ();
 			}
 			//GetComponent<AudioSource> ().Play ();
 			yield return new WaitForSeconds (statusCue);
 			isStep = true;
+		}
+	}
+
+	public IEnumerator BotWalk () {
+		if (isStep == true) {
+			shouldPlay = true;
+			//name = Physics.Raycast (gameObject.transform.position, Vector3.down, 1f, -1);
+			RaycastHit hit;
+			if (Physics.Raycast (gameObject.transform.position, Vector3.down, out hit)) {
+				if (hit.collider.tag == "Grass") {
+					WalkOnGrass ();				
+				} else if (hit.collider.tag == "Rock") {
+					WalkOnRock ();	
+				} else if (hit.collider.tag == "Floor" || hit.collider.tag == "Untagged") {
+					WalkOnFloor ();	
+				} else {
+					shouldPlay = false;
+				}
 			}
+			if (shouldPlay) {
+				GetComponent<AudioSource> ().clip = footstepCue;
+				if (!isServer) {
+					CmdPlayAudio ();
+				} else {
+					RpcPlayAudio ();
+				}
+				yield return new WaitForSeconds (audioStepLengthWalk);
+				isStep = true;
+			}
+		}
 	}
 
 	[Command]
-	void CmdPlayAudio() {
-		RpcPlayAudio();
+	void CmdPlayAudio ()
+	{
+		RpcPlayAudio ();
 	}
 
 	[ClientRpc]
-	void RpcPlayAudio() {
+	void RpcPlayAudio ()
+	{
 		GetComponent<AudioSource> ().Play ();
 	}
 

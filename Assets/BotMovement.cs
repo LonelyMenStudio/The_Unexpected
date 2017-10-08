@@ -91,6 +91,7 @@ public class BotMovement : MonoBehaviour {
 	public AudioSource ded;
 	private bool isDed = false;
 	public AudioSource clem;
+	private float[] tempLocation = new float[3];
 
     // Use this for initialization
     void Start () {
@@ -112,6 +113,7 @@ public class BotMovement : MonoBehaviour {
         }else {
             SetDestination();
         }
+		tempLocation = new float[] { 0f, 0f, 0f };
 	}
     public void TakeDamage(float Damage) {
         BotHealth -= Damage;
@@ -205,33 +207,39 @@ public class BotMovement : MonoBehaviour {
                 playerfound = false;
             }
            
-            if (playerfound) {
-                if (distancefromplayer > 5) {
-                    SetDestination();
-                    standstill = false;
-                }else {
-                    standstill = true; 
-                }
-                    lookatplayer();
-                int currentplayerhealth= Playerz[0].GetComponent<Health>().Healthz;
-                RaycastHit hit2;
-				if ((Physics.Raycast(botcam.transform.position, botcam.transform.forward, out hit2) && counter > delayTime && currentplayerhealth > 0) && !isDed) {
-                        if (hit2.transform.tag == "Player") {
-                            counter = 0;
-                            Health call = hit2.transform.gameObject.GetComponent<Health>();
-                            call.ouch();
-                            //Instantiate(shotParticle, botcam.transform.position, botcam.transform.rotation);
-                            shotParticle.Play();
-							clem.Play ();
-                            //shoot the player
+			if (playerfound) {
+				if (distancefromplayer > 5) {
+					SetDestination ();
+					standstill = false;
+				} else {
+					standstill = true; 
+				}
+				lookatplayer ();
+				int currentplayerhealth = Playerz [0].GetComponent<Health> ().Healthz;
+				RaycastHit hit2;
+				if ((Physics.Raycast (botcam.transform.position, botcam.transform.forward, out hit2) && counter > delayTime && currentplayerhealth > 0) && !isDed) {
+					if (hit2.transform.tag == "Player") {
+						counter = 0;
+						Health call = hit2.transform.gameObject.GetComponent<Health> ();
+						call.ouch ();
+						//Instantiate(shotParticle, botcam.transform.position, botcam.transform.rotation);
+						shotParticle.Play ();
+						clem.Play ();
+						//shoot the player
                         
-                    }
-                }
-            } else {
+					}
+				}
+			} else {
 
-            }
-        }
-    }
+			}
+		}
+		if (tempLocation [0] != transform.position.x || tempLocation [1] != transform.position.y || tempLocation [2] != transform.position.z) {
+			tempLocation [0] = transform.position.x;
+			tempLocation [1] = transform.position.y;
+			tempLocation [2] = transform.position.z;
+			StartCoroutine (GetComponent<footsteps> ().BotWalk ());
+		}
+	}
                 void lookatplayer() {
         botcam.transform.rotation = Quaternion.Slerp(botcam.transform.rotation, Quaternion.LookRotation(Playerz[0].transform.position - botcam.transform.position), 2*Time.deltaTime);
                  //   Quaternion rotation = Quaternion.LookRotation(Playerz[0].transform.position - botcam.transform.position);
