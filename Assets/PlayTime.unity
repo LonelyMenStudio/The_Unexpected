@@ -56968,6 +56968,7 @@ MonoBehaviour:
   clem: {fileID: 825659706}
   killbot: {fileID: 0}
   deathicon: {fileID: 0}
+  Botnum: 2
 --- !u!95 &825659700
 Animator:
   serializedVersion: 3
@@ -58928,7 +58929,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 431.6001, y: -389.9999}
+  m_AnchoredPosition: {x: 431.6001, y: -389.99994}
   m_SizeDelta: {x: 400, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &854966234
@@ -133405,6 +133406,7 @@ MonoBehaviour:
   clem: {fileID: 2021768266}
   killbot: {fileID: 0}
   deathicon: {fileID: 0}
+  Botnum: 1
 --- !u!95 &2021768270
 Animator:
   serializedVersion: 3

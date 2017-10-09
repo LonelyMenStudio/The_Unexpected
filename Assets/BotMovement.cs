@@ -94,7 +94,11 @@ public class BotMovement : MonoBehaviour {
 	private float[] tempLocation = new float[3];
     public PrepPhase killbot;
     public GameObject deathicon;
-
+    private ScoreScreen stats;
+    public int Botnum;
+    private int botkills;
+    private int botdeaths;
+    private bool botdied = true;
     // Use this for initialization
     void Start () {
         
@@ -103,6 +107,7 @@ public class BotMovement : MonoBehaviour {
         Manager = ManagerGet.variables;
         pManager = Manager.GetComponent<PlayerManager>();
         killbot = Manager.GetComponent<PrepPhase>();
+        stats = killbot.playerStats.GetComponent<ScoreScreen>();
         deathicon = killbot.killGetMessage;
         Playerz = pManager.Players;
         BotsCrappygun.SetActive(false);
@@ -125,13 +130,22 @@ public class BotMovement : MonoBehaviour {
         TimetolosePlayer = counter;
         if (BotHealth <= 0) {
             BotHealth = 0;
+            
+            if (botdied) {
+                botdeaths++;
+                PlayerAssignGet playerscore = Playerz[0].GetComponent<PlayerAssignGet>();
+                playerscore.kills++;
+                botdied = false;
+            }
             deathicon.SetActive(true);
             animatorz.Play("Death");
 			if (!isDed) {
 				ded.Play ();
 				isDed = true;
 			}
+
             StartCoroutine(died());
+            
         }
     }
     private void SetDestination() {
@@ -244,6 +258,22 @@ public class BotMovement : MonoBehaviour {
 			tempLocation [2] = transform.position.z;
 			StartCoroutine (GetComponent<footsteps> ().BotWalk ());
 		}
+
+        if (Botnum == 1) {
+            stats.playerNames[1].text = "Bot 1";
+            stats.playerKills[1].text = "" + botkills;
+            stats.playerDeaths[1].text = "" + botdeaths;
+
+        } else if (Botnum == 2) {
+            stats.playerNames[2].text = "Bot 2";
+            stats.playerKills[2].text = "" + botkills;
+            stats.playerDeaths[2].text = "" + botdeaths;
+        }
+        if (botdied == false) {
+            StartCoroutine(deathstall());
+
+            
+        }
 	}
                 void lookatplayer() {
         botcam.transform.rotation = Quaternion.Slerp(botcam.transform.rotation, Quaternion.LookRotation(Playerz[0].transform.position - botcam.transform.position), 2*Time.deltaTime);
@@ -259,6 +289,10 @@ public class BotMovement : MonoBehaviour {
         rightHandObj.position =  pos;
         rightHandObj.rotation = rotation;
 
+    }
+    IEnumerator deathstall() {
+        yield return new WaitForSeconds(3);
+        botdied = true;
     }
     IEnumerator died() {
         
