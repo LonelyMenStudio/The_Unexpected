@@ -92,6 +92,8 @@ public class BotMovement : MonoBehaviour {
 	private bool isDed = false;
 	public AudioSource clem;
 	private float[] tempLocation = new float[3];
+    public PrepPhase killbot;
+    public GameObject deathicon;
 
     // Use this for initialization
     void Start () {
@@ -100,6 +102,8 @@ public class BotMovement : MonoBehaviour {
         ManagerGet = Variables.GetComponent<VariablesScript>();
         Manager = ManagerGet.variables;
         pManager = Manager.GetComponent<PlayerManager>();
+        killbot = Manager.GetComponent<PrepPhase>();
+        deathicon = killbot.killGetMessage;
         Playerz = pManager.Players;
         BotsCrappygun.SetActive(false);
         animatorz = Rig.GetComponent<Animator>();
@@ -121,6 +125,7 @@ public class BotMovement : MonoBehaviour {
         TimetolosePlayer = counter;
         if (BotHealth <= 0) {
             BotHealth = 0;
+            deathicon.SetActive(true);
             animatorz.Play("Death");
 			if (!isDed) {
 				ded.Play ();
@@ -179,7 +184,7 @@ public class BotMovement : MonoBehaviour {
             animatorz.SetBool("isWalking", true);
         } else if (standstill) {
             animatorz.SetBool("isWalking", false);
-        }
+       }
         if (hasgun){
             animatorz.SetBool("HasWep", true);
         }
@@ -200,15 +205,15 @@ public class BotMovement : MonoBehaviour {
         } else {
             SetDestination();
             distancefromplayer = Vector3.Distance(transform.position, Playerz[0].transform.position);
-            if (distancefromplayer <= 50) {
+            if (distancefromplayer <= 100) {
                 playerfound = true;
                 TimetolosePlayer = counter;
-            }else if (distancefromplayer > 50 && TimetolosePlayer + 5 <= counter){
+            }else if (distancefromplayer > 100 && TimetolosePlayer + 5 <= counter){
                 playerfound = false;
             }
            
 			if (playerfound) {
-				if (distancefromplayer > 5) {
+				if (distancefromplayer > 1) {
 					SetDestination ();
 					standstill = false;
 				} else {
@@ -256,11 +261,13 @@ public class BotMovement : MonoBehaviour {
 
     }
     IEnumerator died() {
+        
         yield return new WaitForSeconds(1.5f);
         int indexspawn = Random.Range(0, spawn.Length);
         transform.position = spawn[indexspawn].transform.position;
         BotHealth = 100;
 		isDed = false;
+        deathicon.SetActive(false);
     }
     // Update is called once per frame
     void LateUpdate() {
