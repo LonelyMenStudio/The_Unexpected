@@ -323,7 +323,7 @@ public class weaponManager : NetworkBehaviour {
             StartCoroutine(Reload());
         }
         if ((Input.GetKeyDown(KeyCode.E) || (Input.GetKeyDown(KeyCode.Mouse0) && !hasWeapon)) && !picking) {
-            picking = true;
+            StartCoroutine(pickupTime());
             PickupWeapon();
         }
         if (Input.GetKeyDown(KeyCode.F) && hasWeapon) {
@@ -355,6 +355,12 @@ public class weaponManager : NetworkBehaviour {
             canShoot = false;
         }
 
+    }
+
+    IEnumerator pickupTime() {
+        picking = true;
+        yield return new WaitForSeconds(1.0f);
+        picking = false;    
     }
     void AutoReload() {
         if (currentWeaponAmmo == 0 && !startedAuto && hasWeapon && !inWeaponSelect) {
@@ -423,7 +429,6 @@ public class weaponManager : NetworkBehaviour {
                 }
             }
         }
-        picking = false;
     }
 
     void changeWeapon(int num) {
