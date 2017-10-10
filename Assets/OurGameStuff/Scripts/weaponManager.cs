@@ -212,6 +212,9 @@ public class weaponManager : NetworkBehaviour {
             selectionDone = true;
             checkingPrep = false;
         }
+        if (this.GetComponent<PauseMenu>().isPaused) {
+            return;
+        }
         if (inWeaponSelect) {
             currentPlayer = pl.currentPlayerNo;
             if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse0) && !hasWeapon) {  // need to investigate further control options
@@ -360,7 +363,7 @@ public class weaponManager : NetworkBehaviour {
     IEnumerator pickupTime() {
         picking = true;
         yield return new WaitForSeconds(1.0f);
-        picking = false;    
+        picking = false;
     }
     void AutoReload() {
         if (currentWeaponAmmo == 0 && !startedAuto && hasWeapon && !inWeaponSelect) {
