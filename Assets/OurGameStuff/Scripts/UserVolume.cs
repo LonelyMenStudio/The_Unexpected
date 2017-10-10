@@ -45,8 +45,11 @@ public class UserVolume : MonoBehaviour {
 		mixer.SetFloat ("master", masterVol.value);
 		mixer.SetFloat ("music", musicVol.value);
 		mixer.SetFloat ("ambient", sfxVol.value);
-		masterText.text = "Master: " + (int)((masterVol.value + 80) * 100 / 80);
-		sfxText.text = "SFX: " + (int)((sfxVol.value + 80) * 100 / 80);
-		musicText.text = "Music: " + (int)((musicVol.value + 80) * 100 / 80);
+		masterText.text = "Master: " + (int)(masterVol.value + 80);
+		sfxText.text = "SFX: " + (int)(sfxVol.value + 80);
+		musicText.text = "Music: " + (int)(musicVol.value + 80);
+//		masterText.text = "Master: " + (int)((masterVol.value + 80) * 100 / 80);
+//		sfxText.text = "SFX: " + (int)((sfxVol.value + 80) * 100 / 80);
+//		musicText.text = "Music: " + (int)((musicVol.value + 80) * 100 / 80);
 	}
 }
