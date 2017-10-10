@@ -195,15 +195,15 @@ public class BotMovement : MonoBehaviour {
         if (Pcount > 1) {
             Destroy(gameObject);
         }
-        if (!standstill ) {
+        if (!standstill) {
             animatorz.SetBool("isWalking", true);
         } else if (standstill) {
             animatorz.SetBool("isWalking", false);
-       }
-        if (hasgun){
+        }
+        if (hasgun) {
             animatorz.SetBool("HasWep", true);
         }
-        
+
         Timegun += Time.deltaTime;
         if (Timegun >= BotGetsGunAT) {
             BotsCrappygun.SetActive(true);
@@ -223,61 +223,63 @@ public class BotMovement : MonoBehaviour {
             if (distancefromplayer <= 100) {
                 playerfound = true;
                 TimetolosePlayer = counter;
-            }else if (distancefromplayer > 150){
+            } else if (distancefromplayer > 150) {
                 playerfound = false;
             }
-           
-			if (playerfound) {
-				if (distancefromplayer > 1) {
-					SetDestination ();
-					standstill = false;
-				} else {
-					standstill = true; 
-				}
-				lookatplayer ();
-				int currentplayerhealth = Playerz [0].GetComponent<Health> ().Healthz;
-				RaycastHit hit2;
-				if ((Physics.Raycast (botcam.transform.position, botcam.transform.forward, out hit2) && counter > delayTime && currentplayerhealth > 0) && !isDed) {
-					if (hit2.transform.tag == "Player") {
-						counter = 0;
-						Health call = hit2.transform.gameObject.GetComponent<Health> ();
-						call.ouch (Botnum);
-						//Instantiate(shotParticle, botcam.transform.position, botcam.transform.rotation);
-						shotParticle.Play ();
-						clem.Play ();
-						//shoot the player
-                        
-					}
-				}
-			} else {
 
-			}
-		}
-		if (tempLocation [0] != transform.position.x || tempLocation [1] != transform.position.y || tempLocation [2] != transform.position.z) {
-			tempLocation [0] = transform.position.x;
-			tempLocation [1] = transform.position.y;
-			tempLocation [2] = transform.position.z;
-			StartCoroutine (GetComponent<footsteps> ().BotWalk ());
-		}
+            if (playerfound) {
+                if (distancefromplayer > 1) {
+                    SetDestination();
+                    standstill = false;
+                } else {
+                    standstill = true;
+                }
+                lookatplayer();
+                int currentplayerhealth = Playerz[0].GetComponent<Health>().Healthz;
+                RaycastHit hit2;
+                if ((Physics.Raycast(botcam.transform.position, botcam.transform.forward, out hit2) && counter > delayTime && currentplayerhealth > 0) && !isDed) {
+                    if (hit2.transform.tag == "Player") {
+                        counter = 0;
+                        Health call = hit2.transform.gameObject.GetComponent<Health>();
+                        call.ouch(Botnum);
+                        //Instantiate(shotParticle, botcam.transform.position, botcam.transform.rotation);
+                        shotParticle.Play();
+                        clem.Play();
+                        //shoot the player
 
-        if (Botnum == 1) {
-            botkills = Playerz[0].GetComponent<Health>().botkills;
-            stats.playerNames[1].text = "Bot 1";
-            stats.playerKills[1].text = "" + botkills;
-            stats.playerDeaths[1].text = "" + botdeaths;
+                    }
+                }
+            } else {
 
-        } else if (Botnum == 2) {
-            botkills = Playerz[0].GetComponent<Health>().botkills2;
-            stats.playerNames[2].text = "Bot 2";
-            stats.playerKills[2].text = "" + botkills;
-            stats.playerDeaths[2].text = "" + botdeaths;
+            }
         }
-        if (botdied == false) {
-            StartCoroutine(deathstall());
-
-            
+        if (tempLocation[0] != transform.position.x || tempLocation[1] != transform.position.y || tempLocation[2] != transform.position.z) {
+            tempLocation[0] = transform.position.x;
+            tempLocation[1] = transform.position.y;
+            tempLocation[2] = transform.position.z;
+            StartCoroutine(GetComponent<footsteps>().BotWalk());
         }
-	}
+        if (Playerz != null) {
+            if (Botnum == 1) {
+
+                botkills = Playerz[0].GetComponent<Health>().botkills;
+                stats.playerNames[1].text = "Bot 1";
+                stats.playerKills[1].text = "" + botkills;
+                stats.playerDeaths[1].text = "" + botdeaths;
+
+            } else if (Botnum == 2) {
+                botkills = Playerz[0].GetComponent<Health>().botkills2;
+                stats.playerNames[2].text = "Bot 2";
+                stats.playerKills[2].text = "" + botkills;
+                stats.playerDeaths[2].text = "" + botdeaths;
+            }
+            if (botdied == false) {
+                StartCoroutine(deathstall());
+
+
+            }
+        }
+    }
                 void lookatplayer() {
         botcam.transform.rotation = Quaternion.Slerp(botcam.transform.rotation, Quaternion.LookRotation(Playerz[0].transform.position - botcam.transform.position), 2*Time.deltaTime);
                  //   Quaternion rotation = Quaternion.LookRotation(Playerz[0].transform.position - botcam.transform.position);
