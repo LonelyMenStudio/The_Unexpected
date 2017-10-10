@@ -26,12 +26,18 @@ public class MovieScript : MonoBehaviour {
       }*/
     public GameObject canvi;
     public VideoPlayer video;
+    public bool MovieHasplayed = true;
     void Start() {
-        video.Play();
-        canvi.SetActive(false);
+        if (MovieHasplayed) {
+            video.Play();
+            canvi.SetActive(false);
+            
+            //code for how long the video is to end and open canvas
+        }
     }
     void Update() {
         if (Input.GetKey(KeyCode.Escape)) {
+            MovieHasplayed = true;
             canvi.SetActive(true);
             video.Stop();
         }

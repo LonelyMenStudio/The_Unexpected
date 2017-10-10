@@ -15,6 +15,8 @@ public class EnvBarrelDamage : MonoBehaviour {
     private PlayerManager playerList;
     private const float MAX_DISTANCE = 5.0f;
     private int playerDamageFrom;
+    public List<GameObject> bots = new List<GameObject>();
+    private bool firsttimesetbots = false;
 
     // Use this for initialization
     void Start() {
@@ -29,6 +31,12 @@ public class EnvBarrelDamage : MonoBehaviour {
         if (damageOnce) {
             return;
         }
+        if (firsttimesetbots == false) {
+            foreach (GameObject Bots in GameObject.FindGameObjectsWithTag("Bot")) {
+                bots.Add(Bots);
+                firsttimesetbots = true;
+            }
+        }
         if (barrelHasBeenDestoryed) {
             for (int i = 0; i < playerList.Players.Count; i++) {
                 float distance = Vector3.Distance(this.transform.position, playerList.Players[i].transform.position);
@@ -36,6 +44,18 @@ public class EnvBarrelDamage : MonoBehaviour {
                     prepareAction(playerList.Players[i]);
                 }
             }
+            int Pcount = playerList.Players.Count;
+            if (Pcount <= 1) {
+                    for (int i = 0; i < 2; i++) {
+                    float botdistance = Vector3.Distance(this.transform.position, bots[i].transform.position);
+                    if (botdistance < 10) {
+                        bots[i].GetComponent<BotMovement>().TakeDamage(100);
+                    }
+
+                    
+                }
+            }
+
             damageOnce = true;
         }
         /*
