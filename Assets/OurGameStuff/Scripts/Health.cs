@@ -254,6 +254,7 @@ public class Health : NetworkBehaviour {
     }
 
     public void ouch(int botnum) {
+        botDamage = Random.Range(10, 20);
         if (playerdies == false) {
             CmdTestDamage();
         }

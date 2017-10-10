@@ -74,7 +74,7 @@ public class BotMovement : MonoBehaviour {
     public GameObject botcam;
     private GameObject childRoot;
     public float counter;
-    private float delayTime;
+    private float delayTime = 0.5f;
     //public GameObject shotParticlegb;
     public ParticleSystem shotParticle;
     public float BotHealth = 100;
@@ -223,7 +223,7 @@ public class BotMovement : MonoBehaviour {
             if (distancefromplayer <= 100) {
                 playerfound = true;
                 TimetolosePlayer = counter;
-            }else if (distancefromplayer > 100 && TimetolosePlayer + 5 <= counter){
+            }else if (distancefromplayer > 150){
                 playerfound = false;
             }
            

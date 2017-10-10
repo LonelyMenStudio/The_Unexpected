@@ -765,6 +765,9 @@ public class weaponManager : NetworkBehaviour {
             if (hit2.transform.tag == "Bot") {
                 BotMovement call = hit2.transform.gameObject.GetComponent<BotMovement>();
                 call.TakeDamage(AkDamage);
+                spawnhole = false;
+                HitMarker.SetActive(true);
+                StartCoroutine(hit());
             }
 
         } else if (weaponOut == 2) {
@@ -803,6 +806,9 @@ public class weaponManager : NetworkBehaviour {
                     if (hit3.transform.tag == "Bot") {
                         BotMovement call = hit3.transform.gameObject.GetComponent<BotMovement>();
                         call.TakeDamage(ShotgunDmg);
+                        spawnhole = false;
+                        HitMarker.SetActive(true);
+                        StartCoroutine(hit());
                     }
 
                 }
@@ -833,8 +839,12 @@ public class weaponManager : NetworkBehaviour {
                 prepareDamageCrystal(hit2.transform.gameObject, sniperDmg);
             }
             if (hit2.transform.tag == "Bot") {
+
                 BotMovement call = hit2.transform.gameObject.GetComponent<BotMovement>();
                 call.TakeDamage(sniperDmg);
+                spawnhole = false;
+                HitMarker.SetActive(true);
+                StartCoroutine(hit());
             }
         } else {
             Debug.Log("Missed player");
