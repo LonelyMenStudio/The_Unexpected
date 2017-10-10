@@ -96,9 +96,10 @@ public class BotMovement : MonoBehaviour {
     public GameObject deathicon;
     private ScoreScreen stats;
     public int Botnum;
-    private int botkills;
+    public int botkills;
     private int botdeaths;
     private bool botdied = true;
+
     // Use this for initialization
     void Start () {
         
@@ -240,7 +241,7 @@ public class BotMovement : MonoBehaviour {
 					if (hit2.transform.tag == "Player") {
 						counter = 0;
 						Health call = hit2.transform.gameObject.GetComponent<Health> ();
-						call.ouch ();
+						call.ouch (Botnum);
 						//Instantiate(shotParticle, botcam.transform.position, botcam.transform.rotation);
 						shotParticle.Play ();
 						clem.Play ();
@@ -260,11 +261,13 @@ public class BotMovement : MonoBehaviour {
 		}
 
         if (Botnum == 1) {
+            botkills = Playerz[0].GetComponent<Health>().botkills;
             stats.playerNames[1].text = "Bot 1";
             stats.playerKills[1].text = "" + botkills;
             stats.playerDeaths[1].text = "" + botdeaths;
 
         } else if (Botnum == 2) {
+            botkills = Playerz[0].GetComponent<Health>().botkills2;
             stats.playerNames[2].text = "Bot 2";
             stats.playerKills[2].text = "" + botkills;
             stats.playerDeaths[2].text = "" + botdeaths;

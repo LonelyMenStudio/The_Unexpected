@@ -55,7 +55,11 @@ public class Health : NetworkBehaviour {
     private GameObject theCanvas;
     private bool sw = true;
 	public int botDamage;
-
+    private ScoreScreen stats;
+    public int botkills = 0;
+    public int botkills2 = 0;
+    private bool botstall = true;
+    private bool playerdies = false;
     [SyncVar(hook = "OnChangeHealth")]
     public int Healthz = maxHealth;
 
@@ -95,6 +99,7 @@ public class Health : NetworkBehaviour {
         //reset = new Color(50, 80, 150, 255);
         //PlayerHud.color = reset;
         con = this.gameObject.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
+        stats = prepPhase.playerStats.GetComponent<ScoreScreen>();
     }
 
     public void TakeDamage(int[] damageInfo) {
@@ -248,8 +253,28 @@ public class Health : NetworkBehaviour {
         theCanvas.SetActive(sw);
     }
 
-    public void ouch() {
-        CmdTestDamage();
+    public void ouch(int botnum) {
+        if (playerdies == false) {
+            CmdTestDamage();
+        }
+        if (Healthz <= 0) {
+            playerdies = true;
+        }
+        if (playerdies == true){
+            if (botnum == 1) {
+                botkills++;
+                
+            } else if (botnum == 2) {
+                botkills2++;
+                
+            }
+            StartCoroutine(playerdeathstall());
+        }
+    }
+    IEnumerator playerdeathstall() {
+        yield return new WaitForSeconds(3);
+        botstall = true;
+        playerdies = false;
     }
     [Command]
     void CmdTestDamage() {
