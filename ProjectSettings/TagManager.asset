@@ -33,6 +33,7 @@ TagManager:
   - Connected
   - Grass
   - Bot
+  - MenuMusic
   layers:
   - Default
   - TransparentFX
@@ -69,4 +70,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: New Layer
+    uniqueID: 3339095565
     locked: 0
