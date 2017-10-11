@@ -259,7 +259,7 @@ public class BotMovement : MonoBehaviour {
             tempLocation[2] = transform.position.z;
             StartCoroutine(GetComponent<footsteps>().BotWalk());
         }
-        if (Playerz != null) {
+        if (Playerz.Count == 1) {
             if (Botnum == 1) {
 
                 botkills = Playerz[0].GetComponent<Health>().botkills;

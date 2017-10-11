@@ -1219,7 +1219,6 @@ GameObject:
   - component: {fileID: 114181486946044872}
   - component: {fileID: 114930776530773342}
   - component: {fileID: 114926874335958988}
-  - component: {fileID: 114680248354187316}
   - component: {fileID: 114740899458021154}
   - component: {fileID: 114717468629864832}
   - component: {fileID: 114298477976427546}
@@ -3234,7 +3233,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1284764923199046}
-  m_LocalRotation: {x: -0.014776976, y: 0.53060925, z: -0.84713084, w: 0.024590848}
+  m_LocalRotation: {x: -0.014776978, y: 0.5306093, z: -0.84713095, w: 0.024590852}
   m_LocalPosition: {x: -0.004529869, y: 0.0050994675, z: -0.003900068}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -5873,6 +5872,8 @@ MonoBehaviour:
   lowHealthSound: {fileID: 82617295842722316}
   deathSound: {fileID: 82762093022615856}
   botDamage: 2
+  botkills: 0
+  botkills2: 0
   Healthz: 100
   healthL: 0
 --- !u!114 &114239892658809834
@@ -5998,40 +5999,6 @@ MonoBehaviour:
   - {fileID: 2100000, guid: d30a9edc9cbd09248a92ac7c3d68c7da, type: 2}
   - {fileID: 2100000, guid: 3987e5f29ccb31d418ac983fdbc6d827, type: 2}
   - {fileID: 2100000, guid: 31e7e7d042f04ac4d83994ed98046e2a, type: 2}
---- !u!114 &114680248354187316
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1563336106517594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 938175a065129e64285e6cc30d07ade0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rock:
-  - {fileID: 8300000, guid: 51e2e2b8149c81148b3bbdeb6557639b, type: 3}
-  - {fileID: 8300000, guid: 683a7c4e83ca9854d8edc37343527c20, type: 3}
-  - {fileID: 8300000, guid: 8fc8a467a918bf64b8cffd574c129550, type: 3}
-  - {fileID: 8300000, guid: 20cab86ab46619b40b0f75c990d78ede, type: 3}
-  floor:
-  - {fileID: 8300000, guid: 777392b24ad91a2468bd639eb956281e, type: 3}
-  - {fileID: 8300000, guid: aae73d9ae90cbca4289be1bdf70d232e, type: 3}
-  - {fileID: 8300000, guid: b5b372471723ab444a43c34dd2bfeedf, type: 3}
-  - {fileID: 8300000, guid: b9dbf7f9302c48d4e99a7ab5d616cede, type: 3}
-  grass:
-  - {fileID: 8300000, guid: 35267a8c60096ea4f93009870c89bff8, type: 3}
-  - {fileID: 8300000, guid: 665f4625ace8764449e59fb49b9702de, type: 3}
-  - {fileID: 8300000, guid: 2aba32681b7fc194dac9dc678f5b0f07, type: 3}
-  - {fileID: 8300000, guid: 47881abd3472a6846822e7b07717805e, type: 3}
-  - {fileID: 8300000, guid: 9045b7d5e7ce4ad4293061cd79e08435, type: 3}
-  - {fileID: 8300000, guid: 52a44aa6ef3a60844be9d447ab9004bc, type: 3}
-  - {fileID: 8300000, guid: 32b3a45be02b7d240a087cf2929c28e3, type: 3}
-  - {fileID: 8300000, guid: 2a967f46307fcee47a00c301a638db26, type: 3}
-  - {fileID: 8300000, guid: 058bff13ce52f6446baf1b2ed67e2317, type: 3}
-  audioStepLengthWalk: 0.45
-  audioStepLengthRun: 0.25
-  footstepCue: {fileID: 0}
 --- !u!114 &114717468629864832
 MonoBehaviour:
   m_ObjectHideFlags: 1

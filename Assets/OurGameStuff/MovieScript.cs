@@ -24,9 +24,11 @@ public class MovieScript : MonoBehaviour {
 
           }
       }*/
-    public GameObject canvi;
+
+
+    /*public GameObject canvi;
     public VideoPlayer video;
-    public bool MovieHasplayed = true;
+    public bool MovieHasplayed = false;
     void Start() {
         if (MovieHasplayed) {
             video.Play();
@@ -41,5 +43,5 @@ public class MovieScript : MonoBehaviour {
             canvi.SetActive(true);
             video.Stop();
         }
-    }
+    }*/
 }
