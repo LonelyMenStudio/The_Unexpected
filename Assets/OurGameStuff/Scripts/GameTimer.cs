@@ -16,11 +16,14 @@ public class GameTimer : NetworkBehaviour {
     int timerSeconds;
     public bool halfTime = false;
     public bool outOfPrep = false;
+    public bool timerStarted = false;
 
     [SyncVar]
     public float gameTime = GAME_TIME_LENGTH;
     [SyncVar]
     public bool gameTimeOver = false;
+    [SyncVar]
+    public bool hasStarted = false;
 
 
     void getTime() {
@@ -78,6 +81,9 @@ public class GameTimer : NetworkBehaviour {
         }
         if(gameTime < 60) {
             timerObject.SetActive(true);
+        }
+        if(gameTime < GAME_TIME_LENGTH) {
+            timerStarted = true;
         }
     }
 

@@ -31,11 +31,11 @@ public class NetworkXYZSync : NetworkBehaviour {
             startTele = false;
             return;
         }
-        SetL();
+        //SetL();
         if (!isServer) {
-            CmdSyncXYZ(playerLocation, player);
+            //CmdSyncXYZ(playerLocation, player);
         } else {
-            RpcSyncXYZ(playerLocation, player);
+            //RpcSyncXYZ(playerLocation, player);
         }
     }
 

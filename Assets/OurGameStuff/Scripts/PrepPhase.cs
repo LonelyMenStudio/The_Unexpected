@@ -48,6 +48,9 @@ public class PrepPhase : MonoBehaviour {
     public GameObject pauseMenu;
     public GameObject inGameControls;
     public GameObject theCanvas;
+    private GameTimer quickTime;
+    public GameObject SpaceToStart;
+
 
     // Use this for initialization
     void Start() {
@@ -58,11 +61,19 @@ public class PrepPhase : MonoBehaviour {
         // WeaponText = GameObject.FindWithTag("Connected");
         ErrorText.SetActive(false);
         WeaponText.SetActive(false);
+        quickTime = this.gameObject.GetComponent<GameTimer>();
     }
 
     // Update is called once per frame
     void Update() {
+        if(inPrep && quickTime.timerStarted) {
+            SpaceToStart.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.Space)) {
+                timeRemaining = 0;
+                SpaceToStart.SetActive(false);
+            }
 
+        }
         for (int i = 1; i < Players.Count; i++) {
             Players[i].name = "Player " + i;
         }
