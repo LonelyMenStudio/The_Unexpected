@@ -22,8 +22,6 @@ public class GameTimer : NetworkBehaviour {
     public float gameTime = GAME_TIME_LENGTH;
     [SyncVar]
     public bool gameTimeOver = false;
-    [SyncVar]
-    public bool hasStarted = false;
 
 
     void getTime() {
