@@ -14,6 +14,15 @@ public class PauseButtons : MonoBehaviour {
     private GameObject controlsScreen;
     private bool canButton = true;
 
+    private PrepPhase getPrep;
+
+    private GameObject resumeButton;
+    private GameObject controlsButton;
+    private GameObject audioButton;
+    private GameObject quitButton;
+    private GameObject audioOptions;
+    private GameObject controlsResume;
+
 
     private bool hasGot = false;
 
@@ -26,8 +35,16 @@ public class PauseButtons : MonoBehaviour {
         ManagerGet = Variables.GetComponent<VariablesScript>();
         manager = ManagerGet.variables;
         playM = manager.GetComponent<PlayerManager>();
+        getPrep = manager.GetComponent<PrepPhase>();
         Lobby = GameObject.Find("LobbyManager");
-        controlsScreen = manager.GetComponent<PrepPhase>().inGameControls;
+        controlsScreen = getPrep.inGameControls;
+
+        resumeButton = getPrep.resumeButton;
+        controlsButton = getPrep.controlsButton;
+        audioButton = getPrep.audioButton;
+        audioOptions = getPrep.audioOptions;
+        quitButton = getPrep.quitButton;
+        controlsResume = getPrep.controlsMenuResume;
     }
 
     void getLocal() {
@@ -60,15 +77,37 @@ public class PauseButtons : MonoBehaviour {
         }
 
     }
-    public void controls() {
+    public void controls() { // Redo
         if (!canButton) {
             return;
         }
         controlsScreen.SetActive(true);
+        setButtonVisibility(false);
+        controlsResume.SetActive(true);
         canButton = false;
     }
+
+    public void audioOptionsButton() {
+        setButtonVisibility(false);
+        audioOptions.SetActive(true);
+    }
+
+    public void returnToMenu() {
+        audioOptions.SetActive(false);
+        setButtonVisibility(true);
+    }
+
+    private void setButtonVisibility(bool state) {
+        resumeButton.SetActive(state);
+        controlsButton.SetActive(state);
+        audioButton.SetActive(state);
+        quitButton.SetActive(state);
+    }
+
     public void hideControls() {
+        setButtonVisibility(true);
         controlsScreen.SetActive(false);
+        controlsResume.SetActive(false);
         canButton = true;
     }
     public void quit() {

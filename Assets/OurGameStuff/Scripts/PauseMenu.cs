@@ -9,9 +9,14 @@ public class PauseMenu : NetworkBehaviour {
     private VariablesScript ManagerGet;
     private GameObject Variables;
     public bool isPaused;
+    private PrepPhase getPrep;
     private GameObject pauseMenu;
     UnityStandardAssets.Characters.FirstPerson.FirstPersonController con;
     private GameObject controls;
+
+    //private GameObject pauseMenu;
+    //private GameObject inGameControls;
+
 
 
     void Awake() {
@@ -23,9 +28,15 @@ public class PauseMenu : NetworkBehaviour {
     void Start() {
         ManagerGet = Variables.GetComponent<VariablesScript>();
         manager = ManagerGet.variables;
-        pauseMenu = manager.GetComponent<PrepPhase>().pauseMenu;
+        getPrep = manager.GetComponent<PrepPhase>();
         con = this.gameObject.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
-        controls = manager.GetComponent<PrepPhase>().inGameControls;
+
+
+        pauseMenu = getPrep.pauseMenu;
+        controls = getPrep.inGameControls;
+
+
+
     }
 
     // Update is called once per frame
@@ -33,9 +44,9 @@ public class PauseMenu : NetworkBehaviour {
         if (!isLocalPlayer) {
             return;
         }
-        if (Input.GetKeyDown(KeyCode.Escape) && manager.GetComponent<PrepPhase>().halfPrep) {
+        if (Input.GetKeyDown(KeyCode.Escape) && manager.GetComponent<PrepPhase>().halfPrep) { // For resume button to work :( hopefully can improve
             isPaused = !isPaused;
-            
+
         }
         if (isPaused) {
             pauseMenu.SetActive(true);
@@ -49,6 +60,8 @@ public class PauseMenu : NetworkBehaviour {
             this.gameObject.GetComponent<PrepCheck>().stop = false;
         }
     }
+
+
 
     public void EndGame() {
         CmdEndGame();
