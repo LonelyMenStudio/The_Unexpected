@@ -77,10 +77,10 @@ public class GameTimer : NetworkBehaviour {
             UnlockMouse();
             //game over camera maybe
         }
-        if(gameTime < 60) {
+        if (gameTime < 60) {
             timerObject.SetActive(true);
         }
-        if(gameTime < GAME_TIME_LENGTH) {
+        if (gameTime < GAME_TIME_LENGTH) {
             timerStarted = true;
         }
     }
