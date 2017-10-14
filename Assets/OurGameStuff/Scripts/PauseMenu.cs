@@ -13,9 +13,7 @@ public class PauseMenu : NetworkBehaviour {
     private GameObject pauseMenu;
     UnityStandardAssets.Characters.FirstPerson.FirstPersonController con;
     private GameObject controls;
-
-    //private GameObject pauseMenu;
-    //private GameObject inGameControls;
+    private PauseButtons leaveMenu;
 
 
 
@@ -30,11 +28,9 @@ public class PauseMenu : NetworkBehaviour {
         manager = ManagerGet.variables;
         getPrep = manager.GetComponent<PrepPhase>();
         con = this.gameObject.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
-
-
         pauseMenu = getPrep.pauseMenu;
         controls = getPrep.inGameControls;
-
+        leaveMenu = getPrep.optionMenu.GetComponent<PauseButtons>();
 
 
     }
@@ -45,6 +41,10 @@ public class PauseMenu : NetworkBehaviour {
             return;
         }
         if (Input.GetKeyDown(KeyCode.Escape) && manager.GetComponent<PrepPhase>().halfPrep) { // For resume button to work :( hopefully can improve
+            if (isPaused && leaveMenu.inSeperatMenu) {
+                leaveMenu.returnToMenu();
+                leaveMenu.hideControls();
+            }
             isPaused = !isPaused;
 
         }

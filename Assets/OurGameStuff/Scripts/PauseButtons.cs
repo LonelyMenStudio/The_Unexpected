@@ -23,6 +23,8 @@ public class PauseButtons : MonoBehaviour {
     private GameObject audioOptions;
     private GameObject controlsResume;
 
+    public bool inSeperatMenu = false;
+
 
     private bool hasGot = false;
 
@@ -61,9 +63,9 @@ public class PauseButtons : MonoBehaviour {
             hasGot = true;
             getLocal();
         }
-        if(canButton == false && Input.GetKeyDown(KeyCode.Space)) {
-            hideControls();
-        }
+        //if(canButton == false && Input.GetKeyDown(KeyCode.Space)) {
+        //    hideControls();
+        //}
     }
 
     public void resume() {
@@ -81,6 +83,7 @@ public class PauseButtons : MonoBehaviour {
         if (!canButton) {
             return;
         }
+        inSeperatMenu = true;
         controlsScreen.SetActive(true);
         setButtonVisibility(false);
         controlsResume.SetActive(true);
@@ -90,11 +93,13 @@ public class PauseButtons : MonoBehaviour {
     public void audioOptionsButton() {
         setButtonVisibility(false);
         audioOptions.SetActive(true);
+        inSeperatMenu = true;
     }
 
     public void returnToMenu() {
         audioOptions.SetActive(false);
         setButtonVisibility(true);
+        inSeperatMenu = false;
     }
 
     private void setButtonVisibility(bool state) {
@@ -109,6 +114,7 @@ public class PauseButtons : MonoBehaviour {
         controlsScreen.SetActive(false);
         controlsResume.SetActive(false);
         canButton = true;
+        inSeperatMenu = false;
     }
     public void quit() {
         if (!canButton) {

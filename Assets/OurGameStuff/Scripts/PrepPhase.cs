@@ -56,6 +56,7 @@ public class PrepPhase : MonoBehaviour {
     private GameTimer quickTime;
     public GameObject SpaceToStart;
     public GameObject controlsMenuResume;
+    public GameObject optionMenu;
 
 
     // Use this for initialization
