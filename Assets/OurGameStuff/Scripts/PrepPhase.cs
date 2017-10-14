@@ -73,7 +73,7 @@ public class PrepPhase : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if(inPrep && quickTime.timerStarted) {
+        if (inPrep && quickTime.timerStarted) {
             SpaceToStart.SetActive(true);
             if (Input.GetKeyDown(KeyCode.Space)) {
                 timeRemaining = 0;
@@ -131,6 +131,11 @@ public class PrepPhase : MonoBehaviour {
         if (Foundwep) {
             WeaponText.SetActive(true);
             StartCoroutine(ShowError());
+        }
+        if (inPrep && quickTime.gameTime == 0) {
+            timeRemaining = 0;
+            inPrep = false;
+            SpaceToStart.SetActive(false);
         }
     }
 

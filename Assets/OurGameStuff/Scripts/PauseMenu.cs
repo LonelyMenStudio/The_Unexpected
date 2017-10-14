@@ -14,6 +14,7 @@ public class PauseMenu : NetworkBehaviour {
     UnityStandardAssets.Characters.FirstPerson.FirstPersonController con;
     private GameObject controls;
     private PauseButtons leaveMenu;
+    private GameTimer gTime;
 
 
 
@@ -31,6 +32,7 @@ public class PauseMenu : NetworkBehaviour {
         pauseMenu = getPrep.pauseMenu;
         controls = getPrep.inGameControls;
         leaveMenu = getPrep.optionMenu.GetComponent<PauseButtons>();
+        gTime = manager.gameObject.GetComponent<GameTimer>();
 
 
     }
@@ -48,7 +50,7 @@ public class PauseMenu : NetworkBehaviour {
             isPaused = !isPaused;
 
         }
-        if (isPaused) {
+        if (isPaused && !gTime.gameTimeOver) {
             pauseMenu.SetActive(true);
             this.gameObject.GetComponent<PrepCheck>().stop = true;
             con.enabled = false;
@@ -68,7 +70,7 @@ public class PauseMenu : NetworkBehaviour {
     }
     [Command]
     private void CmdEndGame() {
-        manager.gameObject.GetComponent<GameTimer>().gameTime = 0;
+        gTime.gameTime = 0;
     }
 
 }
