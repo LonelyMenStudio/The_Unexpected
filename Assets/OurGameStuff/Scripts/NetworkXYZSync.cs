@@ -32,11 +32,13 @@ public class NetworkXYZSync : NetworkBehaviour {
             return;
         }
         //SetL();
+        /*
         if (!isServer) {
             //CmdSyncXYZ(playerLocation, player);
         } else {
             //RpcSyncXYZ(playerLocation, player);
         }
+        */
     }
 
     public void Teleport(Vector3 whereTo) {
@@ -58,7 +60,7 @@ public class NetworkXYZSync : NetworkBehaviour {
             playerOut.transform.localPosition = i;
         }
     }
-
+    /*
     [Command]
     void CmdSyncXYZ(Vector3 i, GameObject player) { 
         RpcSyncXYZ(i, player);
@@ -70,4 +72,5 @@ public class NetworkXYZSync : NetworkBehaviour {
             playerOut.transform.localPosition = i;
         }
     }
+    */
 }
