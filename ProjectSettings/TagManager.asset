@@ -34,7 +34,6 @@ TagManager:
   - Grass
   - Bot
   - MenuMusic
-  - Video
   layers:
   - Default
   - TransparentFX

@@ -862,7 +862,7 @@ public class weaponManager : NetworkBehaviour {
                 Quaternion AimSpread = Quaternion.LookRotation(ShotgunAim);
                 Quaternion SpreadGenerator = Random.rotation;
                 AimSpread = Quaternion.RotateTowards(AimSpread, SpreadGenerator, Random.Range(0.0f, ShotgunSpread));
-                if (Physics.Raycast(Camera.main.transform.position, AimSpread * Vector3.forward, out hit4, Mathf.Infinity) && spawnhole) {
+                if (Physics.Raycast(Camera.main.transform.position, AimSpread * Vector3.forward, out hit4, Mathf.Infinity)) {
                     ShotGunParticle.Play();
                     CmdBulletHoleShotgun(hit4.point, hit4.normal);
                 }
