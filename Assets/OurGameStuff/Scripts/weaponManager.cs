@@ -128,24 +128,13 @@ public class weaponManager : NetworkBehaviour {
         Aimming = GetComponent<Playeranimations>();
         weaponhold = GetComponent<IKControl>();
         ManagerGet = Variables.GetComponent<VariablesScript>();
-        //sounds = GetComponents<AudioSource>();
-        //reload = sounds[0];
-        //fire = sounds[1];
-        // HitSE = sounds[2];
-        //  Sniper_shot = sounds[5];
-        //Shotgun_shot = sounds[4];
-        // reload = sounds[0];
-        //animatorz = GetComponent<Animator>();
         manager = ManagerGet.variables;
         gObject = manager.GetComponent<PrepPhase>();
-        //HitMarker
         HitMarker = gObject.HitMark;
         Hitmark = HitMarker.GetComponent<Image>();
         HitMarker.SetActive(false);
         AmmoObject = GameObject.FindWithTag("Ammo");
-        //ammoDisplay = gObject.ammoObject;
         ammoText = AmmoObject.GetComponent<Text>();
-
         wrl = manager.GetComponent<PlayerAssign>();
         playerManage = this.gameObject.GetComponent<PlayerManagerSelf>();
         weaponRespawnAmount = wrl.weaponRespawnPoints.Length - 1;
@@ -153,13 +142,13 @@ public class weaponManager : NetworkBehaviour {
         for (int i = 0; i < wrl.weaponRespawnPoints.Length; i++) {
             weaponRespawnLocation[i] = wrl.weaponRespawnPoints[i];
         }
-
         if (isLocalPlayer) {
             body.layer = 2;
         }
         childRoot = transform.Find("FirstPersonCharacter").gameObject;
         pl = this.gameObject.GetComponent<PlayerAssignGet>();
         plrMngr = manager.GetComponent<PlayerManager>();
+
         if (!isLocalPlayer) {
             return;
         }
@@ -177,14 +166,6 @@ public class weaponManager : NetworkBehaviour {
         Gunout6.SetActive(false);
     }
 
-    [Command]
-    void CmdSetWeaponPlayer(int setTo) {
-        currentWeaponPlayer = setTo;
-    }
-    [Command]
-    void CmdSetCrappyTexture(bool i) {
-        crappyTexture = i;
-    }
 
     // Update is called once per frame
     void Update() {
@@ -215,11 +196,11 @@ public class weaponManager : NetworkBehaviour {
         if (this.GetComponent<PauseMenu>().isPaused) {
             return;
         }
+        //Weapon Select
         if (inWeaponSelect) {
             currentPlayer = pl.currentPlayerNo;
             if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse0) && !hasWeapon) {  // need to investigate further control options
                 RaycastHit hit;
-
                 if (Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit, distancePickup)) {
                     if (hit.transform.tag == "weaponPrep") {
                         weaponhold.ikActive = true;
@@ -271,7 +252,6 @@ public class weaponManager : NetworkBehaviour {
             } else {
                 canShoot = false;
             }
-
             counter += Time.deltaTime;
             if (Input.GetKeyDown(KeyCode.R) && hasWeapon && (currentWeaponAmmo < currentWeaponMaxAmmo)) {
                 StartCoroutine(Reload());
@@ -293,12 +273,8 @@ public class weaponManager : NetworkBehaviour {
                         }
                     }
                 }
-
             }
-
-
             ammoText.text = currentWeaponAmmo + "/" + currentWeaponMaxAmmo;
-
             return;
         }
         if (selectionDone && actionOnce) {
@@ -306,7 +282,7 @@ public class weaponManager : NetworkBehaviour {
             weaponFirstSpawn(weaponOnEnd);
         }
 
-        if (Input.GetKey(KeyCode.Mouse0) && hasWeapon && canShoot && counter > delayTime && !isSprinting && TakeAim2) { // probs can be cut down to only 1 raycast
+        if (Input.GetKey(KeyCode.Mouse0) && hasWeapon && canShoot && counter > delayTime && !isSprinting && TakeAim2) {
             if (!Aimming.Aim) {
                 Aimming.Change = true;
                 Aimming.Aim = true;
@@ -365,6 +341,7 @@ public class weaponManager : NetworkBehaviour {
         yield return new WaitForSeconds(1.0f);
         picking = false;
     }
+
     void AutoReload() {
         if (currentWeaponAmmo == 0 && !startedAuto && hasWeapon && !inWeaponSelect) {
             startedAuto = true;
@@ -434,6 +411,16 @@ public class weaponManager : NetworkBehaviour {
         }
     }
 
+    [Command]
+    void CmdSetWeaponPlayer(int setTo) {
+        currentWeaponPlayer = setTo;
+    }
+
+    [Command]
+    void CmdSetCrappyTexture(bool i) {
+        crappyTexture = i;
+    }
+
     void changeWeapon(int num) {
         if (!isServer) {
             CmdSwitchWeapon(num);
@@ -446,6 +433,7 @@ public class weaponManager : NetworkBehaviour {
     void CmdSwitchWeapon(int weapon) {
         RpcSwitchWeapon(weapon);
     }
+
     [ClientRpc]
     void RpcSwitchWeapon(int weapon) {
         if (weapon == 0) {
@@ -483,28 +471,32 @@ public class weaponManager : NetworkBehaviour {
         CmdRespawnAK();
         CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
     }
+
     private void spawnAK() {
         CmdSpawnAK();
     }
+
     private void destoryWeapon(GameObject destoryThis) {
         CmdDestroyHit(destoryThis);
     }
+
     private void spawnPistol() {
         CmdSpawnPistol();
     }
+
     private void RespawnPistol() {
         CmdRespawnPistol();
         CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
     }
+
     private void spawnSniper() {
         CmdSpawnSniper();
     }
+
     private void RespawnSniper() {
         CmdRespawnSniper();
         CmdWeaponAmmoDrop(weaponDropperTemp, currentWeaponAmmo, currentWeaponMaxAmmo, currentWeaponPlayer);
     }
-
-
 
     [Command]
     void CmdRespawnAK() {
@@ -516,6 +508,7 @@ public class weaponManager : NetworkBehaviour {
         NetworkServer.Spawn(weaponDropper);
         weaponDropperTemp = weaponDropper;
     }
+
     [Command]
     void CmdRespawnPistol() {
         int temp2 = temp;
@@ -533,18 +526,21 @@ public class weaponManager : NetworkBehaviour {
         NetworkServer.Spawn(weaponDropper);
         weaponDropperTemp = weaponDropper;
     }
+
     [Command]
     void CmdSpawnCrappy() {
         GameObject weaponDropper = (GameObject)Instantiate(crappyGunObject, transform.root.transform.position + new Vector3(0, 1, 0) + transform.forward, Quaternion.identity) as GameObject;
         NetworkServer.Spawn(weaponDropper);
         weaponDropperTemp = weaponDropper;
     }
+
     [Command]
     void CmdSpawnPistol() {
         GameObject weaponDropper = (GameObject)Instantiate(shotty, transform.root.transform.position + new Vector3(0, 1, 0) + transform.forward * 2, Quaternion.identity) as GameObject;
         NetworkServer.Spawn(weaponDropper);
         weaponDropperTemp = weaponDropper;
     }
+
     [Command]
     void CmdRespawnSniper() {
         int temp2 = temp;
@@ -555,12 +551,14 @@ public class weaponManager : NetworkBehaviour {
         NetworkServer.Spawn(weaponDropper);
         weaponDropperTemp = weaponDropper;
     }
+
     [Command]
     void CmdSpawnSniper() {
         GameObject weaponDropper = (GameObject)Instantiate(Sniper, transform.root.transform.position + new Vector3(0, 1, 0) + transform.forward * 2, Quaternion.identity) as GameObject;
         NetworkServer.Spawn(weaponDropper);
         weaponDropperTemp = weaponDropper;
     }
+
     [Command]
     void CmdDestroyHit(GameObject objectToDestory) {
         weaponSettings clearWeapon = objectToDestory.GetComponent<weaponSettings>();
@@ -695,6 +693,7 @@ public class weaponManager : NetworkBehaviour {
             weaponAmmoPick(hit);
         }
     }
+
     void switchWeapon() {
         canShoot = !canShoot;
         int temp = weaponOut;
@@ -731,9 +730,7 @@ public class weaponManager : NetworkBehaviour {
         } else if (weaponOut == 2) {
             currentWeaponAmmo -= 6;
             counter = 0;
-
         } else {
-
         }
         RaycastHit hit2;
         if (weaponOut == 1 && Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit2)) {
@@ -769,7 +766,6 @@ public class weaponManager : NetworkBehaviour {
                 HitMarker.SetActive(true);
                 StartCoroutine(hit());
             }
-
         } else if (weaponOut == 2) {
             for (int i = 0; i < Shotgunshells; i++) {
                 Vector3 ShotgunAim = Camera.main.transform.forward;
@@ -778,7 +774,6 @@ public class weaponManager : NetworkBehaviour {
                 AimSpread = Quaternion.RotateTowards(AimSpread, SpreadGenerator, Random.Range(0.0f, ShotgunSpread));
                 RaycastHit hit3;
                 if (Physics.Raycast(Camera.main.transform.position, AimSpread * Vector3.forward, out hit3, Mathf.Infinity)) {
-
                     if (hit3.transform.tag == "Player") {
                         if (!isServer) {
                             CmdPlayShotgunAudio();
@@ -810,7 +805,6 @@ public class weaponManager : NetworkBehaviour {
                         HitMarker.SetActive(true);
                         StartCoroutine(hit());
                     }
-
                 }
             }
         } else if (weaponOut == 3 && Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit2)) {
@@ -839,7 +833,6 @@ public class weaponManager : NetworkBehaviour {
                 prepareDamageCrystal(hit2.transform.gameObject, sniperDmg);
             }
             if (hit2.transform.tag == "Bot") {
-
                 BotMovement call = hit2.transform.gameObject.GetComponent<BotMovement>();
                 call.TakeDamage(sniperDmg);
                 spawnhole = false;
@@ -850,17 +843,13 @@ public class weaponManager : NetworkBehaviour {
             Debug.Log("Missed player");
         }
         if (weaponOut == 1) {
-            //fire.Play();
-            //ShotParticle.Play();
             CmdPlayRifleEffect();
-            //ShotFlash.Play();
             RaycastHit hit;
             Ray ray = new Ray(Camera.main.transform.position, childRoot.transform.forward);
             if (Physics.Raycast(ray, out hit, 100f) && spawnhole) {
                 CmdBulletHoleRifle(hit.point, hit.normal);
             }
             spawnhole = true;
-
         } else if (weaponOut == 2) {
             if (!isServer) {
                 CmdPlayShotgunAudio();
@@ -892,7 +881,6 @@ public class weaponManager : NetworkBehaviour {
                 CmdBulletHoleSniper(hit.point, hit.normal);
             }
             spawnhole = true;
-
         } else {
             Debug.Log("Not Shotting or not Hit player");
         }
@@ -917,6 +905,7 @@ public class weaponManager : NetworkBehaviour {
         BulletHole = (GameObject)Instantiate(bulletHole1, hit, Quaternion.FromToRotation(Vector3.up, normal)) as GameObject;//***
         NetworkServer.Spawn(BulletHole);
     }
+
     [Command]
     void CmdBulletHoleShotgun(Vector3 point, Vector3 normal) {
         GameObject BulletHole = (GameObject)Instantiate(bulletHoleSG, point, Quaternion.FromToRotation(Vector3.up, normal)) as GameObject;//***
@@ -924,6 +913,7 @@ public class weaponManager : NetworkBehaviour {
         BulletHole = (GameObject)Instantiate(bulletHoleSG1, point, Quaternion.FromToRotation(Vector3.up, normal)) as GameObject;//***
         NetworkServer.Spawn(BulletHole);
     }
+
     [Command]
     void CmdBulletHoleSniper(Vector3 point, Vector3 normal) {
         GameObject BulletHole = (GameObject)Instantiate(bulletHoleS, point, Quaternion.FromToRotation(Vector3.up, normal)) as GameObject;//***
@@ -931,14 +921,17 @@ public class weaponManager : NetworkBehaviour {
         BulletHole = (GameObject)Instantiate(bulletHoleS1, point, Quaternion.FromToRotation(Vector3.up, normal)) as GameObject;//***
         NetworkServer.Spawn(BulletHole);
     }
+
     [Command]
     void CmdPlayRifleEffect() {
         RpcPlayRifleEffect();
     }
+
     [ClientRpc]
     void RpcPlayRifleEffect() {
         LclPlayRifleEffect();
     }
+
     void LclPlayRifleEffect() {
         fire.Play();
         ShotParticle.Play();
@@ -956,6 +949,7 @@ public class weaponManager : NetworkBehaviour {
         yield return new WaitForSeconds(hitmarkertime);
         HitMarker.SetActive(false);
     }
+
     IEnumerator TakeAim() {
 
         yield return new WaitForSeconds(0.5f);
@@ -964,7 +958,7 @@ public class weaponManager : NetworkBehaviour {
         // shoot();
         //Aimming.TakeAim();
     }
-    // Aimming.Aim = true;
+
     IEnumerator Reload() {
         inReload = true;
         canShoot = false;
@@ -979,6 +973,7 @@ public class weaponManager : NetworkBehaviour {
         inReload = false;
         startedAuto = false;
     }
+
     void CheckCanShoot() {
         if (inReload || !hasWeapon) {
             return;
@@ -1010,28 +1005,31 @@ public class weaponManager : NetworkBehaviour {
         }
         CmdDamIDied(output, currentPlayer);
     }
+
     public void NeedToDropWeapon() {
         if (!isServer) {
             return;
         }
         dropIt = true;
     }
+
     [Command]
     private void CmdKIDroppedIt(GameObject thePlayer) {
         dropIt = false;
         RpcSingleWeaponDrop(thePlayer);
     }
+
     [ClientRpc]
     void RpcSingleWeaponDrop(GameObject thePlayer) {
         thePlayer.GetComponent<weaponManager>().hasDroppedOne = false;
     }
+
     void lostWeapon() {
         loseWeapon();
         hasDroppedOne = true;
         CmdKIDroppedIt(this.gameObject);
     }
 
-    //addition
     [Command]
     void CmdPlaySniperAudio() {
         RpcPlaySniperAudio();
@@ -1051,6 +1049,7 @@ public class weaponManager : NetworkBehaviour {
     void RpcPlayShotgunAudio() {
         Shotgun_shot.Play();
     }
+
     [Command]
     void CmdPlayReloadAudio() {
         RpcPlayReloadAudio();
