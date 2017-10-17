@@ -99,6 +99,8 @@ public class BotMovement : MonoBehaviour {
     public int botkills;
     private int botdeaths;
     private bool botdied = true;
+    private bool firsttimegetgun = true;
+    private bool botstandded = false;
 
     // Use this for initialization
     void Start () {
@@ -137,6 +139,7 @@ public class BotMovement : MonoBehaviour {
                 PlayerAssignGet playerscore = Playerz[0].GetComponent<PlayerAssignGet>();
                 playerscore.kills++;
                 botdied = false;
+               // StartCoroutine(botdie());
             }
             deathicon.SetActive(true);
             animatorz.Play("Death");
@@ -144,13 +147,21 @@ public class BotMovement : MonoBehaviour {
 				ded.Play ();
 				isDed = true;
 			}
-
+            BotsCrappygun.SetActive(false);
+            hasgun = false;
+            botstandded = true;
+            tragetVector = transform.position;
+            navMeshAgent.SetDestination(tragetVector);
             StartCoroutine(died());
             
         }
     }
     private void SetDestination() {
-        if (!playerfound) {
+        if (botstandded) {
+            tragetVector = transform.position;
+            navMeshAgent.SetDestination(tragetVector);
+        }
+        if (!playerfound && !botstandded) {
             distance2 = Vector3.Distance(transform.position, destination[i].transform.position);
             if (destination != null) {
                 if (distance2 <= 5) {
@@ -161,7 +172,7 @@ public class BotMovement : MonoBehaviour {
 
                 navMeshAgent.SetDestination(tragetVector);
             }
-        } else {
+        } else if (playerfound && !botstandded) {
             distance2 = Vector3.Distance(transform.position, Playerz[0].transform.position);
             if (Playerz != null) {
                 if (distance2 <= 5) {
@@ -205,9 +216,10 @@ public class BotMovement : MonoBehaviour {
         }
 
         Timegun += Time.deltaTime;
-        if (Timegun >= BotGetsGunAT) {
+        if (Timegun >= BotGetsGunAT && firsttimegetgun) {
             BotsCrappygun.SetActive(true);
             hasgun = true;
+            firsttimegetgun = false;
         }
         counter += Time.deltaTime;
         int playercount;
@@ -215,9 +227,9 @@ public class BotMovement : MonoBehaviour {
         /*  if (playercount != 1) {
               Destroy(gameObject);
           }*/
-        if (!hasgun) {
+        if (!hasgun && !botstandded) {
             SetDestination();
-        } else {
+        } else if (hasgun && !botstandded) {
             SetDestination();
             distancefromplayer = Vector3.Distance(transform.position, Playerz[0].transform.position);
             if (distancefromplayer <= 100) {
@@ -227,7 +239,7 @@ public class BotMovement : MonoBehaviour {
                 playerfound = false;
             }
 
-            if (playerfound) {
+            if (playerfound && !botstandded) {
                 if (distancefromplayer > 1) {
                     SetDestination();
                     standstill = false;
@@ -237,7 +249,7 @@ public class BotMovement : MonoBehaviour {
                 lookatplayer();
                 int currentplayerhealth = Playerz[0].GetComponent<Health>().Healthz;
                 RaycastHit hit2;
-                if ((Physics.Raycast(botcam.transform.position, botcam.transform.forward, out hit2) && counter > delayTime && currentplayerhealth > 0) && !isDed) {
+                if ((Physics.Raycast(botcam.transform.position, botcam.transform.forward, out hit2) && counter > delayTime && currentplayerhealth > 0) && !isDed && distance2 <= 40) {
                     if (hit2.transform.tag == "Player") {
                         counter = 0;
                         Health call = hit2.transform.gameObject.GetComponent<Health>();
@@ -307,6 +319,9 @@ public class BotMovement : MonoBehaviour {
         BotHealth = 100;
 		isDed = false;
         deathicon.SetActive(false);
+        hasgun = true;
+        BotsCrappygun.SetActive(true);
+        botstandded = false;
     }
     // Update is called once per frame
     void LateUpdate() {
