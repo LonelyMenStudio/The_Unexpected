@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using UnityEngine.SceneManagement;
 
 //[RequireComponent (typeof(AudioSource))]
 
@@ -26,22 +27,44 @@ public class MovieScript : MonoBehaviour {
       }*/
 
 
-    /*public GameObject canvi;
+    public GameObject canvi;
+    public GameObject esctext;
     public VideoPlayer video;
+    private int sceneNumber;
     public bool MovieHasplayed = false;
+    public GameObject[] instances;
     void Start() {
-        if (MovieHasplayed) {
+        if (instances.Length > 1) {
+            MovieHasplayed = true;
+            //Destroy(instances[0].gameObject);
+
+        }
+        if (!MovieHasplayed) {
+
             video.Play();
             canvi.SetActive(false);
-            
+            esctext.SetActive(true);
+            instances = GameObject.FindGameObjectsWithTag("Video");
+
             //code for how long the video is to end and open canvas
         }
     }
     void Update() {
+        sceneNumber = SceneManager.GetActiveScene().buildIndex;
+
+        if (sceneNumber == 2) {
+            Destroy(this.gameObject);
+        }
         if (Input.GetKey(KeyCode.Escape)) {
             MovieHasplayed = true;
             canvi.SetActive(true);
+            esctext.SetActive(false);
             video.Stop();
         }
-    }*/
+    }
+    void Awake() {
+        if (sceneNumber != 2) {
+            DontDestroyOnLoad(this.gameObject);
+        }
+    }
 }
