@@ -140,6 +140,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4941067836712612}
   - component: {fileID: 20814593909493422}
+  - component: {fileID: 81674036036659188}
   m_Layer: 0
   m_Name: DeathCam
   m_TagString: Untagged
@@ -3233,7 +3234,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1284764923199046}
-  m_LocalRotation: {x: -0.014776978, y: 0.5306093, z: -0.84713095, w: 0.024590852}
+  m_LocalRotation: {x: -0.014776976, y: 0.53060925, z: -0.84713084, w: 0.024590848}
   m_LocalPosition: {x: -0.004529869, y: 0.0050994675, z: -0.003900068}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -4558,6 +4559,13 @@ AudioListener:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1896950841181560}
+  m_Enabled: 1
+--- !u!81 &81674036036659188
+AudioListener:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1069253911559932}
   m_Enabled: 1
 --- !u!82 &82131833233483080
 AudioSource:
