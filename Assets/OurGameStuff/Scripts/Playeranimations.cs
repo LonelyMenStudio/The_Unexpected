@@ -171,11 +171,11 @@ public class Playeranimations : NetworkBehaviour {
                 Aim = false;
             }
         }
-        if (Aim == true) {
-            MainCam.nearClipPlane = 0.054f;
+        if (Aim == true ) {
+            MainCam.nearClipPlane = 0.03f;
 
         }else {
-            MainCam.nearClipPlane = 0.09f;
+            MainCam.nearClipPlane = 0.07f;
         }
         if (Input.GetMouseButtonDown(1)) {
             Change = true;
