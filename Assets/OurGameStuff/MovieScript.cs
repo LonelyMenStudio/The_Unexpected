@@ -30,37 +30,55 @@ public class MovieScript : MonoBehaviour {
     public GameObject canvi;
     public GameObject esctext;
     public VideoPlayer video;
+    public GameObject blackscreen;
     private int sceneNumber;
     public bool MovieHasplayed = false;
     public GameObject[] instances;
     void Start() {
+
+        DontDestroyOnLoad(this.gameObject);
         instances = GameObject.FindGameObjectsWithTag("Video");
         if (instances.Length > 1) {
             MovieHasplayed = true;
             esctext.SetActive(false);
+            blackscreen.SetActive(false);
+            Destroy(instances[0].gameObject);
         }
         if (!MovieHasplayed) {
-            video.Play();
-            canvi.SetActive(false);
-            esctext.SetActive(true);
+            //video.Play();
+            //canvi.SetActive(false);
+            //esctext.SetActive(true);
+
+            Invoke("gogogadget", 0.5f);
         }
+    }
+
+    private void gogogadget() {
+        video.Play();
+        canvi.SetActive(false);
+        esctext.SetActive(true);
+        blackscreen.SetActive(false);
+        //  StartCoroutine(Delay());
+        Invoke("delay", 60.0f);
+    }
+    private void delay() {
+        MovieHasplayed = true;
+        canvi.SetActive(true);
+        esctext.SetActive(false);
+        video.Stop();
     }
     void Update() {
         sceneNumber = SceneManager.GetActiveScene().buildIndex;
 
-        if (sceneNumber == 2) {
-            Destroy(this.gameObject);
-        }
-        if (Input.GetKey(KeyCode.Escape)) {
+        /* if (sceneNumber == 2) {
+             Destroy(this.gameObject);
+         }*/
+        if (Input.GetKey(KeyCode.Escape) && sceneNumber == 0) {
             MovieHasplayed = true;
             canvi.SetActive(true);
             esctext.SetActive(false);
             video.Stop();
         }
     }
-    void Awake() {
-        if (sceneNumber != 2) {
-            DontDestroyOnLoad(this.gameObject);
-        }
-    }
 }
+
