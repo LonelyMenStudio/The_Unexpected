@@ -17,6 +17,7 @@ public class GameTimer : NetworkBehaviour {
     public bool halfTime = false;
     public bool outOfPrep = false;
     public bool timerStarted = false;
+    public GameObject loadingScreen;
 
     [SyncVar]
     public float gameTime = GAME_TIME_LENGTH;
@@ -102,6 +103,7 @@ public class GameTimer : NetworkBehaviour {
 
     IEnumerator LoadMainMenu() {
         yield return new WaitForSeconds(10);
+        loadingScreen.SetActive(true);
         FindObjectOfType<NetworkLobbyManager>().ServerReturnToLobby();
     }
 

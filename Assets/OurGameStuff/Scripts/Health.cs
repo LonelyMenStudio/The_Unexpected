@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 
 public class Health : NetworkBehaviour {
 
-    private const bool TESTING = true;
+    private const bool TESTING = false;
     public GameObject respawn;
     private const int maxHealth = 100;
     public Image Healthbar;

@@ -89,7 +89,8 @@ public class PrepPhase : MonoBehaviour {
             timeRemaining -= Time.deltaTime;
             timeR = timeRemaining.ToString("F1");
             text.text = tr + timeR;
-
+        } else {
+            SpaceToStart.SetActive(false);
         }
         if (timeRemaining <= 10 && canAssign) {
             assignTime.assignPlayerNumbers();
