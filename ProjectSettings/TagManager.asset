@@ -35,6 +35,8 @@ TagManager:
   - Bot
   - MenuMusic
   - Video
+  - GameAnalytics
+  - GA
   layers:
   - Default
   - TransparentFX

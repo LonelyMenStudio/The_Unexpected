@@ -32,6 +32,7 @@ public class MovieScript : MonoBehaviour {
     public VideoPlayer video;
     public GameObject blackscreen;
     private int sceneNumber;
+    public GameObject anayltics;
     public bool MovieHasplayed = false;
     public GameObject[] instances;
     void Start() {
@@ -42,6 +43,7 @@ public class MovieScript : MonoBehaviour {
             MovieHasplayed = true;
             esctext.SetActive(false);
             blackscreen.SetActive(false);
+            anayltics.SetActive(false);
             Destroy(instances[0].gameObject);
         }
         if (!MovieHasplayed) {
@@ -68,16 +70,18 @@ public class MovieScript : MonoBehaviour {
         video.Stop();
     }
     void Update() {
-        sceneNumber = SceneManager.GetActiveScene().buildIndex;
-
-        /* if (sceneNumber == 2) {
-             Destroy(this.gameObject);
-         }*/
-        if (Input.GetKey(KeyCode.Escape) && sceneNumber == 0) {
-            MovieHasplayed = true;
-            canvi.SetActive(true);
-            esctext.SetActive(false);
-            video.Stop();
+        
+            sceneNumber = SceneManager.GetActiveScene().buildIndex;
+        if (sceneNumber != 2) {
+            /* if (sceneNumber == 2) {
+                 Destroy(this.gameObject);
+             }*/
+            if (Input.GetKey(KeyCode.Escape) && sceneNumber == 0) {
+                MovieHasplayed = true;
+                canvi.SetActive(true);
+                esctext.SetActive(false);
+                video.Stop();
+            }
         }
     }
 }
