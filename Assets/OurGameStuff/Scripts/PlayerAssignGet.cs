@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using GameAnalyticsSDK;
 
 public class PlayerAssignGet : NetworkBehaviour {
 
@@ -24,7 +25,7 @@ public class PlayerAssignGet : NetworkBehaviour {
     private ScoreScreen stats;
     private GameObject statsDisplay;
     public bool isLocal = false;
-
+    private bool playergotkill = true;
 
     [SyncVar]
     public int currentPlayerNo;
@@ -122,6 +123,10 @@ public class PlayerAssignGet : NetworkBehaviour {
     [Command]
     private void CmdTestKill() {
         kills++;
+        if ( playergotkill == true) {
+            GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "In Game", "First Kill");
+            playergotkill = false;
+        }
     }
 
     void checkKills() {

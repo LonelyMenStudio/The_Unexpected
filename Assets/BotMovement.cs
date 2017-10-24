@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Networking;
+using GameAnalyticsSDK;
 public class BotMovement : MonoBehaviour {
 
     [SerializeField]
@@ -101,6 +102,7 @@ public class BotMovement : MonoBehaviour {
     private bool botdied = true;
     private bool firsttimegetgun = true;
     private bool botstandded = false;
+    private bool firstkill = true;
 
     // Use this for initialization
     void Start () {
@@ -137,13 +139,19 @@ public class BotMovement : MonoBehaviour {
             if (botdied) {
                 botdeaths++;
                 PlayerAssignGet playerscore = Playerz[0].GetComponent<PlayerAssignGet>();
+                if (firstkill == true && playerscore.kills == 0) {
+                    GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "In Game", "First Bot Kill");
+                    firstkill = false;
+                }
                 playerscore.kills++;
                 botdied = false;
-               // StartCoroutine(botdie());
+
+                // StartCoroutine(botdie());
             }
             deathicon.SetActive(true);
             animatorz.Play("Death");
-			if (!isDed) {
+
+            if (!isDed) {
 				ded.Play ();
 				isDed = true;
 			}

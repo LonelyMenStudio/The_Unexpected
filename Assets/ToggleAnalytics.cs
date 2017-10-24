@@ -20,6 +20,7 @@ public class ToggleAnalytics : MonoBehaviour {
     }
 
     public void Toggle_Analytics(bool state){
+        //Destroy(analytics.gameObject);
         analytics.gameObject.SetActive(state);
     }
 }

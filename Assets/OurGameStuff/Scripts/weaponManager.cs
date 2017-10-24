@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using GameAnalyticsSDK;
 
 public class weaponManager : NetworkBehaviour {
 
@@ -109,6 +110,8 @@ public class weaponManager : NetworkBehaviour {
     private Playeranimations Aimming;
     private bool TakeAim2 = true;
     private int weaponRespawnAmount = 0;
+    private bool analyticsgotwep = true;
+
     //=======
 
 
@@ -304,6 +307,7 @@ public class weaponManager : NetworkBehaviour {
         if ((Input.GetKeyDown(KeyCode.E) || (Input.GetKeyDown(KeyCode.Mouse0) && !hasWeapon)) && !picking) {
             StartCoroutine(pickupTime());
             PickupWeapon();
+
         }
         if (Input.GetKeyDown(KeyCode.F) && hasWeapon) {
             if (weaponOut == 1) {
@@ -357,6 +361,10 @@ public class weaponManager : NetworkBehaviour {
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, childRoot.transform.forward, out hit, distancePickup)) {
             if (hit.transform.tag == "weapon") {
+                if (analyticsgotwep == true) {
+                    GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "In Game", "Found First Gun");
+                    analyticsgotwep = false;
+                }
                 weaponhold.ikActive = true;
                 if (hit.transform.gameObject.name.Contains("alienrifle")) {
                     weaponMatChange.gameObject.GetComponent<Renderer>().material = standardMat;

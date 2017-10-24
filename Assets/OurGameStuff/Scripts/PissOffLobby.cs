@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using GameAnalyticsSDK;
 public class PissOffLobby : MonoBehaviour {
 
     public GameObject Lobby;
@@ -28,7 +29,7 @@ public class PissOffLobby : MonoBehaviour {
     }
     public void LoadMenu() {
         //Lobby = GameObject.Find("LobbyManager");
-        
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "Going to Menu");
         SceneManager.LoadScene(0);
         Destroy(Lobby);
     }

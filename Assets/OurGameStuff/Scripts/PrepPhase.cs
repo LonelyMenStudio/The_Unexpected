@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
+using GameAnalyticsSDK;
+
 
 public class PrepPhase : MonoBehaviour {
 
@@ -69,6 +71,7 @@ public class PrepPhase : MonoBehaviour {
         ErrorText.SetActive(false);
         WeaponText.SetActive(false);
         quickTime = this.gameObject.GetComponent<GameTimer>();
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "In Game", "LobbyRoom");
     }
 
     // Update is called once per frame
@@ -83,6 +86,7 @@ public class PrepPhase : MonoBehaviour {
         }
         for (int i = 1; i < Players.Count; i++) {
             Players[i].name = "Player " + i;
+            GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "In Game", "Players Connected", Players.Count);
         }
 
         if (inPrep) {
@@ -111,6 +115,7 @@ public class PrepPhase : MonoBehaviour {
             ErrorText.SetActive(true);
         }
         if (teleport == true) {
+            GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "In Game", "Teleporting into map");
             for (int i = 0; i < Players.Count; i++) {
                 int indexspawn = Random.Range(0, spawn.Length);
                 Players[i].transform.position = spawn[indexspawn].transform.position;
