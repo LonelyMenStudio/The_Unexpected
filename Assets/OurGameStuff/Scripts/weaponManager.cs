@@ -80,7 +80,7 @@ public class weaponManager : NetworkBehaviour {
     public bool isCrapGun = false;
     private int crappyAmmo = 30;
     private float crappyFireRate = 0.08f;
-    private float crappyDamage = 10;
+    private float crappyDamage = 7;
     public GameObject crappyGunObject;
     public Material crappyMat;
     public Material standardMat;
